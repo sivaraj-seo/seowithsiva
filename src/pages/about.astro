@@ -1,0 +1,128 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const title = 'About SEO With Siva - Learn Our Story';
+const description = 'Discover the story behind SEO With Siva and our mission to help businesses succeed through effective SEO strategies.';
+const keywords = 'about us, SEO expert, digital marketing, mission, values';
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  keywords={keywords}
+>
+  <main>
+    <section class="hero">
+      <div class="container">
+        <h1>About SEO With Siva</h1>
+        <p>Building a better digital future through strategic SEO optimization</p>
+      </div>
+    </section>
+
+    <section class="content">
+      <div class="container">
+        <article>
+          <h2>Our Story</h2>
+          <p>
+            SEO With Siva was founded with a simple mission: to help businesses and websites achieve
+            better visibility in search engines through proven, ethical SEO practices.
+          </p>
+
+          <h2>Our Mission</h2>
+          <p>
+            We believe in empowering businesses with knowledge and tools to compete effectively online.
+            Our mission is to provide transparent, actionable SEO guidance that delivers measurable results.
+          </p>
+
+          <h2>Our Values</h2>
+          <ul>
+            <li><strong>Transparency:</strong> Clear communication about SEO practices and results</li>
+            <li><strong>Ethics:</strong> Following white-hat SEO practices only</li>
+            <li><strong>Excellence:</strong> Continuous improvement and learning</li>
+            <li><strong>Results:</strong> Focused on delivering measurable outcomes</li>
+          </ul>
+
+          <h2>Why Choose Us?</h2>
+          <p>
+            With years of experience in digital marketing and SEO, we understand what it takes to rank
+            well in today's competitive landscape. We combine technical expertise with creative strategy
+            to help your business succeed.
+          </p>
+        </article>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  .hero {
+    background: linear-gradient(135deg, #7c5cd6 0%, #5a4ab8 100%);
+    color: white;
+    text-align: center;
+    padding: 4rem 2rem;
+  }
+
+  .hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .hero p {
+    font-size: 1.2rem;
+    opacity: 0.9;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .content {
+    padding: 4rem 2rem;
+    background: white;
+  }
+
+  article {
+    line-height: 1.8;
+  }
+
+  h2 {
+    color: #7c5cd6;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-size: 1.8rem;
+  }
+
+  p {
+    margin-bottom: 1.5rem;
+    color: #333;
+  }
+
+  ul {
+    margin-left: 2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  li {
+    margin-bottom: 1rem;
+    color: #333;
+  }
+
+  strong {
+    color: #7c5cd6;
+  }
+
+  @media (max-width: 768px) {
+    .hero h1 {
+      font-size: 1.8rem;
+    }
+
+    .hero p {
+      font-size: 1rem;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+    }
+  }
+</style>
