@@ -1,0 +1,377 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const title = 'SEO With Siva - Master Search Engine Optimization';
+const description = 'Learn professional SEO strategies and web optimization techniques. Boost your website rankings with expert guidance from Siva.';
+const keywords = 'SEO, search engine optimization, digital marketing, web ranking, SEO tips';
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  keywords={keywords}
+  author="Siva"
+  ogType="website"
+>
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="hero-content">
+          <div class="logo-wrapper">
+            <div class="logo">CS</div>
+          </div>
+          <h1>SEO With Siva</h1>
+          <p class="tagline">Master the Art of Search Engine Optimization</p>
+          <p class="description">
+            Learn proven strategies to improve your website's visibility, attract organic
+            traffic, and dominate search rankings.
+          </p>
+          <div class="cta-buttons">
+            <a href="#learn-more" class="btn btn-primary">Get Started</a>
+            <a href="#resources" class="btn btn-secondary">Explore Resources</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="learn-more" class="features">
+      <div class="container">
+        <h2>Why Choose SEO With Siva?</h2>
+        <div class="features-grid">
+          <article class="feature-card">
+            <h3>Expert Guidance</h3>
+            <p>Learn from years of SEO experience and industry best practices.</p>
+          </article>
+          <article class="feature-card">
+            <h3>Proven Strategies</h3>
+            <p>Implement techniques that deliver measurable results and sustainable growth.</p>
+          </article>
+          <article class="feature-card">
+            <h3>Up-to-Date Content</h3>
+            <p>Stay ahead with the latest algorithm updates and SEO trends.</p>
+          </article>
+          <article class="feature-card">
+            <h3>Actionable Tips</h3>
+            <p>Get practical advice you can implement immediately on your website.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="resources" class="resources">
+      <div class="container">
+        <h2>Popular Resources</h2>
+        <div class="resources-grid">
+          <article class="resource-card">
+            <h3>Technical SEO Audit</h3>
+            <p>Comprehensive guide to auditing and improving your website's technical health.</p>
+            <a href="#">Learn More →</a>
+          </article>
+          <article class="resource-card">
+            <h3>Keyword Research Strategy</h3>
+            <p>Master keyword research to identify high-value opportunities for your niche.</p>
+            <a href="#">Learn More →</a>
+          </article>
+          <article class="resource-card">
+            <h3>Link Building Tactics</h3>
+            <p>Discover ethical link-building strategies to improve domain authority.</p>
+            <a href="#">Learn More →</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="newsletter">
+      <div class="container">
+        <h2>Stay Updated</h2>
+        <p>Subscribe to get the latest SEO tips and strategies delivered to your inbox.</p>
+        <form class="newsletter-form">
+          <input
+            type="email"
+            placeholder="Enter your email"
+            required
+            aria-label="Email address"
+          />
+          <button type="submit" class="btn btn-primary">Subscribe</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2024 SEO With Siva. All rights reserved.</p>
+      <nav aria-label="Footer navigation">
+        <a href="#">About</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Contact</a>
+      </nav>
+    </div>
+  </footer>
+</BaseLayout>
+
+<style>
+  main {
+    width: 100%;
+  }
+
+  section {
+    padding: 4rem 2rem;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .hero {
+    background: linear-gradient(135deg, #7c5cd6 0%, #5a4ab8 100%);
+    color: white;
+    text-align: center;
+    padding: 6rem 2rem;
+  }
+
+  .hero-content {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .logo-wrapper {
+    margin-bottom: 2rem;
+  }
+
+  .logo {
+    width: 100px;
+    height: 100px;
+    border-radius: 24%;
+    background: rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 40px;
+    font-weight: 800;
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    margin: 0 auto;
+  }
+
+  h1 {
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    letter-spacing: -1px;
+  }
+
+  h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 3rem;
+    text-align: center;
+    color: #2a2a2a;
+  }
+
+  h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    color: #2a2a2a;
+  }
+
+  .tagline {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    font-weight: 300;
+  }
+
+  .description {
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    line-height: 1.8;
+    opacity: 0.95;
+  }
+
+  .cta-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 0.875rem 2rem;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    cursor: pointer;
+    font-size: 1rem;
+  }
+
+  .btn-primary {
+    background: white;
+    color: #7c5cd6;
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: white;
+    border-color: white;
+  }
+
+  .btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .features {
+    background: #faf9f5;
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+  }
+
+  .feature-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+  }
+
+  .feature-card:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+    transform: translateY(-4px);
+  }
+
+  .feature-card p {
+    color: #666;
+    line-height: 1.6;
+  }
+
+  .resources {
+    background: white;
+  }
+
+  .resources-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+
+  .resource-card {
+    background: #faf9f5;
+    padding: 2rem;
+    border-radius: 12px;
+    border-left: 4px solid #7c5cd6;
+  }
+
+  .resource-card a {
+    color: #7c5cd6;
+    text-decoration: none;
+    font-weight: 600;
+    display: inline-block;
+    margin-top: 1rem;
+    transition: all 0.3s ease;
+  }
+
+  .resource-card a:hover {
+    gap: 0.5rem;
+    transform: translateX(4px);
+  }
+
+  .resource-card p {
+    color: #666;
+    line-height: 1.6;
+  }
+
+  .newsletter {
+    background: linear-gradient(135deg, #7c5cd6 0%, #5a4ab8 100%);
+    color: white;
+    text-align: center;
+  }
+
+  .newsletter h2 {
+    color: white;
+  }
+
+  .newsletter-form {
+    display: flex;
+    gap: 0.5rem;
+    max-width: 500px;
+    margin-top: 2rem;
+    margin-left: auto;
+    margin-right: auto;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .newsletter-form input {
+    flex: 1;
+    min-width: 200px;
+    padding: 0.875rem 1rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+  }
+
+  footer {
+    background: #2a2a2a;
+    color: white;
+    padding: 2rem;
+    text-align: center;
+  }
+
+  footer nav {
+    margin-top: 1rem;
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  footer a {
+    color: #bbb;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  footer a:hover {
+    color: white;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    section {
+      padding: 2rem 1rem;
+    }
+
+    h1 {
+      font-size: 2rem;
+    }
+
+    h2 {
+      font-size: 1.75rem;
+    }
+
+    .cta-buttons {
+      flex-direction: column;
+    }
+
+    .newsletter-form {
+      flex-direction: column;
+    }
+
+    .newsletter-form input {
+      min-width: 100%;
+    }
+  }
+</style>
