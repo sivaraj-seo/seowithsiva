@@ -1,376 +1,1461 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 
-const title = 'SEO With Siva - Master Search Engine Optimization';
-const description = 'Learn professional SEO strategies and web optimization techniques. Boost your website rankings with expert guidance from Siva.';
-const keywords = 'SEO, search engine optimization, digital marketing, web ranking, SEO tips';
+const title = 'C. Sivaraj – SEO Analyst & AEO / GEO Specialist';
+const description =
+  'SEO & AI-search analyst helping brands earn visibility across Google AI Overviews, ChatGPT, Gemini, Perplexity, Bing AI and Copilot — backed by 5+ years of enterprise SEO that compounds.';
+const keywords =
+  'SEO analyst, AEO, GEO, AI search optimization, enterprise SEO, Google AI Overviews, generative engine optimization, entity SEO, Sivaraj';
+
+const services = [
+  {
+    title: 'AI Search Optimization (AEO / GEO)',
+    desc: 'Make your content the cited answer in Google AI Overviews, ChatGPT, Gemini, Perplexity, Bing AI and Copilot.',
+  },
+  {
+    title: 'Enterprise SEO',
+    desc: 'Scalable optimization frameworks and governance across tens of thousands of indexed pages.',
+  },
+  {
+    title: 'Technical SEO',
+    desc: 'Audits across crawl, indexation, metadata, schema, redirects, XML sitemaps and internal linking.',
+  },
+  {
+    title: 'Content Strategy',
+    desc: 'Topic clusters, search-intent mapping, content briefs and editorial systems that earn topical authority.',
+  },
+  {
+    title: 'Semantic & Entity SEO',
+    desc: 'Entity optimization, structured data and semantic relevance that AI engines can understand and trust.',
+  },
+  {
+    title: 'Analytics & Reporting',
+    desc: 'GSC, GA4, Ahrefs, SEMrush and Looker Studio dashboards tying organic and AI visibility to outcomes.',
+  },
+];
+
+const results = [
+  {
+    category: 'Healthcare · GEO / AEO',
+    number: '+1,050%',
+    title: 'Organic sessions, GEO pilot',
+    desc: 'Led a GEO/AEO pilot across 60 high-value healthcare articles; the framework was then adopted site-wide across Google, Bing and AI platforms.',
+  },
+  {
+    category: 'AI citations · Bing & Copilot',
+    number: '1M+',
+    title: 'Bing AI citations generated',
+    desc: 'Through GEO and AEO, significantly enhanced brand visibility across Microsoft Copilot, Bing AI and AI-powered search experiences.',
+  },
+  {
+    category: 'Reporting · Looker Studio',
+    number: '80%',
+    title: 'Less reporting effort',
+    desc: 'Built executive dashboards in Google Looker Studio that cut manual SEO reporting effort by 80% and improved stakeholder visibility.',
+  },
+  {
+    category: 'Content · AI Standards',
+    number: null,
+    title: 'LLM Content Optimization Checklist',
+    desc: 'Built a standard for AI-search best practices that raised content quality and citation eligibility across AI engines for content teams.',
+  },
+];
+
+const articles = [
+  {
+    category: 'LinkedIn · Article',
+    title: 'Google Ranking vs LLM Signals: Why Your SEO Playbook Needs a Rewrite',
+    desc: "The signals that win rankings aren't the same ones that get you cited by LLMs, and here's how they diverge.",
+    href: 'https://www.linkedin.com/pulse/google-ranking-vs-signals-llm-why-your-seo-playbook-needs-sivaraj-c-ruegc/',
+  },
+  {
+    category: 'LinkedIn · Article',
+    title: 'Is SEO Dead in 2026? Do You Actually Need GEO & AEO?',
+    desc: 'Cutting through the hype on whether SEO is over, and where GEO and AEO genuinely fit your strategy.',
+    href: 'https://www.linkedin.com/pulse/seo-dead-2026-do-you-actually-need-geo-aeo-sivaraj-c-6txtc/',
+  },
+  {
+    category: 'LinkedIn · Article',
+    title: 'AI Is Hallucinating About Your Brand — Every Model Does',
+    desc: 'Why every LLM invents facts about your brand, and the entity work that keeps the answers accurate.',
+    href: 'https://www.linkedin.com/pulse/ai-hallucinating-your-brand-every-model-does-sivaraj-c-tlfuc/',
+  },
+];
+
+const tools = [
+  'Google Search Console',
+  'Google Analytics 4',
+  'Ahrefs',
+  'SEMrush',
+  'Bing Webmaster Tools',
+  'Looker Studio',
+  'Surfer',
+  'seoClarity',
+];
+
+const socials = [
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/sivaraj-seo-analyst/' },
+  { label: 'Medium', href: 'https://medium.com/@sivaraj-c' },
+  { label: 'Quora', href: 'https://www.quora.com/profile/Sivaraj-29' },
+  { label: 'Reddit', href: 'https://www.reddit.com/user/Sivaraj_C/' },
+];
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'C. Sivaraj',
+  jobTitle: 'SEO Analyst',
+  url: 'https://seowithsiva.vercel.app',
+  email: 'sivarajc.seo@gmail.com',
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Coimbatore',
+    addressCountry: 'IN',
+  },
+  sameAs: socials.map((s) => s.href),
+};
 ---
 
-<BaseLayout
-  title={title}
-  description={description}
-  keywords={keywords}
-  author="Siva"
-  ogType="website"
->
+<BaseLayout {title} {description} {keywords} author="C. Sivaraj">
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(schema)} />
+
   <main>
-    <section class="hero">
+    <!-- ── Hero ── -->
+    <section class="hero" id="home">
       <div class="container">
-        <div class="hero-content">
-          <div class="logo-wrapper">
-            <div class="logo">S</div>
+        <div class="hero-body">
+          <div class="hero-text">
+            <span class="badge">SEO Analyst · AEO / GEO · 5+ years</span>
+            <h1>Get found in Google,<br />and in every AI answer engine.</h1>
+            <p class="hero-desc">
+              I'm Sivaraj, an SEO &amp; AI-search analyst helping brands earn visibility across
+              Google AI Overviews, ChatGPT, Gemini, Perplexity, Bing AI and Copilot, backed by
+              enterprise SEO that compounds.
+            </p>
+            <div class="cta-row">
+              <a
+                href="https://calendar.app.google/FwUxXeGAFCdvuvGN6"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn btn-primary">Let's connect →</a
+              >
+              <a
+                href="/uploads/Sivaraj SEO Analyst Resume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn btn-ghost">Resume ↓</a
+              >
+            </div>
+            <div class="social-row">
+              {
+                socials.map((s) => (
+                  <a
+                    href={s.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="social-link"
+                  >
+                    {s.label}
+                  </a>
+                ))
+              }
+            </div>
           </div>
-          <h1>SEO With Siva</h1>
-          <p class="tagline">Master the Art of Search Engine Optimization</p>
-          <p class="description">
-            Learn proven strategies to improve your website's visibility, attract organic
-            traffic, and dominate search rankings.
-          </p>
-          <div class="cta-buttons">
-            <a href="#learn-more" class="btn btn-primary">Get Started</a>
-            <a href="#resources" class="btn btn-secondary">Explore Resources</a>
+          <div class="hero-stats">
+            <div class="hstat">
+              <span class="hstat-num">+1,050%</span>
+              <span class="hstat-lbl">organic sessions<br />(GEO pilot)</span>
+            </div>
+            <div class="hstat">
+              <span class="hstat-num">1M+</span>
+              <span class="hstat-lbl">Bing AI citations</span>
+            </div>
+            <div class="hstat-tag">AI-first SEO</div>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="learn-more" class="features">
+    <!-- ── Why me ── -->
+    <section class="why">
       <div class="container">
-        <h2>Why Choose SEO With Siva?</h2>
-        <div class="features-grid">
-          <article class="feature-card">
-            <h3>Expert Guidance</h3>
-            <p>Learn from years of SEO experience and industry best practices.</p>
-          </article>
-          <article class="feature-card">
-            <h3>Proven Strategies</h3>
-            <p>Implement techniques that deliver measurable results and sustainable growth.</p>
-          </article>
-          <article class="feature-card">
-            <h3>Up-to-Date Content</h3>
-            <p>Stay ahead with the latest algorithm updates and SEO trends.</p>
-          </article>
-          <article class="feature-card">
-            <h3>Actionable Tips</h3>
-            <p>Get practical advice you can implement immediately on your website.</p>
-          </article>
+        <div class="why-top">
+          <div class="why-copy">
+            <h2>
+              5+ years optimizing enterprise content so it ranks in search <em>and</em> gets cited
+              by the AI engines people now ask first.
+            </h2>
+            <p>
+              I build AI-first content systems on a foundation of technical SEO, topical authority
+              and entity optimization, so brands stay discoverable as search shifts from ten blue
+              links to generative answers.
+            </p>
+          </div>
+          <div class="why-cards">
+            <div class="why-card">
+              <strong>AI search visibility</strong>
+              <p>Optimized to be cited across AI Overviews, ChatGPT, Gemini &amp; Perplexity.</p>
+            </div>
+            <div class="why-card">
+              <strong>Search-intent insight</strong>
+              <p>Targeting the queries with real intent across search and answer engines.</p>
+            </div>
+            <div class="why-card">
+              <strong>Enterprise SEO</strong>
+              <p>Technical fixes and structure across tens of thousands of pages.</p>
+            </div>
+            <div class="why-card">
+              <strong>Topical authority</strong>
+              <p>Entity-led content architecture that builds lasting E-E-A-T.</p>
+            </div>
+          </div>
+        </div>
+        <div class="metrics">
+          <div class="metric">
+            <span class="metric-num">1,050%</span>
+            <span class="metric-lbl">Organic session lift (GEO pilot)</span>
+          </div>
+          <div class="metric">
+            <span class="metric-num">1M+</span>
+            <span class="metric-lbl">Bing AI citations generated</span>
+          </div>
+          <div class="metric">
+            <span class="metric-num">70K+</span>
+            <span class="metric-lbl">Pages optimized at scale</span>
+          </div>
+          <div class="metric">
+            <span class="metric-num">80%</span>
+            <span class="metric-lbl">Less SEO reporting effort</span>
+          </div>
         </div>
       </div>
     </section>
 
-    <section id="resources" class="resources">
+    <!-- ── Services ── -->
+    <section class="services" id="services">
       <div class="container">
-        <h2>Popular Resources</h2>
-        <div class="resources-grid">
-          <article class="resource-card">
-            <h3>Technical SEO Audit</h3>
-            <p>Comprehensive guide to auditing and improving your website's technical health.</p>
-            <a href="#">Learn More →</a>
-          </article>
-          <article class="resource-card">
-            <h3>Keyword Research Strategy</h3>
-            <p>Master keyword research to identify high-value opportunities for your niche.</p>
-            <a href="#">Learn More →</a>
-          </article>
-          <article class="resource-card">
-            <h3>Link Building Tactics</h3>
-            <p>Discover ethical link-building strategies to improve domain authority.</p>
-            <a href="#">Learn More →</a>
-          </article>
+        <div class="label">What I do</div>
+        <h2>Services for the AI search era</h2>
+        <p class="sub">
+          From traditional rankings to AI citations. Engagements scoped to where your organic
+          growth is stuck.
+        </p>
+        <div class="services-grid">
+          {
+            services.map((s) => (
+              <article class="service-card">
+                <h3>{s.title}</h3>
+                <p>{s.desc}</p>
+              </article>
+            ))
+          }
         </div>
       </div>
     </section>
 
-    <section class="newsletter">
+    <!-- ── About ── -->
+    <section class="about" id="about">
       <div class="container">
-        <h2>Stay Updated</h2>
-        <p>Subscribe to get the latest SEO tips and strategies delivered to your inbox.</p>
-        <form class="newsletter-form">
-          <input
-            type="email"
-            placeholder="Enter your email"
-            required
-            aria-label="Email address"
-          />
-          <button type="submit" class="btn btn-primary">Subscribe</button>
-        </form>
+        <div class="about-inner">
+          <div class="about-aside">
+            <div class="avatar">CS</div>
+            <div class="years-block">
+              <span class="years-num">5+</span>
+              <span class="years-lbl"><strong>Years</strong><br />in SEO &amp; AI search</span>
+            </div>
+          </div>
+          <div class="about-body">
+            <div class="label">About me</div>
+            <h2>An SEO analyst built for how search works now</h2>
+            <p>
+              I drive enterprise SEO and AI-first content strategies across healthcare and global
+              digital ecosystems. I work hand-in-hand with content, editorial, product and
+              technical teams to build AI-first content systems, improve discoverability, and grow
+              citations across both traditional and generative search.
+            </p>
+            <div class="pillars">
+              <div class="pillar">
+                <strong>AI-first workflows</strong>
+                <span>Content built to be cited.</span>
+              </div>
+              <div class="pillar">
+                <strong>Data-backed strategy</strong>
+                <span>Decisions from your numbers.</span>
+              </div>
+              <div class="pillar">
+                <strong>Cross-functional</strong>
+                <span>Content, dev &amp; stakeholders.</span>
+              </div>
+              <div class="pillar">
+                <strong>Scalable governance</strong>
+                <span>Frameworks that hold up.</span>
+              </div>
+            </div>
+            <a href="#contact" class="btn btn-outline">Get in touch →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Results ── -->
+    <section class="results" id="results">
+      <div class="container">
+        <div class="label">Key achievements</div>
+        <h2>Results that speak for themselves</h2>
+        <p class="sub">
+          Real outcomes from enterprise SEO and Generative Engine Optimization programs.
+        </p>
+        <div class="results-grid">
+          {
+            results.map((r) => (
+              <article class="result-card">
+                <span class="result-cat">{r.category}</span>
+                {r.number && <span class="result-num">{r.number}</span>}
+                <h3>{r.title}</h3>
+                <p>{r.desc}</p>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Articles ── -->
+    <section class="articles" id="articles">
+      <div class="container">
+        <div class="articles-head">
+          <div>
+            <div class="label">Writing</div>
+            <h2>Articles on SEO, GEO &amp; AEO</h2>
+            <p class="sub">
+              Field notes on how search is shifting from rankings to AI citations, and what to
+              actually do about it.
+            </p>
+          </div>
+          <a
+            href="https://www.linkedin.com/in/sivaraj-seo-analyst/recent-activity/articles/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn-outline">All articles →</a
+          >
+        </div>
+        <div class="articles-grid">
+          {
+            articles.map((a) => (
+              <article class="article-card">
+                <span class="article-cat">{a.category}</span>
+                <h3>
+                  <a href={a.href} target="_blank" rel="noopener noreferrer">
+                    {a.title}
+                  </a>
+                </h3>
+                <p>{a.desc}</p>
+                <a
+                  href={a.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="article-link"
+                >
+                  Read on LinkedIn →
+                </a>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Education + Experience ── -->
+    <section class="timeline-section">
+      <div class="container">
+        <div class="tl-grid">
+          <div class="tl-col">
+            <div class="label">Education</div>
+            <h2>Education</h2>
+            <div class="tl-list">
+              <div class="tl-item">
+                <span class="tl-title">MBA, Marketing</span>
+                <span class="tl-period">2017 – 2019</span>
+                <span class="tl-place">Kongu Engineering College, Erode</span>
+              </div>
+              <div class="tl-item">
+                <span class="tl-title">BSc, Computer Science</span>
+                <span class="tl-period">2012 – 2015</span>
+                <span class="tl-place">SNR Sons College, Coimbatore</span>
+              </div>
+            </div>
+          </div>
+          <div class="tl-col">
+            <div class="label">Experience</div>
+            <h2>Where I've worked</h2>
+            <div class="tl-list">
+              <div class="tl-item">
+                <span class="tl-title">SEO Analyst</span>
+                <span class="tl-period">Jul 2022 – Present</span>
+                <span class="tl-place">Orane Healthcare India Pvt Ltd · Coimbatore</span>
+                <p class="tl-desc">
+                  Led enterprise SEO & GEO across 70,000+ indexed pages: AI-first content
+                  frameworks, topical authority, technical SEO, and a GEO/AEO program driving a
+                  1,050% lift in organic sessions.
+                </p>
+              </div>
+              <div class="tl-item">
+                <span class="tl-title">SEO Executive</span>
+                <span class="tl-period">Sep 2019 – Jan 2021</span>
+                <span class="tl-place">Boostability India · Coimbatore</span>
+                <p class="tl-desc">
+                  Managed SEO for 25+ client sites across healthcare, SaaS and services. Technical
+                  audits, content briefs and digital PR that lifted average client Domain Authority
+                  by 25+ points.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Credentials ── -->
+    <section class="credentials" id="credentials">
+      <div class="container">
+        <div class="label">Certifications</div>
+        <h2>Credentials</h2>
+        <div class="certs-grid">
+          <a
+            href="https://www.coursera.org/account/accomplishments/verify/582XE0FA3326"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="cert-card"
+          >
+            <span class="cert-name">Generative Engine Content Optimization</span>
+            <span class="cert-issuer">Edureka</span>
+            <span class="cert-verify">Verify credential ↗</span>
+          </a>
+          <a
+            href="https://academy.seoclarity.net/certificate-verification/1332C8E64-1332C8ECB-330938F/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="cert-card"
+          >
+            <span class="cert-name">Enterprise Answer Engine Optimization</span>
+            <span class="cert-issuer">seoClarity</span>
+            <span class="cert-verify">Verify credential ↗</span>
+          </a>
+        </div>
+
+        <div class="tools-wrap">
+          <div class="label">Tools &amp; platforms I work in</div>
+          <div class="marquee-outer">
+            <div class="marquee">
+              {
+                [...tools, ...tools].map((t) => (
+                  <span class="tool-chip">{t}</span>
+                ))
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Contact ── -->
+    <section class="contact" id="contact">
+      <div class="container">
+        <div class="label">Let's talk</div>
+        <h2>Let's grow your search &amp; AI visibility.</h2>
+        <p class="sub">
+          Hiring, consulting or just want a second opinion on your AI-search strategy? I reply to
+          every message.
+        </p>
+        <div class="contact-cards">
+          <a href="mailto:sivarajc.seo@gmail.com" class="contact-card">
+            <span class="cc-label">Email</span>
+            <span class="cc-value">sivarajc.seo@gmail.com</span>
+          </a>
+          <a
+            href="https://wa.me/919600684541"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="contact-card contact-card-wa"
+          >
+            <span class="cc-label">WhatsApp</span>
+            <span class="cc-value">+91 96006 84541</span>
+          </a>
+        </div>
+        <div class="contact-socials">
+          <span class="label">Follow</span>
+          {
+            socials.map((s) => (
+              <a
+                href={s.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="social-link"
+              >
+                {s.label}
+              </a>
+            ))
+          }
+        </div>
+        <p class="location">Based in Coimbatore, India</p>
       </div>
     </section>
   </main>
 
   <footer>
     <div class="container">
-      <p>&copy; {new Date().getFullYear()} SEO With Siva. All rights reserved.</p>
-      <nav aria-label="Footer navigation">
-        <a href="/about">About</a>
-        <a href="/contact">Contact</a>
-      </nav>
+      <div class="foot-inner">
+        <a href="/" class="foot-brand">
+          <span class="foot-logo">CS</span>
+          <span>C. Sivaraj</span>
+        </a>
+        <nav aria-label="Footer social links">
+          {
+            socials.map((s) => (
+              <a href={s.href} target="_blank" rel="noopener noreferrer">
+                {s.label}
+              </a>
+            ))
+          }
+        </nav>
+        <p class="foot-copy">&copy; {new Date().getFullYear()} C. Sivaraj · Coimbatore, India</p>
+      </div>
     </div>
   </footer>
 </BaseLayout>
 
 <style>
-  main {
-    width: 100%;
-  }
-
-  section {
-    padding: 4rem 2rem;
-  }
-
+  /* ── Shared ── */
   .container {
     max-width: 1200px;
     margin: 0 auto;
+    padding: 0 2rem;
   }
 
-  .hero {
-    background: linear-gradient(135deg, #7c5cd6 0%, #5a4ab8 100%);
-    color: white;
-    text-align: center;
-    padding: 6rem 2rem;
-  }
-
-  .hero-content {
-    max-width: 600px;
-    margin: 0 auto;
-  }
-
-  .logo-wrapper {
-    margin-bottom: 2rem;
-  }
-
-  .logo {
-    width: 100px;
-    height: 100px;
-    border-radius: 24%;
-    background: rgba(255, 255, 255, 0.2);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 40px;
-    font-weight: 800;
-    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
-    margin: 0 auto;
-  }
-
-  h1 {
-    font-size: 3rem;
-    font-weight: 800;
-    margin-bottom: 1rem;
-    letter-spacing: -1px;
+  .label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 1.6px;
+    text-transform: uppercase;
+    color: #7c5cd6;
+    margin-bottom: 0.75rem;
   }
 
   h2 {
-    font-size: 2.5rem;
-    font-weight: 700;
+    font-size: 2.4rem;
+    font-weight: 800;
+    color: #0f0f0f;
+    letter-spacing: -0.75px;
+    line-height: 1.15;
+    margin-bottom: 1rem;
+  }
+
+  .sub {
+    color: #666;
+    font-size: 1.05rem;
     margin-bottom: 3rem;
-    text-align: center;
-    color: #2a2a2a;
-  }
-
-  h3 {
-    font-size: 1.25rem;
-    font-weight: 600;
-    margin-bottom: 0.75rem;
-    color: #2a2a2a;
-  }
-
-  .tagline {
-    font-size: 1.5rem;
-    margin-bottom: 1.5rem;
-    font-weight: 300;
-  }
-
-  .description {
-    font-size: 1.1rem;
-    margin-bottom: 2rem;
-    line-height: 1.8;
-    opacity: 0.95;
-  }
-
-  .cta-buttons {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    flex-wrap: wrap;
+    max-width: 620px;
   }
 
   .btn {
     display: inline-block;
-    padding: 0.875rem 2rem;
+    padding: 0.75rem 1.6rem;
     border-radius: 8px;
+    font-size: 0.9rem;
     font-weight: 600;
     text-decoration: none;
-    transition: all 0.3s ease;
-    border: 2px solid transparent;
+    transition: all 0.15s;
     cursor: pointer;
-    font-size: 1rem;
   }
 
   .btn-primary {
-    background: white;
+    background: #7c5cd6;
+    color: #fff;
+  }
+  .btn-primary:hover {
+    background: #5a4ab8;
+    transform: translateY(-1px);
+  }
+
+  .btn-ghost {
+    background: #f5f4f8;
+    color: #333;
+  }
+  .btn-ghost:hover {
+    background: #eceaf4;
+  }
+
+  .btn-outline {
+    border: 1.5px solid #7c5cd6;
+    color: #7c5cd6;
+    background: transparent;
+  }
+  .btn-outline:hover {
+    background: #7c5cd6;
+    color: #fff;
+  }
+
+  .social-link {
+    color: #666;
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: color 0.15s;
+  }
+  .social-link:hover {
     color: #7c5cd6;
   }
 
-  .btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  /* ── Hero ── */
+  .hero {
+    background: #fff;
+    padding: 5rem 0 4rem;
+    border-bottom: 1px solid #f0eef8;
   }
 
-  .btn-secondary {
-    background: transparent;
-    color: white;
-    border-color: white;
-  }
-
-  .btn-secondary:hover {
-    background: rgba(255, 255, 255, 0.1);
-  }
-
-  .features {
-    background: #faf9f5;
-  }
-
-  .features-grid {
+  .hero-body {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
+    grid-template-columns: 1fr auto;
+    gap: 4rem;
+    align-items: center;
   }
 
-  .feature-card {
-    background: white;
-    padding: 2rem;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-    transition: all 0.3s ease;
+  .badge {
+    display: inline-block;
+    background: #f0ebff;
+    color: #7c5cd6;
+    padding: 0.35rem 0.9rem;
+    border-radius: 100px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    margin-bottom: 1.75rem;
   }
 
-  .feature-card:hover {
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
-    transform: translateY(-4px);
+  h1 {
+    font-size: 3.6rem;
+    font-weight: 800;
+    color: #0f0f0f;
+    line-height: 1.08;
+    letter-spacing: -2px;
+    margin-bottom: 1.5rem;
   }
 
-  .feature-card p {
+  .hero-desc {
+    font-size: 1.08rem;
+    color: #555;
+    line-height: 1.8;
+    max-width: 540px;
+    margin-bottom: 2rem;
+  }
+
+  .cta-row {
+    display: flex;
+    gap: 0.875rem;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+  }
+
+  .social-row {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .hero-stats {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 1.75rem;
+  }
+
+  .hstat {
+    text-align: right;
+  }
+
+  .hstat-num {
+    display: block;
+    font-size: 2.6rem;
+    font-weight: 800;
+    color: #7c5cd6;
+    letter-spacing: -1.5px;
+    line-height: 1;
+  }
+
+  .hstat-lbl {
+    display: block;
+    font-size: 0.75rem;
+    color: #999;
+    line-height: 1.4;
+    max-width: 130px;
+    text-align: right;
+    margin-top: 0.25rem;
+  }
+
+  .hstat-tag {
+    background: #7c5cd6;
+    color: #fff;
+    padding: 0.4rem 0.875rem;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 700;
+  }
+
+  /* ── Why ── */
+  .why {
+    background: #f8f7fb;
+    padding: 5rem 0;
+  }
+
+  .why-top {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+    margin-bottom: 4rem;
+  }
+
+  .why-copy h2 {
+    font-size: 1.75rem;
+    letter-spacing: -0.5px;
+    margin-bottom: 1.25rem;
+  }
+
+  .why-copy h2 em {
+    font-style: italic;
+    color: #7c5cd6;
+  }
+
+  .why-copy p {
     color: #666;
+    line-height: 1.85;
+    font-size: 0.975rem;
+  }
+
+  .why-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.875rem;
+  }
+
+  .why-card {
+    background: #fff;
+    padding: 1.25rem;
+    border-radius: 10px;
+    border: 1px solid #ede9f8;
+  }
+
+  .why-card strong {
+    display: block;
+    font-size: 0.875rem;
+    color: #0f0f0f;
+    margin-bottom: 0.4rem;
+  }
+
+  .why-card p {
+    font-size: 0.8rem;
+    color: #777;
     line-height: 1.6;
   }
 
-  .resources {
-    background: white;
-  }
-
-  .resources-grid {
+  .metrics {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(4, 1fr);
     gap: 2rem;
+    border-top: 1px solid #e5e0f5;
+    padding-top: 3rem;
   }
 
-  .resource-card {
-    background: #faf9f5;
-    padding: 2rem;
+  .metric-num {
+    display: block;
+    font-size: 2.4rem;
+    font-weight: 800;
+    color: #7c5cd6;
+    letter-spacing: -1px;
+    line-height: 1;
+    margin-bottom: 0.4rem;
+  }
+
+  .metric-lbl {
+    font-size: 0.85rem;
+    color: #777;
+  }
+
+  /* ── Services ── */
+  .services {
+    background: #fff;
+    padding: 5rem 0;
+    border-top: 1px solid #f0eef8;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+  }
+
+  .service-card {
+    padding: 1.75rem;
+    border: 1px solid #e8e4f4;
     border-radius: 12px;
-    border-left: 4px solid #7c5cd6;
+    transition: border-color 0.2s, box-shadow 0.2s;
   }
 
-  .resource-card a {
+  .service-card:hover {
+    border-color: #7c5cd6;
+    box-shadow: 0 4px 20px rgba(124, 92, 214, 0.1);
+  }
+
+  .service-card h3 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #0f0f0f;
+    margin-bottom: 0.625rem;
+  }
+
+  .service-card p {
+    font-size: 0.85rem;
+    color: #777;
+    line-height: 1.7;
+  }
+
+  /* ── About ── */
+  .about {
+    background: #f8f7fb;
+    padding: 5rem 0;
+  }
+
+  .about-inner {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .about-aside {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    padding-top: 2rem;
+  }
+
+  .avatar {
+    width: 110px;
+    height: 110px;
+    border-radius: 22px;
+    background: #7c5cd6;
+    color: #fff;
+    font-size: 2.25rem;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    letter-spacing: -1px;
+  }
+
+  .years-block {
+    text-align: center;
+  }
+
+  .years-num {
+    display: block;
+    font-size: 2.4rem;
+    font-weight: 800;
+    color: #7c5cd6;
+    letter-spacing: -1px;
+    line-height: 1;
+  }
+
+  .years-lbl {
+    font-size: 0.75rem;
+    color: #888;
+    line-height: 1.5;
+  }
+
+  .about-body h2 {
+    margin-top: 0.5rem;
+  }
+
+  .about-body > p {
+    color: #555;
+    line-height: 1.85;
+    margin-bottom: 2rem;
+    font-size: 0.975rem;
+  }
+
+  .pillars {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+  }
+
+  .pillar {
+    background: #fff;
+    padding: 1rem 1.125rem;
+    border-radius: 8px;
+    border: 1px solid #ede9f8;
+  }
+
+  .pillar strong {
+    display: block;
+    font-size: 0.85rem;
+    color: #0f0f0f;
+    margin-bottom: 0.2rem;
+  }
+
+  .pillar span {
+    font-size: 0.775rem;
+    color: #999;
+  }
+
+  /* ── Results ── */
+  .results {
+    background: #fff;
+    padding: 5rem 0;
+    border-top: 1px solid #f0eef8;
+  }
+
+  .results-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+  }
+
+  .result-card {
+    padding: 2rem;
+    border: 1px solid #e8e4f4;
+    border-radius: 12px;
+    transition: border-color 0.2s;
+  }
+
+  .result-card:hover {
+    border-color: #7c5cd6;
+  }
+
+  .result-cat {
+    display: block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: #7c5cd6;
+    margin-bottom: 0.875rem;
+  }
+
+  .result-num {
+    display: block;
+    font-size: 3.75rem;
+    font-weight: 800;
+    color: #0f0f0f;
+    letter-spacing: -2.5px;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+
+  .result-card h3 {
+    font-size: 0.975rem;
+    font-weight: 700;
+    color: #0f0f0f;
+    margin-bottom: 0.625rem;
+  }
+
+  .result-card p {
+    font-size: 0.85rem;
+    color: #777;
+    line-height: 1.75;
+  }
+
+  /* ── Articles ── */
+  .articles {
+    background: #f8f7fb;
+    padding: 5rem 0;
+  }
+
+  .articles-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 3rem;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .articles-head .sub {
+    margin-bottom: 0;
+  }
+
+  .articles-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+  }
+
+  .article-card {
+    background: #fff;
+    padding: 1.75rem;
+    border-radius: 12px;
+    border: 1px solid #ede9f8;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .article-cat {
+    display: block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: #7c5cd6;
+    margin-bottom: 0.875rem;
+  }
+
+  .article-card h3 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #0f0f0f;
+    line-height: 1.45;
+    margin-bottom: 0.75rem;
+    flex: 1;
+  }
+
+  .article-card h3 a {
+    text-decoration: none;
+    color: inherit;
+    transition: color 0.15s;
+  }
+
+  .article-card h3 a:hover {
+    color: #7c5cd6;
+  }
+
+  .article-card p {
+    font-size: 0.84rem;
+    color: #777;
+    line-height: 1.7;
+    margin-bottom: 1.25rem;
+  }
+
+  .article-link {
+    font-size: 0.84rem;
+    font-weight: 600;
     color: #7c5cd6;
     text-decoration: none;
+    margin-top: auto;
+  }
+
+  .article-link:hover {
+    text-decoration: underline;
+  }
+
+  /* ── Timeline ── */
+  .timeline-section {
+    background: #fff;
+    padding: 5rem 0;
+    border-top: 1px solid #f0eef8;
+  }
+
+  .tl-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+  }
+
+  .tl-col h2 {
+    font-size: 1.9rem;
+    margin-bottom: 2rem;
+  }
+
+  .tl-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .tl-item {
+    padding-left: 1.375rem;
+    border-left: 2px solid #ede9f8;
+    position: relative;
+  }
+
+  .tl-item::before {
+    content: '';
+    position: absolute;
+    left: -5px;
+    top: 5px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #7c5cd6;
+  }
+
+  .tl-title {
+    display: block;
+    font-size: 0.975rem;
+    font-weight: 700;
+    color: #0f0f0f;
+    margin-bottom: 0.2rem;
+  }
+
+  .tl-period {
+    display: block;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #7c5cd6;
+    margin-bottom: 0.2rem;
+  }
+
+  .tl-place {
+    display: block;
+    font-size: 0.84rem;
+    color: #888;
+  }
+
+  .tl-desc {
+    font-size: 0.84rem;
+    color: #777;
+    line-height: 1.75;
+    margin-top: 0.625rem;
+  }
+
+  /* ── Credentials ── */
+  .credentials {
+    background: #f8f7fb;
+    padding: 5rem 0;
+  }
+
+  .certs-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+    margin-bottom: 3.5rem;
+  }
+
+  .cert-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    background: #fff;
+    padding: 1.75rem;
+    border-radius: 12px;
+    border: 1px solid #ede9f8;
+    text-decoration: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  .cert-card:hover {
+    border-color: #7c5cd6;
+    box-shadow: 0 4px 16px rgba(124, 92, 214, 0.08);
+  }
+
+  .cert-name {
+    font-size: 0.975rem;
+    font-weight: 700;
+    color: #0f0f0f;
+  }
+
+  .cert-issuer {
+    font-size: 0.84rem;
+    color: #999;
+  }
+
+  .cert-verify {
+    font-size: 0.84rem;
     font-weight: 600;
+    color: #7c5cd6;
+    margin-top: 0.5rem;
+  }
+
+  .tools-wrap {
+    margin-top: 0.5rem;
+  }
+
+  .tools-wrap .label {
+    margin-bottom: 1rem;
+  }
+
+  .marquee-outer {
+    overflow: hidden;
+    background: #fff;
+    border: 1px solid #ede9f8;
+    border-radius: 12px;
+    padding: 1.125rem 0;
+  }
+
+  .marquee {
+    display: flex;
+    width: max-content;
+    animation: marquee-scroll 28s linear infinite;
+  }
+
+  .tool-chip {
     display: inline-block;
-    margin-top: 1rem;
-    transition: all 0.3s ease;
+    padding: 0 2rem;
+    font-size: 0.875rem;
+    color: #555;
+    white-space: nowrap;
+    border-right: 1px solid #ede9f8;
   }
 
-  .resource-card a:hover {
-    gap: 0.5rem;
-    transform: translateX(4px);
+  @keyframes marquee-scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
   }
 
-  .resource-card p {
-    color: #666;
-    line-height: 1.6;
+  /* ── Contact ── */
+  .contact {
+    background: #fff;
+    padding: 5rem 0;
+    border-top: 1px solid #f0eef8;
   }
 
-  .newsletter {
-    background: linear-gradient(135deg, #7c5cd6 0%, #5a4ab8 100%);
-    color: white;
+  .contact .container {
     text-align: center;
   }
 
-  .newsletter h2 {
-    color: white;
+  .contact h2 {
+    margin-bottom: 0.875rem;
   }
 
-  .newsletter-form {
-    display: flex;
-    gap: 0.5rem;
-    max-width: 500px;
-    margin-top: 2rem;
+  .contact .sub {
     margin-left: auto;
     margin-right: auto;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  .newsletter-form input {
-    flex: 1;
-    min-width: 200px;
-    padding: 0.875rem 1rem;
-    border: none;
-    border-radius: 8px;
-    font-size: 1rem;
-  }
-
-  footer {
-    background: #2a2a2a;
-    color: white;
-    padding: 2rem;
     text-align: center;
+  }
+
+  .contact-cards {
+    display: flex;
+    gap: 1.25rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 2.5rem;
+  }
+
+  .contact-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    padding: 1.5rem 2.25rem;
+    border: 1px solid #e8e4f4;
+    border-radius: 12px;
+    text-decoration: none;
+    min-width: 200px;
+    transition: border-color 0.2s;
+  }
+
+  .contact-card:hover {
+    border-color: #7c5cd6;
+  }
+
+  .contact-card-wa {
+    border-color: #c3efd0;
+  }
+
+  .contact-card-wa:hover {
+    border-color: #25d366;
+  }
+
+  .cc-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: #7c5cd6;
+  }
+
+  .cc-value {
+    font-size: 0.975rem;
+    font-weight: 600;
+    color: #0f0f0f;
+  }
+
+  .contact-socials {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+  }
+
+  .location {
+    font-size: 0.84rem;
+    color: #aaa;
+  }
+
+  /* ── Footer ── */
+  footer {
+    background: #0f0f0f;
+    color: #fff;
+    padding: 2rem 0;
+  }
+
+  .foot-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25rem;
+    text-align: center;
+  }
+
+  .foot-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    text-decoration: none;
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.95rem;
+  }
+
+  .foot-logo {
+    width: 32px;
+    height: 32px;
+    border-radius: 7px;
+    background: #7c5cd6;
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   footer nav {
-    margin-top: 1rem;
     display: flex;
     gap: 2rem;
-    justify-content: center;
     flex-wrap: wrap;
+    justify-content: center;
   }
 
-  footer a {
-    color: #bbb;
+  footer nav a {
+    color: #777;
     text-decoration: none;
-    transition: color 0.3s ease;
+    font-size: 0.84rem;
+    transition: color 0.15s;
   }
 
-  footer a:hover {
-    color: white;
+  footer nav a:hover {
+    color: #fff;
   }
 
-  /* Responsive */
-  @media (max-width: 768px) {
-    section {
-      padding: 2rem 1rem;
+  .foot-copy {
+    font-size: 0.78rem;
+    color: #444;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 1024px) {
+    .services-grid {
+      grid-template-columns: repeat(2, 1fr);
     }
 
+    .articles-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    h1 {
+      font-size: 2.5rem;
+      letter-spacing: -1.5px;
+    }
+
+    h2 {
+      font-size: 1.85rem;
+    }
+
+    .hero-body {
+      grid-template-columns: 1fr;
+    }
+
+    .hero-stats {
+      flex-direction: row;
+      align-items: flex-start;
+      gap: 2rem;
+    }
+
+    .hstat {
+      text-align: left;
+    }
+
+    .hstat-lbl {
+      text-align: left;
+    }
+
+    .why-top {
+      grid-template-columns: 1fr;
+    }
+
+    .why-cards {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .metrics {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .services-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .about-inner {
+      grid-template-columns: 1fr;
+    }
+
+    .about-aside {
+      flex-direction: row;
+      justify-content: flex-start;
+      padding-top: 0;
+    }
+
+    .results-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .articles-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .articles-head {
+      align-items: flex-start;
+    }
+
+    .tl-grid {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+
+    .certs-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .contact-cards {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+
+  @media (max-width: 480px) {
     h1 {
       font-size: 2rem;
     }
 
-    h2 {
-      font-size: 1.75rem;
-    }
-
-    .cta-buttons {
+    .hero-stats {
       flex-direction: column;
+      gap: 1.25rem;
     }
 
-    .newsletter-form {
-      flex-direction: column;
+    .why-cards {
+      grid-template-columns: 1fr;
     }
 
-    .newsletter-form input {
-      min-width: 100%;
+    .pillars {
+      grid-template-columns: 1fr;
     }
   }
 </style>

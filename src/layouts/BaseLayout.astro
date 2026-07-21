@@ -28,6 +28,7 @@ const resolvedOgImage = new URL(ogImage, Astro.site);
 <html lang="en">
   <head>
     <meta charset="utf-8" />
+    <slot name="head" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     
@@ -78,7 +79,7 @@ const resolvedOgImage = new URL(ogImage, Astro.site);
       }
 
       body {
-        background: #faf9f5;
+        background: #ffffff;
         display: flex;
         flex-direction: column;
         min-height: 100vh;
