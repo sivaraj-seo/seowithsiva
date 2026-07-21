@@ -1,9 +1,7 @@
 User-agent: *
 Allow: /
-Disallow: /admin/
-Disallow: /private/
 
-Sitemap: https://seowithsiva.vercel.app/sitemap-index.xml
+Sitemap: https://seowithsiva.vercel.app/sitemap.xml
 
 User-agent: Googlebot
 Crawl-delay: 0
