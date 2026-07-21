@@ -1,0 +1,96 @@
+---
+const navLinks = [
+  { href: '/', label: 'Home' },
+  { href: '/about', label: 'About' },
+  { href: '/contact', label: 'Contact' },
+];
+const currentPath = Astro.url.pathname;
+---
+
+<header>
+  <div class="container">
+    <a href="/" class="brand">SEO With Siva</a>
+    <nav aria-label="Main navigation">
+      <ul>
+        {navLinks.map(link => (
+          <li>
+            <a
+              href={link.href}
+              class:list={['nav-link', { active: currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href)) }]}
+            >
+              {link.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<style>
+  header {
+    background: white;
+    border-bottom: 1px solid #ece9f4;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 1px 6px rgba(124, 92, 214, 0.08);
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .brand {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: #7c5cd6;
+    text-decoration: none;
+    letter-spacing: -0.5px;
+  }
+
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+    margin: 0;
+    padding: 0;
+  }
+
+  .nav-link {
+    color: #555;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: color 0.2s;
+    padding-bottom: 2px;
+    border-bottom: 2px solid transparent;
+  }
+
+  .nav-link:hover {
+    color: #7c5cd6;
+  }
+
+  .nav-link.active {
+    color: #7c5cd6;
+    font-weight: 700;
+    border-bottom-color: #7c5cd6;
+  }
+
+  @media (max-width: 768px) {
+    .container {
+      padding: 0.875rem 1rem;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    nav ul {
+      gap: 1.25rem;
+    }
+  }
+</style>

@@ -76,6 +76,16 @@ const keywords = 'contact us, get in touch, consultation, inquiry';
       </div>
     </section>
   </main>
+
+  <footer>
+    <div class="container">
+      <p>&copy; {new Date().getFullYear()} SEO With Siva. All rights reserved.</p>
+      <nav aria-label="Footer navigation">
+        <a href="/">Home</a>
+        <a href="/about">About</a>
+      </nav>
+    </div>
+  </footer>
 </BaseLayout>
 
 <style>
@@ -200,6 +210,35 @@ const keywords = 'contact us, get in touch, consultation, inquiry';
 
   .info-card a:hover {
     text-decoration: underline;
+  }
+
+  footer {
+    background: #2a2a2a;
+    color: white;
+    padding: 2rem;
+    text-align: center;
+    margin-top: auto;
+  }
+
+  footer .container {
+    max-width: 1200px;
+  }
+
+  footer nav {
+    margin-top: 1rem;
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+  }
+
+  footer a {
+    color: #bbb;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  footer a:hover {
+    color: white;
   }
 
   @media (max-width: 768px) {
