@@ -1,5 +1,6 @@
 ---
 import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
 
 interface Props {
   title: string;
@@ -29,6 +30,9 @@ const resolvedOgImage = new URL(ogImage, Astro.site);
   <head>
     <meta charset="utf-8" />
     <slot name="head" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&display=swap" rel="stylesheet" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     
@@ -78,15 +82,21 @@ const resolvedOgImage = new URL(ogImage, Astro.site);
         box-sizing: border-box;
       }
 
+      :root {
+        --accent: #7c5cd6;
+        --cta: #ec6d92;
+        --ink: #211d33;
+        --muted: #6f6a82;
+        --lav: #efeafc;
+        --dark: #141026;
+      }
       body {
-        background: #ffffff;
-        display: flex;
-        flex-direction: column;
-        min-height: 100vh;
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue',
-          sans-serif;
+        background: #fff;
+        margin: 0;
+        font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+        color: var(--ink);
+        -webkit-font-smoothing: antialiased;
         line-height: 1.6;
-        color: #333;
       }
 
       html {
@@ -116,6 +126,7 @@ const resolvedOgImage = new URL(ogImage, Astro.site);
   <body>
     <Header />
     <slot />
+    <Footer />
     <script is:inline>
       // Minimal performance monitoring
       if (window.performance && window.performance.timing) {

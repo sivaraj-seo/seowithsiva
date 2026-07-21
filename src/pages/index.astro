@@ -3,1459 +3,738 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 const title = 'C. Sivaraj – SEO Analyst & AEO / GEO Specialist';
 const description =
-  'SEO & AI-search analyst helping brands earn visibility across Google AI Overviews, ChatGPT, Gemini, Perplexity, Bing AI and Copilot — backed by 5+ years of enterprise SEO that compounds.';
+  'SEO & AI-search analyst helping brands earn visibility across Google AI Overviews, ChatGPT, Gemini, Perplexity, Bing AI and Copilot — backed by 5+ years of enterprise SEO.';
 const keywords =
-  'SEO analyst, AEO, GEO, AI search optimization, enterprise SEO, Google AI Overviews, generative engine optimization, entity SEO, Sivaraj';
-
-const services = [
-  {
-    title: 'AI Search Optimization (AEO / GEO)',
-    desc: 'Make your content the cited answer in Google AI Overviews, ChatGPT, Gemini, Perplexity, Bing AI and Copilot.',
-  },
-  {
-    title: 'Enterprise SEO',
-    desc: 'Scalable optimization frameworks and governance across tens of thousands of indexed pages.',
-  },
-  {
-    title: 'Technical SEO',
-    desc: 'Audits across crawl, indexation, metadata, schema, redirects, XML sitemaps and internal linking.',
-  },
-  {
-    title: 'Content Strategy',
-    desc: 'Topic clusters, search-intent mapping, content briefs and editorial systems that earn topical authority.',
-  },
-  {
-    title: 'Semantic & Entity SEO',
-    desc: 'Entity optimization, structured data and semantic relevance that AI engines can understand and trust.',
-  },
-  {
-    title: 'Analytics & Reporting',
-    desc: 'GSC, GA4, Ahrefs, SEMrush and Looker Studio dashboards tying organic and AI visibility to outcomes.',
-  },
-];
-
-const results = [
-  {
-    category: 'Healthcare · GEO / AEO',
-    number: '+1,050%',
-    title: 'Organic sessions, GEO pilot',
-    desc: 'Led a GEO/AEO pilot across 60 high-value healthcare articles; the framework was then adopted site-wide across Google, Bing and AI platforms.',
-  },
-  {
-    category: 'AI citations · Bing & Copilot',
-    number: '1M+',
-    title: 'Bing AI citations generated',
-    desc: 'Through GEO and AEO, significantly enhanced brand visibility across Microsoft Copilot, Bing AI and AI-powered search experiences.',
-  },
-  {
-    category: 'Reporting · Looker Studio',
-    number: '80%',
-    title: 'Less reporting effort',
-    desc: 'Built executive dashboards in Google Looker Studio that cut manual SEO reporting effort by 80% and improved stakeholder visibility.',
-  },
-  {
-    category: 'Content · AI Standards',
-    number: null,
-    title: 'LLM Content Optimization Checklist',
-    desc: 'Built a standard for AI-search best practices that raised content quality and citation eligibility across AI engines for content teams.',
-  },
-];
-
-const articles = [
-  {
-    category: 'LinkedIn · Article',
-    title: 'Google Ranking vs LLM Signals: Why Your SEO Playbook Needs a Rewrite',
-    desc: "The signals that win rankings aren't the same ones that get you cited by LLMs, and here's how they diverge.",
-    href: 'https://www.linkedin.com/pulse/google-ranking-vs-signals-llm-why-your-seo-playbook-needs-sivaraj-c-ruegc/',
-  },
-  {
-    category: 'LinkedIn · Article',
-    title: 'Is SEO Dead in 2026? Do You Actually Need GEO & AEO?',
-    desc: 'Cutting through the hype on whether SEO is over, and where GEO and AEO genuinely fit your strategy.',
-    href: 'https://www.linkedin.com/pulse/seo-dead-2026-do-you-actually-need-geo-aeo-sivaraj-c-6txtc/',
-  },
-  {
-    category: 'LinkedIn · Article',
-    title: 'AI Is Hallucinating About Your Brand — Every Model Does',
-    desc: 'Why every LLM invents facts about your brand, and the entity work that keeps the answers accurate.',
-    href: 'https://www.linkedin.com/pulse/ai-hallucinating-your-brand-every-model-does-sivaraj-c-tlfuc/',
-  },
-];
-
-const tools = [
-  'Google Search Console',
-  'Google Analytics 4',
-  'Ahrefs',
-  'SEMrush',
-  'Bing Webmaster Tools',
-  'Looker Studio',
-  'Surfer',
-  'seoClarity',
-];
-
-const socials = [
-  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/sivaraj-seo-analyst/' },
-  { label: 'Medium', href: 'https://medium.com/@sivaraj-c' },
-  { label: 'Quora', href: 'https://www.quora.com/profile/Sivaraj-29' },
-  { label: 'Reddit', href: 'https://www.reddit.com/user/Sivaraj_C/' },
-];
-
-const schema = {
-  '@context': 'https://schema.org',
-  '@type': 'Person',
-  name: 'C. Sivaraj',
-  jobTitle: 'SEO Analyst',
-  url: 'https://seowithsiva.vercel.app',
-  email: 'sivarajc.seo@gmail.com',
-  address: {
-    '@type': 'PostalAddress',
-    addressLocality: 'Coimbatore',
-    addressCountry: 'IN',
-  },
-  sameAs: socials.map((s) => s.href),
-};
+  'SEO analyst, AEO, GEO, AI search optimization, enterprise SEO, Google AI Overviews, generative engine optimization, C. Sivaraj';
 ---
 
 <BaseLayout {title} {description} {keywords} author="C. Sivaraj">
-  <script type="application/ld+json" slot="head" set:html={JSON.stringify(schema)} />
-
-  <main>
-    <!-- ── Hero ── -->
-    <section class="hero" id="home">
-      <div class="container">
-        <div class="hero-body">
-          <div class="hero-text">
-            <span class="badge">SEO Analyst · AEO / GEO · 5+ years</span>
-            <h1>Get found in Google,<br />and in every AI answer engine.</h1>
-            <p class="hero-desc">
-              I'm Sivaraj, an SEO &amp; AI-search analyst helping brands earn visibility across
-              Google AI Overviews, ChatGPT, Gemini, Perplexity, Bing AI and Copilot, backed by
-              enterprise SEO that compounds.
-            </p>
-            <div class="cta-row">
-              <a
-                href="https://calendar.app.google/FwUxXeGAFCdvuvGN6"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="btn btn-primary">Let's connect →</a
-              >
-              <a
-                href="/uploads/Sivaraj SEO Analyst Resume.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="btn btn-ghost">Resume ↓</a
-              >
-            </div>
-            <div class="social-row">
-              {
-                socials.map((s) => (
-                  <a
-                    href={s.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="social-link"
-                  >
-                    {s.label}
-                  </a>
-                ))
-              }
-            </div>
-          </div>
-          <div class="hero-stats">
-            <div class="hstat">
-              <span class="hstat-num">+1,050%</span>
-              <span class="hstat-lbl">organic sessions<br />(GEO pilot)</span>
-            </div>
-            <div class="hstat">
-              <span class="hstat-num">1M+</span>
-              <span class="hstat-lbl">Bing AI citations</span>
-            </div>
-            <div class="hstat-tag">AI-first SEO</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── Why me ── -->
-    <section class="why">
-      <div class="container">
-        <div class="why-top">
-          <div class="why-copy">
-            <h2>
-              5+ years optimizing enterprise content so it ranks in search <em>and</em> gets cited
-              by the AI engines people now ask first.
-            </h2>
-            <p>
-              I build AI-first content systems on a foundation of technical SEO, topical authority
-              and entity optimization, so brands stay discoverable as search shifts from ten blue
-              links to generative answers.
-            </p>
-          </div>
-          <div class="why-cards">
-            <div class="why-card">
-              <strong>AI search visibility</strong>
-              <p>Optimized to be cited across AI Overviews, ChatGPT, Gemini &amp; Perplexity.</p>
-            </div>
-            <div class="why-card">
-              <strong>Search-intent insight</strong>
-              <p>Targeting the queries with real intent across search and answer engines.</p>
-            </div>
-            <div class="why-card">
-              <strong>Enterprise SEO</strong>
-              <p>Technical fixes and structure across tens of thousands of pages.</p>
-            </div>
-            <div class="why-card">
-              <strong>Topical authority</strong>
-              <p>Entity-led content architecture that builds lasting E-E-A-T.</p>
-            </div>
-          </div>
-        </div>
-        <div class="metrics">
-          <div class="metric">
-            <span class="metric-num">1,050%</span>
-            <span class="metric-lbl">Organic session lift (GEO pilot)</span>
-          </div>
-          <div class="metric">
-            <span class="metric-num">1M+</span>
-            <span class="metric-lbl">Bing AI citations generated</span>
-          </div>
-          <div class="metric">
-            <span class="metric-num">70K+</span>
-            <span class="metric-lbl">Pages optimized at scale</span>
-          </div>
-          <div class="metric">
-            <span class="metric-num">80%</span>
-            <span class="metric-lbl">Less SEO reporting effort</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── Services ── -->
-    <section class="services" id="services">
-      <div class="container">
-        <div class="label">What I do</div>
-        <h2>Services for the AI search era</h2>
-        <p class="sub">
-          From traditional rankings to AI citations. Engagements scoped to where your organic
-          growth is stuck.
-        </p>
-        <div class="services-grid">
-          {
-            services.map((s) => (
-              <article class="service-card">
-                <h3>{s.title}</h3>
-                <p>{s.desc}</p>
-              </article>
-            ))
-          }
-        </div>
-      </div>
-    </section>
-
-    <!-- ── About ── -->
-    <section class="about" id="about">
-      <div class="container">
-        <div class="about-inner">
-          <div class="about-aside">
-            <div class="avatar">CS</div>
-            <div class="years-block">
-              <span class="years-num">5+</span>
-              <span class="years-lbl"><strong>Years</strong><br />in SEO &amp; AI search</span>
-            </div>
-          </div>
-          <div class="about-body">
-            <div class="label">About me</div>
-            <h2>An SEO analyst built for how search works now</h2>
-            <p>
-              I drive enterprise SEO and AI-first content strategies across healthcare and global
-              digital ecosystems. I work hand-in-hand with content, editorial, product and
-              technical teams to build AI-first content systems, improve discoverability, and grow
-              citations across both traditional and generative search.
-            </p>
-            <div class="pillars">
-              <div class="pillar">
-                <strong>AI-first workflows</strong>
-                <span>Content built to be cited.</span>
-              </div>
-              <div class="pillar">
-                <strong>Data-backed strategy</strong>
-                <span>Decisions from your numbers.</span>
-              </div>
-              <div class="pillar">
-                <strong>Cross-functional</strong>
-                <span>Content, dev &amp; stakeholders.</span>
-              </div>
-              <div class="pillar">
-                <strong>Scalable governance</strong>
-                <span>Frameworks that hold up.</span>
-              </div>
-            </div>
-            <a href="#contact" class="btn btn-outline">Get in touch →</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── Results ── -->
-    <section class="results" id="results">
-      <div class="container">
-        <div class="label">Key achievements</div>
-        <h2>Results that speak for themselves</h2>
-        <p class="sub">
-          Real outcomes from enterprise SEO and Generative Engine Optimization programs.
-        </p>
-        <div class="results-grid">
-          {
-            results.map((r) => (
-              <article class="result-card">
-                <span class="result-cat">{r.category}</span>
-                {r.number && <span class="result-num">{r.number}</span>}
-                <h3>{r.title}</h3>
-                <p>{r.desc}</p>
-              </article>
-            ))
-          }
-        </div>
-      </div>
-    </section>
-
-    <!-- ── Articles ── -->
-    <section class="articles" id="articles">
-      <div class="container">
-        <div class="articles-head">
-          <div>
-            <div class="label">Writing</div>
-            <h2>Articles on SEO, GEO &amp; AEO</h2>
-            <p class="sub">
-              Field notes on how search is shifting from rankings to AI citations, and what to
-              actually do about it.
-            </p>
-          </div>
-          <a
-            href="https://www.linkedin.com/in/sivaraj-seo-analyst/recent-activity/articles/"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="btn btn-outline">All articles →</a
-          >
-        </div>
-        <div class="articles-grid">
-          {
-            articles.map((a) => (
-              <article class="article-card">
-                <span class="article-cat">{a.category}</span>
-                <h3>
-                  <a href={a.href} target="_blank" rel="noopener noreferrer">
-                    {a.title}
-                  </a>
-                </h3>
-                <p>{a.desc}</p>
-                <a
-                  href={a.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="article-link"
-                >
-                  Read on LinkedIn →
-                </a>
-              </article>
-            ))
-          }
-        </div>
-      </div>
-    </section>
-
-    <!-- ── Education + Experience ── -->
-    <section class="timeline-section">
-      <div class="container">
-        <div class="tl-grid">
-          <div class="tl-col">
-            <div class="label">Education</div>
-            <h2>Education</h2>
-            <div class="tl-list">
-              <div class="tl-item">
-                <span class="tl-title">MBA, Marketing</span>
-                <span class="tl-period">2017 – 2019</span>
-                <span class="tl-place">Kongu Engineering College, Erode</span>
-              </div>
-              <div class="tl-item">
-                <span class="tl-title">BSc, Computer Science</span>
-                <span class="tl-period">2012 – 2015</span>
-                <span class="tl-place">SNR Sons College, Coimbatore</span>
-              </div>
-            </div>
-          </div>
-          <div class="tl-col">
-            <div class="label">Experience</div>
-            <h2>Where I've worked</h2>
-            <div class="tl-list">
-              <div class="tl-item">
-                <span class="tl-title">SEO Analyst</span>
-                <span class="tl-period">Jul 2022 – Present</span>
-                <span class="tl-place">Orane Healthcare India Pvt Ltd · Coimbatore</span>
-                <p class="tl-desc">
-                  Led enterprise SEO & GEO across 70,000+ indexed pages: AI-first content
-                  frameworks, topical authority, technical SEO, and a GEO/AEO program driving a
-                  1,050% lift in organic sessions.
-                </p>
-              </div>
-              <div class="tl-item">
-                <span class="tl-title">SEO Executive</span>
-                <span class="tl-period">Sep 2019 – Jan 2021</span>
-                <span class="tl-place">Boostability India · Coimbatore</span>
-                <p class="tl-desc">
-                  Managed SEO for 25+ client sites across healthcare, SaaS and services. Technical
-                  audits, content briefs and digital PR that lifted average client Domain Authority
-                  by 25+ points.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── Credentials ── -->
-    <section class="credentials" id="credentials">
-      <div class="container">
-        <div class="label">Certifications</div>
-        <h2>Credentials</h2>
-        <div class="certs-grid">
-          <a
-            href="https://www.coursera.org/account/accomplishments/verify/582XE0FA3326"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="cert-card"
-          >
-            <span class="cert-name">Generative Engine Content Optimization</span>
-            <span class="cert-issuer">Edureka</span>
-            <span class="cert-verify">Verify credential ↗</span>
-          </a>
-          <a
-            href="https://academy.seoclarity.net/certificate-verification/1332C8E64-1332C8ECB-330938F/"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="cert-card"
-          >
-            <span class="cert-name">Enterprise Answer Engine Optimization</span>
-            <span class="cert-issuer">seoClarity</span>
-            <span class="cert-verify">Verify credential ↗</span>
-          </a>
-        </div>
-
-        <div class="tools-wrap">
-          <div class="label">Tools &amp; platforms I work in</div>
-          <div class="marquee-outer">
-            <div class="marquee">
-              {
-                [...tools, ...tools].map((t) => (
-                  <span class="tool-chip">{t}</span>
-                ))
-              }
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── Contact ── -->
-    <section class="contact" id="contact">
-      <div class="container">
-        <div class="label">Let's talk</div>
-        <h2>Let's grow your search &amp; AI visibility.</h2>
-        <p class="sub">
-          Hiring, consulting or just want a second opinion on your AI-search strategy? I reply to
-          every message.
-        </p>
-        <div class="contact-cards">
-          <a href="mailto:sivarajc.seo@gmail.com" class="contact-card">
-            <span class="cc-label">Email</span>
-            <span class="cc-value">sivarajc.seo@gmail.com</span>
-          </a>
-          <a
-            href="https://wa.me/919600684541"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="contact-card contact-card-wa"
-          >
-            <span class="cc-label">WhatsApp</span>
-            <span class="cc-value">+91 96006 84541</span>
-          </a>
-        </div>
-        <div class="contact-socials">
-          <span class="label">Follow</span>
-          {
-            socials.map((s) => (
-              <a
-                href={s.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="social-link"
-              >
-                {s.label}
-              </a>
-            ))
-          }
-        </div>
-        <p class="location">Based in Coimbatore, India</p>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <div class="container">
-      <div class="foot-inner">
-        <a href="/" class="foot-brand">
-          <span class="foot-logo">CS</span>
-          <span>C. Sivaraj</span>
-        </a>
-        <nav aria-label="Footer social links">
-          {
-            socials.map((s) => (
-              <a href={s.href} target="_blank" rel="noopener noreferrer">
-                {s.label}
-              </a>
-            ))
-          }
-        </nav>
-        <p class="foot-copy">&copy; {new Date().getFullYear()} C. Sivaraj · Coimbatore, India</p>
-      </div>
-    </div>
-  </footer>
-</BaseLayout>
 
 <style>
-  /* ── Shared ── */
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 2rem;
-  }
-
-  .label {
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 1.6px;
-    text-transform: uppercase;
-    color: #7c5cd6;
-    margin-bottom: 0.75rem;
-  }
-
-  h2 {
-    font-size: 2.4rem;
-    font-weight: 800;
-    color: #0f0f0f;
-    letter-spacing: -0.75px;
-    line-height: 1.15;
-    margin-bottom: 1rem;
-  }
-
-  .sub {
-    color: #666;
-    font-size: 1.05rem;
-    margin-bottom: 3rem;
-    max-width: 620px;
-  }
-
-  .btn {
-    display: inline-block;
-    padding: 0.75rem 1.6rem;
-    border-radius: 8px;
-    font-size: 0.9rem;
-    font-weight: 600;
-    text-decoration: none;
-    transition: all 0.15s;
-    cursor: pointer;
-  }
-
-  .btn-primary {
-    background: #7c5cd6;
-    color: #fff;
-  }
-  .btn-primary:hover {
-    background: #5a4ab8;
-    transform: translateY(-1px);
-  }
-
-  .btn-ghost {
-    background: #f5f4f8;
-    color: #333;
-  }
-  .btn-ghost:hover {
-    background: #eceaf4;
-  }
-
-  .btn-outline {
-    border: 1.5px solid #7c5cd6;
-    color: #7c5cd6;
-    background: transparent;
-  }
-  .btn-outline:hover {
-    background: #7c5cd6;
-    color: #fff;
-  }
-
-  .social-link {
-    color: #666;
-    text-decoration: none;
-    font-size: 0.875rem;
-    font-weight: 500;
-    transition: color 0.15s;
-  }
-  .social-link:hover {
-    color: #7c5cd6;
-  }
-
-  /* ── Hero ── */
-  .hero {
-    background: #fff;
-    padding: 5rem 0 4rem;
-    border-bottom: 1px solid #f0eef8;
-  }
-
-  .hero-body {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 4rem;
-    align-items: center;
-  }
-
-  .badge {
-    display: inline-block;
-    background: #f0ebff;
-    color: #7c5cd6;
-    padding: 0.35rem 0.9rem;
-    border-radius: 100px;
-    font-size: 0.8rem;
-    font-weight: 700;
-    margin-bottom: 1.75rem;
-  }
-
-  h1 {
-    font-size: 3.6rem;
-    font-weight: 800;
-    color: #0f0f0f;
-    line-height: 1.08;
-    letter-spacing: -2px;
-    margin-bottom: 1.5rem;
-  }
-
-  .hero-desc {
-    font-size: 1.08rem;
-    color: #555;
-    line-height: 1.8;
-    max-width: 540px;
-    margin-bottom: 2rem;
-  }
-
-  .cta-row {
-    display: flex;
-    gap: 0.875rem;
-    flex-wrap: wrap;
-    margin-bottom: 2rem;
-  }
-
-  .social-row {
-    display: flex;
-    gap: 1.5rem;
-    flex-wrap: wrap;
-  }
-
-  .hero-stats {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 1.75rem;
-  }
-
-  .hstat {
-    text-align: right;
-  }
-
-  .hstat-num {
-    display: block;
-    font-size: 2.6rem;
-    font-weight: 800;
-    color: #7c5cd6;
-    letter-spacing: -1.5px;
-    line-height: 1;
-  }
-
-  .hstat-lbl {
-    display: block;
-    font-size: 0.75rem;
-    color: #999;
-    line-height: 1.4;
-    max-width: 130px;
-    text-align: right;
-    margin-top: 0.25rem;
-  }
-
-  .hstat-tag {
-    background: #7c5cd6;
-    color: #fff;
-    padding: 0.4rem 0.875rem;
-    border-radius: 6px;
-    font-size: 0.8rem;
-    font-weight: 700;
-  }
-
-  /* ── Why ── */
-  .why {
-    background: #f8f7fb;
-    padding: 5rem 0;
-  }
-
-  .why-top {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: start;
-    margin-bottom: 4rem;
-  }
-
-  .why-copy h2 {
-    font-size: 1.75rem;
-    letter-spacing: -0.5px;
-    margin-bottom: 1.25rem;
-  }
-
-  .why-copy h2 em {
-    font-style: italic;
-    color: #7c5cd6;
-  }
-
-  .why-copy p {
-    color: #666;
-    line-height: 1.85;
-    font-size: 0.975rem;
-  }
-
-  .why-cards {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0.875rem;
-  }
-
-  .why-card {
-    background: #fff;
-    padding: 1.25rem;
-    border-radius: 10px;
-    border: 1px solid #ede9f8;
-  }
-
-  .why-card strong {
-    display: block;
-    font-size: 0.875rem;
-    color: #0f0f0f;
-    margin-bottom: 0.4rem;
-  }
-
-  .why-card p {
-    font-size: 0.8rem;
-    color: #777;
-    line-height: 1.6;
-  }
-
-  .metrics {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 2rem;
-    border-top: 1px solid #e5e0f5;
-    padding-top: 3rem;
-  }
-
-  .metric-num {
-    display: block;
-    font-size: 2.4rem;
-    font-weight: 800;
-    color: #7c5cd6;
-    letter-spacing: -1px;
-    line-height: 1;
-    margin-bottom: 0.4rem;
-  }
-
-  .metric-lbl {
-    font-size: 0.85rem;
-    color: #777;
-  }
-
-  /* ── Services ── */
-  .services {
-    background: #fff;
-    padding: 5rem 0;
-    border-top: 1px solid #f0eef8;
-  }
-
-  .services-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.25rem;
-  }
-
-  .service-card {
-    padding: 1.75rem;
-    border: 1px solid #e8e4f4;
-    border-radius: 12px;
-    transition: border-color 0.2s, box-shadow 0.2s;
-  }
-
-  .service-card:hover {
-    border-color: #7c5cd6;
-    box-shadow: 0 4px 20px rgba(124, 92, 214, 0.1);
-  }
-
-  .service-card h3 {
-    font-size: 0.95rem;
-    font-weight: 700;
-    color: #0f0f0f;
-    margin-bottom: 0.625rem;
-  }
-
-  .service-card p {
-    font-size: 0.85rem;
-    color: #777;
-    line-height: 1.7;
-  }
-
-  /* ── About ── */
-  .about {
-    background: #f8f7fb;
-    padding: 5rem 0;
-  }
-
-  .about-inner {
-    display: grid;
-    grid-template-columns: 200px 1fr;
-    gap: 4rem;
-    align-items: start;
-  }
-
-  .about-aside {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1.5rem;
-    padding-top: 2rem;
-  }
-
-  .avatar {
-    width: 110px;
-    height: 110px;
-    border-radius: 22px;
-    background: #7c5cd6;
-    color: #fff;
-    font-size: 2.25rem;
-    font-weight: 800;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    letter-spacing: -1px;
-  }
-
-  .years-block {
-    text-align: center;
-  }
-
-  .years-num {
-    display: block;
-    font-size: 2.4rem;
-    font-weight: 800;
-    color: #7c5cd6;
-    letter-spacing: -1px;
-    line-height: 1;
-  }
-
-  .years-lbl {
-    font-size: 0.75rem;
-    color: #888;
-    line-height: 1.5;
-  }
-
-  .about-body h2 {
-    margin-top: 0.5rem;
-  }
-
-  .about-body > p {
-    color: #555;
-    line-height: 1.85;
-    margin-bottom: 2rem;
-    font-size: 0.975rem;
-  }
-
-  .pillars {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0.75rem;
-    margin-bottom: 2rem;
-  }
-
-  .pillar {
-    background: #fff;
-    padding: 1rem 1.125rem;
-    border-radius: 8px;
-    border: 1px solid #ede9f8;
-  }
-
-  .pillar strong {
-    display: block;
-    font-size: 0.85rem;
-    color: #0f0f0f;
-    margin-bottom: 0.2rem;
-  }
-
-  .pillar span {
-    font-size: 0.775rem;
-    color: #999;
-  }
-
-  /* ── Results ── */
-  .results {
-    background: #fff;
-    padding: 5rem 0;
-    border-top: 1px solid #f0eef8;
-  }
-
-  .results-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.25rem;
-  }
-
-  .result-card {
-    padding: 2rem;
-    border: 1px solid #e8e4f4;
-    border-radius: 12px;
-    transition: border-color 0.2s;
-  }
-
-  .result-card:hover {
-    border-color: #7c5cd6;
-  }
-
-  .result-cat {
-    display: block;
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 1.2px;
-    text-transform: uppercase;
-    color: #7c5cd6;
-    margin-bottom: 0.875rem;
-  }
-
-  .result-num {
-    display: block;
-    font-size: 3.75rem;
-    font-weight: 800;
-    color: #0f0f0f;
-    letter-spacing: -2.5px;
-    line-height: 1;
-    margin-bottom: 0.5rem;
-  }
-
-  .result-card h3 {
-    font-size: 0.975rem;
-    font-weight: 700;
-    color: #0f0f0f;
-    margin-bottom: 0.625rem;
-  }
-
-  .result-card p {
-    font-size: 0.85rem;
-    color: #777;
-    line-height: 1.75;
-  }
-
-  /* ── Articles ── */
-  .articles {
-    background: #f8f7fb;
-    padding: 5rem 0;
-  }
-
-  .articles-head {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    margin-bottom: 3rem;
-    gap: 1rem;
-    flex-wrap: wrap;
-  }
-
-  .articles-head .sub {
-    margin-bottom: 0;
-  }
-
-  .articles-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.25rem;
-  }
-
-  .article-card {
-    background: #fff;
-    padding: 1.75rem;
-    border-radius: 12px;
-    border: 1px solid #ede9f8;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .article-cat {
-    display: block;
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 1.2px;
-    text-transform: uppercase;
-    color: #7c5cd6;
-    margin-bottom: 0.875rem;
-  }
-
-  .article-card h3 {
-    font-size: 0.95rem;
-    font-weight: 700;
-    color: #0f0f0f;
-    line-height: 1.45;
-    margin-bottom: 0.75rem;
-    flex: 1;
-  }
-
-  .article-card h3 a {
-    text-decoration: none;
-    color: inherit;
-    transition: color 0.15s;
-  }
-
-  .article-card h3 a:hover {
-    color: #7c5cd6;
-  }
-
-  .article-card p {
-    font-size: 0.84rem;
-    color: #777;
-    line-height: 1.7;
-    margin-bottom: 1.25rem;
-  }
-
-  .article-link {
-    font-size: 0.84rem;
-    font-weight: 600;
-    color: #7c5cd6;
-    text-decoration: none;
-    margin-top: auto;
-  }
-
-  .article-link:hover {
-    text-decoration: underline;
-  }
-
-  /* ── Timeline ── */
-  .timeline-section {
-    background: #fff;
-    padding: 5rem 0;
-    border-top: 1px solid #f0eef8;
-  }
-
-  .tl-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-  }
-
-  .tl-col h2 {
-    font-size: 1.9rem;
-    margin-bottom: 2rem;
-  }
-
-  .tl-list {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-  }
-
-  .tl-item {
-    padding-left: 1.375rem;
-    border-left: 2px solid #ede9f8;
-    position: relative;
-  }
-
-  .tl-item::before {
-    content: '';
-    position: absolute;
-    left: -5px;
-    top: 5px;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: #7c5cd6;
-  }
-
-  .tl-title {
-    display: block;
-    font-size: 0.975rem;
-    font-weight: 700;
-    color: #0f0f0f;
-    margin-bottom: 0.2rem;
-  }
-
-  .tl-period {
-    display: block;
-    font-size: 0.78rem;
-    font-weight: 700;
-    color: #7c5cd6;
-    margin-bottom: 0.2rem;
-  }
-
-  .tl-place {
-    display: block;
-    font-size: 0.84rem;
-    color: #888;
-  }
-
-  .tl-desc {
-    font-size: 0.84rem;
-    color: #777;
-    line-height: 1.75;
-    margin-top: 0.625rem;
-  }
-
-  /* ── Credentials ── */
-  .credentials {
-    background: #f8f7fb;
-    padding: 5rem 0;
-  }
-
-  .certs-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.25rem;
-    margin-bottom: 3.5rem;
-  }
-
-  .cert-card {
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-    background: #fff;
-    padding: 1.75rem;
-    border-radius: 12px;
-    border: 1px solid #ede9f8;
-    text-decoration: none;
-    transition: border-color 0.2s, box-shadow 0.2s;
-  }
-
-  .cert-card:hover {
-    border-color: #7c5cd6;
-    box-shadow: 0 4px 16px rgba(124, 92, 214, 0.08);
-  }
-
-  .cert-name {
-    font-size: 0.975rem;
-    font-weight: 700;
-    color: #0f0f0f;
-  }
-
-  .cert-issuer {
-    font-size: 0.84rem;
-    color: #999;
-  }
-
-  .cert-verify {
-    font-size: 0.84rem;
-    font-weight: 600;
-    color: #7c5cd6;
-    margin-top: 0.5rem;
-  }
-
-  .tools-wrap {
-    margin-top: 0.5rem;
-  }
-
-  .tools-wrap .label {
-    margin-bottom: 1rem;
-  }
-
-  .marquee-outer {
-    overflow: hidden;
-    background: #fff;
-    border: 1px solid #ede9f8;
-    border-radius: 12px;
-    padding: 1.125rem 0;
-  }
-
-  .marquee {
-    display: flex;
-    width: max-content;
-    animation: marquee-scroll 28s linear infinite;
-  }
-
-  .tool-chip {
-    display: inline-block;
-    padding: 0 2rem;
-    font-size: 0.875rem;
-    color: #555;
-    white-space: nowrap;
-    border-right: 1px solid #ede9f8;
-  }
-
-  @keyframes marquee-scroll {
-    0% {
-      transform: translateX(0);
-    }
-    100% {
-      transform: translateX(-50%);
-    }
-  }
-
-  /* ── Contact ── */
-  .contact {
-    background: #fff;
-    padding: 5rem 0;
-    border-top: 1px solid #f0eef8;
-  }
-
-  .contact .container {
-    text-align: center;
-  }
-
-  .contact h2 {
-    margin-bottom: 0.875rem;
-  }
-
-  .contact .sub {
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-  }
-
-  .contact-cards {
-    display: flex;
-    gap: 1.25rem;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin-bottom: 2.5rem;
-  }
-
-  .contact-card {
-    display: flex;
-    flex-direction: column;
-    gap: 0.3rem;
-    padding: 1.5rem 2.25rem;
-    border: 1px solid #e8e4f4;
-    border-radius: 12px;
-    text-decoration: none;
-    min-width: 200px;
-    transition: border-color 0.2s;
-  }
-
-  .contact-card:hover {
-    border-color: #7c5cd6;
-  }
-
-  .contact-card-wa {
-    border-color: #c3efd0;
-  }
-
-  .contact-card-wa:hover {
-    border-color: #25d366;
-  }
-
-  .cc-label {
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 1.2px;
-    text-transform: uppercase;
-    color: #7c5cd6;
-  }
-
-  .cc-value {
-    font-size: 0.975rem;
-    font-weight: 600;
-    color: #0f0f0f;
-  }
-
-  .contact-socials {
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin-bottom: 1.5rem;
-  }
-
-  .location {
-    font-size: 0.84rem;
-    color: #aaa;
-  }
-
-  /* ── Footer ── */
-  footer {
-    background: #0f0f0f;
-    color: #fff;
-    padding: 2rem 0;
-  }
-
-  .foot-inner {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1.25rem;
-    text-align: center;
-  }
-
-  .foot-brand {
-    display: flex;
-    align-items: center;
-    gap: 0.625rem;
-    text-decoration: none;
-    color: #fff;
-    font-weight: 700;
-    font-size: 0.95rem;
-  }
-
-  .foot-logo {
-    width: 32px;
-    height: 32px;
-    border-radius: 7px;
-    background: #7c5cd6;
-    color: #fff;
-    font-size: 0.75rem;
-    font-weight: 800;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  footer nav {
-    display: flex;
-    gap: 2rem;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  footer nav a {
-    color: #777;
-    text-decoration: none;
-    font-size: 0.84rem;
-    transition: color 0.15s;
-  }
-
-  footer nav a:hover {
-    color: #fff;
-  }
-
-  .foot-copy {
-    font-size: 0.78rem;
-    color: #444;
-  }
-
-  /* ── Responsive ── */
-  @media (max-width: 1024px) {
-    .services-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-
-    .articles-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  @media (max-width: 768px) {
-    h1 {
-      font-size: 2.5rem;
-      letter-spacing: -1.5px;
-    }
-
-    h2 {
-      font-size: 1.85rem;
-    }
-
-    .hero-body {
-      grid-template-columns: 1fr;
-    }
-
-    .hero-stats {
-      flex-direction: row;
-      align-items: flex-start;
-      gap: 2rem;
-    }
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  h1,h2,h3{ margin:0; letter-spacing:-.02em; line-height:1.08; }
+  p{ margin:0; }
+  a{ color:inherit; text-decoration:none; }
+  ::selection{ background:var(--accent); color:#fff; }
 
-    .hstat {
-      text-align: left;
-    }
+  .wrap{ max-width:1120px; margin:0 auto; padding:0 32px; }
+  .em{ color:var(--accent); }
+  .ulink{ background:linear-gradient(var(--accent),var(--accent)) 0 92%/100% 2px no-repeat; }
 
-    .hstat-lbl {
-      text-align: left;
-    }
-
-    .why-top {
-      grid-template-columns: 1fr;
-    }
-
-    .why-cards {
-      grid-template-columns: 1fr 1fr;
-    }
-
-    .metrics {
-      grid-template-columns: repeat(2, 1fr);
-    }
-
-    .services-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .about-inner {
-      grid-template-columns: 1fr;
-    }
-
-    .about-aside {
-      flex-direction: row;
-      justify-content: flex-start;
-      padding-top: 0;
-    }
-
-    .results-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .articles-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .articles-head {
-      align-items: flex-start;
-    }
-
-    .tl-grid {
-      grid-template-columns: 1fr;
-      gap: 3rem;
-    }
-
-    .certs-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .contact-cards {
-      flex-direction: column;
-      align-items: center;
-    }
+  .pill{
+    display:inline-flex; align-items:center; gap:8px;
+    border-radius:999px; font-weight:600; font-size:15px;
+    padding:14px 26px; transition:transform .18s, box-shadow .18s;
+    cursor:pointer;
   }
-
-  @media (max-width: 480px) {
-    h1 {
-      font-size: 2rem;
-    }
-
-    .hero-stats {
-      flex-direction: column;
-      gap: 1.25rem;
-    }
-
-    .why-cards {
-      grid-template-columns: 1fr;
-    }
-
-    .pillars {
-      grid-template-columns: 1fr;
-    }
+  .pill:hover{ transform:translateY(-2px); }
+  .cta{ background:var(--cta); color:#fff; box-shadow:0 10px 24px -8px rgba(236,109,146,.6); }
+  .cta:hover{ box-shadow:0 14px 30px -8px rgba(236,109,146,.7); }
+  .ghost{ background:#fff; color:var(--ink); box-shadow:0 6px 20px -10px rgba(33,29,51,.4); }
+
+  .tag{
+    display:inline-flex; align-items:center; gap:7px;
+    font-size:12px; font-weight:700; letter-spacing:.12em;
+    text-transform:uppercase; color:var(--accent);
+  }
+  .tag::before{ content:''; width:7px; height:7px; border-radius:50%; background:var(--accent); }
+
+  .card{
+    background:#fff; border-radius:22px;
+    box-shadow:0 18px 50px -28px rgba(33,29,51,.45);
+    transition:transform .22s, box-shadow .22s;
+  }
+  .lift:hover{ transform:translateY(-6px); box-shadow:0 30px 60px -28px rgba(33,29,51,.5); }
+
+  .ico{
+    width:54px; height:54px; border-radius:15px;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+  }
+
+  .hsoc{
+    display:inline-flex; align-items:center; gap:8px;
+    transition:transform .15s, color .15s, box-shadow .15s;
+  }
+  .hsoc:hover{ color:var(--accent); transform:translateY(-2px); box-shadow:0 8px 18px -8px rgba(33,29,51,.55); }
+
+  .soc{
+    display:inline-flex; align-items:center; gap:8px;
+    transition:transform .15s, background .15s, color .15s;
+  }
+  .soc:hover{ background:#2c2450; color:#fff; transform:translateY(-2px); }
+
+  @keyframes float{ 0%,100%{ transform:translateY(0) } 50%{ transform:translateY(-14px) } }
+  .floaty{ animation:float 5.5s ease-in-out infinite; }
+
+  .clouds{
+    height:38px;
+    background:radial-gradient(circle 22px at 22px 38px,#fff 0 22px,transparent 23px) 0 0/44px 38px repeat-x;
+  }
+
+  .marquee{ display:flex; gap:54px; white-space:nowrap; animation:scrollx 26s linear infinite; }
+  @keyframes scrollx{ from{ transform:translateX(0) } to{ transform:translateX(-50%) } }
+
+  /* ── HERO ── */
+  .hero{
+    background:linear-gradient(165deg,#efeafc 0%,#f7ecf2 52%,#fde9dc 100%);
+    position:relative; overflow:hidden;
+  }
+  .hero-inner{
+    display:grid; grid-template-columns:1.05fr .95fr;
+    gap:40px; align-items:center;
+    padding-top:72px; padding-bottom:40px;
+  }
+  .hero-badge{
+    background:#fff; padding:8px 14px; border-radius:999px;
+    box-shadow:0 6px 18px -10px rgba(33,29,51,.4);
+  }
+  h1{
+    font-weight:800; font-size:clamp(38px,5.2vw,64px);
+    margin:22px 0 0; color:var(--ink);
+  }
+  .hero-desc{
+    font-size:18px; line-height:1.65; color:var(--muted);
+    margin-top:22px; max-width:48ch;
+  }
+  .hero-ctas{ display:flex; gap:14px; margin-top:30px; flex-wrap:wrap; }
+  .hero-socials{ display:flex; align-items:center; gap:10px; margin-top:30px; flex-wrap:wrap; }
+
+  .hero-photo{ position:relative; display:flex; justify-content:center; }
+  .hero-blob{
+    position:absolute; width:300px; height:300px; border-radius:50%;
+    background:radial-gradient(circle at 30% 30%,#c9b6f4,#a988ec);
+    filter:blur(2px); top:8%;
+  }
+  .hero-img{
+    position:relative; width:300px; height:380px;
+    border-radius:26px; object-fit:cover; object-position:center top;
+    box-shadow:0 30px 60px -24px rgba(86,54,160,.5);
+  }
+  .stat-card-left{
+    position:absolute; left:-8px; bottom:40px;
+    padding:14px 16px; border-radius:16px; animation-delay:1.2s;
+  }
+  .stat-card-right{
+    position:absolute; right:-6px; top:30px;
+    padding:12px 15px; border-radius:16px;
+    display:flex; align-items:center; gap:9px; animation-delay:.5s;
+  }
+  .stat-green{ font-weight:800; font-size:22px; color:#2fae74; }
+  .stat-lbl{ font-size:11px; color:var(--muted); }
+
+  /* ── INTRO ── */
+  .intro{ padding:74px 0 10px; text-align:center; }
+  .intro-wrap{ max-width:880px; margin:0 auto; }
+  .intro h2{ font-weight:700; font-size:clamp(26px,3.4vw,38px); margin-top:18px; }
+  .intro p{ font-size:16px; line-height:1.7; color:var(--muted); margin-top:20px; max-width:62ch; margin-left:auto; margin-right:auto; }
+
+  /* ── FEATURES ── */
+  .features{ padding:48px 0 64px; }
+  .features-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:26px; }
+  .feat-ico{ width:54px; height:54px; border-radius:15px; display:flex; align-items:center; justify-content:center; }
+  .feat h3{ font-size:17px; font-weight:700; margin-top:16px; }
+  .feat p{ font-size:14px; line-height:1.6; color:var(--muted); margin-top:7px; }
+
+  /* ── STAT BAR ── */
+  .stat-bar{ padding-bottom:78px; }
+  .stat-bar-card{
+    display:grid; grid-template-columns:repeat(4,1fr);
+    gap:20px; padding:34px 40px; border-radius:24px;
+    background:linear-gradient(120deg,#fff,#faf6ff);
+  }
+  .stat-item{ text-align:center; }
+  .stat-item+.stat-item{ border-left:1px solid #ece7f6; }
+  .stat-num{ font-weight:800; font-size:36px; }
+  .stat-sub{ font-size:13px; color:var(--muted); margin-top:4px; }
+
+  /* ── SERVICES ── */
+  .services-sec{
+    background:linear-gradient(180deg,#fdeee5 0%,#f6ecf6 100%);
+    padding:74px 0 88px;
+  }
+  .sec-head{ text-align:center; max-width:680px; margin:0 auto 46px; }
+  .sec-head h2{ font-weight:800; font-size:clamp(30px,4vw,46px); margin-top:16px; }
+  .sec-head p{ font-size:16px; line-height:1.7; color:var(--muted); margin-top:16px; }
+  .services-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+  .svc-card{ padding:30px 28px; }
+  .svc-card h3{ font-size:19px; font-weight:700; margin-top:18px; }
+  .svc-card p{ font-size:14px; line-height:1.65; color:var(--muted); margin-top:9px; }
+
+  /* ── ABOUT ── */
+  .about-sec{
+    padding:84px 0;
+    display:grid; grid-template-columns:.95fr 1.05fr;
+    gap:56px; align-items:center;
+  }
+  .about-photo{ position:relative; }
+  .about-deco{
+    position:absolute; inset:auto auto -16px -16px;
+    width:130px; height:130px; border-radius:24px;
+    background:#fde7da; z-index:0;
+  }
+  .about-img{
+    position:relative; z-index:1; width:100%;
+    aspect-ratio:4/3.4; object-fit:cover; object-position:center top;
+    border-radius:22px; display:block;
+  }
+  .about-badge{
+    position:absolute; z-index:2; right:-14px; bottom:-18px;
+    padding:16px 18px; border-radius:18px;
+    display:flex; align-items:center; gap:11px;
+  }
+  .about-years{
+    width:42px; height:42px; border-radius:12px;
+    background:#e3f3ea; color:#2fae74;
+    font-weight:800; font-size:16px;
+    display:flex; align-items:center; justify-content:center; flex-shrink:0;
+  }
+  .about-text h2{ font-weight:800; font-size:clamp(28px,3.6vw,42px); margin-top:16px; }
+  .about-text > p{ font-size:16px; line-height:1.7; color:var(--muted); margin-top:16px; }
+  .about-pillars{
+    display:grid; grid-template-columns:1fr 1fr;
+    gap:18px 26px; margin-top:28px;
+  }
+  .pillar{ display:flex; gap:11px; align-items:flex-start; }
+  .pillar-check{
+    width:26px; height:26px; border-radius:8px;
+    background:#efe9fc; color:var(--accent);
+    display:flex; align-items:center; justify-content:center; flex-shrink:0;
+  }
+  .pillar strong{ display:block; font-weight:700; font-size:15px; }
+  .pillar span{ font-size:13px; color:var(--muted); }
+
+  /* ── RESULTS ── */
+  .results-sec{ background:var(--dark); color:#fff; padding:82px 0; }
+  .results-head{
+    display:flex; align-items:flex-end; justify-content:space-between;
+    flex-wrap:wrap; gap:18px; margin-bottom:42px;
+  }
+  .results-head .tag{ color:#c3b1f5; }
+  .results-head .tag::before{ background:#c3b1f5; }
+  .results-head h2{ font-weight:800; font-size:clamp(30px,4vw,46px); margin-top:14px; color:#fff; }
+  .results-head p{ font-size:15px; color:#a59fc0; max-width:34ch; }
+  .results-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+  .res-card{
+    background:#1f1a38; border-radius:22px;
+    overflow:hidden; padding:30px 28px;
+    transition:transform .22s, box-shadow .22s;
+  }
+  .res-card:hover{ transform:translateY(-6px); box-shadow:0 30px 60px -28px rgba(33,29,51,.5); }
+  .res-cat{ font-size:12px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:#c3b1f5; }
+  .res-num{ font-weight:800; font-size:40px; color:#7bd0a4; display:block; margin-top:16px; }
+  .res-card h3{ font-size:18px; font-weight:700; margin-top:8px; color:#fff; }
+  .res-card p{ font-size:14px; color:#a59fc0; margin-top:10px; line-height:1.6; }
+  .res-row{
+    margin-top:24px; background:#1f1a38; border-radius:22px;
+    padding:26px 30px; display:flex; align-items:center; gap:18px; flex-wrap:wrap;
+  }
+  .res-row-ico{ background:rgba(124,92,214,.25); color:#c3b1f5; flex-shrink:0; }
+  .res-row h3{ font-size:17px; font-weight:700; color:#fff; }
+  .res-row p{ font-size:14px; color:#a59fc0; margin-top:5px; line-height:1.55; }
+
+  /* ── ARTICLES ── */
+  .articles-sec{
+    background:linear-gradient(180deg,#f6ecf6 0%,#fdeee5 100%);
+    padding:78px 0 88px;
+  }
+  .articles-head{
+    display:flex; align-items:flex-end; justify-content:space-between;
+    flex-wrap:wrap; gap:18px; margin-bottom:44px;
+  }
+  .articles-head h2{ font-weight:800; font-size:clamp(30px,4vw,46px); margin-top:14px; }
+  .articles-head p{ font-size:16px; line-height:1.7; color:var(--muted); margin-top:14px; }
+  .articles-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+  .art-card{
+    display:flex; flex-direction:column; overflow:hidden;
+    background:#fff; border-radius:22px;
+    box-shadow:0 18px 50px -28px rgba(33,29,51,.45);
+    transition:transform .22s, box-shadow .22s;
+  }
+  .art-card:hover{ transform:translateY(-6px); box-shadow:0 30px 60px -28px rgba(33,29,51,.5); }
+  .art-card img{ width:100%; height:190px; object-fit:cover; display:block; }
+  .art-body{ padding:24px 26px 26px; display:flex; flex-direction:column; flex:1; }
+  .art-tag{ color:var(--cta); }
+  .art-tag::before{ background:var(--cta); }
+  .art-body h3{ font-size:19px; font-weight:700; margin-top:12px; line-height:1.25; }
+  .art-body p{ font-size:14px; line-height:1.6; color:var(--muted); margin-top:10px; flex:1; }
+  .art-link{ font-size:14px; font-weight:600; margin-top:16px; align-self:flex-start; }
+
+  /* ── CREDENTIALS ── */
+  .creds-sec{
+    background:linear-gradient(180deg,#f7f2ff,#fdeef0);
+    padding:84px 0;
+  }
+  .creds-inner{ display:flex; flex-direction:column; gap:54px; }
+  .creds-2col{ display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:28px; }
+  .edu-card{ padding:22px 24px; }
+  .edu-head{ display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap; }
+  .edu-degree{ font-weight:700; font-size:17px; }
+  .edu-years{ font-size:13px; color:var(--accent); font-weight:600; white-space:nowrap; }
+  .edu-school{ font-size:14px; color:var(--muted); margin-top:4px; }
+  .exp-card{ padding:22px 24px; }
+  .exp-head{ display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; }
+  .exp-title{ font-size:18px; font-weight:700; margin:0; }
+  .exp-period{ font-size:13px; color:var(--accent); font-weight:600; white-space:nowrap; }
+  .exp-company{ font-size:14px; color:var(--muted); margin-top:3px; }
+  .exp-desc{ font-size:13px; color:#615c75; margin-top:10px; line-height:1.6; }
+  .cert-card{
+    padding:20px 22px; display:flex; gap:13px; align-items:flex-start;
+    border-radius:22px; box-shadow:0 18px 50px -28px rgba(33,29,51,.45);
+    background:#fff; transition:transform .22s, box-shadow .22s;
+  }
+  .cert-card:hover{ transform:translateY(-6px); box-shadow:0 30px 60px -28px rgba(33,29,51,.5); }
+  .cert-ico{ width:40px; height:40px; border-radius:11px; flex-shrink:0; display:flex; align-items:center; justify-content:center; }
+  .cert-name{ font-weight:700; font-size:15px; display:block; }
+  .cert-issuer{ font-size:13px; color:var(--muted); display:block; margin-top:2px; }
+  .cert-verify{ font-size:12px; font-weight:600; color:var(--accent); display:inline-flex; align-items:center; gap:4px; margin-top:8px; }
+
+  /* ── TOOLS MARQUEE ── */
+  .tools-sec{
+    padding:54px 0; overflow:hidden;
+    border-top:1px solid #f0e9f6; border-bottom:1px solid #f0e9f6;
+  }
+  .tools-label{ text-align:center; margin-bottom:28px; }
+  .marquee-track{ overflow:hidden; }
+  .marquee-inner{ display:flex; gap:54px; white-space:nowrap; animation:scrollx 26s linear infinite; font-weight:700; font-size:22px; color:#b3a8c8; }
+
+  /* ── CONTACT ── */
+  .contact-sec{ background:var(--dark); color:#fff; padding:56px 0 0; }
+  .contact-tag{ color:#c3b1f5; }
+  .contact-tag::before{ background:#c3b1f5; }
+  .contact-h2{ font-weight:800; font-size:clamp(30px,4.2vw,48px); margin-top:16px; color:#fff; }
+  .contact-desc{ font-size:16px; color:#a59fc0; margin-top:16px; max-width:44ch; line-height:1.7; }
+  .contact-links{ display:flex; flex-wrap:wrap; gap:14px 40px; margin-top:28px; }
+  .contact-item{ display:flex; align-items:center; gap:14px; }
+  .contact-ico{ display:flex; align-items:center; justify-content:center; width:54px; height:54px; border-radius:15px; flex-shrink:0; }
+  .contact-lbl{ font-size:12px; color:#857fa0; }
+  .contact-val{ font-weight:600; }
+  .follow-label{ font-size:12px; color:#857fa0; margin-bottom:8px; }
+  .follow-icons{ display:flex; gap:10px; }
+  .soc-btn{
+    width:44px; height:44px; border-radius:12px;
+    background:#211a3e; border:1px solid #322a52;
+    color:#c3b1f5; display:inline-flex; align-items:center; justify-content:center;
+    transition:background .15s, color .15s, transform .15s;
+  }
+  .soc-btn:hover{ background:#2c2450; color:#fff; transform:translateY(-2px); }
+  .contact-footer{
+    margin-top:44px; border-top:1px solid #2a2348;
+    padding:26px 32px; display:flex;
+    justify-content:space-between; align-items:center;
+    flex-wrap:wrap; gap:14px;
+  }
+  .cf-brand{ display:flex; align-items:center; gap:10px; font-weight:800; }
+  .cf-logo{ width:28px; height:28px; border-radius:6px; object-fit:contain; background:#fff; padding:2px; }
+  .cf-copy{ font-size:13px; color:#857fa0; }
+  .cf-links{ display:flex; gap:18px; font-size:13px; color:#a59fc0; flex-wrap:wrap; }
+  .cf-links a{ color:#a59fc0; }
+  .cf-links a:hover{ color:#fff; }
+
+  /* ── RESPONSIVE ── */
+  @media(max-width:900px){
+    .hero-inner{ grid-template-columns:1fr; }
+    .hero-photo{ display:none; }
+    .features-grid{ grid-template-columns:repeat(2,1fr); }
+    .stat-bar-card{ grid-template-columns:repeat(2,1fr); }
+    .stat-item+.stat-item{ border-left:none; }
+    .stat-item:nth-child(odd){ border-right:none; }
+    .services-grid{ grid-template-columns:repeat(2,1fr); }
+    .about-sec{ grid-template-columns:1fr; }
+    .about-photo{ display:none; }
+    .results-grid{ grid-template-columns:1fr; }
+    .articles-grid{ grid-template-columns:1fr; }
+    .creds-2col{ grid-template-columns:1fr; }
+    .about-pillars{ grid-template-columns:1fr; }
+  }
+  @media(max-width:600px){
+    .wrap{ padding:0 16px; }
+    .services-grid{ grid-template-columns:1fr; }
+    .features-grid{ grid-template-columns:1fr 1fr; }
+    .articles-head{ flex-direction:column; align-items:flex-start; }
+    .results-head{ flex-direction:column; }
+    .stat-bar-card{ padding:24px 20px; }
+    .hero-desc{ font-size:16px; }
+    .pill{ font-size:14px; padding:12px 20px; }
+    .hero-ctas{ gap:10px; }
   }
 </style>
+
+<!-- ── HERO ── -->
+<section id="top" class="hero">
+  <div class="wrap">
+    <div class="hero-inner">
+      <div>
+        <span class="tag hero-badge">SEO Analyst · AEO / GEO · 5+ years</span>
+        <h1>Get found in Google, and in <span class="em">every AI answer engine.</span></h1>
+        <p class="hero-desc">I'm Sivaraj, an SEO &amp; AI-search analyst helping brands earn visibility across Google AI Overviews, ChatGPT, Gemini, Perplexity, Bing AI and Copilot, backed by enterprise SEO that compounds.</p>
+        <div class="hero-ctas">
+          <a href="https://calendar.app.google/FwUxXeGAFCdvuvGN6" target="_blank" rel="noopener" class="pill cta">Let's connect →</a>
+          <a href="/uploads/Sivaraj SEO Analyst Resume.pdf" target="_blank" rel="noopener" class="pill ghost">Resume ↓</a>
+        </div>
+        <div class="hero-socials">
+          <a href="https://www.linkedin.com/in/sivaraj-seo-analyst/" target="_blank" rel="noopener" class="hsoc" style="background:#fff;padding:9px 16px;border-radius:999px;font-size:13px;font-weight:600;color:#4a4560;box-shadow:0 4px 12px -8px rgba(33,29,51,.5)">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="#0a66c2"><path d="M4.98 3.5A2.5 2.5 0 002.5 6a2.5 2.5 0 105 0 2.5 2.5 0 00-2.52-2.5zM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.5 4.78 5.76V21H18.6v-5.3c0-1.26-.02-2.9-1.77-2.9-1.77 0-2.04 1.38-2.04 2.8V21H11z"/></svg>
+            LinkedIn
+          </a>
+          <a href="https://medium.com/@sivaraj-c" target="_blank" rel="noopener" class="hsoc" style="background:#fff;padding:9px 16px;border-radius:999px;font-size:13px;font-weight:600;color:#4a4560;box-shadow:0 4px 12px -8px rgba(33,29,51,.5)">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="#191919"><path d="M13.54 12a6.8 6.8 0 01-6.77 6.82A6.8 6.8 0 010 12a6.8 6.8 0 016.77-6.82A6.8 6.8 0 0113.54 12zM20.96 12c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42S20.96 8.46 20.96 12zM24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z"/></svg>
+            Medium
+          </a>
+          <a href="https://www.quora.com/profile/Sivaraj-29" target="_blank" rel="noopener" class="hsoc" style="background:#fff;padding:9px 16px;border-radius:999px;font-size:13px;font-weight:600;color:#4a4560;box-shadow:0 4px 12px -8px rgba(33,29,51,.5)">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="#b92b27"><path d="M12.74 16.66c-.53-1.05-1.16-2.1-2.5-2.1-.26 0-.52.04-.75.14l-.44-.9c.53-.46 1.4-.83 2.53-.83 1.75 0 2.65 1.06 3.36 2.4.42-.9.6-2.06.6-3.4 0-3.34-1.05-5.04-3.54-5.04-2.46 0-3.5 1.7-3.5 5.04s1.04 5.02 3.5 5.02c.27 0 .52-.02.76-.07zm1.03 1.9c-.34.08-.7.12-1.07.12-3.83 0-6.75-2.98-6.75-6.97C5.95 7.7 8.87 4.7 12.7 4.7c3.88 0 6.77 2.98 6.77 6.9 0 2.45-1.12 4.55-2.92 5.76.5.72 1.02 1.2 1.75 1.2.8 0 1.12-.62 1.18-1.1h1.6c-.07 1.02-.6 3.13-3.2 3.13-1.98 0-3.02-1.15-4.1-2.03z"/></svg>
+            Quora
+          </a>
+          <a href="https://www.reddit.com/user/Sivaraj_C/" target="_blank" rel="noopener" class="hsoc" style="background:#fff;padding:9px 16px;border-radius:999px;font-size:13px;font-weight:600;color:#4a4560;box-shadow:0 4px 12px -8px rgba(33,29,51,.5)">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="#ff4500"><path d="M22 12.06c0-1.1-.9-2-2-2-.53 0-1 .2-1.36.54-1.34-.9-3.1-1.46-5.04-1.53l.86-3.9 2.72.6a1.43 1.43 0 102.86-.1 1.43 1.43 0 00-2.7-.65l-3.05-.68a.35.35 0 00-.42.27l-.96 4.36c-1.97.06-3.75.62-5.1 1.53A2 2 0 002 12.06c0 .78.45 1.45 1.1 1.78a3.6 3.6 0 00-.05.6c0 3.06 3.56 5.54 7.95 5.54s7.95-2.48 7.95-5.54c0-.2-.02-.4-.05-.6.65-.33 1.1-1 1.1-1.78zM7.5 13.5a1.43 1.43 0 112.86 0 1.43 1.43 0 01-2.86 0zm7.9 3.6c-.98.98-3.6.98-4.58 0a.35.35 0 01.5-.5c.68.68 2.9.68 3.58 0a.35.35 0 01.5.5zm-.22-2.17a1.43 1.43 0 110-2.86 1.43 1.43 0 010 2.86z"/></svg>
+            Reddit
+          </a>
+        </div>
+      </div>
+      <div class="hero-photo">
+        <div class="hero-blob"></div>
+        <img class="hero-img floaty" src="/images/profile-hero.jpg" alt="C. Sivaraj" loading="eager" />
+        <div class="card floaty stat-card-left">
+          <div class="stat-green">+1,050%</div>
+          <div class="stat-lbl">organic sessions (GEO pilot)</div>
+        </div>
+        <div class="card floaty stat-card-right">
+          <div class="ico" style="width:38px;height:38px;border-radius:11px;background:#fbe6ef;color:var(--cta)">
+            <svg viewBox="0 0 24 24" width="20" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="4 15 10 9 14 13 20 5"/></svg>
+          </div>
+          <div>
+            <div style="font-weight:700;font-size:13px">1M+</div>
+            <div class="stat-lbl">Bing AI citations</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="clouds"></div>
+</section>
+
+<!-- ── INTRO ── -->
+<section class="intro">
+  <div class="wrap intro-wrap">
+    <span class="tag" style="display:inline-flex;justify-content:center">AI-first SEO</span>
+    <h2 class="intro-h2">5+ years optimizing enterprise content so it ranks in search <em>and</em> gets cited by the AI engines people now <span class="ulink em">ask first.</span></h2>
+    <p>I build AI-first content systems on a foundation of technical SEO, topical authority and entity optimization, so brands stay discoverable as search shifts from ten blue links to generative answers.</p>
+  </div>
+</section>
+
+<!-- ── FEATURES ── -->
+<section class="features wrap">
+  <div class="features-grid">
+    <div class="feat">
+      <div class="feat-ico" style="background:#efe9fc;color:var(--accent)">
+        <svg viewBox="0 0 24 24" width="26" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/></svg>
+      </div>
+      <h3>AI search visibility</h3>
+      <p>Optimized to be cited across AI Overviews, ChatGPT, Gemini &amp; Perplexity.</p>
+    </div>
+    <div class="feat">
+      <div class="feat-ico" style="background:#fbe6ef;color:var(--cta)">
+        <svg viewBox="0 0 24 24" width="26" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="16" y1="16" x2="21" y2="21"/></svg>
+      </div>
+      <h3>Search-intent insight</h3>
+      <p>Targeting the queries with real intent across search and answer engines.</p>
+    </div>
+    <div class="feat">
+      <div class="feat-ico" style="background:#e3f3ea;color:#2fae74">
+        <svg viewBox="0 0 24 24" width="26" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 18 L9 12 L13 15 L20 6"/><polyline points="20 11 20 6 15 6"/></svg>
+      </div>
+      <h3>Enterprise SEO</h3>
+      <p>Technical fixes and structure across tens of thousands of pages.</p>
+    </div>
+    <div class="feat">
+      <div class="feat-ico" style="background:#fdeede;color:#e0922f">
+        <svg viewBox="0 0 24 24" width="26" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="1" fill="currentColor"/></svg>
+      </div>
+      <h3>Topical authority</h3>
+      <p>Entity-led content architecture that builds lasting E-E-A-T.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── STAT BAR ── -->
+<section class="stat-bar wrap">
+  <div class="card stat-bar-card">
+    <div class="stat-item"><div class="stat-num">1,050%<span class="em">.</span></div><div class="stat-sub">Organic session lift (GEO pilot)</div></div>
+    <div class="stat-item"><div class="stat-num">1M<span style="color:var(--cta)">+</span></div><div class="stat-sub">Bing AI citations generated</div></div>
+    <div class="stat-item"><div class="stat-num">70K<span style="color:#2fae74">+</span></div><div class="stat-sub">Pages optimized at scale</div></div>
+    <div class="stat-item"><div class="stat-num">80%<span style="color:#e0922f">.</span></div><div class="stat-sub">Less SEO reporting effort</div></div>
+  </div>
+</section>
+
+<!-- ── SERVICES ── -->
+<section id="services" class="services-sec">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="tag" style="display:inline-flex">What I do</span>
+      <h2>Services for the <span class="em">AI search era</span></h2>
+      <p>From traditional rankings to AI citations. Engagements scoped to where your organic growth is stuck.</p>
+    </div>
+    <div class="services-grid">
+      <div class="card lift svc-card">
+        <div class="ico" style="background:#efe9fc;color:var(--accent)"><svg viewBox="0 0 24 24" width="26" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/></svg></div>
+        <h3>AI Search Optimization (AEO / GEO)</h3>
+        <p>Make your content the cited answer in Google AI Overviews, ChatGPT, Gemini, Perplexity, Bing AI and Copilot.</p>
+      </div>
+      <div class="card lift svc-card">
+        <div class="ico" style="background:#fbe6ef;color:var(--cta)"><svg viewBox="0 0 24 24" width="26" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="9" x2="9" y2="20"/></svg></div>
+        <h3>Enterprise SEO</h3>
+        <p>Scalable optimization frameworks and governance across tens of thousands of indexed pages.</p>
+      </div>
+      <div class="card lift svc-card">
+        <div class="ico" style="background:#e3f3ea;color:#2fae74"><svg viewBox="0 0 24 24" width="26" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 007 0l3-3a5 5 0 00-7-7l-1 1"/><path d="M14 11a5 5 0 00-7 0l-3 3a5 5 0 007 7l1-1"/></svg></div>
+        <h3>Technical SEO</h3>
+        <p>Audits across crawl, indexation, metadata, schema, redirects, XML sitemaps and internal linking.</p>
+      </div>
+      <div class="card lift svc-card">
+        <div class="ico" style="background:#fdeede;color:#e0922f"><svg viewBox="0 0 24 24" width="26" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="7" x2="19" y2="7"/><line x1="5" y1="12" x2="19" y2="12"/><line x1="5" y1="17" x2="13" y2="17"/></svg></div>
+        <h3>Content Strategy</h3>
+        <p>Topic clusters, search-intent mapping, content briefs and editorial systems that earn topical authority.</p>
+      </div>
+      <div class="card lift svc-card">
+        <div class="ico" style="background:#e8edfb;color:#4a63c9"><svg viewBox="0 0 24 24" width="26" fill="none" stroke="currentColor" stroke-width="2"><circle cx="7" cy="7" r="2"/><circle cx="17" cy="7" r="2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/><line x1="9" y1="7" x2="15" y2="7"/><line x1="7" y1="9" x2="7" y2="15"/><line x1="9" y1="17" x2="15" y2="17"/></svg></div>
+        <h3>Semantic &amp; Entity SEO</h3>
+        <p>Entity optimization, structured data and semantic relevance that AI engines can understand and trust.</p>
+      </div>
+      <div class="card lift svc-card">
+        <div class="ico" style="background:#fbe6ef;color:var(--cta)"><svg viewBox="0 0 24 24" width="26" fill="none" stroke="currentColor" stroke-width="2"><line x1="6" y1="20" x2="6" y2="12"/><line x1="12" y1="20" x2="12" y2="6"/><line x1="18" y1="20" x2="18" y2="9"/></svg></div>
+        <h3>Analytics &amp; Reporting</h3>
+        <p>GSC, GA4, Ahrefs, SEMrush and Looker Studio dashboards tying organic and AI visibility to outcomes.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── ABOUT ── -->
+<div id="about" class="about-sec wrap">
+  <div class="about-photo">
+    <div class="about-deco"></div>
+    <img src="/images/profile-about.png" alt="C. Sivaraj" loading="lazy" class="about-img" />
+    <div class="card about-badge">
+      <div class="about-years">5+</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.3"><b style="color:var(--ink)">Years</b><br>in SEO &amp; AI search</div>
+    </div>
+  </div>
+  <div class="about-text">
+    <span class="tag">About me</span>
+    <h2>An SEO analyst built for <span class="em">how search works now</span></h2>
+    <p>I drive enterprise SEO and AI-first content strategies across healthcare and global digital ecosystems. I work hand-in-hand with content, editorial, product and technical teams to build AI-first content systems, improve discoverability, and grow citations across both traditional and generative search.</p>
+    <div class="about-pillars">
+      <div class="pillar">
+        <span class="pillar-check"><svg viewBox="0 0 24 24" width="15" fill="none" stroke="currentColor" stroke-width="3"><polyline points="5 13 10 18 19 6"/></svg></span>
+        <div><strong>AI-first workflows</strong><span>Content built to be cited.</span></div>
+      </div>
+      <div class="pillar">
+        <span class="pillar-check"><svg viewBox="0 0 24 24" width="15" fill="none" stroke="currentColor" stroke-width="3"><polyline points="5 13 10 18 19 6"/></svg></span>
+        <div><strong>Data-backed strategy</strong><span>Decisions from your numbers.</span></div>
+      </div>
+      <div class="pillar">
+        <span class="pillar-check"><svg viewBox="0 0 24 24" width="15" fill="none" stroke="currentColor" stroke-width="3"><polyline points="5 13 10 18 19 6"/></svg></span>
+        <div><strong>Cross-functional</strong><span>Content, dev &amp; stakeholders.</span></div>
+      </div>
+      <div class="pillar">
+        <span class="pillar-check"><svg viewBox="0 0 24 24" width="15" fill="none" stroke="currentColor" stroke-width="3"><polyline points="5 13 10 18 19 6"/></svg></span>
+        <div><strong>Scalable governance</strong><span>Frameworks that hold up.</span></div>
+      </div>
+    </div>
+    <a href="#contact" class="pill cta" style="margin-top:30px">Get in touch →</a>
+  </div>
+</div>
+
+<!-- ── RESULTS ── -->
+<section id="work" class="results-sec">
+  <div class="wrap">
+    <div class="results-head">
+      <div>
+        <span class="tag results-head">Key achievements</span>
+        <h2>Results that <span style="color:#c3b1f5">speak for themselves</span></h2>
+      </div>
+      <p>Real outcomes from enterprise SEO and Generative Engine Optimization programs.</p>
+    </div>
+    <div class="results-grid">
+      <div class="res-card">
+        <div class="res-cat">Healthcare · GEO / AEO</div>
+        <span class="res-num">+1,050%</span>
+        <h3>Organic sessions, GEO pilot</h3>
+        <p>Led a GEO/AEO pilot across 60 high-value healthcare articles; the framework was then adopted site-wide across Google, Bing and AI platforms.</p>
+      </div>
+      <div class="res-card">
+        <div class="res-cat">AI citations · Bing &amp; Copilot</div>
+        <span class="res-num">1M+</span>
+        <h3>Bing AI citations generated</h3>
+        <p>Through GEO and AEO, significantly enhanced brand visibility across Microsoft Copilot, Bing AI and AI-powered search experiences.</p>
+      </div>
+      <div class="res-card">
+        <div class="res-cat">Reporting · Looker Studio</div>
+        <span class="res-num">80%</span>
+        <h3>Less reporting effort</h3>
+        <p>Built executive dashboards in Google Looker Studio that cut manual SEO reporting effort by 80% and improved stakeholder visibility.</p>
+      </div>
+    </div>
+    <div class="res-row">
+      <div class="ico res-row-ico"><svg viewBox="0 0 24 24" width="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3 8-8"/><path d="M20 12v6a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h9"/></svg></div>
+      <div style="flex:1;min-width:240px">
+        <h3>LLM Content Optimization Checklist</h3>
+        <p>Built a standard for AI-search best practices that raised content quality and citation eligibility across AI engines for content teams.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── ARTICLES ── -->
+<section id="articles" class="articles-sec">
+  <div class="wrap">
+    <div class="articles-head">
+      <div style="max-width:620px">
+        <span class="tag" style="display:inline-flex">Writing</span>
+        <h2>Articles on <span class="em">SEO, GEO &amp; AEO</span></h2>
+        <p>Field notes on how search is shifting from rankings to AI citations, and what to actually do about it.</p>
+      </div>
+      <a href="/articles/" class="pill ghost">All articles →</a>
+    </div>
+    <div class="articles-grid">
+      <a class="art-card" href="https://www.linkedin.com/pulse/google-ranking-vs-signals-llm-why-your-seo-playbook-needs-sivaraj-c-ruegc/" target="_blank" rel="noopener">
+        <img src="/images/article-1.webp" alt="Google Ranking vs LLM Signals" loading="lazy" />
+        <div class="art-body">
+          <div class="tag art-tag" style="display:inline-flex">LinkedIn · Article</div>
+          <h3>Google Ranking vs LLM Signals: Why Your SEO Playbook Needs a Rewrite</h3>
+          <p>The signals that win rankings aren't the same ones that get you cited by LLMs, and here's how they diverge.</p>
+          <span class="ulink em art-link">Read on LinkedIn →</span>
+        </div>
+      </a>
+      <a class="art-card" href="https://www.linkedin.com/pulse/seo-dead-2026-do-you-actually-need-geo-aeo-sivaraj-c-6txtc/" target="_blank" rel="noopener">
+        <img src="/images/article-2.webp" alt="Is SEO Dead in 2026?" loading="lazy" />
+        <div class="art-body">
+          <div class="tag art-tag" style="display:inline-flex">LinkedIn · Article</div>
+          <h3>Is SEO Dead in 2026? Do You Actually Need GEO &amp; AEO?</h3>
+          <p>Cutting through the hype on whether SEO is over, and where GEO and AEO genuinely fit your strategy.</p>
+          <span class="ulink em art-link">Read on LinkedIn →</span>
+        </div>
+      </a>
+      <a class="art-card" href="https://www.linkedin.com/pulse/ai-hallucinating-your-brand-every-model-does-sivaraj-c-tlfuc/" target="_blank" rel="noopener">
+        <img src="/images/article-3.webp" alt="AI Is Hallucinating About Your Brand" loading="lazy" />
+        <div class="art-body">
+          <div class="tag art-tag" style="display:inline-flex">LinkedIn · Article</div>
+          <h3>AI Is Hallucinating About Your Brand — Every Model Does</h3>
+          <p>Why every LLM invents facts about your brand, and the entity work that keeps the answers accurate.</p>
+          <span class="ulink em art-link">Read on LinkedIn →</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── CREDENTIALS ── -->
+<section id="credentials" class="creds-sec">
+  <div class="wrap">
+    <div class="creds-inner">
+      <!-- Education -->
+      <div>
+        <span class="tag">Education</span>
+        <h2>Education</h2>
+        <div class="creds-2col">
+          <div class="card edu-card">
+            <div class="edu-head"><span class="edu-degree">MBA, Marketing</span><span class="edu-years">2017 – 2019</span></div>
+            <div class="edu-school">Kongu Engineering College, Erode</div>
+          </div>
+          <div class="card edu-card">
+            <div class="edu-head"><span class="edu-degree">BSc, Computer Science</span><span class="edu-years">2012 – 2015</span></div>
+            <div class="edu-school">SNR Sons College, Coimbatore</div>
+          </div>
+        </div>
+      </div>
+      <!-- Experience -->
+      <div>
+        <span class="tag">Experience</span>
+        <h2>Where I've worked</h2>
+        <div class="creds-2col">
+          <div class="card exp-card">
+            <div class="exp-head"><h3 class="exp-title">SEO Analyst</h3><span class="exp-period">Jul 2022 – Present</span></div>
+            <div class="exp-company">Orane Healthcare India Pvt Ltd · Coimbatore</div>
+            <p class="exp-desc">Led enterprise SEO &amp; GEO across 70,000+ indexed pages: AI-first content frameworks, topical authority, technical SEO, and a GEO/AEO program driving a 1,050% lift in organic sessions.</p>
+          </div>
+          <div class="card exp-card">
+            <div class="exp-head"><h3 class="exp-title">SEO Executive</h3><span class="exp-period">Sep 2019 – Jan 2021</span></div>
+            <div class="exp-company">Boostability India · Coimbatore</div>
+            <p class="exp-desc">Managed SEO for 25+ client sites across healthcare, SaaS and services. Technical audits, content briefs and digital PR that lifted average client Domain Authority by 25+ points.</p>
+          </div>
+        </div>
+      </div>
+      <!-- Certifications -->
+      <div>
+        <span class="tag">Certifications</span>
+        <h2>Credentials</h2>
+        <div class="creds-2col">
+          <a class="cert-card" href="https://www.coursera.org/account/accomplishments/verify/582XE0FA3326" target="_blank" rel="noopener">
+            <span class="cert-ico" style="background:#efe9fc;color:var(--accent)"><svg viewBox="0 0 24 24" width="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1 3 3 6 3s6-2 6-3v-5"/></svg></span>
+            <div>
+              <span class="cert-name">Generative Engine Content Optimization</span>
+              <span class="cert-issuer">Edureka</span>
+              <span class="cert-verify">Verify credential ↗</span>
+            </div>
+          </a>
+          <a class="cert-card" href="https://academy.seoclarity.net/certificate-verification/1332C8E64-1332C8ECB-330938F/" target="_blank" rel="noopener">
+            <span class="cert-ico" style="background:#fbe6ef;color:var(--cta)"><svg viewBox="0 0 24 24" width="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="9" r="5"/><path d="M8 14l-2 7 6-3 6 3-2-7"/></svg></span>
+            <div>
+              <span class="cert-name">Enterprise Answer Engine Optimization</span>
+              <span class="cert-issuer">seoClarity</span>
+              <span class="cert-verify">Verify credential ↗</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── TOOLS MARQUEE ── -->
+<section class="tools-sec">
+  <div class="tools-label"><span class="tag" style="display:inline-flex">Tools &amp; platforms I work in</span></div>
+  <div class="marquee-track">
+    <div class="marquee-inner">
+      <span>Google Search Console</span><span>·</span><span>Google Analytics 4</span><span>·</span><span>Ahrefs</span><span>·</span><span>SEMrush</span><span>·</span><span>Bing Webmaster Tools</span><span>·</span><span>Looker Studio</span><span>·</span><span>Surfer</span><span>·</span><span>seoClarity</span><span>·</span>
+      <span>Google Search Console</span><span>·</span><span>Google Analytics 4</span><span>·</span><span>Ahrefs</span><span>·</span><span>SEMrush</span><span>·</span><span>Bing Webmaster Tools</span><span>·</span><span>Looker Studio</span><span>·</span><span>Surfer</span><span>·</span><span>seoClarity</span><span>·</span>
+    </div>
+  </div>
+</section>
+
+<!-- ── CONTACT + FOOTER ── -->
+<section id="contact" class="contact-sec">
+  <div class="wrap">
+    <span class="tag contact-tag">Let's talk</span>
+    <h2 class="contact-h2">Let's grow your <span style="color:var(--cta)">search &amp; AI visibility.</span></h2>
+    <p class="contact-desc">Hiring, consulting or just want a second opinion on your AI-search strategy? I reply to every message.</p>
+    <div class="contact-links">
+      <a href="mailto:sivarajc.seo@gmail.com" class="contact-item">
+        <span class="contact-ico" style="background:rgba(124,92,214,.25);color:#c3b1f5"><svg viewBox="0 0 24 24" width="22" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></span>
+        <div><div class="contact-lbl">Email</div><div class="contact-val">sivarajc.seo@gmail.com</div></div>
+      </a>
+      <a href="https://wa.me/919600684541" target="_blank" rel="noopener" class="contact-item">
+        <span class="contact-ico" style="background:rgba(236,109,146,.22);color:#f3a0bd"><svg viewBox="0 0 24 24" width="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 4h4l2 5-3 2a13 13 0 006 6l2-3 5 2v4a2 2 0 01-2 2A17 17 0 013 6a2 2 0 012-2z"/></svg></span>
+        <div><div class="contact-lbl">WhatsApp</div><div class="contact-val">+91 96006 84541</div></div>
+      </a>
+      <div class="contact-item">
+        <div>
+          <div class="follow-label">Follow</div>
+          <div class="follow-icons">
+            <a class="soc-btn" href="https://www.linkedin.com/in/sivaraj-seo-analyst/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" width="20" fill="currentColor"><path d="M4.98 3.5A2.5 2.5 0 002.5 6a2.5 2.5 0 105 0 2.5 2.5 0 00-2.52-2.5zM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.5 4.78 5.76V21H18.6v-5.3c0-1.26-.02-2.9-1.77-2.9-1.77 0-2.04 1.38-2.04 2.8V21H11z"/></svg></a>
+            <a class="soc-btn" href="https://medium.com/@sivaraj-c" target="_blank" rel="noopener" aria-label="Medium"><svg viewBox="0 0 24 24" width="21" fill="currentColor"><path d="M13.54 12a6.8 6.8 0 01-6.77 6.82A6.8 6.8 0 010 12a6.8 6.8 0 016.77-6.82A6.8 6.8 0 0113.54 12zM20.96 12c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42S20.96 8.46 20.96 12zM24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z"/></svg></a>
+            <a class="soc-btn" href="https://www.quora.com/profile/Sivaraj-29" target="_blank" rel="noopener" aria-label="Quora"><svg viewBox="0 0 24 24" width="21" fill="currentColor"><path d="M12.74 16.66c-.53-1.05-1.16-2.1-2.5-2.1-.26 0-.52.04-.75.14l-.44-.9c.53-.46 1.4-.83 2.53-.83 1.75 0 2.65 1.06 3.36 2.4.42-.9.6-2.06.6-3.4 0-3.34-1.05-5.04-3.54-5.04-2.46 0-3.5 1.7-3.5 5.04s1.04 5.02 3.5 5.02c.27 0 .52-.02.76-.07zm1.03 1.9c-.34.08-.7.12-1.07.12-3.83 0-6.75-2.98-6.75-6.97C5.95 7.7 8.87 4.7 12.7 4.7c3.88 0 6.77 2.98 6.77 6.9 0 2.45-1.12 4.55-2.92 5.76.5.72 1.02 1.2 1.75 1.2.8 0 1.12-.62 1.18-1.1h1.6c-.07 1.02-.6 3.13-3.2 3.13-1.98 0-3.02-1.15-4.1-2.03z"/></svg></a>
+            <a class="soc-btn" href="https://www.reddit.com/user/Sivaraj_C/" target="_blank" rel="noopener" aria-label="Reddit"><svg viewBox="0 0 24 24" width="21" fill="currentColor"><path d="M22 12.06c0-1.1-.9-2-2-2-.53 0-1 .2-1.36.54-1.34-.9-3.1-1.46-5.04-1.53l.86-3.9 2.72.6a1.43 1.43 0 102.86-.1 1.43 1.43 0 00-2.7-.65l-3.05-.68a.35.35 0 00-.42.27l-.96 4.36c-1.97.06-3.75.62-5.1 1.53A2 2 0 002 12.06c0 .78.45 1.45 1.1 1.78a3.6 3.6 0 00-.05.6c0 3.06 3.56 5.54 7.95 5.54s7.95-2.48 7.95-5.54c0-.2-.02-.4-.05-.6.65-.33 1.1-1 1.1-1.78zM7.5 13.5a1.43 1.43 0 112.86 0 1.43 1.43 0 01-2.86 0zm7.9 3.6c-.98.98-3.6.98-4.58 0a.35.35 0 01.5-.5c.68.68 2.9.68 3.58 0a.35.35 0 01.5.5zm-.22-2.17a1.43 1.43 0 110-2.86 1.43 1.43 0 010 2.86z"/></svg></a>
+          </div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <span class="contact-ico" style="background:rgba(63,157,107,.2);color:#7bd0a4"><svg viewBox="0 0 24 24" width="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s7-6.3 7-11a7 7 0 10-14 0c0 4.7 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></span>
+        <div><div class="contact-lbl">Based in</div><div class="contact-val">Coimbatore, India</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</BaseLayout>

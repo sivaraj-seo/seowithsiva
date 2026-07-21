@@ -1,0 +1,210 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const allArticles = await getCollection('articles');
+const articles = allArticles.sort(
+  (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+);
+
+const categories = [...new Set(articles.map(a => a.data.category))];
+---
+
+<BaseLayout
+  title="Articles on SEO, GEO & AEO"
+  description="Field notes on AI search optimisation, Generative Engine Optimisation, Answer Engine Optimisation, and enterprise SEO strategy — by C. Sivaraj."
+  keywords="SEO articles, GEO, AEO, AI search, content strategy, enterprise SEO"
+  author="C. Sivaraj"
+>
+
+<style>
+  *{ box-sizing:border-box; }
+  a{ color:inherit; text-decoration:none; }
+  .wrap{ max-width:1120px; margin:0 auto; padding:0 32px; }
+
+  .tag{
+    display:inline-flex; align-items:center; gap:7px;
+    font-size:12px; font-weight:700; letter-spacing:.12em;
+    text-transform:uppercase; color:var(--accent);
+  }
+  .tag::before{ content:''; width:7px; height:7px; border-radius:50%; background:var(--accent); }
+
+  /* ── HERO ── */
+  .page-hero{
+    background:linear-gradient(165deg,#efeafc 0%,#f7ecf2 52%,#fde9dc 100%);
+    padding:70px 0 54px; text-align:center;
+  }
+  .page-hero h1{
+    font-weight:800; font-size:clamp(32px,5vw,58px);
+    color:var(--ink); margin-top:18px; letter-spacing:-.02em; line-height:1.08;
+  }
+  .page-hero p{
+    font-size:17px; line-height:1.7; color:var(--muted);
+    margin:18px auto 0; max-width:52ch;
+  }
+  .clouds{
+    height:38px;
+    background:radial-gradient(circle 22px at 22px 38px,#fff 0 22px,transparent 23px) 0 0/44px 38px repeat-x;
+  }
+
+  /* ── FILTER PILLS ── */
+  .filters{
+    display:flex; gap:10px; flex-wrap:wrap;
+    padding:36px 0 32px;
+  }
+  .filter-btn{
+    padding:9px 20px; border-radius:999px; font-size:14px; font-weight:600;
+    cursor:pointer; border:none; transition:background .15s, color .15s, transform .15s;
+    background:#f0ebfa; color:var(--accent);
+  }
+  .filter-btn.active, .filter-btn:hover{
+    background:var(--accent); color:#fff; transform:translateY(-1px);
+  }
+
+  /* ── GRID ── */
+  .articles-grid{
+    display:grid; grid-template-columns:repeat(3,1fr);
+    gap:28px; padding-bottom:80px;
+  }
+  .art-card{
+    display:flex; flex-direction:column;
+    background:#fff; border-radius:22px;
+    box-shadow:0 18px 50px -28px rgba(33,29,51,.45);
+    overflow:hidden;
+    transition:transform .22s, box-shadow .22s;
+  }
+  .art-card:hover{ transform:translateY(-6px); box-shadow:0 30px 60px -28px rgba(33,29,51,.5); }
+  .art-thumb{ position:relative; }
+  .art-thumb img{ width:100%; height:200px; object-fit:cover; display:block; }
+  .art-cat-badge{
+    position:absolute; top:14px; left:14px;
+    background:rgba(255,255,255,.9); backdrop-filter:blur(6px);
+    padding:5px 12px; border-radius:999px;
+    font-size:12px; font-weight:700; color:var(--ink);
+  }
+  .art-body{ padding:26px 28px 28px; display:flex; flex-direction:column; flex:1; }
+  .art-meta{ display:flex; align-items:center; gap:14px; font-size:13px; color:var(--muted); }
+  .art-meta-dot{ width:3px; height:3px; border-radius:50%; background:var(--muted); }
+  .art-body h2{
+    font-size:20px; font-weight:700; margin-top:14px;
+    line-height:1.25; color:var(--ink);
+  }
+  .art-body p{ font-size:14px; line-height:1.65; color:var(--muted); margin-top:10px; flex:1; }
+  .art-footer{ display:flex; gap:12px; margin-top:20px; flex-wrap:wrap; }
+  .read-btn{
+    display:inline-flex; align-items:center; gap:7px;
+    padding:10px 20px; border-radius:999px;
+    font-size:14px; font-weight:600;
+    background:var(--accent); color:#fff;
+    box-shadow:0 8px 20px -8px rgba(124,92,214,.5);
+    transition:transform .15s, box-shadow .15s;
+  }
+  .read-btn:hover{ transform:translateY(-2px); box-shadow:0 12px 26px -8px rgba(124,92,214,.6); }
+  .read-btn.ghost{
+    background:#f0ebfa; color:var(--accent); box-shadow:none;
+  }
+  .read-btn.ghost:hover{ background:var(--accent); color:#fff; box-shadow:0 8px 20px -8px rgba(124,92,214,.5); }
+
+  /* ── NEWSLETTER CTA ── */
+  .newsletter{
+    background:linear-gradient(120deg,var(--dark),#1f1a38);
+    border-radius:24px; padding:50px 44px;
+    text-align:center; margin-bottom:80px;
+    color:#fff;
+  }
+  .newsletter h2{ font-weight:800; font-size:clamp(22px,3.5vw,34px); margin-top:12px; }
+  .newsletter p{ font-size:15px; color:#a59fc0; margin-top:12px; max-width:44ch; margin-left:auto; margin-right:auto; }
+  .newsletter-cta{ display:flex; gap:12px; justify-content:center; margin-top:26px; flex-wrap:wrap; }
+  .nl-btn{
+    padding:13px 26px; border-radius:999px; font-size:15px; font-weight:600;
+    display:inline-flex; align-items:center; gap:8px;
+    transition:transform .15s, box-shadow .15s;
+  }
+  .nl-btn:hover{ transform:translateY(-2px); }
+  .nl-cta{ background:var(--cta); color:#fff; box-shadow:0 10px 24px -8px rgba(236,109,146,.5); }
+  .nl-ghost{ background:rgba(255,255,255,.08); color:#c3b1f5; border:1px solid rgba(124,92,214,.3); }
+
+  @media(max-width:900px){ .articles-grid{ grid-template-columns:repeat(2,1fr); } }
+  @media(max-width:600px){
+    .articles-grid{ grid-template-columns:1fr; }
+    .wrap{ padding:0 16px; }
+    .newsletter{ padding:36px 24px; }
+  }
+</style>
+
+<!-- Hero -->
+<section class="page-hero">
+  <div class="wrap">
+    <span class="tag">Writing</span>
+    <h1>Articles on SEO, GEO &amp; AEO</h1>
+    <p>Field notes on how search is shifting from rankings to AI citations — and what to actually do about it.</p>
+  </div>
+</section>
+<div class="clouds"></div>
+
+<!-- Main content -->
+<div class="wrap">
+  <!-- Category filters -->
+  <div class="filters">
+    <button class="filter-btn active" data-filter="all">All</button>
+    {categories.map(cat => (
+      <button class="filter-btn" data-filter={cat}>{cat}</button>
+    ))}
+  </div>
+
+  <!-- Articles grid -->
+  <div class="articles-grid" id="articles-grid">
+    {articles.map(article => (
+      <article class="art-card" data-category={article.data.category}>
+        <div class="art-thumb">
+          <img src={article.data.image} alt={article.data.title} loading="lazy" />
+          <span class="art-cat-badge">{article.data.category}</span>
+        </div>
+        <div class="art-body">
+          <div class="art-meta">
+            <span>{new Date(article.data.date).toLocaleDateString('en-IN', { day:'numeric', month:'short', year:'numeric' })}</span>
+            <span class="art-meta-dot"></span>
+            <span>{article.data.readTime}</span>
+          </div>
+          <h2>{article.data.title}</h2>
+          <p>{article.data.excerpt}</p>
+          <div class="art-footer">
+            <a href={`/articles/${article.slug}/`} class="read-btn">Read article →</a>
+            {article.data.linkedinUrl && (
+              <a href={article.data.linkedinUrl} target="_blank" rel="noopener" class="read-btn ghost">LinkedIn ↗</a>
+            )}
+          </div>
+        </div>
+      </article>
+    ))}
+  </div>
+
+  <!-- Newsletter / connect CTA -->
+  <div class="newsletter">
+    <span class="tag" style="color:#c3b1f5">Stay current</span>
+    <h2>Get insights on AI search, GEO &amp; AEO</h2>
+    <p>Follow on LinkedIn for new articles on how search is shifting — and what practitioners should do about it.</p>
+    <div class="newsletter-cta">
+      <a href="https://www.linkedin.com/in/sivaraj-seo-analyst/" target="_blank" rel="noopener" class="nl-btn nl-cta">Follow on LinkedIn →</a>
+      <a href="/contact/" class="nl-btn nl-ghost">Get in touch</a>
+    </div>
+  </div>
+</div>
+
+<script>
+  const buttons = document.querySelectorAll<HTMLButtonElement>('.filter-btn');
+  const cards = document.querySelectorAll<HTMLElement>('.art-card');
+
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      buttons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+      cards.forEach(card => {
+        card.style.display = (filter === 'all' || card.dataset.category === filter) ? '' : 'none';
+      });
+    });
+  });
+</script>
+
+</BaseLayout>

@@ -1,0 +1,70 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <img src="/images/logo.webp" alt="SEO With Siva" class="footer-logo" />
+      <span>C. Sivaraj</span>
+    </div>
+    <div class="footer-copy">© {year} C. Sivaraj · SEO · AEO · GEO · AI Search</div>
+    <div class="footer-links">
+      <a href="https://www.linkedin.com/in/sivaraj-seo-analyst/" target="_blank">LinkedIn</a>
+      <a href="https://medium.com/@sivaraj-c" target="_blank">Medium</a>
+      <a href="https://www.quora.com/profile/Sivaraj-29" target="_blank">Quora</a>
+      <a href="https://www.reddit.com/user/Sivaraj_C/" target="_blank">Reddit</a>
+      <a href="mailto:sivarajc.seo@gmail.com">Email</a>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer{
+    background: #141026;
+    border-top: 1px solid #2a2348;
+  }
+  .footer-inner{
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 24px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 14px;
+  }
+  .footer-brand{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 800;
+    font-size: 15px;
+    color: #fff;
+  }
+  .footer-logo{
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    object-fit: contain;
+    background: #fff;
+    padding: 2px;
+  }
+  .footer-copy{ font-size: 13px; color: #857fa0; }
+  .footer-links{
+    display: flex;
+    gap: 18px;
+    font-size: 13px;
+    flex-wrap: wrap;
+  }
+  .footer-links a{
+    color: #a59fc0;
+    text-decoration: none;
+    transition: color .12s;
+  }
+  .footer-links a:hover{ color: #fff; }
+
+  @media(max-width: 600px){
+    .footer-inner{ padding: 20px 18px; flex-direction: column; align-items: flex-start; gap: 10px; }
+  }
+</style>
