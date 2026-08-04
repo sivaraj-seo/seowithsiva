@@ -29,7 +29,7 @@ npm run preview
 ## Deployment Options
 
 ### Option 1: Vercel (Recommended - Already Set Up)
-Your site is already configured for Vercel deployment at `https://seowithsiva.vercel.app`
+Your site is already configured for Vercel deployment at `https://seowithsiva.com`
 
 **To redeploy:**
 1. Push changes to GitHub
