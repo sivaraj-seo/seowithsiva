@@ -1,14 +1,34 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { socialLinks } from '../data/social';
 
 const title = 'C. Sivaraj – SEO Analyst & AEO / GEO Specialist';
 const description =
   'SEO & AI-search analyst helping brands earn visibility across Google AI Overviews, ChatGPT, Gemini, Perplexity, Bing AI and Copilot — backed by 5+ years of enterprise SEO.';
 const keywords =
   'SEO analyst, AEO, GEO, AI search optimization, enterprise SEO, Google AI Overviews, generative engine optimization, C. Sivaraj';
+
+const profilePageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfilePage',
+  name: title,
+  description,
+  url: 'https://seowithsiva.com/',
+  mainEntity: {
+    '@type': 'Person',
+    name: 'C. Sivaraj',
+    url: 'https://seowithsiva.com',
+    jobTitle: 'SEO Analyst',
+    sameAs: socialLinks,
+  },
+};
 ---
 
 <BaseLayout {title} {description} {keywords} author="C. Sivaraj">
+
+<Fragment slot="head">
+  <script type="application/ld+json" set:html={JSON.stringify(profilePageSchema)} />
+</Fragment>
 
 <style>
   *{ box-sizing:border-box; }

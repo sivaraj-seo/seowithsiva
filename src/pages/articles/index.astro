@@ -8,6 +8,23 @@ const articles = allArticles.sort(
 );
 
 const categories = [...new Set(articles.map(a => a.data.category))];
+
+const collectionPageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'Articles on SEO, GEO & AEO',
+  description: 'Field notes on AI search optimisation, Generative Engine Optimisation, Answer Engine Optimisation, and enterprise SEO strategy — by C. Sivaraj.',
+  url: 'https://seowithsiva.com/articles/',
+  mainEntity: {
+    '@type': 'ItemList',
+    itemListElement: articles.map((article, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      url: new URL(`/articles/${article.slug}/`, Astro.site).toString(),
+      name: article.data.title,
+    })),
+  },
+};
 ---
 
 <BaseLayout
@@ -16,6 +33,10 @@ const categories = [...new Set(articles.map(a => a.data.category))];
   keywords="SEO articles, GEO, AEO, AI search, content strategy, enterprise SEO"
   author="C. Sivaraj"
 >
+
+<Fragment slot="head">
+  <script type="application/ld+json" set:html={JSON.stringify(collectionPageSchema)} />
+</Fragment>
 
 <style>
   *{ box-sizing:border-box; }

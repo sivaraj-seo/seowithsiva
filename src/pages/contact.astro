@@ -1,5 +1,21 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { socialLinks } from '../data/social';
+
+const contactPageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ContactPage',
+  name: 'Contact C. Sivaraj',
+  description: 'Reach C. Sivaraj directly via email for SEO, AEO, and AI search consultations.',
+  url: 'https://seowithsiva.com/contact/',
+  mainEntity: {
+    '@type': 'Person',
+    name: 'C. Sivaraj',
+    url: 'https://seowithsiva.com',
+    email: 'sivarajc.seo@gmail.com',
+    sameAs: socialLinks,
+  },
+};
 ---
 
 <BaseLayout
@@ -7,6 +23,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   description="Reach C. Sivaraj directly via email for SEO, AEO, and AI search consultations."
   keywords="contact, SEO consultant, hire SEO, AEO, GEO, AI search"
 >
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(contactPageSchema)} />
+  </Fragment>
   <main class="contact-main">
     <div class="contact-wrap">
 

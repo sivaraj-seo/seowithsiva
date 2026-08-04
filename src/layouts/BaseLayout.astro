@@ -1,6 +1,7 @@
 ---
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import { socialLinks } from '../data/social';
 
 interface Props {
   title: string;
@@ -23,6 +24,17 @@ const {
 } = Astro.props;
 
 const resolvedOgImage = new URL(ogImage, Astro.site);
+
+const personSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'C. Sivaraj',
+  url: 'https://seowithsiva.com',
+  image: new URL('/images/profile-hero.jpg', Astro.site).toString(),
+  jobTitle: 'SEO Analyst',
+  email: 'sivarajc.seo@gmail.com',
+  sameAs: socialLinks,
+};
 ---
 
 <!DOCTYPE html>
@@ -36,6 +48,7 @@ const resolvedOgImage = new URL(ogImage, Astro.site);
     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
     })(window,document,'script','dataLayer','GTM-MCB995NX');</script>
     <!-- End Google Tag Manager -->
+    <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
     <slot name="head" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

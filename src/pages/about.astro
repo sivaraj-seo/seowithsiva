@@ -1,9 +1,24 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { socialLinks } from '../data/social';
 
 const title = 'About SEO With Siva - Learn Our Story';
 const description = 'Discover the story behind SEO With Siva and our mission to help businesses succeed through effective SEO strategies.';
 const keywords = 'about us, SEO expert, digital marketing, mission, values';
+
+const aboutPageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'AboutPage',
+  name: title,
+  description,
+  url: 'https://seowithsiva.com/about/',
+  mainEntity: {
+    '@type': 'Person',
+    name: 'C. Sivaraj',
+    url: 'https://seowithsiva.com',
+    sameAs: socialLinks,
+  },
+};
 ---
 
 <BaseLayout
@@ -11,6 +26,9 @@ const keywords = 'about us, SEO expert, digital marketing, mission, values';
   description={description}
   keywords={keywords}
 >
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(aboutPageSchema)} />
+  </Fragment>
   <main>
     <section class="hero">
       <div class="container">
