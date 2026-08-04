@@ -16,16 +16,16 @@ keyTakeaways:
 howToSteps:
   - name: "Log in to Google Search Console"
     text: "Sign in with the Google account you'd like to use at search.google.com/search-console. It doesn't have to match your social account email, but it can."
-    image: "/images/social-gsc-step-1.png"
+    image: "/images/social-gsc-step-1.webp"
   - name: "Click on Add Property"
     text: "Click the property selector dropdown in the top-left corner (where your current property name is displayed). Choose Add property from the menu."
-    image: "/images/social-gsc-step-2.png"
+    image: "/images/social-gsc-step-2.webp"
   - name: "Click Platform Property"
     text: "Once the rollout has reached your account, you will see two options: Add a website and Platform property. Click on Platform Property."
-    image: "/images/social-gsc-step-3.png"
+    image: "/images/social-gsc-step-3.webp"
   - name: "Select Your Platform"
     text: "Choose Instagram, TikTok, X, or YouTube from the list. You need to add each account individually."
-    image: "/images/social-gsc-step-4.png"
+    image: "/images/social-gsc-step-4.webp"
   - name: "Activate the Connection"
     text: "Click Add and sign into the social account you'd like to connect. Follow the on-screen instructions to authorize Search Console to access that account."
   - name: "Finalize Verification"
@@ -61,13 +61,13 @@ Every connected account is its own property with its own reports. At launch it s
 
 Sign in with the Google account you'd like to use at search.google.com/search-console. It doesn't have to match your social account email, but it can.
 
-![Google Search Console property selector dropdown](/images/social-gsc-step-1.png)
+![Google Search Console property selector dropdown](/images/social-gsc-step-1.webp)
 
 ### Step 2: Click on Add Property
 
 Click the property selector dropdown in the top-left corner (where your current property name is displayed). Choose Add property from the menu.
 
-![Add property option in the Google Search Console property switcher](/images/social-gsc-step-2.png)
+![Add property option in the Google Search Console property switcher](/images/social-gsc-step-2.webp)
 
 ### Step 3: Click "Platform Property"
 
@@ -75,13 +75,13 @@ Once the rollout has reached your account, you will see two options: Add a websi
 
 Google is slowly rolling this out through 2026 — if you don't see this option yet, check back in a few days. It's not an account problem.
 
-![Select a property type dialog showing Instagram, TikTok, X, and YouTube](/images/social-gsc-step-3.png)
+![Select a property type dialog showing Instagram, TikTok, X, and YouTube](/images/social-gsc-step-3.webp)
 
 ### Step 4: Select Your Platform
 
 Choose Instagram, TikTok, X, or YouTube from the list. You need to add each account individually.
 
-![Google consent screen for linking an Instagram account](/images/social-gsc-step-4.png)
+![Google consent screen for linking an Instagram account](/images/social-gsc-step-4.webp)
 
 ### Step 5: Activate the Connection
 
