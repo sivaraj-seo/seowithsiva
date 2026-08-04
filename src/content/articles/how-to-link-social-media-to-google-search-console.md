@@ -1,5 +1,6 @@
 ---
 title: "How to Link Social Media to Google Search Console (Site Properties)?"
+metaTitle: "Link Social Media to Google Search Console"
 excerpt: "Google Search Console now lets you connect Instagram, TikTok, X, and YouTube directly — no website required. Here's the full step-by-step setup."
 date: "2026-08-04"
 category: "Technical SEO"

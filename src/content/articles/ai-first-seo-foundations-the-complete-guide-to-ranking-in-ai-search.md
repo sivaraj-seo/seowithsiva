@@ -1,5 +1,6 @@
 ---
 title: "AI-First SEO Foundations: The Complete Guide to Ranking in AI Search"
+metaTitle: "AI-First SEO Foundations: Complete Guide"
 excerpt: "Master AI-First SEO with the 10-pillar framework. Learn how to rank in Google AI Overviews, ChatGPT, and Perplexity - plus the implementation roadmap."
 date: "2026-08-04"
 category: "Strategy"
