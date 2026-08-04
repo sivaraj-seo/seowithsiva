@@ -16,7 +16,7 @@ interface Props {
 const {
   title,
   description,
-  ogImage = 'https://seowithsiva.com/og-image.png',
+  ogImage = 'https://www.seowithsiva.com/og-image.png',
   ogType = 'website',
   canonicalURL = new URL(Astro.url.pathname, Astro.site),
   author = 'Siva',
@@ -29,7 +29,7 @@ const personSchema = {
   '@context': 'https://schema.org',
   '@type': 'Person',
   name: 'C. Sivaraj',
-  url: 'https://seowithsiva.com',
+  url: 'https://www.seowithsiva.com',
   image: new URL('/images/profile-hero.jpg', Astro.site).toString(),
   jobTitle: 'SEO Analyst',
   email: 'sivarajc.seo@gmail.com',

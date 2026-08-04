@@ -1,7 +1,7 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://seowithsiva.com/sitemap.xml
+Sitemap: https://www.seowithsiva.com/sitemap.xml
 
 User-agent: Googlebot
 Crawl-delay: 0
