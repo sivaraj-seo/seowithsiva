@@ -13,6 +13,8 @@ const articles = defineCollection({
     linkedinUrl: z.string().url().optional(),
     featured: z.boolean().default(false),
     keyTakeaways: z.array(z.string()).optional(),
+    faqs: z.array(z.object({ question: z.string(), answer: z.string() })).optional(),
+    howToSteps: z.array(z.object({ name: z.string(), text: z.string(), image: z.string().optional() })).optional(),
   }),
 });
 

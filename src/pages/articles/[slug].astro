@@ -23,6 +23,73 @@ const formattedDate = new Date(article.data.date).toLocaleDateString('en-IN', da
 const formattedLastModified = article.data.lastModified
   ? new Date(article.data.lastModified).toLocaleDateString('en-IN', dateOpts)
   : null;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const absoluteImage = new URL(article.data.image, Astro.site).toString();
+const authorProfile = 'https://www.linkedin.com/in/sivaraj-seo-analyst/';
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: article.data.title,
+  description: article.data.excerpt,
+  image: [absoluteImage],
+  datePublished: article.data.date,
+  dateModified: article.data.lastModified || article.data.date,
+  author: {
+    '@type': 'Person',
+    name: 'C. Sivaraj',
+    url: authorProfile,
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'SEO With Siva',
+    logo: {
+      '@type': 'ImageObject',
+      url: new URL('/images/logo.webp', Astro.site).toString(),
+    },
+  },
+  mainEntityOfPage: {
+    '@type': 'WebPage',
+    '@id': canonicalURL.toString(),
+  },
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: new URL('/', Astro.site).toString() },
+    { '@type': 'ListItem', position: 2, name: 'Articles', item: new URL('/articles/', Astro.site).toString() },
+    { '@type': 'ListItem', position: 3, name: article.data.title },
+  ],
+};
+
+const howToSchema = article.data.howToSteps && article.data.howToSteps.length > 0 ? {
+  '@context': 'https://schema.org',
+  '@type': 'HowTo',
+  name: article.data.title,
+  description: article.data.excerpt,
+  step: article.data.howToSteps.map(step => ({
+    '@type': 'HowToStep',
+    name: step.name,
+    text: step.text,
+    ...(step.image ? { image: new URL(step.image, Astro.site).toString() } : {}),
+  })),
+} : null;
+
+const faqSchema = article.data.faqs && article.data.faqs.length > 0 ? {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: article.data.faqs.map(faq => ({
+    '@type': 'Question',
+    name: faq.question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: faq.answer,
+    },
+  })),
+} : null;
 ---
 
 <BaseLayout
@@ -31,6 +98,13 @@ const formattedLastModified = article.data.lastModified
   author="C. Sivaraj"
   keywords={`SEO, GEO, AEO, ${article.data.category}, C. Sivaraj`}
 >
+
+<Fragment slot="head">
+  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  {howToSchema && <script type="application/ld+json" set:html={JSON.stringify(howToSchema)} />}
+  {faqSchema && <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />}
+</Fragment>
 
 <style>
   *{ box-sizing:border-box; }
