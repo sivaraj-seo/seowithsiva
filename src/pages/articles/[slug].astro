@@ -29,14 +29,16 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const absoluteImage = new URL(article.data.image, Astro.site).toString();
 const authorProfile = 'https://www.linkedin.com/in/sivaraj-seo-analyst/';
 
+const toISODateTime = (dateStr: string) => `${dateStr}T00:00:00+05:30`;
+
 const articleSchema = {
   '@context': 'https://schema.org',
   '@type': 'Article',
   headline: article.data.title,
   description: article.data.excerpt,
   image: [absoluteImage],
-  datePublished: article.data.date,
-  dateModified: article.data.lastModified || article.data.date,
+  datePublished: toISODateTime(article.data.date),
+  dateModified: toISODateTime(article.data.lastModified || article.data.date),
   author: {
     '@type': 'Person',
     name: 'C. Sivaraj',
