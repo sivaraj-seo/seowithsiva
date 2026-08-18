@@ -8,5 +8,5 @@ export const business = {
   addressLocality: 'Tiruppur',
   addressRegion: 'Tamil Nadu',
   addressCountry: 'IN',
-  areasServed: ['Tiruppur', 'Coimbatore', 'Erode', 'Tamil Nadu', 'India'],
+  areasServed: ['Worldwide'],
 };
