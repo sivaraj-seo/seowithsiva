@@ -38,7 +38,7 @@ const localBusinessSchema = {
     longitude: business.geo.longitude,
   },
   hasMap: business.mapsUrl,
-  areaServed: 'Worldwide',
+  areaServed: business.areasServed.map((name) => ({ '@type': 'Place', name })),
   sameAs: [...socialLinks, business.mapsUrl],
 };
 ---
@@ -100,7 +100,12 @@ const localBusinessSchema = {
 
       <p class="contact-also">Serving</p>
       <div class="social-row">
-        <span class="area-pill">Worldwide</span>
+        <span class="area-pill area-pill--primary">{business.primaryArea}</span>
+        {business.areasServed
+          .filter((area) => area !== business.primaryArea)
+          .map((area) => (
+            <span class="area-pill">{area}</span>
+          ))}
       </div>
 
       <div class="map-card">
@@ -246,6 +251,10 @@ const localBusinessSchema = {
     font-weight: 600;
     background: #fdeee5;
     color: #b5652a;
+  }
+  .area-pill--primary{
+    background: var(--accent);
+    color: #fff;
   }
 
   .map-card{
