@@ -4,7 +4,7 @@ import { socialLinks } from '../data/social';
 
 const title = 'C. Sivaraj – SEO Analyst & AEO / GEO Specialist';
 const description =
-  'SEO & AI-search analyst helping brands earn visibility across Google AI Overviews, ChatGPT, Gemini, Perplexity, Bing AI & Copilot — 5+ years enterprise SEO.';
+  'SEO & AI-search analyst helping brands earn visibility across Google AI Overviews, ChatGPT, Gemini, Perplexity, Bing AI & Copilot, backed by 5+ years enterprise SEO.';
 const keywords =
   'SEO analyst, AEO, GEO, AI search optimization, enterprise SEO, Google AI Overviews, generative engine optimization, C. Sivaraj';
 
@@ -177,6 +177,11 @@ const serviceSchema = {
     padding:12px 15px; border-radius:16px;
     display:flex; align-items:center; gap:9px; animation-delay:.5s;
   }
+  .stat-card-bottom{
+    position:absolute; right:-6px; bottom:-14px;
+    padding:12px 15px; border-radius:16px;
+    display:flex; align-items:center; gap:9px; animation-delay:.8s;
+  }
   .stat-green{ font-weight:800; font-size:22px; color:#2fae74; }
   .stat-lbl{ font-size:11px; color:var(--muted); }
 
@@ -196,7 +201,7 @@ const serviceSchema = {
   /* ── STAT BAR ── */
   .stat-bar{ padding-bottom:78px; }
   .stat-bar-card{
-    display:grid; grid-template-columns:repeat(4,1fr);
+    display:grid; grid-template-columns:repeat(5,1fr);
     gap:20px; padding:34px 40px; border-radius:24px;
     background:linear-gradient(120deg,#fff,#faf6ff);
   }
@@ -325,6 +330,7 @@ const serviceSchema = {
   }
   .creds-inner{ display:flex; flex-direction:column; gap:54px; }
   .creds-2col{ display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:28px; }
+  .creds-2col.cols-3{ grid-template-columns:repeat(3,1fr); }
   .edu-card{ padding:22px 24px; }
   .edu-head{ display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap; }
   .edu-degree{ font-weight:700; font-size:17px; }
@@ -385,15 +391,15 @@ const serviceSchema = {
     .hero-inner{ grid-template-columns:1fr; }
     .hero-photo{ display:none; }
     .features-grid{ grid-template-columns:repeat(2,1fr); }
-    .stat-bar-card{ grid-template-columns:repeat(2,1fr); }
-    .stat-item+.stat-item{ border-left:none; }
-    .stat-item:nth-child(odd){ border-right:none; }
+    .stat-bar-card{ grid-template-columns:repeat(3,1fr); }
+    .stat-item{ border-left:none !important; }
     .services-grid{ grid-template-columns:repeat(2,1fr); }
     .about-sec{ grid-template-columns:1fr; }
     .about-photo{ display:none; }
     .results-grid{ grid-template-columns:1fr; }
     .articles-grid{ grid-template-columns:1fr; }
     .creds-2col{ grid-template-columns:1fr; }
+    .creds-2col.cols-3{ grid-template-columns:1fr; }
     .about-pillars{ grid-template-columns:1fr; }
   }
   @media(max-width:600px){
@@ -402,7 +408,7 @@ const serviceSchema = {
     .features-grid{ grid-template-columns:1fr 1fr; }
     .articles-head{ flex-direction:column; align-items:flex-start; }
     .results-head{ flex-direction:column; }
-    .stat-bar-card{ padding:24px 20px; }
+    .stat-bar-card{ padding:24px 20px; grid-template-columns:repeat(2,1fr); }
     .hero-desc{ font-size:16px; }
     .pill{ font-size:14px; padding:12px 20px; }
     .hero-ctas{ gap:10px; }
@@ -455,6 +461,15 @@ const serviceSchema = {
             <div class="stat-lbl">Bing AI citations</div>
           </div>
         </div>
+        <div class="card floaty stat-card-bottom">
+          <div class="ico" style="width:38px;height:38px;border-radius:11px;background:#e8edfb;color:#4a63c9">
+            <svg viewBox="0 0 24 24" width="20" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8L12 3z"/></svg>
+          </div>
+          <div>
+            <div style="font-weight:700;font-size:13px">12M+</div>
+            <div class="stat-lbl">Google AI citations</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -466,7 +481,7 @@ const serviceSchema = {
   <div class="wrap intro-wrap">
     <span class="tag" style="display:inline-flex;justify-content:center">AI-first SEO</span>
     <h2 class="intro-h2">5+ years optimizing enterprise content so it ranks in search <em>and</em> gets cited by the AI engines people now <span class="ulink em">ask first.</span></h2>
-    <p>I build AI-first content systems on a foundation of technical SEO, topical authority and entity optimization, so brands stay discoverable as search shifts from ten blue links to generative answers.</p>
+    <p>I build AI-first content systems on a foundation of technical SEO, topical authority and entity optimization, so brands stay discoverable as search shifts from ten blue links to generative answers, work that's earned 12M+ Google AI citations and 1M+ Bing AI citations so far.</p>
   </div>
 </section>
 
@@ -509,6 +524,7 @@ const serviceSchema = {
   <div class="card stat-bar-card">
     <div class="stat-item"><div class="stat-num">1,050%<span class="em">.</span></div><div class="stat-sub">Organic session lift (GEO pilot)</div></div>
     <div class="stat-item"><div class="stat-num">1M<span style="color:var(--cta)">+</span></div><div class="stat-sub">Bing AI citations generated</div></div>
+    <div class="stat-item"><div class="stat-num">12M<span style="color:#4a63c9">+</span></div><div class="stat-sub">Google AI citations generated</div></div>
     <div class="stat-item"><div class="stat-num">70K<span style="color:#2fae74">+</span></div><div class="stat-sub">Pages optimized at scale</div></div>
     <div class="stat-item"><div class="stat-num">80%<span style="color:#e0922f">.</span></div><div class="stat-sub">Less SEO reporting effort</div></div>
   </div>
@@ -598,7 +614,7 @@ const serviceSchema = {
   <div class="wrap">
     <div class="results-head">
       <div>
-        <span class="tag results-head">Key achievements</span>
+        <span class="tag">Key achievements</span>
         <h2>Results that <span style="color:#c3b1f5">speak for themselves</span></h2>
       </div>
       <p>Real outcomes from enterprise SEO and Generative Engine Optimization programs.</p>
@@ -611,10 +627,10 @@ const serviceSchema = {
         <p>Led a GEO/AEO pilot across 60 high-value healthcare articles; the framework was then adopted site-wide across Google, Bing and AI platforms.</p>
       </div>
       <div class="res-card">
-        <div class="res-cat">AI citations · Bing &amp; Copilot</div>
-        <span class="res-num">1M+</span>
-        <h3>Bing AI citations generated</h3>
-        <p>Through GEO and AEO, significantly enhanced brand visibility across Microsoft Copilot, Bing AI and AI-powered search experiences.</p>
+        <div class="res-cat">AI citations · Google &amp; Bing</div>
+        <span class="res-num">12M+</span>
+        <h3>AI citations earned</h3>
+        <p>Generated 1M+ Bing AI citations and 12M+ Google generative-AI citations in 28 days through AI-first content frameworks.</p>
       </div>
       <div class="res-card">
         <div class="res-cat">Reporting · Looker Studio</div>
@@ -659,7 +675,7 @@ const serviceSchema = {
         <div class="art-body">
           <div class="tag art-tag" style="display:inline-flex">SEO Strategy</div>
           <h3>How the CITE Framework Gets Your Content Cited in AI (2026 Guide)</h3>
-          <p>A 4-part system — Content Architecture, Information Gain, Trust Signals, Extraction Optimization — for earning citations in Google AI Overviews, ChatGPT, and AI search.</p>
+          <p>A 4-part system (Content Architecture, Information Gain, Trust Signals, Extraction Optimization) for earning citations in Google AI Overviews, ChatGPT, and AI search.</p>
           <span class="ulink em art-link">Read article →</span>
         </div>
       </a>
@@ -699,7 +715,15 @@ const serviceSchema = {
       <div>
         <span class="tag">Certifications</span>
         <h2>Credentials</h2>
-        <div class="creds-2col">
+        <div class="creds-2col cols-3">
+          <a class="cert-card" href="https://academy.seoclarity.net/certificate-verification/1332C8E64-1332C8ECB-330938F/" target="_blank" rel="noopener">
+            <span class="cert-ico" style="background:#fbe6ef;color:var(--cta)"><svg viewBox="0 0 24 24" width="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="9" r="5"/><path d="M8 14l-2 7 6-3 6 3-2-7"/></svg></span>
+            <div>
+              <span class="cert-name">Enterprise Answer Engine Optimization (AEO)</span>
+              <span class="cert-issuer">seoClarity</span>
+              <span class="cert-verify">Verify credential ↗</span>
+            </div>
+          </a>
           <a class="cert-card" href="https://www.coursera.org/account/accomplishments/verify/582XE0FA3326" target="_blank" rel="noopener">
             <span class="cert-ico" style="background:#efe9fc;color:var(--accent)"><svg viewBox="0 0 24 24" width="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1 3 3 6 3s6-2 6-3v-5"/></svg></span>
             <div>
@@ -708,14 +732,13 @@ const serviceSchema = {
               <span class="cert-verify">Verify credential ↗</span>
             </div>
           </a>
-          <a class="cert-card" href="https://academy.seoclarity.net/certificate-verification/1332C8E64-1332C8ECB-330938F/" target="_blank" rel="noopener">
-            <span class="cert-ico" style="background:#fbe6ef;color:var(--cta)"><svg viewBox="0 0 24 24" width="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="9" r="5"/><path d="M8 14l-2 7 6-3 6 3-2-7"/></svg></span>
+          <div class="cert-card">
+            <span class="cert-ico" style="background:#e3f3ea;color:#2fae74"><svg viewBox="0 0 24 24" width="20" fill="none" stroke="currentColor" stroke-width="2"><line x1="6" y1="20" x2="6" y2="12"/><line x1="12" y1="20" x2="12" y2="6"/><line x1="18" y1="20" x2="18" y2="9"/></svg></span>
             <div>
-              <span class="cert-name">Enterprise Answer Engine Optimization</span>
-              <span class="cert-issuer">seoClarity</span>
-              <span class="cert-verify">Verify credential ↗</span>
+              <span class="cert-name">GA4 Mastery</span>
+              <span class="cert-issuer">Optimize Smart</span>
             </div>
-          </a>
+          </div>
         </div>
       </div>
     </div>
