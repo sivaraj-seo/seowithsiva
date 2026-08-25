@@ -9,13 +9,7 @@ const contactPageSchema = {
   name: 'Contact C. Sivaraj',
   description: 'Reach C. Sivaraj directly via email for SEO, AEO, and AI search consultations.',
   url: 'https://www.seowithsiva.com/contact/',
-  mainEntity: {
-    '@type': 'Person',
-    name: 'C. Sivaraj',
-    url: 'https://www.seowithsiva.com',
-    email: 'sivarajc.seo@gmail.com',
-    sameAs: socialLinks,
-  },
+  mainEntity: { '@id': 'https://www.seowithsiva.com/#person' },
 };
 
 const localBusinessSchema = {
@@ -37,9 +31,8 @@ const localBusinessSchema = {
     latitude: business.geo.latitude,
     longitude: business.geo.longitude,
   },
-  hasMap: business.mapsUrl,
   areaServed: business.areasServed.map((name) => ({ '@type': 'Place', name })),
-  sameAs: [...socialLinks, business.mapsUrl],
+  sameAs: socialLinks,
 };
 ---
 
@@ -106,19 +99,6 @@ const localBusinessSchema = {
           .map((area) => (
             <span class="area-pill">{area}</span>
           ))}
-      </div>
-
-      <div class="map-card">
-        <iframe
-          class="map-frame"
-          src="https://www.google.com/maps?q=SEOwithSiva,Tiruppur,Tamil+Nadu,India&output=embed"
-          title="SEOwithSiva on Google Maps"
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"
-        ></iframe>
-        <a href="https://maps.app.goo.gl/m7Q2ssfq39aD7d7p7" target="_blank" rel="noopener" class="map-link">
-          View SEOwithSiva on Google Maps &#8599;
-        </a>
       </div>
 
     </div>
@@ -256,31 +236,6 @@ const localBusinessSchema = {
     background: var(--accent);
     color: #fff;
   }
-
-  .map-card{
-    margin-top: 32px;
-    border-radius: 16px;
-    overflow: hidden;
-    border: 1.5px solid #e4ddf7;
-    box-shadow: 0 2px 16px rgba(124,92,214,.06);
-  }
-  .map-frame{
-    width: 100%;
-    height: 280px;
-    border: 0;
-    display: block;
-  }
-  .map-link{
-    display: block;
-    padding: 14px 20px;
-    background: #fff;
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--accent);
-    text-decoration: none;
-    text-align: center;
-  }
-  .map-link:hover{ background: #f0ebfa; }
 
   @media(max-width: 480px){
     .contact-main{ padding: 60px 16px; }

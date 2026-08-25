@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { socialLinks } from '../../data/social';
+import { getImageDims } from '../../data/imageDims';
 
 export async function getStaticPaths() {
   const articles = await getCollection('articles');
@@ -27,7 +28,6 @@ const formattedLastModified = article.data.lastModified
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const absoluteImage = new URL(article.data.image, Astro.site).toString();
-const authorProfile = 'https://www.linkedin.com/in/sivaraj-seo-analyst/';
 
 const toISODateTime = (dateStr: string) => `${dateStr}T00:00:00+05:30`;
 
@@ -39,15 +39,12 @@ const articleSchema = {
   image: [absoluteImage],
   datePublished: toISODateTime(article.data.date),
   dateModified: toISODateTime(article.data.lastModified || article.data.date),
-  author: {
-    '@type': 'Person',
-    name: 'C. Sivaraj',
-    url: authorProfile,
-    sameAs: socialLinks,
-  },
+  author: { '@id': 'https://www.seowithsiva.com/#person' },
   publisher: {
     '@type': 'Organization',
     name: 'SEO With Siva',
+    url: 'https://www.seowithsiva.com',
+    sameAs: socialLinks,
     logo: {
       '@type': 'ImageObject',
       url: new URL('/images/logo.webp', Astro.site).toString(),
@@ -65,7 +62,7 @@ const breadcrumbSchema = {
   itemListElement: [
     { '@type': 'ListItem', position: 1, name: 'Home', item: new URL('/', Astro.site).toString() },
     { '@type': 'ListItem', position: 2, name: 'Articles', item: new URL('/articles/', Astro.site).toString() },
-    { '@type': 'ListItem', position: 3, name: article.data.category, item: canonicalURL.toString() },
+    { '@type': 'ListItem', position: 3, name: article.data.title, item: canonicalURL.toString() },
   ],
 };
 
@@ -520,7 +517,7 @@ const faqSchema = article.data.faqs && article.data.faqs.length > 0 ? {
       <span class="art-meta-author">Written by C. Sivaraj</span>
     </div>
     <!-- Hero image below meta - NP layout -->
-    <img src={article.data.image} alt={article.data.title} class="art-hero-img" loading="eager" />
+    <img src={article.data.image} alt={article.data.title} width={getImageDims(article.data.image).width} height={getImageDims(article.data.image).height} class="art-hero-img" loading="eager" fetchpriority="high" />
   </div>
 </div>
 
@@ -576,7 +573,7 @@ const faqSchema = article.data.faqs && article.data.faqs.length > 0 ? {
     <!-- Author bio - NP pattern: "About the author" label + card -->
     <div class="author-label">About the author</div>
     <div class="art-author">
-      <img src="/images/profile-about.webp" alt="C. Sivaraj" class="author-img" loading="lazy" />
+      <img src="/images/profile-about.webp" alt="C. Sivaraj" width="500" height="500" class="author-img" loading="lazy" />
       <div>
         <div class="author-name">C. Sivaraj</div>
         <div class="author-role">SEO Analyst · AEO / GEO · 5+ years</div>
@@ -630,7 +627,7 @@ const faqSchema = article.data.faqs && article.data.faqs.length > 0 ? {
       <div class="related-grid">
         {related.map(rel => (
           <a href={`/articles/${rel.slug}/`} class="rel-card">
-            <img src={rel.data.image} alt={rel.data.title} class="rel-thumb" loading="lazy" />
+            <img src={rel.data.image} alt={rel.data.title} width={getImageDims(rel.data.image).width} height={getImageDims(rel.data.image).height} class="rel-thumb" loading="lazy" />
             <div class="rel-body">
               <div class="rel-meta">
                 <span class="rel-cat">{rel.data.category}</span>

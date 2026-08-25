@@ -1,0 +1,16 @@
+// Intrinsic pixel dimensions for article banner images, used to set explicit
+// width/height on <img> tags and prevent layout shift (CLS).
+export const imageDims: Record<string, { width: number; height: number }> = {
+  '/images/article-4.png': { width: 1200, height: 675 },
+  '/images/article-5.png': { width: 1200, height: 675 },
+  '/images/article-6.webp': { width: 1200, height: 630 },
+  '/images/article-7.webp': { width: 1200, height: 630 },
+  '/images/article-8.webp': { width: 1200, height: 630 },
+  '/images/article-9.png': { width: 1200, height: 320 },
+};
+
+const fallback = { width: 1200, height: 630 };
+
+export function getImageDims(src: string) {
+  return imageDims[src] || fallback;
+}

@@ -1,0 +1,27 @@
+# SEO With Siva
+
+> C. Sivaraj is an SEO Analyst and AEO/GEO (Answer Engine Optimization / Generative Engine Optimization) specialist based in Coimbatore, India, with 5+ years of experience driving organic growth for large-scale platforms through enterprise SEO, technical SEO, and AI search optimization.
+
+## About
+
+- [About C. Sivaraj](https://www.seowithsiva.com/about/): Background, experience, education, and certifications.
+- Currently SEO Analyst at Orane Healthcare India Pvt Ltd (iCliniq), Coimbatore (Jul 2022-Present), owning SEO and GEO/AEO strategy end to end across a 70,000+ page international medical platform, with 40%+ of organic traffic from outside India.
+- Previously SEO Executive at Boostability India, Coimbatore (Sep 2019-Jan 2021), running technical and content audits across 25+ client websites spanning healthcare, SaaS, and services.
+- Key results: 1,050% organic session lift from a GEO/AEO pilot, 1M+ Bing AI citations, 12M+ Google generative-AI citations, 70,000+ pages optimized at scale.
+- Certifications: Enterprise Answer Engine Optimization (AEO) from seoClarity; Generative Engine Content Optimization from Edureka; GA4 Mastery from Optimize Smart.
+- Education: MBA in Marketing, Kongu Engineering College; BSc Computer Science, SNR Sons College.
+
+## Services
+
+- [Home](https://www.seowithsiva.com/): AI Search Optimization (AEO/GEO), Enterprise SEO, Technical SEO, Content Strategy, Semantic & Entity SEO, Analytics & Reporting.
+- [Contact](https://www.seowithsiva.com/contact/): SEO, AEO, and AI search consulting. Based in Coimbatore, Tamil Nadu, India; serving clients worldwide remotely.
+
+## Articles
+
+- [Articles hub](https://www.seowithsiva.com/articles/): Field notes on SEO, GEO, and AEO.
+- [What Is Search Intent Satisfaction? A Complete SEO Guide](https://www.seowithsiva.com/articles/search-intent-satisfaction/): What search intent satisfaction means, how Google measures it with click signals, and how to optimize content so searchers stop looking elsewhere.
+- [How the CITE Framework Gets Your Content Cited in AI (2026 Guide)](https://www.seowithsiva.com/articles/cite-framework-get-cited-in-ai-overviews/): A 4-part system for earning citations in Google AI Overviews, ChatGPT, and AI search engines.
+- [What's the Biggest Google Ranking Factor People Ignore?](https://www.seowithsiva.com/articles/biggest-google-ranking-factor-people-ignore/): Why search intent satisfaction, not backlinks or keywords, decides rankings in 2026.
+- [AI-First SEO Foundations: The Complete Guide to Ranking in AI Search](https://www.seowithsiva.com/articles/ai-first-seo-foundations-the-complete-guide-to-ranking-in-ai-search/): A 10-pillar framework for ranking in Google AI Overviews, ChatGPT, and Perplexity, with an implementation roadmap.
+- [AI Citation Content Optimization: How Each AI Retrieves & Cites Content](https://www.seowithsiva.com/articles/ai-citation-content-optimization/): How AI Overviews, ChatGPT, Perplexity, Gemini, and Claude retrieve and cite content, plus 10 reasons pages aren't getting cited.
+- [How to Link Social Media to Google Search Console (Site Properties)?](https://www.seowithsiva.com/articles/how-to-link-social-media-to-google-search-console/): Step-by-step setup for connecting Instagram, TikTok, X, and YouTube to Search Console without a website.

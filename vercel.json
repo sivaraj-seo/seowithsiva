@@ -1,4 +1,15 @@
 {
+  "redirects": [
+    { "source": "/about", "destination": "/about/", "permanent": true },
+    { "source": "/contact", "destination": "/contact/", "permanent": true },
+    { "source": "/articles", "destination": "/articles/", "permanent": true },
+    { "source": "/articles/ai-citation-content-optimization", "destination": "/articles/ai-citation-content-optimization/", "permanent": true },
+    { "source": "/articles/ai-first-seo-foundations-the-complete-guide-to-ranking-in-ai-search", "destination": "/articles/ai-first-seo-foundations-the-complete-guide-to-ranking-in-ai-search/", "permanent": true },
+    { "source": "/articles/biggest-google-ranking-factor-people-ignore", "destination": "/articles/biggest-google-ranking-factor-people-ignore/", "permanent": true },
+    { "source": "/articles/cite-framework-get-cited-in-ai-overviews", "destination": "/articles/cite-framework-get-cited-in-ai-overviews/", "permanent": true },
+    { "source": "/articles/how-to-link-social-media-to-google-search-console", "destination": "/articles/how-to-link-social-media-to-google-search-console/", "permanent": true },
+    { "source": "/articles/search-intent-satisfaction", "destination": "/articles/search-intent-satisfaction/", "permanent": true }
+  ],
   "headers": [
     {
       "source": "/(.*)",
@@ -7,6 +18,7 @@
         { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
         { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=()" },
         { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
+        { "key": "Strict-Transport-Security", "value": "max-age=63072000; includeSubDomains; preload" },
         { "key": "Content-Security-Policy", "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.clarity.ms https://*.clarity.ms; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://www.google-analytics.com https://www.googletagmanager.com https://www.clarity.ms https://*.clarity.ms; frame-src https://www.googletagmanager.com https://www.google.com; base-uri 'self'; form-action 'self'" }
       ]
     },

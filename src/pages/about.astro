@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { socialLinks } from '../data/social';
 
 const title = 'About C. Sivaraj – SEO Analyst & AEO / GEO Specialist';
 const description = "I'm C. Sivaraj, an SEO Analyst and AEO/GEO specialist with 5+ years of enterprise SEO experience helping brands rank in Google, ChatGPT, and Perplexity.";
@@ -12,12 +11,7 @@ const aboutPageSchema = {
   name: title,
   description,
   url: 'https://www.seowithsiva.com/about/',
-  mainEntity: {
-    '@type': 'Person',
-    name: 'C. Sivaraj',
-    url: 'https://www.seowithsiva.com',
-    sameAs: socialLinks,
-  },
+  mainEntity: { '@id': 'https://www.seowithsiva.com/#person' },
 };
 ---
 
@@ -318,7 +312,7 @@ const aboutPageSchema = {
       </div>
       <div class="hero-photo">
         <div class="hero-blob"></div>
-        <img class="hero-img floaty" src="/images/profile-about.webp" alt="C. Sivaraj" loading="eager" />
+        <img class="hero-img floaty" src="/images/profile-about.webp" alt="C. Sivaraj" width="500" height="500" loading="eager" fetchpriority="high" />
         <div class="card floaty stat-card-left">
           <div class="stat-green">5+</div>
           <div class="stat-lbl">years in SEO &amp; AI search</div>
@@ -360,7 +354,7 @@ const aboutPageSchema = {
 <div id="story" class="about-sec wrap">
   <div class="about-photo">
     <div class="about-deco"></div>
-    <img src="/images/profile-hero.webp" alt="C. Sivaraj" loading="lazy" class="about-img" />
+    <img src="/images/profile-hero.webp" alt="C. Sivaraj" width="1086" height="1448" loading="lazy" class="about-img" />
     <div class="card about-badge">
       <div class="about-years">5+</div>
       <div style="font-size:12px;color:var(--muted);line-height:1.3"><b style="color:var(--ink)">Years</b><br>in SEO &amp; AI search</div>

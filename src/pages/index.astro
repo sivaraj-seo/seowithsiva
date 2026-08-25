@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { socialLinks } from '../data/social';
 
 const title = 'C. Sivaraj – SEO Analyst & AEO / GEO Specialist';
 const description =
@@ -14,13 +13,7 @@ const profilePageSchema = {
   name: title,
   description,
   url: 'https://www.seowithsiva.com/',
-  mainEntity: {
-    '@type': 'Person',
-    name: 'C. Sivaraj',
-    url: 'https://www.seowithsiva.com',
-    jobTitle: 'SEO Analyst',
-    sameAs: socialLinks,
-  },
+  mainEntity: { '@id': 'https://www.seowithsiva.com/#person' },
 };
 
 const serviceSchema = {
@@ -30,11 +23,7 @@ const serviceSchema = {
   name: 'SEO, AEO & GEO Consulting',
   description:
     'Remote SEO, AEO and GEO consulting for brands seeking visibility in Google, AI Overviews, ChatGPT, Gemini, Perplexity, Bing AI and Copilot.',
-  provider: {
-    '@type': 'Person',
-    name: 'C. Sivaraj',
-    url: 'https://www.seowithsiva.com',
-  },
+  provider: { '@id': 'https://www.seowithsiva.com/#person' },
   areaServed: 'Worldwide',
   availableChannel: {
     '@type': 'ServiceChannel',
@@ -447,7 +436,7 @@ const serviceSchema = {
       </div>
       <div class="hero-photo">
         <div class="hero-blob"></div>
-        <img class="hero-img floaty" src="/images/profile-hero.webp" alt="C. Sivaraj" loading="eager" />
+        <img class="hero-img floaty" src="/images/profile-hero.webp" alt="C. Sivaraj" width="1086" height="1448" loading="eager" fetchpriority="high" />
         <div class="card floaty stat-card-left">
           <div class="stat-green">+1,050%</div>
           <div class="stat-lbl">organic sessions (GEO pilot)</div>
@@ -577,7 +566,7 @@ const serviceSchema = {
 <div id="about" class="about-sec wrap">
   <div class="about-photo">
     <div class="about-deco"></div>
-    <img src="/images/profile-about.webp" alt="C. Sivaraj" loading="lazy" class="about-img" />
+    <img src="/images/profile-about.webp" alt="C. Sivaraj" width="500" height="500" loading="lazy" class="about-img" />
     <div class="card about-badge">
       <div class="about-years">5+</div>
       <div style="font-size:12px;color:var(--muted);line-height:1.3"><b style="color:var(--ink)">Years</b><br>in SEO &amp; AI search</div>
@@ -662,7 +651,7 @@ const serviceSchema = {
     </div>
     <div class="articles-grid">
       <a class="art-card" href="/articles/search-intent-satisfaction/">
-        <img src="/images/article-8.webp" alt="What Is Search Intent Satisfaction? A Complete SEO Guide" loading="lazy" />
+        <img src="/images/article-8.webp" alt="What Is Search Intent Satisfaction? A Complete SEO Guide" width="1200" height="630" loading="lazy" />
         <div class="art-body">
           <div class="tag art-tag" style="display:inline-flex">SEO Strategy</div>
           <h3>What Is Search Intent Satisfaction? A Complete SEO Guide</h3>
@@ -671,7 +660,7 @@ const serviceSchema = {
         </div>
       </a>
       <a class="art-card" href="/articles/cite-framework-get-cited-in-ai-overviews/">
-        <img src="/images/article-7.webp" alt="How the CITE Framework Gets Your Content Cited in AI (2026 Guide)" loading="lazy" />
+        <img src="/images/article-7.webp" alt="How the CITE Framework Gets Your Content Cited in AI (2026 Guide)" width="1200" height="630" loading="lazy" />
         <div class="art-body">
           <div class="tag art-tag" style="display:inline-flex">SEO Strategy</div>
           <h3>How the CITE Framework Gets Your Content Cited in AI (2026 Guide)</h3>
@@ -680,7 +669,7 @@ const serviceSchema = {
         </div>
       </a>
       <a class="art-card" href="/articles/biggest-google-ranking-factor-people-ignore/">
-        <img src="/images/article-6.webp" alt="What's the Biggest Google Ranking Factor People Ignore?" loading="lazy" />
+        <img src="/images/article-6.webp" alt="What's the Biggest Google Ranking Factor People Ignore?" width="1200" height="630" loading="lazy" />
         <div class="art-body">
           <div class="tag art-tag" style="display:inline-flex">SEO Strategy</div>
           <h3>What's the Biggest Google Ranking Factor People Ignore?</h3>
@@ -692,54 +681,19 @@ const serviceSchema = {
   </div>
 </section>
 
-<!-- ── CREDENTIALS ── -->
+<!-- ── CREDENTIALS (summary) ── -->
 <section id="credentials" class="creds-sec">
   <div class="wrap">
     <div class="creds-inner">
-      <!-- Education -->
-      <div>
-        <span class="tag">Education</span>
-        <h2>Education</h2>
-        <div class="creds-2col">
-          <div class="card edu-card">
-            <div class="edu-head"><span class="edu-degree">MBA, Marketing</span><span class="edu-years">2017 – 2019</span></div>
-            <div class="edu-school">Kongu Engineering College, Erode</div>
-          </div>
-          <div class="card edu-card">
-            <div class="edu-head"><span class="edu-degree">BSc, Computer Science</span><span class="edu-years">2012 – 2015</span></div>
-            <div class="edu-school">SNR Sons College, Coimbatore</div>
-          </div>
-        </div>
-      </div>
-      <!-- Certifications -->
-      <div>
-        <span class="tag">Certifications</span>
-        <h2>Credentials</h2>
-        <div class="creds-2col cols-3">
-          <a class="cert-card" href="https://academy.seoclarity.net/certificate-verification/1332C8E64-1332C8ECB-330938F/" target="_blank" rel="noopener">
-            <span class="cert-ico" style="background:#fbe6ef;color:var(--cta)"><svg viewBox="0 0 24 24" width="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="9" r="5"/><path d="M8 14l-2 7 6-3 6 3-2-7"/></svg></span>
-            <div>
-              <span class="cert-name">Enterprise Answer Engine Optimization (AEO)</span>
-              <span class="cert-issuer">seoClarity</span>
-              <span class="cert-verify">Verify credential ↗</span>
-            </div>
-          </a>
-          <a class="cert-card" href="https://www.coursera.org/account/accomplishments/verify/582XE0FA3326" target="_blank" rel="noopener">
-            <span class="cert-ico" style="background:#efe9fc;color:var(--accent)"><svg viewBox="0 0 24 24" width="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1 3 3 6 3s6-2 6-3v-5"/></svg></span>
-            <div>
-              <span class="cert-name">Generative Engine Content Optimization</span>
-              <span class="cert-issuer">Edureka</span>
-              <span class="cert-verify">Verify credential ↗</span>
-            </div>
-          </a>
-          <div class="cert-card">
-            <span class="cert-ico" style="background:#e3f3ea;color:#2fae74"><svg viewBox="0 0 24 24" width="20" fill="none" stroke="currentColor" stroke-width="2"><line x1="6" y1="20" x2="6" y2="12"/><line x1="12" y1="20" x2="12" y2="6"/><line x1="18" y1="20" x2="18" y2="9"/></svg></span>
-            <div>
-              <span class="cert-name">GA4 Mastery</span>
-              <span class="cert-issuer">Optimize Smart</span>
-            </div>
-          </div>
-        </div>
+      <div style="text-align:center; max-width:640px; margin:0 auto;">
+        <span class="tag" style="display:inline-flex;justify-content:center">Credentials</span>
+        <h2>MBA + BSc, plus AEO, GEO, and GA4 certifications</h2>
+        <p style="font-size:15px; color:var(--muted); margin-top:12px; line-height:1.7;">
+          MBA in Marketing (Kongu Engineering College), BSc in Computer Science (SNR Sons College), and
+          certifications in Enterprise Answer Engine Optimization (seoClarity), Generative Engine
+          Content Optimization (Edureka), and GA4 Mastery (Optimize Smart).
+        </p>
+        <a href="/about/#credentials" class="pill ghost" style="margin-top:22px">See full bio &amp; credentials →</a>
       </div>
     </div>
   </div>

@@ -28,6 +28,7 @@ const resolvedOgImage = new URL(ogImage, Astro.site);
 const personSchema = {
   '@context': 'https://schema.org',
   '@type': 'Person',
+  '@id': 'https://www.seowithsiva.com/#person',
   name: 'C. Sivaraj',
   url: 'https://www.seowithsiva.com',
   image: new URL('/images/profile-hero.webp', Astro.site).toString(),
@@ -41,19 +42,23 @@ const personSchema = {
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <!-- Google Tag Manager -->
-    <script is:inline>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-MCB995NX');</script>
-    <!-- End Google Tag Manager -->
-    <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
-    <slot name="head" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Fonts: preload + swap-in so the stylesheet never blocks first paint -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&display=swap" rel="stylesheet" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&display=swap"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <noscript>
+      <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&display=swap" rel="stylesheet" />
+    </noscript>
+
+    <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
+    <slot name="head" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     
     <!-- Essential SEO Meta Tags -->
@@ -154,6 +159,12 @@ const personSchema = {
     <Header />
     <slot />
     <Footer />
+    <!-- Google Tag Manager: loaded after critical content instead of head-blocking -->
+    <script is:inline>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-MCB995NX');</script>
     <script is:inline>
       // Minimal performance monitoring
       if (window.performance && window.performance.timing) {

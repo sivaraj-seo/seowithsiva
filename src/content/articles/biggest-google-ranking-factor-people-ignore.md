@@ -30,21 +30,6 @@ faqs:
     answer: "No. Google confirmed in 2009 that it does not use the meta keywords tag for ranking. Time spent on it is wasted."
   - question: "What matters more: topical authority or domain authority?"
     answer: "Topical authority. Domain authority is a third-party metric Google doesn't use. The 2024 API leak confirmed site-level quality scoring tied to subject coverage, which topical authority describes far better."
-howToSteps:
-  - name: "Search your target keyword in an incognito window"
-    text: "Record the dominant format of the top 5 results (guide, list, comparison, tool, video)."
-  - name: "Classify the intent"
-    text: "Match the query against the four intent types. If the SERP mixes intents, pick the dominant one and cover the secondary one in a section."
-  - name: "List every question the SERP answers"
-    text: "Pull People Also Ask boxes, AI Overview sub-points, and the H2s of the top 3 pages into one document."
-  - name: "Find the gap"
-    text: "Identify at least one question, data point, or angle none of the top results covers. This becomes your information gain. If you can't find one, add original data or first-hand experience."
-  - name: "Answer the core question in your first 100 words"
-    text: "No wind-up. Searchers and AI systems both extract the top of the page first."
-  - name: "Make every H2 section self-contained"
-    text: "Each section should make sense if lifted out with zero surrounding context, because that is exactly how AI retrieval uses it."
-  - name: "Check the click-back test after publishing"
-    text: "In Google Search Console, watch impressions vs. position over 4 to 6 weeks. Rising impressions with stalling position usually signals an intent or satisfaction gap, not a link gap."
 ---
 
 The biggest Google ranking factor people ignore is **search intent satisfaction**, which measures whether your page fully resolves the reason behind a search, not whether it contains the right words.

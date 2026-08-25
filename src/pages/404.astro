@@ -1,0 +1,69 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Page Not Found"
+  description="The page you're looking for doesn't exist. Head back to SEO With Siva's homepage, articles, or contact page."
+>
+  <main class="notfound-main">
+    <div class="notfound-wrap">
+      <div class="notfound-eyebrow">404</div>
+      <h1 class="notfound-heading">This page got lost in the SERPs</h1>
+      <p class="notfound-sub">The page you're looking for doesn't exist, may have moved, or the link is broken.</p>
+      <div class="notfound-ctas">
+        <a href="/" class="pill cta">Back to home →</a>
+        <a href="/articles/" class="pill ghost">Browse articles</a>
+      </div>
+    </div>
+  </main>
+</BaseLayout>
+
+<style>
+  .notfound-main{
+    min-height: calc(100vh - 72px - 80px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 24px;
+    background: linear-gradient(165deg,#efeafc 0%,#f7ecf2 52%,#fde9dc 100%);
+    text-align: center;
+  }
+  .notfound-wrap{ max-width: 520px; }
+  .notfound-eyebrow{
+    font-size: 64px;
+    font-weight: 800;
+    color: var(--accent);
+    letter-spacing: -.02em;
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+  .notfound-heading{
+    font-size: clamp(26px, 4vw, 36px);
+    font-weight: 800;
+    color: var(--ink);
+    line-height: 1.15;
+    letter-spacing: -.02em;
+    margin-bottom: 14px;
+  }
+  .notfound-sub{
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.65;
+    margin-bottom: 32px;
+  }
+  .notfound-ctas{ display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  .pill{
+    display:inline-flex; align-items:center; gap:8px;
+    border-radius:999px; font-weight:600; font-size:15px;
+    padding:14px 26px; text-decoration: none;
+    transition:transform .18s, box-shadow .18s;
+  }
+  .pill:hover{ transform:translateY(-2px); }
+  .cta{ background:var(--cta); color:#fff; box-shadow:0 10px 24px -8px rgba(236,109,146,.6); }
+  .ghost{ background:#fff; color:var(--ink); box-shadow:0 6px 20px -10px rgba(33,29,51,.4); }
+
+  @media(max-width: 480px){
+    .notfound-main{ padding: 60px 16px; }
+  }
+</style>

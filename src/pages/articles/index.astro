@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getImageDims } from '../../data/imageDims';
 
 const allArticles = await getCollection('articles');
 const articles = allArticles.sort(
@@ -178,7 +179,7 @@ const collectionPageSchema = {
     {articles.map(article => (
       <article class="art-card" data-category={article.data.category}>
         <div class="art-thumb">
-          <img src={article.data.image} alt={article.data.title} loading="lazy" />
+          <img src={article.data.image} alt={article.data.title} width={getImageDims(article.data.image).width} height={getImageDims(article.data.image).height} loading="lazy" />
           <span class="art-cat-badge">{article.data.category}</span>
         </div>
         <div class="art-body">
