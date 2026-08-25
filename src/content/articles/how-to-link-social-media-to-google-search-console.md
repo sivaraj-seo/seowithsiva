@@ -1,7 +1,7 @@
 ---
 title: "How to Link Social Media to Google Search Console (Site Properties)?"
 metaTitle: "Link Social Media to Google Search Console"
-excerpt: "Google Search Console now lets you connect Instagram, TikTok, X, and YouTube directly — no website required. Here's the full step-by-step setup."
+excerpt: "Google Search Console now lets you connect Instagram, TikTok, X, and YouTube directly - no website required. Here's the full step-by-step setup."
 date: "2026-08-04"
 category: "Technical SEO"
 readTime: "5 min read"
@@ -73,7 +73,7 @@ Click the property selector dropdown in the top-left corner (where your current 
 
 Once the rollout has reached your account, you will see two options: Add a website and Platform property. Click on "Platform Property."
 
-Google is slowly rolling this out through 2026 — if you don't see this option yet, check back in a few days. It's not an account problem.
+Google is slowly rolling this out through 2026 - if you don't see this option yet, check back in a few days. It's not an account problem.
 
 ![Select a property type dialog showing Instagram, TikTok, X, and YouTube](/images/social-gsc-step-3.webp)
 
@@ -87,7 +87,7 @@ Choose Instagram, TikTok, X, or YouTube from the list. You need to add each acco
 
 Click Add and sign into the social account you'd like to connect. Follow the on-screen instructions to authorize Search Console to access that account.
 
-You have to log in actively. This is not automatic — Google confirms that you own the account.
+You have to log in actively. This is not automatic - Google confirms that you own the account.
 
 ### Step 6: Finalize Verification
 
@@ -116,7 +116,7 @@ This feature is most useful for:
 - Social managers and agencies managing social accounts for their clients
 - Brands measuring the impact of organic search on social awareness
 
-If you don't post a lot, or social is mainly used for existing customer engagement, the data will be leaner — but setup is free and takes minutes, so there's no downside to connecting.
+If you don't post a lot, or social is mainly used for existing customer engagement, the data will be leaner - but setup is free and takes minutes, so there's no downside to connecting.
 
 ## Significant Limitations
 
@@ -124,7 +124,7 @@ Platform properties are not a replacement for your platform's native analytics. 
 
 Each account requires its own platform property. If you have 10 brand accounts across TikTok and Instagram, that's 10 different properties.
 
-The feature began rolling out in July 2026. If you still don't see the platform property option after mid-August, reach out to Google Support — it's likely just a rollout delay.
+The feature began rolling out in July 2026. If you still don't see the platform property option after mid-August, reach out to Google Support - it's likely just a rollout delay.
 
 ## FAQ
 

@@ -119,7 +119,7 @@ Explaining related concepts such as crawlability, indexation, Core Web Vitals, X
 
 The SEO Iceberg Framework is a model that splits ranking signals into three layers. Visible signals sit above the waterline and get all the attention. Hidden signals sit below it and decide most rankings. AI signals form the deepest layer and decide who gets cited in AI answers.
 
-![The Three Layers of SEO Signals — Layer 1 visible signals (keywords, titles, backlinks, meta descriptions, word count), Layer 2 hidden signals (intent satisfaction, topical authority, brand trust, entity relationships), and Layer 3 AI signals (information gain, AI Overview and LLM citation probability, passage extractability, consistent entity signals)](/images/three-layers-of-seo-signals.webp)
+![The Three Layers of SEO Signals - Layer 1 visible signals (keywords, titles, backlinks, meta descriptions, word count), Layer 2 hidden signals (intent satisfaction, topical authority, brand trust, entity relationships), and Layer 3 AI signals (information gain, AI Overview and LLM citation probability, passage extractability, consistent entity signals)](/images/three-layers-of-seo-signals.webp)
 
 ## How Has AI Changed Google's Ranking Priorities?
 

@@ -148,7 +148,7 @@ const faqSchema = article.data.faqs && article.data.faqs.length > 0 ? {
   .art-meta-dateline{ display:inline-flex; align-items:baseline; gap:5px; }
   .art-meta-datelabel{ font-size:11px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:#b0a9c8; }
 
-  /* Hero image — below meta, above article body */
+  /* Hero image - below meta, above article body */
   .art-hero-img{
     width:100%; max-height:260px;
     object-fit:cover; border-radius:14px;
@@ -259,7 +259,7 @@ const faqSchema = article.data.faqs && article.data.faqs.length > 0 ? {
     margin-bottom:16px; letter-spacing:0;
   }
   .toc-list{ list-style:none; padding:0; margin:0; }
-  /* :global() needed — li/a are created dynamically by JS and don't carry Astro's scope hash */
+  /* :global() needed - li/a are created dynamically by JS and don't carry Astro's scope hash */
   .toc-list :global(li){ margin-bottom:0; }
   .toc-list :global(a){
     font-size:13px; color:#5a5470;
@@ -275,7 +275,7 @@ const faqSchema = article.data.faqs && article.data.faqs.length > 0 ? {
   .toc-list :global(a:hover){ color:var(--accent); }
   .toc-list :global(a.active){ color:var(--accent); font-weight:700; }
 
-  /* Sidebar consulting CTA — NP-inspired sidebar widget */
+  /* Sidebar consulting CTA - NP-inspired sidebar widget */
   .sidebar-cta{
     background:linear-gradient(160deg,#7c5cd6 0%,#5b3db5 100%);
     border-radius:14px; padding:22px 20px;
@@ -369,7 +369,7 @@ const faqSchema = article.data.faqs && article.data.faqs.length > 0 ? {
 </style>
 
 <!-- Prose styles are global because <Content /> renders markdown HTML that does not
-     carry Astro's scope hash — scoped rules would never match those elements. -->
+     carry Astro's scope hash - scoped rules would never match those elements. -->
 <style is:global>
   .prose > p:first-child{
     font-size:16px; line-height:1.72; color:#2a2545;
@@ -456,7 +456,7 @@ const faqSchema = article.data.faqs && article.data.faqs.length > 0 ? {
     margin:32px 0;
   }
 
-  /* Inline CTA banner — JS-injected, needs global scope */
+  /* Inline CTA banner - JS-injected, needs global scope */
   .mid-cta{
     display:flex; align-items:center; justify-content:space-between; gap:24px;
     background:#efeafc;
@@ -519,7 +519,7 @@ const faqSchema = article.data.faqs && article.data.faqs.length > 0 ? {
       <span class="art-meta-dot"></span>
       <span class="art-meta-author">Written by C. Sivaraj</span>
     </div>
-    <!-- Hero image below meta — NP layout -->
+    <!-- Hero image below meta - NP layout -->
     <img src={article.data.image} alt={article.data.title} class="art-hero-img" loading="eager" />
   </div>
 </div>
@@ -528,7 +528,7 @@ const faqSchema = article.data.faqs && article.data.faqs.length > 0 ? {
 <div class="art-layout">
   <!-- Prose -->
   <div>
-    <!-- Key Takeaways — NP's "first section" pattern -->
+    <!-- Key Takeaways - NP's "first section" pattern -->
     {article.data.keyTakeaways && article.data.keyTakeaways.length > 0 && (
       <div class="key-takeaways">
         <div class="kt-label">Key Takeaways</div>
@@ -573,7 +573,7 @@ const faqSchema = article.data.faqs && article.data.faqs.length > 0 ? {
       </a>
     </div>
 
-    <!-- Author bio — NP pattern: "About the author" label + card -->
+    <!-- Author bio - NP pattern: "About the author" label + card -->
     <div class="author-label">About the author</div>
     <div class="art-author">
       <img src="/images/profile-about.webp" alt="C. Sivaraj" class="author-img" loading="lazy" />
@@ -611,11 +611,11 @@ const faqSchema = article.data.faqs && article.data.faqs.length > 0 ? {
       <ul class="toc-list" id="toc-list"></ul>
     </div>
 
-    <!-- Consulting CTA — NP sidebar widget pattern -->
+    <!-- Consulting CTA - NP sidebar widget pattern -->
     <div class="sidebar-cta">
       <div class="sidebar-cta-label">Free Consultation</div>
       <div class="sidebar-cta-heading">Invisible in AI search?</div>
-      <p class="sidebar-cta-text">Get a free AI visibility audit — I'll show you exactly where citations are missing and what to fix first.</p>
+      <p class="sidebar-cta-text">Get a free AI visibility audit - I'll show you exactly where citations are missing and what to fix first.</p>
       <a href="/contact/" class="sidebar-cta-btn">Book a strategy call →</a>
     </div>
   </aside>
@@ -682,7 +682,7 @@ const faqSchema = article.data.faqs && article.data.faqs.length > 0 ? {
     h2s.forEach(h => observer.observe(h));
   }
 
-  // Inline CTA banner — compact strip injected before the 3rd H2
+  // Inline CTA banner - compact strip injected before the 3rd H2
   const allH2s = Array.from(document.querySelectorAll<HTMLElement>('.prose h2'));
   const ctaTarget = allH2s[2] ?? allH2s[allH2s.length - 1];
   if (ctaTarget) {
@@ -692,7 +692,7 @@ const faqSchema = article.data.faqs && article.data.faqs.length > 0 ? {
       <div class="mid-cta-text">
         <div class="mid-cta-label">Free Consultation</div>
         <div class="mid-cta-heading">Is your brand invisible in AI search?</div>
-        <div class="mid-cta-body">I'll audit your AI citation footprint and show you exactly where you're missing from ChatGPT, Gemini, and Perplexity — free for the first call.</div>
+        <div class="mid-cta-body">I'll audit your AI citation footprint and show you exactly where you're missing from ChatGPT, Gemini, and Perplexity - free for the first call.</div>
       </div>
       <a href="/contact/" class="mid-cta-btn">Book a free strategy call →</a>
     `;
