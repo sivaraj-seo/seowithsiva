@@ -36,6 +36,29 @@ const personSchema = {
   email: 'sivarajc.seo@gmail.com',
   sameAs: socialLinks,
 };
+
+const organizationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  '@id': 'https://www.seowithsiva.com/#organization',
+  name: 'SEO With Siva',
+  url: 'https://www.seowithsiva.com',
+  logo: {
+    '@type': 'ImageObject',
+    url: new URL('/images/logo.webp', Astro.site).toString(),
+  },
+  founder: { '@id': 'https://www.seowithsiva.com/#person' },
+  sameAs: socialLinks,
+};
+
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  '@id': 'https://www.seowithsiva.com/#website',
+  name: 'SEO With Siva',
+  url: 'https://www.seowithsiva.com',
+  publisher: { '@id': 'https://www.seowithsiva.com/#organization' },
+};
 ---
 
 <!DOCTYPE html>
@@ -58,6 +81,9 @@ const personSchema = {
     </noscript>
 
     <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
+    <link rel="alternate" type="application/rss+xml" title="SEO With Siva" href={new URL('/rss.xml', Astro.site)} />
     <slot name="head" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     

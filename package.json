@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@astrojs/react": "^3.0.0",
+    "@astrojs/rss": "^4.0.19",
     "@astrojs/sitemap": "3.2.1",
     "astro": "^4.0.0",
     "react": "^18.3.1",

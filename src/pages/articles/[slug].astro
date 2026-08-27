@@ -1,7 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { socialLinks } from '../../data/social';
 import { getImageDims } from '../../data/imageDims';
 
 export async function getStaticPaths() {
@@ -40,16 +39,7 @@ const articleSchema = {
   datePublished: toISODateTime(article.data.date),
   dateModified: toISODateTime(article.data.lastModified || article.data.date),
   author: { '@id': 'https://www.seowithsiva.com/#person' },
-  publisher: {
-    '@type': 'Organization',
-    name: 'SEO With Siva',
-    url: 'https://www.seowithsiva.com',
-    sameAs: socialLinks,
-    logo: {
-      '@type': 'ImageObject',
-      url: new URL('/images/logo.webp', Astro.site).toString(),
-    },
-  },
+  publisher: { '@id': 'https://www.seowithsiva.com/#organization' },
   mainEntityOfPage: {
     '@type': 'WebPage',
     '@id': canonicalURL.toString(),
