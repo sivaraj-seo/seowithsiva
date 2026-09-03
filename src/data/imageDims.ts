@@ -7,6 +7,7 @@ export const imageDims: Record<string, { width: number; height: number }> = {
   '/images/article-7.webp': { width: 1200, height: 630 },
   '/images/article-8.webp': { width: 1200, height: 630 },
   '/images/article-9.png': { width: 1200, height: 320 },
+  '/images/article-10.webp': { width: 1200, height: 320 },
 };
 
 const fallback = { width: 1200, height: 630 };
