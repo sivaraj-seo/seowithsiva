@@ -5,6 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
+    "banners": "node scripts/normalize-banners.mjs",
+    "prebuild": "node scripts/normalize-banners.mjs",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
@@ -22,6 +24,7 @@
   "devDependencies": {
     "@types/node": "^20.0.0",
     "eslint": "^8.0.0",
-    "prettier": "^3.0.0"
+    "prettier": "^3.0.0",
+    "sharp": "^0.33.5"
   }
 }
