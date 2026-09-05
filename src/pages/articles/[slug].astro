@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { socialLinks } from '../../data/social';
+import { safeJsonLd } from '../../utils/schema';
 
 export async function getStaticPaths() {
   const articles = await getCollection('articles');
@@ -102,10 +103,10 @@ const faqSchema = article.data.faqs && article.data.faqs.length > 0 ? {
 >
 
 <Fragment slot="head">
-  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
-  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
-  {howToSchema && <script type="application/ld+json" set:html={JSON.stringify(howToSchema)} />}
-  {faqSchema && <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />}
+  <script type="application/ld+json" set:html={safeJsonLd(articleSchema)} />
+  <script type="application/ld+json" set:html={safeJsonLd(breadcrumbSchema)} />
+  {howToSchema && <script type="application/ld+json" set:html={safeJsonLd(howToSchema)} />}
+  {faqSchema && <script type="application/ld+json" set:html={safeJsonLd(faqSchema)} />}
 </Fragment>
 
 <style>

@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { socialLinks } from '../data/social';
+import { safeJsonLd } from '../utils/schema';
 
 const contactPageSchema = {
   '@context': 'https://schema.org',
@@ -24,7 +25,7 @@ const contactPageSchema = {
   keywords="contact, SEO consultant, hire SEO, AEO, GEO, AI search"
 >
   <Fragment slot="head">
-    <script type="application/ld+json" set:html={JSON.stringify(contactPageSchema)} />
+    <script type="application/ld+json" set:html={safeJsonLd(contactPageSchema)} />
   </Fragment>
   <main class="contact-main">
     <div class="contact-wrap">

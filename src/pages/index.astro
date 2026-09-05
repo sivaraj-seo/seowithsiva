@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { socialLinks } from '../data/social';
+import { safeJsonLd } from '../utils/schema';
 
 const title = 'C. Sivaraj – SEO Analyst & AEO / GEO Specialist';
 const description =
@@ -27,7 +28,7 @@ const profilePageSchema = {
 <BaseLayout {title} {description} {keywords} author="C. Sivaraj">
 
 <Fragment slot="head">
-  <script type="application/ld+json" set:html={JSON.stringify(profilePageSchema)} />
+  <script type="application/ld+json" set:html={safeJsonLd(profilePageSchema)} />
 </Fragment>
 
 <style>
