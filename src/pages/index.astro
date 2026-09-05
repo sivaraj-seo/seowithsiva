@@ -1,11 +1,10 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { socialLinks } from '../data/social';
 import { safeJsonLd } from '../utils/schema';
 
 const title = 'C. Sivaraj – SEO Analyst & AEO / GEO Specialist';
 const description =
-  'SEO & AI-search analyst helping brands earn visibility across Google AI Overviews, ChatGPT, Gemini, Perplexity, Bing AI & Copilot — 5+ years enterprise SEO.';
+  'SEO & AI-search analyst helping brands earn visibility across Google AI Overviews, ChatGPT, Gemini, Perplexity, Bing AI & Copilot, backed by 5+ years enterprise SEO.';
 const keywords =
   'SEO analyst, AEO, GEO, AI search optimization, enterprise SEO, Google AI Overviews, generative engine optimization, C. Sivaraj';
 
@@ -15,12 +14,37 @@ const profilePageSchema = {
   name: title,
   description,
   url: 'https://www.seowithsiva.com/',
-  mainEntity: {
-    '@type': 'Person',
-    name: 'C. Sivaraj',
-    url: 'https://www.seowithsiva.com',
-    jobTitle: 'SEO Analyst',
-    sameAs: socialLinks,
+  mainEntity: { '@id': 'https://www.seowithsiva.com/#person' },
+};
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  serviceType: 'SEO, AEO & GEO Consulting',
+  name: 'SEO, AEO & GEO Consulting',
+  description:
+    'Remote SEO, AEO and GEO consulting for brands seeking visibility in Google, AI Overviews, ChatGPT, Gemini, Perplexity, Bing AI and Copilot.',
+  provider: { '@id': 'https://www.seowithsiva.com/#person' },
+  areaServed: 'Worldwide',
+  availableChannel: {
+    '@type': 'ServiceChannel',
+    serviceUrl: 'https://www.seowithsiva.com/contact/',
+    availableLanguage: ['English'],
+  },
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'SEO Services',
+    itemListElement: [
+      'AI Search Optimization (AEO / GEO)',
+      'Enterprise SEO',
+      'Technical SEO',
+      'Content Strategy',
+      'Semantic & Entity SEO',
+      'Analytics & Reporting',
+    ].map((name) => ({
+      '@type': 'Offer',
+      itemOffered: { '@type': 'Service', name },
+    })),
   },
 };
 ---
@@ -29,6 +53,7 @@ const profilePageSchema = {
 
 <Fragment slot="head">
   <script type="application/ld+json" set:html={safeJsonLd(profilePageSchema)} />
+  <script type="application/ld+json" set:html={safeJsonLd(serviceSchema)} />
 </Fragment>
 
 <style>
@@ -142,6 +167,11 @@ const profilePageSchema = {
     padding:12px 15px; border-radius:16px;
     display:flex; align-items:center; gap:9px; animation-delay:.5s;
   }
+  .stat-card-bottom{
+    position:absolute; right:-6px; bottom:-14px;
+    padding:12px 15px; border-radius:16px;
+    display:flex; align-items:center; gap:9px; animation-delay:.8s;
+  }
   .stat-green{ font-weight:800; font-size:22px; color:#2fae74; }
   .stat-lbl{ font-size:11px; color:var(--muted); }
 
@@ -161,7 +191,7 @@ const profilePageSchema = {
   /* ── STAT BAR ── */
   .stat-bar{ padding-bottom:78px; }
   .stat-bar-card{
-    display:grid; grid-template-columns:repeat(4,1fr);
+    display:grid; grid-template-columns:repeat(5,1fr);
     gap:20px; padding:34px 40px; border-radius:24px;
     background:linear-gradient(120deg,#fff,#faf6ff);
   }
@@ -290,6 +320,7 @@ const profilePageSchema = {
   }
   .creds-inner{ display:flex; flex-direction:column; gap:54px; }
   .creds-2col{ display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:28px; }
+  .creds-2col.cols-3{ grid-template-columns:repeat(3,1fr); }
   .edu-card{ padding:22px 24px; }
   .edu-head{ display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap; }
   .edu-degree{ font-weight:700; font-size:17px; }
@@ -350,15 +381,15 @@ const profilePageSchema = {
     .hero-inner{ grid-template-columns:1fr; }
     .hero-photo{ display:none; }
     .features-grid{ grid-template-columns:repeat(2,1fr); }
-    .stat-bar-card{ grid-template-columns:repeat(2,1fr); }
-    .stat-item+.stat-item{ border-left:none; }
-    .stat-item:nth-child(odd){ border-right:none; }
+    .stat-bar-card{ grid-template-columns:repeat(3,1fr); }
+    .stat-item{ border-left:none !important; }
     .services-grid{ grid-template-columns:repeat(2,1fr); }
     .about-sec{ grid-template-columns:1fr; }
     .about-photo{ display:none; }
     .results-grid{ grid-template-columns:1fr; }
     .articles-grid{ grid-template-columns:1fr; }
     .creds-2col{ grid-template-columns:1fr; }
+    .creds-2col.cols-3{ grid-template-columns:1fr; }
     .about-pillars{ grid-template-columns:1fr; }
   }
   @media(max-width:600px){
@@ -367,7 +398,7 @@ const profilePageSchema = {
     .features-grid{ grid-template-columns:1fr 1fr; }
     .articles-head{ flex-direction:column; align-items:flex-start; }
     .results-head{ flex-direction:column; }
-    .stat-bar-card{ padding:24px 20px; }
+    .stat-bar-card{ padding:24px 20px; grid-template-columns:repeat(2,1fr); }
     .hero-desc{ font-size:16px; }
     .pill{ font-size:14px; padding:12px 20px; }
     .hero-ctas{ gap:10px; }
@@ -381,7 +412,7 @@ const profilePageSchema = {
       <div>
         <span class="tag hero-badge">SEO Analyst · AEO / GEO · 5+ years</span>
         <h1>Get found in Google, and in <span class="em">every AI answer engine.</span></h1>
-        <p class="hero-desc">I'm Sivaraj, an SEO &amp; AI-search analyst helping brands earn visibility across Google AI Overviews, ChatGPT, Gemini, Perplexity, Bing AI and Copilot, backed by enterprise SEO that compounds.</p>
+        <p class="hero-desc">I'm Sivaraj, an SEO &amp; AI-search analyst helping brands earn visibility across Google AI Overviews, ChatGPT, Gemini, Perplexity, Bing AI and Copilot, backed by enterprise SEO that compounds. Working remotely with clients worldwide.</p>
         <div class="hero-ctas">
           <a href="https://calendar.app.google/FwUxXeGAFCdvuvGN6" target="_blank" rel="noopener" class="pill cta">Let's connect →</a>
         </div>
@@ -406,7 +437,7 @@ const profilePageSchema = {
       </div>
       <div class="hero-photo">
         <div class="hero-blob"></div>
-        <img class="hero-img floaty" src="/images/profile-hero.webp" alt="C. Sivaraj" loading="eager" />
+        <img class="hero-img floaty" src="/images/profile-hero.webp" alt="C. Sivaraj" width="1086" height="1448" loading="eager" fetchpriority="high" />
         <div class="card floaty stat-card-left">
           <div class="stat-green">+1,050%</div>
           <div class="stat-lbl">organic sessions (GEO pilot)</div>
@@ -420,6 +451,15 @@ const profilePageSchema = {
             <div class="stat-lbl">Bing AI citations</div>
           </div>
         </div>
+        <div class="card floaty stat-card-bottom">
+          <div class="ico" style="width:38px;height:38px;border-radius:11px;background:#e8edfb;color:#4a63c9">
+            <svg viewBox="0 0 24 24" width="20" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8L12 3z"/></svg>
+          </div>
+          <div>
+            <div style="font-weight:700;font-size:13px">12M+</div>
+            <div class="stat-lbl">Google AI citations</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -431,7 +471,7 @@ const profilePageSchema = {
   <div class="wrap intro-wrap">
     <span class="tag" style="display:inline-flex;justify-content:center">AI-first SEO</span>
     <h2 class="intro-h2">5+ years optimizing enterprise content so it ranks in search <em>and</em> gets cited by the AI engines people now <span class="ulink em">ask first.</span></h2>
-    <p>I build AI-first content systems on a foundation of technical SEO, topical authority and entity optimization, so brands stay discoverable as search shifts from ten blue links to generative answers.</p>
+    <p>I build AI-first content systems on a foundation of technical SEO, topical authority and entity optimization, so brands stay discoverable as search shifts from ten blue links to generative answers, work that's earned 12M+ Google AI citations and 1M+ Bing AI citations so far.</p>
   </div>
 </section>
 
@@ -474,6 +514,7 @@ const profilePageSchema = {
   <div class="card stat-bar-card">
     <div class="stat-item"><div class="stat-num">1,050%<span class="em">.</span></div><div class="stat-sub">Organic session lift (GEO pilot)</div></div>
     <div class="stat-item"><div class="stat-num">1M<span style="color:var(--cta)">+</span></div><div class="stat-sub">Bing AI citations generated</div></div>
+    <div class="stat-item"><div class="stat-num">12M<span style="color:#4a63c9">+</span></div><div class="stat-sub">Google AI citations generated</div></div>
     <div class="stat-item"><div class="stat-num">70K<span style="color:#2fae74">+</span></div><div class="stat-sub">Pages optimized at scale</div></div>
     <div class="stat-item"><div class="stat-num">80%<span style="color:#e0922f">.</span></div><div class="stat-sub">Less SEO reporting effort</div></div>
   </div>
@@ -526,7 +567,7 @@ const profilePageSchema = {
 <div id="about" class="about-sec wrap">
   <div class="about-photo">
     <div class="about-deco"></div>
-    <img src="/images/profile-about.webp" alt="C. Sivaraj" loading="lazy" class="about-img" />
+    <img src="/images/profile-about.webp" alt="C. Sivaraj" width="500" height="500" loading="lazy" class="about-img" />
     <div class="card about-badge">
       <div class="about-years">5+</div>
       <div style="font-size:12px;color:var(--muted);line-height:1.3"><b style="color:var(--ink)">Years</b><br>in SEO &amp; AI search</div>
@@ -563,7 +604,7 @@ const profilePageSchema = {
   <div class="wrap">
     <div class="results-head">
       <div>
-        <span class="tag results-head">Key achievements</span>
+        <span class="tag">Key achievements</span>
         <h2>Results that <span style="color:#c3b1f5">speak for themselves</span></h2>
       </div>
       <p>Real outcomes from enterprise SEO and Generative Engine Optimization programs.</p>
@@ -576,10 +617,10 @@ const profilePageSchema = {
         <p>Led a GEO/AEO pilot across 60 high-value healthcare articles; the framework was then adopted site-wide across Google, Bing and AI platforms.</p>
       </div>
       <div class="res-card">
-        <div class="res-cat">AI citations · Bing &amp; Copilot</div>
-        <span class="res-num">1M+</span>
-        <h3>Bing AI citations generated</h3>
-        <p>Through GEO and AEO, significantly enhanced brand visibility across Microsoft Copilot, Bing AI and AI-powered search experiences.</p>
+        <div class="res-cat">AI citations · Google &amp; Bing</div>
+        <span class="res-num">12M+</span>
+        <h3>AI citations earned</h3>
+        <p>Generated 1M+ Bing AI citations and 12M+ Google generative-AI citations in 28 days through AI-first content frameworks.</p>
       </div>
       <div class="res-card">
         <div class="res-cat">Reporting · Looker Studio</div>
@@ -610,21 +651,30 @@ const profilePageSchema = {
       <a href="/articles/" class="pill ghost">All articles →</a>
     </div>
     <div class="articles-grid">
-      <a class="art-card" href="/articles/ai-first-seo-foundations-the-complete-guide-to-ranking-in-ai-search/">
-        <img src="/images/article-5.png" alt="AI-First SEO Foundations: The Complete Guide to Ranking in AI Search" loading="lazy" />
+      <a class="art-card" href="/articles/google-ai-mode-visibility-kpi/">
+        <img src="/images/article-10.webp" alt="AI Mode Visibility: How to Track It as a Separate SEO KPI" width="1200" height="630" loading="lazy" />
         <div class="art-body">
-          <div class="tag art-tag" style="display:inline-flex">Strategy</div>
-          <h3>AI-First SEO Foundations: The Complete Guide to Ranking in AI Search</h3>
-          <p>Master AI-First SEO with the 10-pillar framework — how to rank in Google AI Overviews, ChatGPT, and Perplexity, plus the implementation roadmap.</p>
+          <div class="tag art-tag" style="display:inline-flex">SEO Strategy</div>
+          <h3>AI Mode Visibility: How to Track It as a Separate SEO KPI</h3>
+          <p>Track Google AI Mode visibility as its own KPI using Search Console's Generative AI report. What it shows, the five things it hides, and the ratio that matters.</p>
           <span class="ulink em art-link">Read article →</span>
         </div>
       </a>
-      <a class="art-card" href="/articles/how-to-link-social-media-to-google-search-console/">
-        <img src="/images/article-4.png" alt="How to Link Social Media to Google Search Console (Site Properties)?" loading="lazy" />
+      <a class="art-card" href="/articles/search-intent-satisfaction/">
+        <img src="/images/article-8.webp" alt="What Is Search Intent Satisfaction? A Complete SEO Guide" width="1200" height="630" loading="lazy" />
         <div class="art-body">
-          <div class="tag art-tag" style="display:inline-flex">Technical SEO</div>
-          <h3>How to Link Social Media to Google Search Console (Site Properties)?</h3>
-          <p>Google Search Console now lets you connect Instagram, TikTok, X, and YouTube directly — no website required. Here's the full step-by-step setup.</p>
+          <div class="tag art-tag" style="display:inline-flex">SEO Strategy</div>
+          <h3>What Is Search Intent Satisfaction? A Complete SEO Guide</h3>
+          <p>Learn what search intent satisfaction means, how Google measures it with click signals, and how to optimize content so searchers stop looking elsewhere.</p>
+          <span class="ulink em art-link">Read article →</span>
+        </div>
+      </a>
+      <a class="art-card" href="/articles/biggest-google-ranking-factor-people-ignore/">
+        <img src="/images/article-6.webp" alt="What's the Biggest Google Ranking Factor People Ignore?" width="1200" height="630" loading="lazy" />
+        <div class="art-body">
+          <div class="tag art-tag" style="display:inline-flex">SEO Strategy</div>
+          <h3>What's the Biggest Google Ranking Factor People Ignore?</h3>
+          <p>The biggest Google ranking factor isn't backlinks or keywords. Learn why search intent satisfaction decides rankings in 2026 and how to optimize for it.</p>
           <span class="ulink em art-link">Read article →</span>
         </div>
       </a>
@@ -632,47 +682,19 @@ const profilePageSchema = {
   </div>
 </section>
 
-<!-- ── CREDENTIALS ── -->
+<!-- ── CREDENTIALS (summary) ── -->
 <section id="credentials" class="creds-sec">
   <div class="wrap">
     <div class="creds-inner">
-      <!-- Education -->
-      <div>
-        <span class="tag">Education</span>
-        <h2>Education</h2>
-        <div class="creds-2col">
-          <div class="card edu-card">
-            <div class="edu-head"><span class="edu-degree">MBA, Marketing</span><span class="edu-years">2017 – 2019</span></div>
-            <div class="edu-school">Kongu Engineering College, Erode</div>
-          </div>
-          <div class="card edu-card">
-            <div class="edu-head"><span class="edu-degree">BSc, Computer Science</span><span class="edu-years">2012 – 2015</span></div>
-            <div class="edu-school">SNR Sons College, Coimbatore</div>
-          </div>
-        </div>
-      </div>
-      <!-- Certifications -->
-      <div>
-        <span class="tag">Certifications</span>
-        <h2>Credentials</h2>
-        <div class="creds-2col">
-          <a class="cert-card" href="https://www.coursera.org/account/accomplishments/verify/582XE0FA3326" target="_blank" rel="noopener">
-            <span class="cert-ico" style="background:#efe9fc;color:var(--accent)"><svg viewBox="0 0 24 24" width="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1 3 3 6 3s6-2 6-3v-5"/></svg></span>
-            <div>
-              <span class="cert-name">Generative Engine Content Optimization</span>
-              <span class="cert-issuer">Edureka</span>
-              <span class="cert-verify">Verify credential ↗</span>
-            </div>
-          </a>
-          <a class="cert-card" href="https://academy.seoclarity.net/certificate-verification/1332C8E64-1332C8ECB-330938F/" target="_blank" rel="noopener">
-            <span class="cert-ico" style="background:#fbe6ef;color:var(--cta)"><svg viewBox="0 0 24 24" width="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="9" r="5"/><path d="M8 14l-2 7 6-3 6 3-2-7"/></svg></span>
-            <div>
-              <span class="cert-name">Enterprise Answer Engine Optimization</span>
-              <span class="cert-issuer">seoClarity</span>
-              <span class="cert-verify">Verify credential ↗</span>
-            </div>
-          </a>
-        </div>
+      <div style="text-align:center; max-width:640px; margin:0 auto;">
+        <span class="tag" style="display:inline-flex;justify-content:center">Credentials</span>
+        <h2>MBA + BSc, plus AEO, GEO, and GA4 certifications</h2>
+        <p style="font-size:15px; color:var(--muted); margin-top:12px; line-height:1.7;">
+          MBA in Marketing (Kongu Engineering College), BSc in Computer Science (SNR Sons College), and
+          certifications in Enterprise Answer Engine Optimization (seoClarity), Generative Engine
+          Content Optimization (Edureka), and GA4 Mastery (Optimize Smart).
+        </p>
+        <a href="/about/#credentials" class="pill ghost" style="margin-top:22px">See full bio &amp; credentials →</a>
       </div>
     </div>
   </div>
@@ -707,6 +729,10 @@ const profilePageSchema = {
       <div class="contact-item">
         <span class="contact-ico" style="background:rgba(63,157,107,.2);color:#7bd0a4"><svg viewBox="0 0 24 24" width="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s7-6.3 7-11a7 7 0 10-14 0c0 4.7 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></span>
         <div><div class="contact-lbl">Based in</div><div class="contact-val">Coimbatore, India</div></div>
+      </div>
+      <div class="contact-item">
+        <span class="contact-ico" style="background:rgba(74,99,201,.2);color:#8fa3e8"><svg viewBox="0 0 24 24" width="22" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><line x1="3" y1="12" x2="21" y2="12"/><path d="M12 3a14 14 0 010 18 14 14 0 010-18z"/></svg></span>
+        <div><div class="contact-lbl">Availability</div><div class="contact-val">Remote · Worldwide clients</div></div>
       </div>
     </div>
   </div>

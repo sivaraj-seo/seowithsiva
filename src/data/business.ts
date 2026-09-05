@@ -1,0 +1,22 @@
+export const business = {
+  name: 'SEOwithSiva',
+  telephone: '+919600684541',
+  email: 'sivarajc.seo@gmail.com',
+  mapsUrl: 'https://maps.app.goo.gl/m7Q2ssfq39aD7d7p7',
+  mapsEmbedSrc: 'https://www.google.com/maps?q=SEOwithSiva,Coimbatore,Tamil+Nadu,India&output=embed',
+  geo: { latitude: 11.0168, longitude: 76.9558 },
+  addressLocality: 'Coimbatore',
+  addressRegion: 'Tamil Nadu',
+  addressCountry: 'IN',
+  primaryArea: 'Tamil Nadu, India',
+  areasServed: [
+    'Tamil Nadu, India',
+    'Chennai, Tamil Nadu, India',
+    'Coimbatore, Tamil Nadu, India',
+    'Erode, Tamil Nadu, India',
+    'Tiruppur, Tamil Nadu, India',
+    'United States',
+    'United Kingdom',
+    'Dubai, United Arab Emirates',
+  ],
+};
