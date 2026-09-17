@@ -171,6 +171,24 @@ const breadcrumbSchema = {
   (function () {
     "use strict";
 
+    var EXAMPLE_CSV = [
+      "Query,Page,Clicks,Impressions,CTR,Position",
+      "compost bin,/products/compost-bin-xl,140,2200,6.4%,4.2",
+      "compost bin,/blog/best-compost-bins,90,1400,6.4%,5.8",
+      "how to compost,/guides/how-to-compost,220,6000,3.7%,6.1",
+      "how to compost,/blog/composting-basics,80,2400,3.3%,9.4",
+      "best compost bin,/blog/best-compost-bins,60,700,8.6%,3.5",
+      "best compost bin,/products/compost-bin-xl,160,2200,7.3%,6.8",
+      "greenbin co,/,410,520,78.8%,1.1",
+      "worm compost bin,/products/worm-bin,65,1800,3.6%,8.8",
+      "compost bin near me,/locations,70,1100,6.4%,4.6",
+      "kitchen compost bin,/products/kitchen-caddy,150,2600,5.8%,6.2",
+      "outdoor compost bin,/products/compost-bin-xl,130,2000,6.5%,5.9",
+      "compost bin size guide,/guides/compost-bin-sizing,25,500,5.0%,12.1",
+      "is composting worth it,/blog/composting-basics,90,3200,2.8%,14.5",
+      "compost bin smell solutions,/guides/compost-smell,30,700,4.3%,10.2"
+    ].join("\n");
+
     function parseCSV(text) {
       var rows = [], row = [], field = "", inQuotes = false;
       for (var i = 0; i < text.length; i++) {
@@ -486,6 +504,7 @@ const breadcrumbSchema = {
 
     els.runBtn.addEventListener("click", runFromFields);
 
+    els.csvText.value = EXAMPLE_CSV;
     runFromFields();
   })();
 </script>
