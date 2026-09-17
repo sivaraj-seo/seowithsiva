@@ -35,17 +35,17 @@ export default defineConfig({
           const lastmod = articleLastmod[slug];
           return { ...item, changefreq: 'monthly', priority: 0.8, ...(lastmod ? { lastmod } : {}) };
         }
+        if (path === '/tools/') {
+          return { ...item, changefreq: 'monthly', priority: 0.9 };
+        }
+        if (path.startsWith('/tools/')) {
+          return { ...item, changefreq: 'monthly', priority: 0.8 };
+        }
         if (path === '/about/') {
           return { ...item, changefreq: 'monthly', priority: 0.7 };
         }
         if (path === '/contact/') {
           return { ...item, changefreq: 'yearly', priority: 0.6 };
-        }
-        if (path === '/tools/') {
-          return { ...item, changefreq: 'monthly', priority: 0.8 };
-        }
-        if (path.startsWith('/tools/')) {
-          return { ...item, changefreq: 'monthly', priority: 0.75 };
         }
         return item;
       },
