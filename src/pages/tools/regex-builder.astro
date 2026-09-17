@@ -700,8 +700,15 @@ const faqSchema = {
       $("notes").innerHTML = notes.map(([k,m]) => `<li class="${k}">${html(m)}</li>`).join("");
 
       runTests();
-      history.replaceState(null, "", "#" + btoa(unescape(encodeURIComponent(JSON.stringify(state)))));
     }
+
+    /* The builder state is only ever put in the URL on demand, via "Copy share
+       link". Writing it on every update() turned the address bar into a base64
+       blob before the visitor had touched anything, which then rode along into
+       every paste, screenshot and shared link. */
+    const shareLink = () =>
+      location.origin + location.pathname +
+      "#" + btoa(unescape(encodeURIComponent(JSON.stringify(state))));
 
     /* ---------- tester ---------- */
     $("samples").value = [
@@ -942,7 +949,7 @@ const faqSchema = {
     function toast(m){ const t = $("toast"); t.textContent = m; t.classList.add("show"); setTimeout(() => t.classList.remove("show"), 1600); }
     async function copy(text, msg){ try { await navigator.clipboard.writeText(text); toast(msg); } catch(e) { toast("Copy failed. Select the text and copy manually."); } }
     $("copy").addEventListener("click", () => current.re && copy(current.re, "Regex copied"));
-    $("share").addEventListener("click", () => copy(location.href, "Share link copied"));
+    $("share").addEventListener("click", () => copy(shareLink(), "Share link copied"));
 
     update();
   </script>
