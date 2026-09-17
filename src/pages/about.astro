@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { safeJsonLd } from '../utils/schema';
 
 const title = 'About C. Sivaraj – SEO Analyst & AEO / GEO Specialist';
 const description = "I'm C. Sivaraj, an SEO Analyst and AEO/GEO specialist with 5+ years of enterprise SEO experience helping brands rank in Google, ChatGPT, and Perplexity.";
@@ -18,7 +19,7 @@ const aboutPageSchema = {
 <BaseLayout {title} {description} {keywords} author="C. Sivaraj">
 
 <Fragment slot="head">
-  <script type="application/ld+json" set:html={JSON.stringify(aboutPageSchema)} />
+  <script type="application/ld+json" set:html={safeJsonLd(aboutPageSchema)} />
 </Fragment>
 
 <style>

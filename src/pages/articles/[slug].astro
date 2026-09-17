@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { safeJsonLd } from '../../utils/schema';
 import { getImageDims } from '../../data/imageDims';
 
 export async function getStaticPaths() {
@@ -92,10 +93,10 @@ const faqSchema = article.data.faqs && article.data.faqs.length > 0 ? {
 >
 
 <Fragment slot="head">
-  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
-  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
-  {howToSchema && <script type="application/ld+json" set:html={JSON.stringify(howToSchema)} />}
-  {faqSchema && <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />}
+  <script type="application/ld+json" set:html={safeJsonLd(articleSchema)} />
+  <script type="application/ld+json" set:html={safeJsonLd(breadcrumbSchema)} />
+  {howToSchema && <script type="application/ld+json" set:html={safeJsonLd(howToSchema)} />}
+  {faqSchema && <script type="application/ld+json" set:html={safeJsonLd(faqSchema)} />}
 </Fragment>
 
 <style>
@@ -131,7 +132,8 @@ const faqSchema = article.data.faqs && article.data.faqs.length > 0 ? {
     font-size:14px; color:var(--muted); margin-top:14px;
   }
   .art-meta-dot{ width:3px; height:3px; border-radius:50%; background:#c0bac8; flex-shrink:0; }
-  .art-meta-author{ color:var(--accent); font-weight:600; }
+  .art-meta-author{ color:var(--accent); font-weight:600; text-decoration:none; }
+  .art-meta-author:hover{ text-decoration:underline; }
   .art-meta-dateline{ display:inline-flex; align-items:baseline; gap:5px; }
   .art-meta-datelabel{ font-size:11px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:#b0a9c8; }
 
@@ -504,7 +506,7 @@ const faqSchema = article.data.faqs && article.data.faqs.length > 0 ? {
       <span class="art-meta-dot"></span>
       <span>{article.data.readTime}</span>
       <span class="art-meta-dot"></span>
-      <span class="art-meta-author">Written by C. Sivaraj</span>
+      <a class="art-meta-author" href="/about/">Written by C. Sivaraj</a>
     </div>
     <!-- Hero image below meta - NP layout -->
     <img src={article.data.image} alt={article.data.title} width={getImageDims(article.data.image).width} height={getImageDims(article.data.image).height} class="art-hero-img" loading="eager" fetchpriority="high" />
