@@ -41,6 +41,12 @@ export default defineConfig({
         if (path === '/contact/') {
           return { ...item, changefreq: 'yearly', priority: 0.6 };
         }
+        if (path === '/tools/') {
+          return { ...item, changefreq: 'monthly', priority: 0.8 };
+        }
+        if (path.startsWith('/tools/')) {
+          return { ...item, changefreq: 'monthly', priority: 0.75 };
+        }
         return item;
       },
     }),

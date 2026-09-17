@@ -1,0 +1,101 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { safeJsonLd } from '../../utils/schema';
+
+const title = 'Free SEO Tools — Search Console Toolkit';
+const description = 'Free browser-based tools that read a Search Console export directly: find striking-distance queries, keyword cannibalization, CTR gaps against a benchmark curve, and regex-based query segments.';
+const keywords = 'free SEO tools, Search Console tools, GSC toolkit, striking distance, keyword cannibalization, CTR benchmark';
+
+const tools = [
+  {
+    href: '/tools/regex-segments/',
+    name: 'Regex Segments',
+    eyebrow: 'Query Segmentation',
+    blurb: 'Split a query export into segments with regex — brand, informational, comparison — and roll up clicks, impressions, CTR and position per segment.',
+  },
+  {
+    href: '/tools/striking-distance/',
+    name: 'Striking Distance',
+    eyebrow: 'Ranking Opportunities',
+    blurb: 'Find queries sitting just off page one with real impressions, ranked by estimated clicks gained if pushed to your target position.',
+  },
+  {
+    href: '/tools/cannibalization-map/',
+    name: 'Cannibalization Map',
+    eyebrow: 'Keyword Overlap',
+    blurb: 'Group by query and flag every case where more than one page competes for the same search — including when the best-ranked page isn’t the one getting clicks.',
+  },
+  {
+    href: '/tools/ctr-benchmark/',
+    name: 'CTR Benchmark',
+    eyebrow: 'Click-Through Rate',
+    blurb: 'Compare your actual CTR against an editable industry curve, position by position, with a ranked list of the biggest gaps.',
+  },
+];
+
+const collectionSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: title,
+  description,
+  url: 'https://www.seowithsiva.com/tools/',
+  hasPart: tools.map((t) => ({
+    '@type': 'WebApplication',
+    name: t.name,
+    applicationCategory: 'SEO Tool',
+    url: 'https://www.seowithsiva.com' + t.href,
+  })),
+};
+---
+
+<BaseLayout {title} {description} {keywords} author="C. Sivaraj">
+<Fragment slot="head">
+  <script type="application/ld+json" set:html={safeJsonLd(collectionSchema)} />
+</Fragment>
+
+<main class="tools-hub">
+  <div class="hub-wrap">
+    <div class="tool-eyebrow">Free Tools</div>
+    <h1 class="hub-h1">Search Console toolkit</h1>
+    <p class="hub-dek">Four browser-based tools that work directly off a Search Console export — no login, no data leaves your browser. Paste a CSV, get an answer.</p>
+
+    <div class="tool-grid">
+      {tools.map((t) => (
+        <a class="tool-card" href={t.href}>
+          <span class="card-eyebrow">{t.eyebrow}</span>
+          <span class="card-name">{t.name}</span>
+          <span class="card-blurb">{t.blurb}</span>
+          <span class="card-arrow">Open tool &#8594;</span>
+        </a>
+      ))}
+    </div>
+  </div>
+</main>
+</BaseLayout>
+
+<style>
+  .tools-hub { background: #faf9fd; padding: 56px 24px 100px; min-height: calc(100vh - 72px - 80px); }
+  .hub-wrap { max-width: 1100px; margin: 0 auto; }
+
+  .tool-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); display: flex; align-items: center; gap: 8px; margin-bottom: 14px; }
+  .tool-eyebrow::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+  .hub-h1 { font-size: clamp(30px, 4.5vw, 46px); font-weight: 800; letter-spacing: -.02em; color: var(--ink); margin: 0 0 14px; line-height: 1.12; }
+  .hub-dek { max-width: 64ch; color: var(--muted); font-size: 16px; line-height: 1.65; margin: 0 0 40px; }
+
+  .tool-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+  @media (max-width: 720px) { .tool-grid { grid-template-columns: 1fr; } }
+
+  .tool-card {
+    display: flex; flex-direction: column; gap: 8px;
+    background: #fff; border: 1.5px solid #e4ddf7; border-radius: 16px;
+    padding: 26px 28px; text-decoration: none;
+    box-shadow: 0 2px 16px rgba(124, 92, 214, .06);
+    transition: border-color .15s, box-shadow .15s, transform .15s;
+  }
+  .tool-card:hover { border-color: var(--accent); box-shadow: 0 8px 28px rgba(124, 92, 214, .16); transform: translateY(-2px); }
+
+  .card-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #a49cc2; }
+  .card-name { font-size: 20px; font-weight: 800; color: var(--ink); letter-spacing: -.01em; }
+  .card-blurb { font-size: 14px; color: var(--muted); line-height: 1.55; }
+  .card-arrow { margin-top: 8px; font-size: 13px; font-weight: 700; color: var(--accent); }
+</style>

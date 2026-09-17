@@ -1,0 +1,479 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { safeJsonLd } from '../../utils/schema';
+
+const title = 'Striking Distance — Find Near-Page-One Search Console Queries';
+const description = 'Paste a Search Console query export and find queries sitting just off page one — enough impressions to matter, close enough that a small push could move them into the clicks.';
+const keywords = 'striking distance keywords, GSC near page one, Search Console opportunity finder, SEO tool';
+
+const toolSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'Striking Distance',
+  applicationCategory: 'SEO Tool',
+  operatingSystem: 'Any (browser-based)',
+  description,
+  url: 'https://www.seowithsiva.com/tools/striking-distance/',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+  creator: { '@id': 'https://www.seowithsiva.com/#person' },
+};
+---
+
+<BaseLayout {title} {description} {keywords} author="C. Sivaraj">
+<Fragment slot="head">
+  <script type="application/ld+json" set:html={safeJsonLd(toolSchema)} />
+</Fragment>
+
+<main class="tool-page">
+  <div class="tool-wrap">
+    <div class="tool-eyebrow">GSC Toolkit · Ranking Opportunities</div>
+    <h1 class="tool-h1">Striking Distance</h1>
+    <p class="tool-dek">Paste a Search Console query export and find queries sitting <b>just off page one</b> — enough impressions to matter, close enough that a small push could move them into the clicks.</p>
+
+    <div class="console">
+      <section class="panel input-panel">
+        <div class="panel-head"><h2>01 · Data</h2></div>
+        <div class="input-body">
+          <div class="field">
+            <label for="csvFile">GSC query export</label>
+            <span class="hint">Search Console → Performance → Export → CSV. Needs Position, Impressions and CTR (or Clicks).</span>
+            <input type="file" id="csvFile" accept=".csv,text/csv" />
+            <textarea id="csvText" spellcheck="false" placeholder="Query,Clicks,Impressions,CTR,Position"></textarea>
+            <div class="char-count" id="charCount">0 rows detected</div>
+          </div>
+
+          <div class="field-pair">
+            <div class="field">
+              <label for="minPos">Position from</label>
+              <input type="number" id="minPos" value="4" min="1" max="100" step="0.5" />
+            </div>
+            <div class="field">
+              <label for="maxPos">to</label>
+              <input type="number" id="maxPos" value="20" min="1" max="100" step="0.5" />
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="minImpr">Minimum impressions <span class="hint">— filters out noise</span></label>
+            <input type="number" id="minImpr" value="100" min="0" step="10" />
+          </div>
+
+          <div class="field">
+            <label for="targetPos">Target position <span class="hint">— "if this query reached position…"</span></label>
+            <input type="number" id="targetPos" value="3" min="1" max="10" step="1" />
+          </div>
+
+          <button class="btn-run" id="runBtn">Find opportunities →</button>
+        </div>
+      </section>
+
+      <section class="panel results-panel">
+        <div class="panel-head">
+          <h2>02 · Opportunities</h2>
+          <span class="note" id="scopeNote"></span>
+        </div>
+        <div class="results-body" id="resultsBody"></div>
+      </section>
+    </div>
+  </div>
+</main>
+</BaseLayout>
+
+<style>
+  .tool-page { background: #faf9fd; padding: 56px 24px 100px; }
+  .tool-wrap { max-width: 1200px; margin: 0 auto; }
+
+  .tool-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); display: flex; align-items: center; gap: 8px; margin-bottom: 14px; }
+  .tool-eyebrow::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+  .tool-h1 { font-size: clamp(28px, 4vw, 42px); font-weight: 800; letter-spacing: -.02em; color: var(--ink); margin: 0 0 14px; line-height: 1.15; }
+  .tool-dek { max-width: 64ch; color: var(--muted); font-size: 16px; line-height: 1.65; margin: 0; }
+  .tool-dek b { color: var(--ink); font-weight: 700; }
+
+  .console { display: grid; grid-template-columns: minmax(300px, 380px) 1fr; gap: 20px; align-items: start; margin-top: 36px; }
+  @media (max-width: 900px) { .console { grid-template-columns: 1fr; } }
+
+  .panel { background: #fff; border: 1.5px solid #e4ddf7; border-radius: 16px; box-shadow: 0 2px 16px rgba(124, 92, 214, .06); }
+  .panel-head { padding: 16px 20px; border-bottom: 1px solid #efeafc; display: flex; justify-content: space-between; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+  .panel-head h2 { font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 0; }
+  .panel-head .note { font-size: 11px; color: #b0a9c8; }
+
+  .input-body { padding: 18px 20px 20px; display: flex; flex-direction: column; gap: 16px; }
+  .field { display: flex; flex-direction: column; gap: 6px; }
+  .field label { font-size: 13px; font-weight: 700; color: var(--ink); }
+  .field .hint { font-weight: 400; color: #a49cc2; font-size: 12px; }
+  .field-pair { display: flex; gap: 10px; }
+  .field-pair .field { flex: 1; }
+
+  input[type="text"], input[type="number"], textarea, select {
+    width: 100%; background: #faf9fd; border: 1.5px solid #e4ddf7; border-radius: 10px; color: var(--ink);
+    padding: 10px 12px; font-family: inherit; font-size: 13px;
+  }
+  textarea { resize: vertical; min-height: 170px; font-variant-numeric: tabular-nums; }
+  input:focus, textarea:focus, select:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(124, 92, 214, .15); }
+  input::placeholder, textarea::placeholder { color: #c3bcdb; }
+  input[type="file"] { font-size: 12.5px; color: var(--muted); }
+  .char-count { font-size: 11px; color: #a49cc2; text-align: right; }
+
+  .btn-run { background: var(--accent); color: #fff; border: none; border-radius: 10px; padding: 13px 18px; font-weight: 700; font-size: 14px; font-family: inherit; cursor: pointer; box-shadow: 0 4px 16px rgba(124, 92, 214, .25); transition: transform .12s, box-shadow .12s; }
+  .btn-run:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(124, 92, 214, .32); }
+  .btn-run:active { transform: translateY(0); }
+  .btn-run:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  .btn-ghost { background: #f0ebfa; color: var(--accent); border: none; border-radius: 9px; padding: 8px 14px; font-weight: 600; font-size: 12.5px; font-family: inherit; cursor: pointer; }
+  .btn-ghost:hover { background: var(--accent); color: #fff; }
+
+  .results-body { padding: 22px; }
+
+  .stat-row { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 22px; }
+  .stat-tile { flex: 1; min-width: 148px; background: #faf9fd; border: 1px solid #efeafc; border-radius: 12px; padding: 14px 16px; }
+  .stat-label { font-size: 10.5px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: #b0a9c8; margin-bottom: 6px; }
+  .stat-value { font-size: 24px; font-weight: 800; color: var(--ink); font-variant-numeric: tabular-nums; }
+  .stat-value.accent { color: var(--accent); }
+  .stat-sub { font-size: 11.5px; color: var(--muted); margin-top: 2px; }
+
+  .section-label { font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin: 0 0 12px; }
+
+  .opp-block { margin-bottom: 26px; }
+  .opp-row { display: flex; align-items: center; gap: 10px; margin-bottom: 9px; }
+  .opp-label { width: 220px; flex-shrink: 0; font-size: 12.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--ink); }
+  .opp-track { flex: 1; height: 9px; background: #efeafc; border-radius: 100px; overflow: hidden; min-width: 60px; }
+  .opp-fill { height: 100%; border-radius: 100px; background: var(--accent); }
+  .opp-meta { width: 230px; flex-shrink: 0; text-align: right; font-size: 11.5px; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .opp-meta b { color: var(--accent); }
+
+  .table-wrap { overflow-x: auto; border: 1px solid #efeafc; border-radius: 12px; }
+  table.data { width: 100%; border-collapse: collapse; font-size: 13px; white-space: nowrap; }
+  table.data th { text-align: left; font-size: 10.5px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: #b0a9c8; background: #faf9fd; padding: 10px 12px; border-bottom: 1px solid #efeafc; cursor: pointer; user-select: none; }
+  table.data th:hover { color: var(--accent); }
+  table.data th.sorted { color: var(--accent); }
+  table.data th.num, table.data td.num { text-align: right; font-variant-numeric: tabular-nums; }
+  table.data td { padding: 8px 12px; border-bottom: 1px solid #f3f0fa; color: var(--ink); }
+  table.data tbody tr:hover td { background: #faf9fd; }
+  table.data td.query-cell { white-space: normal; max-width: 320px; }
+  table.data td.opp-cell { color: var(--accent); font-weight: 700; }
+
+  .search-row { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; }
+  .search-row input { max-width: 260px; }
+
+  .actions { display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap; }
+  .empty-note { font-size: 13.5px; color: var(--muted); padding: 30px 4px; text-align: center; }
+</style>
+
+<script>
+  (function () {
+    "use strict";
+
+    var EXAMPLE_CSV = [
+      "Query,Clicks,Impressions,CTR,Position",
+      "compost bin,210,3400,6.2%,4.8",
+      "best compost bin,180,2100,8.6%,3.2",
+      "compost bin for apartment,95,1200,7.9%,5.1",
+      "how to compost at home,340,9800,3.5%,7.6",
+      "what can you compost,120,4100,2.9%,9.3",
+      "compost bin reviews,60,900,6.7%,4.4",
+      "greenbin co,410,520,78.8%,1.1",
+      "greenbin composter,88,140,62.9%,1.3",
+      "kitchen compost bin,150,2600,5.8%,6.2",
+      "outdoor compost bin,130,2000,6.5%,5.9",
+      "compost bin near me,70,1100,6.4%,4.6",
+      "tumbling composter vs bin,40,1500,2.7%,11.4",
+      "worm compost bin,65,1800,3.6%,8.8",
+      "compost bin smell solutions,30,700,4.3%,10.2",
+      "small compost bin for apartment,55,600,9.2%,3.8",
+      "compost bin size guide,25,500,5.0%,12.1",
+      "is composting worth it,90,3200,2.8%,14.5",
+      "compost bin vs pile,45,1700,2.6%,13.2"
+    ].join("\n");
+
+    function parseCSV(text) {
+      var rows = [], row = [], field = "", inQuotes = false;
+      for (var i = 0; i < text.length; i++) {
+        var c = text[i];
+        if (inQuotes) {
+          if (c === '"') { if (text[i + 1] === '"') { field += '"'; i++; } else { inQuotes = false; } }
+          else field += c;
+        } else {
+          if (c === '"') inQuotes = true;
+          else if (c === ",") { row.push(field); field = ""; }
+          else if (c === "\r") { /* skip */ }
+          else if (c === "\n") { row.push(field); rows.push(row); row = []; field = ""; }
+          else field += c;
+        }
+      }
+      if (field.length || row.length) { row.push(field); rows.push(row); }
+      return rows.filter(function (r) { return r.length > 1 || (r.length === 1 && r[0].trim() !== ""); });
+    }
+
+    var HEADER_ALIASES = {
+      query: ["query", "queries", "top queries", "search query", "search term", "keyword"],
+      page: ["page", "pages", "top pages", "landing page", "url"],
+      clicks: ["clicks"],
+      impressions: ["impressions", "impr."],
+      ctr: ["ctr", "click through rate", "click-through rate"],
+      position: ["position", "avg position", "average position", "avg. position"]
+    };
+
+    function detectColumns(headerRow) {
+      var map = {};
+      headerRow.forEach(function (h, i) {
+        var norm = h.trim().toLowerCase();
+        Object.keys(HEADER_ALIASES).forEach(function (canon) {
+          if (map[canon] === undefined && HEADER_ALIASES[canon].indexOf(norm) !== -1) map[canon] = i;
+        });
+      });
+      return map;
+    }
+
+    function parseNum(s) {
+      if (s === undefined || s === null) return NaN;
+      var t = String(s).trim().replace(/,/g, "");
+      if (t === "") return NaN;
+      return parseFloat(t);
+    }
+    function parseCTR(s) {
+      var t = String(s).trim();
+      if (t === "") return NaN;
+      var hasPct = /%/.test(t);
+      var n = parseFloat(t.replace("%", ""));
+      if (isNaN(n)) return NaN;
+      return hasPct ? n : (n <= 1 ? n * 100 : n);
+    }
+
+    function buildDataset(csvText) {
+      var raw = parseCSV(csvText.trim());
+      if (!raw.length) return null;
+      var cols = detectColumns(raw[0]);
+      var body = raw.slice(1);
+      var rows = body.map(function (r) {
+        var row = {
+          query: cols.query !== undefined ? (r[cols.query] || "").trim() : "",
+          page: cols.page !== undefined ? (r[cols.page] || "").trim() : "",
+          clicks: cols.clicks !== undefined ? parseNum(r[cols.clicks]) : NaN,
+          impressions: cols.impressions !== undefined ? parseNum(r[cols.impressions]) : NaN,
+          ctr: cols.ctr !== undefined ? parseCTR(r[cols.ctr]) : NaN,
+          position: cols.position !== undefined ? parseNum(r[cols.position]) : NaN
+        };
+        if (isNaN(row.clicks)) row.clicks = 0;
+        if (isNaN(row.impressions)) row.impressions = 0;
+        if (isNaN(row.ctr) && row.impressions > 0) row.ctr = (row.clicks / row.impressions) * 100;
+        return row;
+      }).filter(function (r) { return r.query || r.page; });
+      return {
+        rows: rows,
+        hasQuery: cols.query !== undefined,
+        hasPage: cols.page !== undefined,
+        hasPosition: cols.position !== undefined
+      };
+    }
+
+    function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
+    function fmtInt(n) { return Math.round(n).toLocaleString(); }
+    function fmtPct(n) { return (isFinite(n) ? n.toFixed(1) : "0.0") + "%"; }
+    function fmtPos(n) { return n === null || n === undefined || isNaN(n) ? "—" : n.toFixed(1); }
+
+    var CTR_CURVE = [28.5, 15.5, 11.0, 8.0, 6.5, 4.5, 3.5, 3.0, 2.5, 2.0];
+    function benchmarkCTR(pos) {
+      var p = Math.max(1, pos);
+      if (p <= 10) {
+        var i = Math.floor(p) - 1, frac = p - Math.floor(p);
+        var lo = CTR_CURVE[Math.min(i, 9)];
+        var hi = CTR_CURVE[Math.min(i + 1, 9)];
+        return lo + (hi - lo) * frac;
+      }
+      if (p <= 20) return 2.0 - (2.0 - 0.8) * ((p - 10) / 10);
+      return 0.3;
+    }
+
+    var els = {
+      csvFile: document.getElementById("csvFile"),
+      csvText: document.getElementById("csvText"),
+      charCount: document.getElementById("charCount"),
+      minPos: document.getElementById("minPos"),
+      maxPos: document.getElementById("maxPos"),
+      minImpr: document.getElementById("minImpr"),
+      targetPos: document.getElementById("targetPos"),
+      runBtn: document.getElementById("runBtn"),
+      resultsBody: document.getElementById("resultsBody"),
+      scopeNote: document.getElementById("scopeNote")
+    };
+
+    els.csvFile.addEventListener("change", function () {
+      var file = els.csvFile.files[0];
+      if (!file) return;
+      var reader = new FileReader();
+      reader.onload = function (e) {
+        els.csvText.value = String(e.target.result);
+        updateCharCount();
+        runFromFields();
+      };
+      reader.readAsText(file);
+    });
+
+    function updateCharCount() {
+      var lines = els.csvText.value.split("\n").filter(function (l) { return l.trim(); }).length;
+      els.charCount.textContent = Math.max(0, lines - 1).toLocaleString() + " rows detected";
+    }
+    els.csvText.addEventListener("input", updateCharCount);
+
+    var lastDataset = null, lastFiltered = [], sortKey = "opportunity", sortDir = -1;
+
+    function runFromFields() {
+      var ds = buildDataset(els.csvText.value);
+      updateCharCount();
+      if (!ds || !ds.rows.length) {
+        els.resultsBody.innerHTML = '<div class="empty-note">No rows detected. Paste a Search Console export with a header row, or upload a CSV file.</div>';
+        return;
+      }
+      if (!ds.hasPosition) {
+        els.resultsBody.innerHTML = '<div class="empty-note">This export has no Position column — striking distance needs one. Export the "Queries" table from Search Console\'s Performance report with Position included.</div>';
+        return;
+      }
+      lastDataset = ds;
+      sortKey = "opportunity"; sortDir = -1;
+      render();
+    }
+
+    function render() {
+      var ds = lastDataset;
+      var minPos = parseFloat(els.minPos.value) || 0;
+      var maxPos = parseFloat(els.maxPos.value) || 100;
+      var minImpr = parseFloat(els.minImpr.value) || 0;
+      var targetPos = Math.max(1, parseFloat(els.targetPos.value) || 3);
+      var benchAtTarget = benchmarkCTR(targetPos);
+
+      var filtered = ds.rows.filter(function (r) {
+        return !isNaN(r.position) && r.position >= minPos && r.position <= maxPos && r.impressions >= minImpr;
+      }).map(function (r) {
+        var opportunity = Math.max(0, (benchAtTarget - r.ctr) / 100 * r.impressions);
+        return Object.assign({}, r, { opportunity: opportunity, benchCTR: benchAtTarget });
+      });
+
+      filtered.sort(function (a, b) {
+        var av = a[sortKey], bv = b[sortKey];
+        var cmp = av < bv ? -1 : av > bv ? 1 : 0;
+        return cmp * sortDir;
+      });
+
+      lastFiltered = filtered;
+      els.scopeNote.textContent = ds.rows.length.toLocaleString() + " rows total · " + filtered.length.toLocaleString() + " in range";
+
+      var currentClicks = filtered.reduce(function (a, r) { return a + r.clicks; }, 0);
+      var totalOpportunity = filtered.reduce(function (a, r) { return a + r.opportunity; }, 0);
+
+      var html = "";
+      html += '<div class="stat-row">' +
+        statTile("Queries in range", fmtInt(filtered.length), minPos.toFixed(0) + "–" + maxPos.toFixed(0) + " · ≥" + fmtInt(minImpr) + " impr") +
+        statTile("Current clicks", fmtInt(currentClicks), "from these queries") +
+        statTile("Est. additional clicks", "+" + fmtInt(totalOpportunity), "if all reached position " + targetPos.toFixed(0)) +
+        statTile("Potential lift", currentClicks ? "+" + fmtInt(totalOpportunity / currentClicks * 100) + "%" : "—", "vs. current clicks", true) +
+        "</div>";
+
+      if (!filtered.length) {
+        html += '<div class="empty-note">Nothing in that position/impression range. Widen the range or lower the impression floor.</div>';
+        els.resultsBody.innerHTML = html;
+        return;
+      }
+
+      var top = filtered.slice().sort(function (a, b) { return b.opportunity - a.opportunity; }).slice(0, 8);
+      var maxOpp = top.length ? top[0].opportunity : 1;
+      html += '<div class="opp-block"><div class="section-label">Biggest opportunities</div>';
+      top.forEach(function (r) {
+        var pct = maxOpp ? (r.opportunity / maxOpp * 100) : 0;
+        html += '<div class="opp-row">' +
+          '<span class="opp-label">' + esc(r.query || r.page) + '</span>' +
+          '<span class="opp-track"><span class="opp-fill" style="width:' + pct.toFixed(1) + '%"></span></span>' +
+          '<span class="opp-meta">pos ' + fmtPos(r.position) + ' → ' + targetPos.toFixed(0) + ' · <b>+' + fmtInt(r.opportunity) + ' clicks</b></span>' +
+          "</div>";
+      });
+      html += "</div>";
+
+      var qKey = ds.hasQuery ? "query" : "page";
+      html += '<div class="section-label">All queries in range (' + filtered.length + ')</div>';
+      html += '<div class="search-row"><input type="text" id="rowSearch" placeholder="Filter rows…" /></div>';
+      html += '<div class="table-wrap"><table class="data"><thead><tr>' +
+        th(qKey, ds.hasQuery ? "Query" : "Page") +
+        th("position", "Position", true) +
+        th("impressions", "Impressions", true) +
+        th("clicks", "Clicks", true) +
+        th("ctr", "CTR", true) +
+        "<th class=\"num\">Benchmark @ " + targetPos.toFixed(0) + "</th>" +
+        th("opportunity", "Est. +Clicks", true) +
+        "</tr></thead><tbody id=\"rowBody\"></tbody></table></div>";
+
+      html += '<div class="actions"><button class="btn-ghost" id="downloadBtn" type="button">Download opportunities CSV</button></div>';
+
+      els.resultsBody.innerHTML = html;
+      renderRowBody(filtered, "");
+
+      els.resultsBody.querySelectorAll("th[data-key]").forEach(function (thEl) {
+        thEl.addEventListener("click", function () {
+          var key = thEl.dataset.key;
+          if (sortKey === key) sortDir = -sortDir; else { sortKey = key; sortDir = -1; }
+          render();
+        });
+      });
+      var searchInput = document.getElementById("rowSearch");
+      if (searchInput) searchInput.addEventListener("input", function () { renderRowBody(filtered, searchInput.value); });
+      var dl = document.getElementById("downloadBtn");
+      if (dl) dl.addEventListener("click", downloadCSV);
+    }
+
+    function th(key, label, numeric) {
+      var cls = (numeric ? "num " : "") + (sortKey === key ? "sorted" : "");
+      var arrow = sortKey === key ? (sortDir === -1 ? " ↓" : " ↑") : "";
+      return '<th data-key="' + key + '" class="' + cls.trim() + '">' + esc(label) + arrow + "</th>";
+    }
+
+    function renderRowBody(rows, query) {
+      var body = document.getElementById("rowBody");
+      if (!body) return;
+      var q = query.trim().toLowerCase();
+      var shown = q ? rows.filter(function (r) { return (r.query + " " + r.page).toLowerCase().indexOf(q) !== -1; }) : rows;
+      var max = 400;
+      body.innerHTML = shown.slice(0, max).map(function (r) {
+        return "<tr>" +
+          '<td class="query-cell">' + esc(r.query || r.page) + "</td>" +
+          '<td class="num">' + fmtPos(r.position) + "</td>" +
+          '<td class="num">' + fmtInt(r.impressions) + "</td>" +
+          '<td class="num">' + fmtInt(r.clicks) + "</td>" +
+          '<td class="num">' + fmtPct(r.ctr) + "</td>" +
+          '<td class="num">' + fmtPct(r.benchCTR) + "</td>" +
+          '<td class="num opp-cell">+' + fmtInt(r.opportunity) + "</td>" +
+          "</tr>";
+      }).join("") + (shown.length > max ? '<tr><td colspan="7" style="text-align:center;color:#a49cc2;font-size:12px;">Showing first ' + max + " of " + shown.length + " rows — download the CSV for the full set.</td></tr>" : "");
+    }
+
+    function statTile(label, value, sub, accent) {
+      return '<div class="stat-tile"><div class="stat-label">' + esc(label) + '</div><div class="stat-value' + (accent ? " accent" : "") + '">' + value + "</div>" + (sub ? '<div class="stat-sub">' + esc(sub) + "</div>" : "") + "</div>";
+    }
+
+    function csvCell(v) {
+      var s = v === null || v === undefined ? "" : String(v);
+      return /[",\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s;
+    }
+    function csvRow(cells) { return cells.map(csvCell).join(","); }
+
+    function triggerDownload(filename, text) {
+      var blob = new Blob([text], { type: "text/csv;charset=utf-8" });
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement("a");
+      a.href = url; a.download = filename;
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    function downloadCSV() {
+      if (!lastFiltered.length) return;
+      var header = ["Query/Page", "Position", "Impressions", "Clicks", "CTR%", "Benchmark CTR%", "Est. +Clicks"];
+      var rows = [header].concat(lastFiltered.map(function (r) {
+        return [r.query || r.page, r.position.toFixed(1), r.impressions, r.clicks, r.ctr.toFixed(2), r.benchCTR.toFixed(2), r.opportunity.toFixed(1)];
+      }));
+      triggerDownload("striking-distance.csv", rows.map(csvRow).join("\r\n"));
+    }
+
+    els.runBtn.addEventListener("click", runFromFields);
+
+    els.csvText.value = EXAMPLE_CSV;
+    runFromFields();
+  })();
+</script>
