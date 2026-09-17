@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { safeJsonLd } from '../../utils/schema';
 
 const tools = [
   {
@@ -54,8 +55,8 @@ const breadcrumbSchema = {
   author="C. Sivaraj"
 >
   <Fragment slot="head">
-    <script type="application/ld+json" set:html={JSON.stringify(collectionPageSchema)} />
-    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+    <script type="application/ld+json" set:html={safeJsonLd(collectionPageSchema)} />
+    <script type="application/ld+json" set:html={safeJsonLd(breadcrumbSchema)} />
   </Fragment>
 
   <style>
