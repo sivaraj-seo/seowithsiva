@@ -1,0 +1,249 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { safeJsonLd } from '../../utils/schema';
+
+const tools = [
+  {
+    slug: 'regex-builder',
+    name: 'Regex Builder for GA4, GSC & Looker Studio',
+    badge: 'Search Console · GA4 · Looker',
+    excerpt:
+      "Build RE2 regex from ready-made patterns, then test it against your own Search Console export before you paste it into a filter. Everything runs in your browser - no upload, no sign-in.",
+    points: [
+      '16 ready-made patterns for questions, brand, intent and URL filters',
+      'Validated with a real RE2 engine, the same syntax Google accepts',
+      'Load a CSV export to see clicks, impressions, CTR and position for the matched group',
+      'Plain-English explainer for any pattern you paste in',
+    ],
+    sample: '(?i)^(what|how|why|when|where)\\b',
+  },
+];
+
+const collectionPageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'Free SEO Tools',
+  description:
+    'Free browser-based SEO tools by C. Sivaraj - built for Search Console, GA4 and Looker Studio workflows. No sign-up, no data leaves your browser.',
+  url: 'https://www.seowithsiva.com/tools/',
+  mainEntity: {
+    '@type': 'ItemList',
+    itemListElement: tools.map((tool, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      url: new URL(`/tools/${tool.slug}/`, Astro.site).toString(),
+      name: tool.name,
+    })),
+  },
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.seowithsiva.com/' },
+    { '@type': 'ListItem', position: 2, name: 'Tools', item: 'https://www.seowithsiva.com/tools/' },
+  ],
+};
+---
+
+<BaseLayout
+  title="Free SEO Tools"
+  description="Free browser-based SEO tools for Search Console, GA4 and Looker Studio workflows. No sign-up, nothing uploaded - everything runs in your browser."
+  keywords="free SEO tools, search console regex, regex builder, GA4 regex, looker studio regex, RE2 regex tester"
+  ogImage="/images/og-tools.png"
+  author="C. Sivaraj"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={safeJsonLd(collectionPageSchema)} />
+    <script type="application/ld+json" set:html={safeJsonLd(breadcrumbSchema)} />
+  </Fragment>
+
+  <style>
+    * { box-sizing: border-box; }
+    a { color: inherit; text-decoration: none; }
+    .wrap { max-width: 1120px; margin: 0 auto; padding: 0 32px; }
+
+    .tag {
+      display: inline-flex; align-items: center; gap: 7px;
+      font-size: 12px; font-weight: 700; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--accent);
+    }
+    .tag::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
+
+    /* ── HERO ── */
+    .page-hero {
+      background: linear-gradient(165deg, #efeafc 0%, #f7ecf2 52%, #fde9dc 100%);
+      padding: 70px 0 54px; text-align: center;
+    }
+    .page-hero h1 {
+      font-weight: 800; font-size: clamp(32px, 5vw, 58px);
+      color: var(--ink); margin-top: 18px; letter-spacing: -.02em; line-height: 1.08;
+    }
+    .page-hero p {
+      font-size: 17px; line-height: 1.7; color: var(--muted);
+      margin: 18px auto 0; max-width: 54ch;
+    }
+    .clouds {
+      height: 38px;
+      background: radial-gradient(circle 22px at 22px 38px, #fff 0 22px, transparent 23px) 0 0/44px 38px repeat-x;
+    }
+
+    /* ── FEATURED TOOL ── */
+    .tools-section { padding: 46px 0 0; }
+    .tool-card {
+      display: grid; grid-template-columns: 1.05fr .95fr;
+      gap: 40px; align-items: center;
+      background: #fff; border-radius: 26px;
+      padding: 40px 44px;
+      box-shadow: 0 18px 50px -28px rgba(33, 29, 51, .45);
+      transition: transform .22s, box-shadow .22s;
+    }
+    .tool-card:hover { transform: translateY(-4px); box-shadow: 0 30px 60px -28px rgba(33, 29, 51, .5); }
+    .tool-badge {
+      display: inline-block; background: #f0ebfa; color: var(--accent);
+      font-size: 12px; font-weight: 700; padding: 6px 14px; border-radius: 999px;
+    }
+    .tool-card h2 {
+      font-size: clamp(22px, 3vw, 30px); font-weight: 800; line-height: 1.2;
+      color: var(--ink); margin-top: 16px; letter-spacing: -.01em;
+    }
+    .tool-card > div > p { font-size: 15px; line-height: 1.7; color: var(--muted); margin-top: 14px; }
+    .tool-points { list-style: none; margin: 20px 0 0; padding: 0; display: grid; gap: 10px; }
+    .tool-points li {
+      position: relative; padding-left: 26px;
+      font-size: 14.5px; line-height: 1.6; color: var(--ink);
+    }
+    .tool-points li::before {
+      content: ''; position: absolute; left: 0; top: 7px;
+      width: 14px; height: 14px; border-radius: 50%;
+      background: #f0ebfa;
+      box-shadow: inset 0 0 0 3px var(--accent);
+    }
+    .open-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      margin-top: 26px; padding: 13px 26px; border-radius: 999px;
+      font-size: 15px; font-weight: 600;
+      background: var(--accent); color: #fff;
+      box-shadow: 0 10px 24px -8px rgba(124, 92, 214, .55);
+      transition: transform .15s, box-shadow .15s;
+    }
+    .open-btn:hover { transform: translateY(-2px); box-shadow: 0 14px 30px -8px rgba(124, 92, 214, .65); }
+
+    /* preview panel */
+    .preview {
+      background: linear-gradient(140deg, var(--dark), #221c3f);
+      border-radius: 20px; padding: 24px; color: #fff;
+      box-shadow: 0 20px 44px -26px rgba(33, 29, 51, .8);
+    }
+    .preview-bar { display: flex; gap: 6px; margin-bottom: 18px; }
+    .preview-bar span { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,.18); }
+    .preview-label { font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #a59fc0; }
+    .preview-code {
+      margin-top: 10px; font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+      font-size: 14px; line-height: 1.6; color: #d9d2f5; word-break: break-all;
+    }
+    .preview-rows { margin-top: 20px; display: grid; gap: 8px; }
+    .preview-row {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 12.5px; color: #c9c3e0;
+      font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+    }
+    .preview-dot { flex: none; width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,.2); }
+    .preview-row.hit .preview-dot { background: #5ad1a8; }
+    .preview-row.hit { color: #fff; }
+    .preview-row em { font-style: normal; background: rgba(124, 92, 214, .45); border-radius: 3px; padding: 0 3px; }
+
+    /* ── MORE COMING ── */
+    .more-note {
+      margin-top: 30px; padding: 22px 26px;
+      background: #f8f6fd; border-radius: 18px;
+      font-size: 14.5px; line-height: 1.7; color: var(--muted);
+    }
+    .more-note strong { color: var(--ink); font-weight: 700; }
+    .more-note a { color: var(--accent); font-weight: 600; }
+
+    /* ── CTA ── */
+    .cta {
+      background: linear-gradient(120deg, var(--dark), #1f1a38);
+      border-radius: 24px; padding: 50px 44px;
+      text-align: center; margin: 56px 0 80px;
+      color: #fff;
+    }
+    .cta h2 { font-weight: 800; font-size: clamp(22px, 3.5vw, 34px); margin-top: 12px; }
+    .cta p { font-size: 15px; color: #a59fc0; margin-top: 12px; max-width: 46ch; margin-left: auto; margin-right: auto; }
+    .cta-row { display: flex; gap: 12px; justify-content: center; margin-top: 26px; flex-wrap: wrap; }
+    .cta-btn {
+      padding: 13px 26px; border-radius: 999px; font-size: 15px; font-weight: 600;
+      display: inline-flex; align-items: center; gap: 8px;
+      transition: transform .15s;
+    }
+    .cta-btn:hover { transform: translateY(-2px); }
+    .cta-primary { background: var(--cta); color: #fff; box-shadow: 0 10px 24px -8px rgba(236, 109, 146, .5); }
+    .cta-ghost { background: rgba(255,255,255,.08); color: #c3b1f5; border: 1px solid rgba(124, 92, 214, .3); }
+
+    @media (max-width: 860px) {
+      .tool-card { grid-template-columns: 1fr; gap: 28px; padding: 32px 26px; }
+    }
+    @media (max-width: 600px) {
+      .wrap { padding: 0 16px; }
+      .cta { padding: 36px 24px; }
+    }
+  </style>
+
+  <!-- Hero -->
+  <section class="page-hero">
+    <div class="wrap">
+      <span class="tag">Free tools</span>
+      <h1>SEO tools that run in your browser</h1>
+      <p>Small, fast utilities I built for my own reporting work. No sign-up, no upload - your data never leaves the tab.</p>
+    </div>
+  </section>
+  <div class="clouds"></div>
+
+  <div class="wrap">
+    <section class="tools-section">
+      {tools.map(tool => (
+        <article class="tool-card">
+          <div>
+            <span class="tool-badge">{tool.badge}</span>
+            <h2>{tool.name}</h2>
+            <p>{tool.excerpt}</p>
+            <ul class="tool-points">
+              {tool.points.map(point => <li>{point}</li>)}
+            </ul>
+            <a href={`/tools/${tool.slug}/`} class="open-btn">Open the tool →</a>
+          </div>
+
+          <div class="preview" aria-hidden="true">
+            <div class="preview-bar"><span></span><span></span><span></span></div>
+            <div class="preview-label">Your regex</div>
+            <div class="preview-code">{tool.sample}</div>
+            <div class="preview-rows">
+              <div class="preview-row hit"><span class="preview-dot"></span><span><em>how</em> to add faq schema</span></div>
+              <div class="preview-row hit"><span class="preview-dot"></span><span><em>what</em> is generative engine optimization</span></div>
+              <div class="preview-row"><span class="preview-dot"></span><span>seo course price</span></div>
+              <div class="preview-row hit"><span class="preview-dot"></span><span><em>why</em> is my page not indexed</span></div>
+            </div>
+          </div>
+        </article>
+      ))}
+
+      <p class="more-note">
+        <strong>More tools are on the way.</strong> These get built when a job comes up often enough in my own work to be
+        worth automating. If there's something you keep doing by hand, <a href="/contact/">tell me about it</a> - it's the
+        shortlist I build from.
+      </p>
+    </section>
+
+    <div class="cta">
+      <span class="tag" style="color:#c3b1f5">Work with me</span>
+      <h2>Need help beyond the tools?</h2>
+      <p>I work on enterprise SEO, technical audits, and getting content cited in AI search.</p>
+      <div class="cta-row">
+        <a href="/contact/" class="cta-btn cta-primary">Get in touch →</a>
+        <a href="/articles/" class="cta-btn cta-ghost">Read the articles</a>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

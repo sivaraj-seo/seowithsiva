@@ -1,0 +1,949 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { safeJsonLd } from '../../utils/schema';
+
+const appSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'Regex Builder for GA4, GSC & Looker Studio',
+  url: 'https://www.seowithsiva.com/tools/regex-builder/',
+  applicationCategory: 'BusinessApplication',
+  operatingSystem: 'Any (browser-based)',
+  browserRequirements: 'Requires JavaScript',
+  description:
+    'Build, test and understand RE2 regex for Google Search Console, GA4 and Looker Studio. Test patterns against your own query export entirely in the browser.',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+  author: { '@id': 'https://www.seowithsiva.com/#person' },
+  publisher: { '@id': 'https://www.seowithsiva.com/#organization' },
+  isAccessibleForFree: true,
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.seowithsiva.com/' },
+    { '@type': 'ListItem', position: 2, name: 'Tools', item: 'https://www.seowithsiva.com/tools/' },
+    {
+      '@type': 'ListItem',
+      position: 3,
+      name: 'Regex Builder',
+      item: 'https://www.seowithsiva.com/tools/regex-builder/',
+    },
+  ],
+};
+
+const faqs = [
+  {
+    q: 'What regex syntax does Google Search Console use?',
+    a: "Search Console, GA4 and Looker Studio all use Google's RE2 syntax. RE2 deliberately leaves out lookaheads, lookbehinds, backreferences, atomic groups and possessive quantifiers, because it guarantees linear-time matching. Patterns copied from a PCRE or JavaScript regex tester often fail for exactly this reason.",
+  },
+  {
+    q: 'How do I exclude queries with regex in Search Console?',
+    a: "Don't rewrite the pattern with a negative lookahead - RE2 won't accept it. Keep the regex as it is and switch the filter itself to \"Doesn't match regex\" in Search Console, or Exclude in GA4 and Looker Studio.",
+  },
+  {
+    q: 'Is there a character limit for Search Console regex filters?',
+    a: 'Yes. Search Console caps a regex filter at 4,096 characters. This tool counts characters as you build and warns you before you hit the limit, so you can split a long keyword list into two filters instead of having the filter rejected.',
+  },
+  {
+    q: 'Why does my regex match in Looker Studio but not GA4?',
+    a: 'GA4\'s "matches regex" requires the pattern to match the entire value, while Looker Studio\'s RegExp Contains matches anywhere inside it. Switch the platform toggle in the builder and the tester re-runs with that platform\'s matching rule, so you can see the difference against your own data.',
+  },
+  {
+    q: 'Is my Search Console data uploaded anywhere?',
+    a: 'No. The CSV is read by your browser with the File API and every match runs locally in the page. Nothing is sent to a server, and there is no analytics event carrying your query data.',
+  },
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map(f => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
+---
+
+<BaseLayout
+  title="Regex Builder for GA4, GSC & Looker Studio"
+  description="Build, test and understand RE2 regex for Google Search Console, GA4 and Looker Studio. Test patterns against your own query export - free, and entirely in your browser."
+  keywords="search console regex, regex builder, RE2 regex tester, GA4 regex, looker studio regex, google search console filter"
+  ogImage="/images/og-regex-builder.png"
+  author="C. Sivaraj"
+>
+  <Fragment slot="head">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <script type="application/ld+json" set:html={safeJsonLd(appSchema)} />
+    <script type="application/ld+json" set:html={safeJsonLd(breadcrumbSchema)} />
+    <script type="application/ld+json" set:html={safeJsonLd(faqSchema)} />
+  </Fragment>
+
+  <!--
+    Styles are global (not scoped) on purpose: the builder injects recipe cards,
+    result rows and the explainer table with innerHTML at runtime, and Astro's
+    scoped-style hashes are only applied to markup present at build time.
+    Every selector is namespaced under .tool so nothing leaks to other pages.
+  -->
+  <style is:global>
+    .tool {
+      --t-line: #e7e3f2;
+      --t-soft: #faf9fd;
+      --t-lav: #f0ebfa;
+      --t-ok: #0f7c6e;
+      --t-warn: #a8620a;
+      --t-err: #c2352a;
+      --t-code-bg: #141026;
+      --t-code-ink: #e4dff5;
+      --t-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+    }
+    .tool * { box-sizing: border-box; }
+    /* display:flex on .row would otherwise beat the [hidden] attribute */
+    .tool [hidden] { display: none !important; }
+    .tool .wrap { max-width: 1120px; margin: 0 auto; padding: 0 32px; }
+
+    .tool .tag {
+      display: inline-flex; align-items: center; gap: 7px;
+      font-size: 12px; font-weight: 700; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--accent);
+    }
+    .tool .tag::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
+
+    /* ── HERO ── */
+    .tool .page-hero {
+      background: linear-gradient(165deg, #efeafc 0%, #f7ecf2 52%, #fde9dc 100%);
+      padding: 60px 0 50px; text-align: center;
+    }
+    .tool .crumbs { font-size: 13px; color: var(--muted); margin-bottom: 18px; }
+    .tool .crumbs a { color: var(--muted); text-decoration: none; }
+    .tool .crumbs a:hover { color: var(--accent); }
+    .tool .crumbs span { margin: 0 7px; opacity: .5; }
+    .tool .page-hero h1 {
+      font-weight: 800; font-size: clamp(30px, 4.6vw, 52px);
+      color: var(--ink); margin-top: 16px; letter-spacing: -.02em; line-height: 1.1;
+    }
+    .tool .page-hero h1 mark {
+      background: linear-gradient(transparent 58%, rgba(124, 92, 214, .28) 58%);
+      color: inherit; padding: 0 .08em;
+    }
+    .tool .page-hero > .wrap > p {
+      font-size: 16.5px; line-height: 1.7; color: var(--muted);
+      margin: 18px auto 0; max-width: 62ch;
+    }
+    .tool .clouds {
+      height: 38px;
+      background: radial-gradient(circle 22px at 22px 38px, #fff 0 22px, transparent 23px) 0 0/44px 38px repeat-x;
+    }
+
+    /* ── LAYOUT ── */
+    .tool .grid {
+      display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.08fr);
+      gap: 26px; align-items: start; padding-top: 44px;
+    }
+    .tool .sticky { position: sticky; top: 92px; display: grid; gap: 26px; }
+    /* min-width:0 keeps wide children (tables, code, long URLs) from forcing
+       the grid track wider than the viewport instead of scrolling internally */
+    .tool .grid > *, .tool .sticky > * { min-width: 0; }
+    @media (max-width: 980px) {
+      .tool .grid { grid-template-columns: minmax(0, 1fr); }
+      .tool .sticky { position: static; }
+    }
+
+    .tool .panel {
+      background: #fff; border: 1px solid rgba(33, 29, 51, .07); border-radius: 22px;
+      padding: 28px 30px;
+      box-shadow: 0 18px 50px -32px rgba(33, 29, 51, .45);
+    }
+    .tool .panel h2 {
+      font-size: 19px; font-weight: 800; color: var(--ink);
+      letter-spacing: -.01em; margin: 0 0 4px;
+    }
+    .tool .sub { color: var(--muted); font-size: 14px; line-height: 1.65; margin: 0 0 20px; }
+    .tool label { font-weight: 600; font-size: 13.5px; color: var(--ink); }
+
+    /* ── SEGMENTED CONTROL ── */
+    .tool .seg {
+      display: flex; gap: 4px; background: var(--t-lav);
+      border-radius: 999px; padding: 4px; margin: 8px 0 18px;
+    }
+    .tool .seg button {
+      flex: 1; border: 0; background: transparent; color: var(--accent);
+      font: 600 13.5px 'Plus Jakarta Sans', system-ui, sans-serif;
+      padding: 9px 8px; cursor: pointer; border-radius: 999px;
+      transition: background .15s, color .15s;
+    }
+    .tool .seg button:hover { background: rgba(124, 92, 214, .12); }
+    .tool .seg button[aria-pressed="true"] {
+      background: var(--accent); color: #fff;
+      box-shadow: 0 6px 16px -6px rgba(124, 92, 214, .6);
+    }
+
+    /* ── RECIPES ── */
+    .tool .recipes { display: grid; gap: 10px; margin-top: 14px; }
+    .tool details.recipe {
+      border: 1px solid var(--t-line); border-radius: 14px;
+      background: #fff; transition: border-color .15s, box-shadow .15s;
+    }
+    .tool details.recipe[data-on="true"] {
+      border-color: rgba(124, 92, 214, .45);
+      box-shadow: inset 4px 0 0 var(--accent), 0 10px 26px -20px rgba(124, 92, 214, .8);
+    }
+    .tool details.recipe summary {
+      list-style: none; display: flex; gap: 11px; align-items: center;
+      padding: 13px 15px; cursor: pointer;
+    }
+    .tool details.recipe summary::-webkit-details-marker { display: none; }
+    .tool details.recipe summary input { width: 18px; height: 18px; accent-color: var(--accent); cursor: pointer; }
+    .tool .rname { font-weight: 600; font-size: 14.5px; color: var(--ink); }
+    .tool .rtag {
+      margin-left: auto; font-size: 11px; font-weight: 700; color: var(--accent);
+      background: var(--t-lav); border-radius: 999px; padding: 3px 10px; white-space: nowrap;
+    }
+    .tool .rbody { padding: 0 15px 15px 44px; color: var(--muted); font-size: 13.5px; line-height: 1.65; }
+    .tool .rbody p { margin: 0 0 10px; }
+    .tool .rbody label { display: block; margin-bottom: 6px; }
+
+    /* ── FORM CONTROLS ── */
+    .tool textarea,
+    .tool input[type=text],
+    .tool input[type=number] {
+      width: 100%; font: 13.5px/1.5 var(--t-mono); color: var(--ink);
+      background: var(--t-soft); border: 1px solid var(--t-line); border-radius: 10px;
+      padding: 10px 12px; transition: border-color .15s, box-shadow .15s;
+    }
+    .tool textarea:focus,
+    .tool input[type=text]:focus,
+    .tool input[type=number]:focus {
+      outline: none; border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(124, 92, 214, .15);
+    }
+    .tool input[type=number] { width: 92px; }
+    .tool select {
+      font: 500 13.5px 'Plus Jakarta Sans', system-ui, sans-serif; color: var(--ink);
+      background: var(--t-soft); border: 1px solid var(--t-line); border-radius: 10px; padding: 8px 10px;
+    }
+    .tool .row { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin: 12px 0; }
+    .tool .check { display: flex; gap: 9px; align-items: center; font-weight: 500; font-size: 13.5px; color: var(--ink); cursor: pointer; }
+    .tool .check input { accent-color: var(--accent); width: 17px; height: 17px; cursor: pointer; }
+
+    /* ── OUTPUT ── */
+    .tool .out {
+      background: linear-gradient(140deg, var(--t-code-bg), #201a3c);
+      color: var(--t-code-ink); border-radius: 16px; padding: 18px;
+      font: 14.5px/1.6 var(--t-mono); word-break: break-all; min-height: 62px; white-space: pre-wrap;
+    }
+    .tool .meta {
+      display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+      font-size: 12.5px; color: var(--muted); margin: 12px 0 14px;
+    }
+    .tool .meta .bad { color: var(--t-err); font-weight: 700; }
+    .tool .engine { font-size: 12px; color: var(--muted); }
+
+    /* ── BUTTONS ── */
+    .tool .btn {
+      font: 600 13.5px 'Plus Jakarta Sans', system-ui, sans-serif;
+      border-radius: 999px; padding: 11px 22px; cursor: pointer;
+      border: 1px solid transparent; background: var(--accent); color: #fff;
+      box-shadow: 0 8px 20px -8px rgba(124, 92, 214, .55);
+      transition: transform .15s, box-shadow .15s, background .15s, color .15s;
+    }
+    .tool .btn:hover { transform: translateY(-2px); box-shadow: 0 12px 26px -8px rgba(124, 92, 214, .65); }
+    .tool .btn.ghost { background: var(--t-lav); color: var(--accent); box-shadow: none; }
+    .tool .btn.ghost:hover { background: var(--accent); color: #fff; box-shadow: 0 8px 20px -8px rgba(124, 92, 214, .55); }
+
+    .tool .path {
+      font-size: 13px; line-height: 1.65; color: var(--ink);
+      background: var(--t-soft); border-radius: 12px; padding: 12px 14px; margin-top: 14px;
+    }
+    .tool .path:empty { display: none; }
+
+    /* ── NOTES ── */
+    .tool .notes { margin: 14px 0 0; padding: 0; list-style: none; display: grid; gap: 8px; font-size: 13.5px; line-height: 1.6; }
+    .tool .notes li { padding: 4px 0 4px 14px; border-left: 3px solid var(--t-warn); color: var(--t-warn); }
+    .tool .notes li.err { border-color: var(--t-err); color: var(--t-err); font-weight: 600; }
+    .tool .notes li.ok { border-color: var(--t-ok); color: var(--t-ok); }
+
+    /* ── RESULTS ── */
+    .tool .results { max-height: 360px; overflow: auto; border: 1px solid var(--t-line); border-radius: 14px; margin-top: 12px; }
+    .tool .results:empty { display: none; }
+    .tool .results div {
+      font: 13px/1.5 var(--t-mono); padding: 8px 12px;
+      border-bottom: 1px solid var(--t-line); display: flex; gap: 10px;
+    }
+    .tool .results div:last-child { border-bottom: 0; }
+    .tool .results .dot { flex: none; width: 8px; height: 8px; border-radius: 50%; margin-top: 6px; background: var(--t-line); }
+    .tool .results .hit .dot { background: var(--t-ok); }
+    .tool .results .hit { background: rgba(124, 92, 214, .035); }
+    .tool .results mark { background: var(--t-lav); color: #5b3fb0; font-weight: 600; border-radius: 3px; padding: 0 2px; }
+    .tool .results .m { margin-left: auto; flex: none; color: var(--muted); font-size: 12px; text-align: right; white-space: nowrap; line-height: 1.4; }
+    .tool .results .txt { min-width: 0; overflow-wrap: anywhere; }
+    .tool .score { font-size: 22px; font-weight: 800; color: var(--accent); letter-spacing: -.01em; }
+
+    /* ── SUMMARY TABLE ── */
+    .tool .summary { margin-top: 16px; overflow-x: auto; }
+    .tool .summary table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+    .tool .summary th, .tool .summary td {
+      text-align: right; padding: 9px 10px; border-bottom: 1px solid var(--t-line); white-space: nowrap;
+    }
+    .tool .summary th:first-child, .tool .summary td:first-child { text-align: left; }
+    .tool .summary thead th { font-weight: 700; color: var(--muted); font-size: 12.5px; }
+    .tool .summary tbody th { font-weight: 600; color: var(--ink); }
+    .tool .summary tbody td:nth-child(2) { font-weight: 700; color: var(--accent); }
+    .tool .insight { margin: 14px 0 0; font-size: 14px; line-height: 1.7; color: var(--ink); }
+    .tool .insight strong { background: linear-gradient(transparent 60%, rgba(124, 92, 214, .28) 60%); font-weight: 700; }
+    .tool .share { display: grid; gap: 7px; margin-top: 14px; font-size: 12.5px; color: var(--muted); }
+    .tool .bar { height: 8px; background: var(--t-lav); border-radius: 999px; overflow: hidden; }
+    .tool .bar span { display: block; height: 100%; background: var(--accent); border-radius: 999px; }
+    .tool .muted { color: var(--muted); font-size: 12.5px; line-height: 1.65; margin-top: 10px; }
+
+    /* ── EXPLAINER ── */
+    .tool .explain { display: grid; gap: 0; margin-top: 16px; border: 1px solid var(--t-line); border-radius: 14px; overflow: hidden; }
+    .tool .explain:empty { display: none; }
+    .tool .explain div {
+      display: grid; grid-template-columns: minmax(96px, 28%) 1fr; gap: 14px;
+      padding: 10px 14px; border-bottom: 1px solid var(--t-line); font-size: 13.5px; line-height: 1.6;
+    }
+    .tool .explain div:nth-child(odd) { background: var(--t-soft); }
+    .tool .explain div:last-child { border-bottom: 0; }
+    .tool .explain code { font-family: var(--t-mono); color: var(--accent); font-weight: 600; word-break: break-all; }
+    .tool .explain span { color: var(--muted); }
+    .tool .explain .bad code, .tool .explain .bad span { color: var(--t-err); }
+
+    /* ── TOAST ── */
+    .tool .toast {
+      position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+      background: var(--t-code-bg); color: #fff; padding: 12px 22px; border-radius: 999px;
+      font-size: 14px; font-weight: 600; opacity: 0; transition: opacity .2s;
+      pointer-events: none; z-index: 100; box-shadow: 0 16px 40px -14px rgba(33, 29, 51, .7);
+    }
+    .tool .toast.show { opacity: 1; }
+    @media (prefers-reduced-motion: reduce) { .tool .toast { transition: none; } }
+
+    .tool .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+    /* ── PROSE / FAQ ── */
+    .tool .prose { max-width: 74ch; margin: 64px auto 0; }
+    .tool .prose h2 {
+      font-size: clamp(22px, 3vw, 30px); font-weight: 800; color: var(--ink);
+      letter-spacing: -.01em; margin: 44px 0 14px; line-height: 1.25;
+    }
+    .tool .prose h3 { font-size: 17px; font-weight: 700; color: var(--ink); margin: 26px 0 8px; }
+    .tool .prose p { font-size: 15.5px; line-height: 1.8; color: var(--muted); margin: 0 0 14px; }
+    .tool .prose ol, .tool .prose ul { margin: 0 0 16px; padding-left: 22px; }
+    .tool .prose li { font-size: 15.5px; line-height: 1.8; color: var(--muted); margin-bottom: 8px; }
+    .tool .prose code {
+      font-family: var(--t-mono); font-size: 13.5px; background: var(--t-lav);
+      color: #5b3fb0; padding: 2px 7px; border-radius: 6px;
+    }
+    .tool .faq-item { border-bottom: 1px solid var(--t-line); padding: 18px 0; }
+    .tool .faq-item:last-child { border-bottom: 0; }
+    .tool .faq-item h3 { margin: 0 0 8px; }
+    .tool .faq-item p { margin: 0; }
+
+    .tool .closing { padding-bottom: 80px; }
+
+    @media (max-width: 600px) {
+      .tool .wrap { padding: 0 16px; }
+      .tool .panel { padding: 22px 18px; border-radius: 18px; }
+      .tool .rbody { padding-left: 15px; }
+      .tool .explain div { grid-template-columns: 1fr; gap: 4px; }
+    }
+  </style>
+
+  <div class="tool">
+    <!-- Hero -->
+    <section class="page-hero">
+      <div class="wrap">
+        <nav class="crumbs" aria-label="Breadcrumb">
+          <a href="/">Home</a><span>/</span><a href="/tools/">Tools</a><span>/</span>Regex Builder
+        </nav>
+        <span class="tag">Free tool</span>
+        <h1>Build a regex, then <mark>see what it catches</mark></h1>
+        <p>
+          Pick patterns, add your own brand and keywords, and test the result against real queries before you paste it
+          into Search Console, GA4 or Looker Studio. Everything runs in your browser. Nothing is uploaded.
+        </p>
+      </div>
+    </section>
+    <div class="clouds"></div>
+
+    <div class="wrap">
+      <div class="grid">
+        <!-- BUILDER -->
+        <section class="panel" aria-labelledby="b-h">
+          <h2 id="b-h">Builder</h2>
+          <p class="sub">Tick one or more patterns. Ticked patterns are joined with OR.</p>
+
+          <label id="plat-l">Where you'll paste it</label>
+          <div class="seg" role="group" aria-labelledby="plat-l" id="platform">
+            <button type="button" data-v="gsc" aria-pressed="true">Search Console</button>
+            <button type="button" data-v="ga4" aria-pressed="false">GA4</button>
+            <button type="button" data-v="looker" aria-pressed="false">Looker Studio</button>
+          </div>
+
+          <label id="mode-l">Filter mode</label>
+          <div class="seg" role="group" aria-labelledby="mode-l" id="mode">
+            <button type="button" data-v="include" aria-pressed="true">Include matches</button>
+            <button type="button" data-v="exclude" aria-pressed="false">Exclude matches</button>
+          </div>
+
+          <label class="check"><input type="checkbox" id="ci" checked /> Ignore upper and lower case</label>
+
+          <div class="recipes" id="recipes"></div>
+        </section>
+
+        <!-- OUTPUT + TESTER -->
+        <div class="sticky">
+          <section class="panel" aria-labelledby="o-h">
+            <h2 id="o-h">Your regex</h2>
+            <div class="out" id="out" aria-live="polite"></div>
+            <div class="meta">
+              <span id="count"></span>
+              <span class="engine" id="engine">Loading RE2 engine…</span>
+            </div>
+            <div class="row">
+              <button class="btn" type="button" id="copy">Copy regex</button>
+              <button class="btn ghost" type="button" id="share">Copy share link</button>
+              <button class="btn ghost" type="button" id="toExplain">Explain it</button>
+            </div>
+            <div class="path" id="path"></div>
+            <ul class="notes" id="notes"></ul>
+          </section>
+
+          <section class="panel" aria-labelledby="t-h">
+            <h2 id="t-h">Tester</h2>
+            <p class="sub">
+              Paste one query or URL per line, or load a Search Console export (CSV). With a CSV, you'll also see clicks,
+              impressions, CTR and position for the matched group.
+            </p>
+            <label for="samples" class="sr">Sample queries</label>
+            <textarea id="samples" rows="6"></textarea>
+            <div class="row">
+              <label class="btn ghost" for="csv">Load CSV</label>
+              <input type="file" id="csv" accept=".csv,text/csv" class="sr" />
+              <label class="check"><input type="checkbox" id="onlyHits" /> Show matches only</label>
+              <span class="score" id="score" style="margin-left:auto"></span>
+            </div>
+            <div id="summary" class="summary" aria-live="polite"></div>
+            <div class="row" id="listTools" hidden>
+              <label for="sort">Sort rows</label>
+              <select id="sort">
+                <option value="none">File order</option>
+                <option value="clicks">Clicks, high to low</option>
+                <option value="impr">Impressions, high to low</option>
+                <option value="pos">Position, best first</option>
+              </select>
+              <button class="btn ghost" type="button" id="dl" style="margin-left:auto">Download matched rows</button>
+            </div>
+            <div class="results" id="results"></div>
+            <p class="muted" id="listNote"></p>
+          </section>
+        </div>
+      </div>
+
+      <section class="panel" style="margin-top:26px" aria-labelledby="e-h" id="explainPanel">
+        <h2 id="e-h">Explain a regex</h2>
+        <p class="sub">Paste any pattern to get a plain-English breakdown and RE2 compatibility warnings.</p>
+        <label for="exIn" class="sr">Regex to explain</label>
+        <input type="text" id="exIn" placeholder="(?i)^(how|what)\b.*\bcost" />
+        <div class="explain" id="exOut"></div>
+      </section>
+
+      <!-- Supporting content -->
+      <article class="prose">
+        <h2>How to use it</h2>
+        <ol>
+          <li>Choose where you'll paste the filter - Search Console, GA4 or Looker Studio. Each one matches slightly differently, and the tester follows the rule for the platform you pick.</li>
+          <li>Tick the patterns you want. Several ticked patterns are joined with OR, so a row matches if it satisfies any one of them.</li>
+          <li>Edit the keyword, brand or city lists inside each pattern so they describe your site rather than mine.</li>
+          <li>Load a Search Console CSV export in the tester. You'll see exactly which queries the filter catches, plus the clicks, impressions, CTR and average position of the matched group.</li>
+          <li>Copy the regex and paste it into the filter. In Search Console that's <code>Performance → + Add filter → Query → Custom (regex)</code>.</li>
+        </ol>
+
+        <h2>Why patterns from other regex testers get rejected</h2>
+        <p>
+          Google's tools run on RE2, not PCRE. RE2 guarantees every match finishes in linear time, and it buys that
+          guarantee by dropping the features that can backtrack: lookaheads and lookbehinds (<code>(?=...)</code>,
+          <code>(?&lt;!...)</code>), backreferences (<code>\1</code>), atomic groups and possessive quantifiers. A pattern
+          built in a standard JavaScript or Python regex tester can be perfectly valid there and still be refused by
+          Search Console.
+        </p>
+        <p>
+          This tool compiles your pattern with an actual RE2 engine in the browser, so a pattern that passes here is the
+          same syntax Google accepts. If the engine can't load, it falls back to a browser check and says so next to the
+          character count.
+        </p>
+
+        <h2>Common questions</h2>
+        <div>
+          {faqs.map(faq => (
+            <div class="faq-item">
+              <h3>{faq.q}</h3>
+              <p>{faq.a}</p>
+            </div>
+          ))}
+        </div>
+
+        <p class="closing" style="margin-top:36px">
+          Built by <a href="/about/" style="color:var(--accent);font-weight:600">C. Sivaraj</a>. More tools on the
+          <a href="/tools/" style="color:var(--accent);font-weight:600">tools page</a>, and the reasoning behind them in
+          the <a href="/articles/" style="color:var(--accent);font-weight:600">articles</a>.
+        </p>
+      </article>
+    </div>
+
+    <div class="toast" id="toast" role="status"></div>
+  </div>
+
+  <!--
+    is:inline keeps this out of Astro's bundler so the top-level `await import()`
+    of the RE2 engine stays a genuine runtime CDN import rather than a build-time
+    dependency Vite would try to resolve.
+  -->
+  <script is:inline type="module">
+    /* ---------- RE2 engine (falls back to JS RegExp with warnings) ---------- */
+    let RE2 = null;
+    try {
+      const mod = await import("https://cdn.jsdelivr.net/npm/re2js@2.8.6/+esm");
+      RE2 = mod.RE2JS;
+      document.getElementById("engine").textContent = "Tested with RE2";
+    } catch (e) {
+      document.getElementById("engine").textContent = "RE2 engine unavailable, using approximate browser check";
+    }
+
+    /* ---------- helpers ---------- */
+    const $ = id => document.getElementById(id);
+    const esc = s => s.replace(/[\\.+*?()|[\]{}^$]/g, "\\$&");
+    const lines = s => s.split(/\n|,/).map(x => x.trim()).filter(Boolean);
+    const html = s => s.replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+    const flexSpace = s => esc(s).replace(/\\?\s+|\\?-/g, "[\\s-]?");
+
+    /* ---------- recipes ---------- */
+    const RECIPES = [
+      { id:"questions", name:"Question queries", target:"query",
+        help:"Queries that start with a question word. Edit the list to suit your niche.",
+        fields:[{k:"words",type:"list",label:"Question starters",val:"what, how, why, when, where, who, which, can, is, are, does, do, should, will"}],
+        build:f => `^(${lines(f.words).map(esc).join("|")})\\b` },
+      { id:"conversational", name:"Long conversational queries", target:"query",
+        help:"Queries with many words, the kind people type into AI assistants and increasingly into Google.",
+        fields:[{k:"n",type:"num",label:"Minimum words",val:7}],
+        build:f => `^\\S+(\\s+\\S+){${Math.max(1,(+f.n||7)-1)},}$` },
+      { id:"brand", name:"Brand and name variants", target:"query",
+        help:"Your brand spellings. Spaces and hyphens become optional, so 'seo with siva' also catches 'seowithsiva' and 'seo-with-siva'.",
+        fields:[{k:"names",type:"list",label:"Brand spellings, one per line",val:"seo with siva\nseowith siva\nsiva seo"}],
+        build:f => `(${lines(f.names).map(flexSpace).join("|")})` },
+      { id:"keywords", name:"Keyword list", target:"query",
+        help:"Any query containing at least one of these terms.",
+        fields:[{k:"kw",type:"list",label:"Keywords, one per line",val:"schema\nstructured data"}],
+        build:f => `(${lines(f.kw).map(esc).join("|")})` },
+      { id:"exact", name:"Whole word or phrase only", target:"query",
+        help:"Matches the term as a whole word, so 'ai' won't catch 'email' or 'rain'.",
+        fields:[{k:"kw",type:"list",label:"Words or phrases",val:"ai\ngeo"}],
+        build:f => `\\b(${lines(f.kw).map(esc).join("|")})\\b` },
+      { id:"compare", name:"Comparisons and alternatives", target:"query",
+        help:"People weighing options against each other.",
+        fields:[],
+        build:() => `\\b(vs|versus|compare|comparison|alternatives?|difference between|better than|or)\\b` },
+      { id:"commercial", name:"Research before buying", target:"query",
+        help:"Best-of, review and recommendation searches.",
+        fields:[],
+        build:() => `\\b(best|top|reviews?|rated|recommended|worth it|pros and cons)\\b` },
+      { id:"transactional", name:"Ready to buy or book", target:"query",
+        help:"Price, deal and purchase signals.",
+        fields:[],
+        build:() => `\\b(buy|price|pricing|cost|cheap|affordable|deals?|discount|coupon|order|book|subscribe|free trial)\\b` },
+      { id:"local", name:"Local intent", target:"query",
+        help:"'Near me' searches plus the cities you serve.",
+        fields:[{k:"cities",type:"list",label:"Cities or areas",val:"coimbatore\nchennai\nbangalore"}],
+        build:f => { const c = lines(f.cities).map(esc); return `\\b(near me|nearby|open now${c.length ? "|" + c.join("|") : ""})\\b`; } },
+      { id:"persona", name:"Audience modifiers", target:"query",
+        help:"Queries aimed at a specific type of person, useful for spotting content gaps.",
+        fields:[{k:"who",type:"list",label:"Audiences",val:"beginners\nsmall business\nstudents\nagencies\necommerce"}],
+        build:f => `\\bfor (${lines(f.who).map(esc).join("|")})\\b` },
+      { id:"health", name:"Symptom and 'is it serious' queries", target:"query",
+        help:"Health searches where people want reassurance or next steps. Handy for YMYL content audits.",
+        fields:[],
+        build:() => `\\b(symptoms?|signs? of|causes? of|is it (serious|normal|dangerous)|when to see a doctor|treatment for|home remed(y|ies)|side effects?)\\b` },
+      { id:"dated", name:"Year-stamped queries", target:"query",
+        help:"Queries that include a year, a signal to refresh content.",
+        fields:[],
+        build:() => `\\b20[0-9]{2}\\b` },
+      { id:"head", name:"One-word queries", target:"query",
+        help:"Head terms with no spaces.",
+        fields:[],
+        build:() => `^\\S+$` },
+      { id:"folders", name:"Pages in these folders", target:"page",
+        help:"URLs inside one or more subfolders.",
+        fields:[{k:"dirs",type:"list",label:"Folder names, without slashes",val:"blog\nguides"}],
+        build:f => `/(${lines(f.dirs).map(d=>esc(d.replace(/^\/+|\/+$/g,""))).join("|")})/` },
+      { id:"params", name:"URLs with parameters", target:"page",
+        help:"Pages carrying query strings, optionally only specific parameters.",
+        fields:[{k:"p",type:"list",label:"Parameter names (leave empty for any)",val:""}],
+        build:f => lines(f.p).length ? `[?&](${lines(f.p).map(esc).join("|")})=` : `\\?` },
+      { id:"custom", name:"Your own pattern", target:"any",
+        help:"Write RE2 directly. It's added to the OR group like any other pattern.",
+        fields:[{k:"re",type:"text",label:"Pattern",val:""}],
+        build:f => f.re.trim() }
+    ];
+    const PLATFORMS = {
+      gsc:{ label:"Search Console", limit:4096, full:false,
+        path:(t,m)=>`Performance report → + Add filter → ${t==="page"?"Page":"Query"} → Custom (regex) → ${m==="exclude"?"Doesn't match regex":"Matches regex"}` },
+      ga4:{ label:"GA4", limit:null, full:true,
+        path:(t,m)=>`Report filter or comparison → dimension → ${m==="exclude"?"Exclude + ":""}"matches regex" (matches the whole value). Use "partially matches regex" if you don't want to match the entire value.` },
+      looker:{ label:"Looker Studio", limit:null, full:false,
+        path:(t,m)=>`Filter → ${m==="exclude"?"Exclude":"Include"} → RegExp Contains. (RegExp Match requires the whole value to match; in calculated fields use REGEXP_CONTAINS.)` }
+    };
+
+    /* ---------- state ---------- */
+    const state = { platform:"gsc", mode:"include", ci:true, on:{questions:true}, f:{} };
+    RECIPES.forEach(r => { state.f[r.id] = {}; r.fields.forEach(fl => state.f[r.id][fl.k] = fl.val); });
+
+    // load from share link
+    try {
+      if (location.hash.length > 1) {
+        const s = JSON.parse(decodeURIComponent(escape(atob(location.hash.slice(1)))));
+        Object.assign(state, s, { f:Object.assign(state.f, s.f||{}) });
+      }
+    } catch(e) {}
+
+    /* ---------- render recipes ---------- */
+    const box = $("recipes");
+    RECIPES.forEach(r => {
+      const d = document.createElement("details");
+      d.className = "recipe"; d.dataset.id = r.id;
+      const tag = r.target === "page" ? "Page" : r.target === "query" ? "Query" : "Any";
+      d.innerHTML = `<summary><input type="checkbox" aria-label="Use ${html(r.name)}"><span class="rname">${html(r.name)}</span><span class="rtag">${tag}</span></summary>
+        <div class="rbody"><p>${html(r.help)}</p>${r.fields.map(fl => {
+          const id = `${r.id}-${fl.k}`;
+          const v = state.f[r.id][fl.k];
+          if (fl.type === "num") return `<div class="row"><label for="${id}">${fl.label}</label><input type="number" min="2" max="30" id="${id}" data-k="${fl.k}" value="${html(String(v))}"></div>`;
+          if (fl.type === "text") return `<label for="${id}">${fl.label}</label><input type="text" id="${id}" data-k="${fl.k}" value="${html(String(v))}" placeholder="e.g. (?i)checklist|template">`;
+          return `<label for="${id}">${fl.label}</label><textarea rows="3" id="${id}" data-k="${fl.k}">${html(String(v))}</textarea>`;
+        }).join("")}</div>`;
+      const cb = d.querySelector("summary input");
+      cb.checked = !!state.on[r.id];
+      d.dataset.on = cb.checked;
+      cb.addEventListener("click", e => e.stopPropagation());
+      cb.addEventListener("change", () => { state.on[r.id] = cb.checked; d.dataset.on = cb.checked; if (cb.checked) d.open = true; update(); });
+      d.querySelectorAll("[data-k]").forEach(el => el.addEventListener("input", () => { state.f[r.id][el.dataset.k] = el.value; update(); }));
+      box.appendChild(d);
+    });
+    if (state.on.questions) box.querySelector('[data-id="questions"]').open = true;
+
+    function segment(id, key){
+      const g = $(id);
+      const sync = () => g.querySelectorAll("button").forEach(b => b.setAttribute("aria-pressed", b.dataset.v === state[key]));
+      g.addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; state[key] = b.dataset.v; sync(); update(); });
+      sync();
+    }
+    segment("platform","platform"); segment("mode","mode");
+    $("ci").checked = state.ci;
+    $("ci").addEventListener("change", () => { state.ci = $("ci").checked; update(); });
+
+    /* ---------- build ---------- */
+    function build(){
+      const active = RECIPES.filter(r => state.on[r.id]);
+      const parts = active.map(r => r.build(state.f[r.id])).filter(Boolean);
+      let body = parts.length === 1 ? parts[0] : parts.map(p => `(${p})`).join("|");
+      if (!parts.length) body = "";
+      const re = body ? (state.ci ? "(?i)" : "") + body : "";
+      return { re, active };
+    }
+
+    function compile(re){
+      if (RE2) {
+        try { return { ok:true, re2:RE2.compile(re) }; }
+        catch(e) { return { ok:false, msg:e.message.replace(/^error parsing regexp: /,"") }; }
+      }
+      const bad = unsupported(re);
+      if (bad) return { ok:false, msg:bad };
+      try { return { ok:true, js:new RegExp(re.replace(/^\(\?i\)/,""), re.startsWith("(?i)") ? "gi" : "g") }; }
+      catch(e) { return { ok:false, msg:e.message }; }
+    }
+    function unsupported(re){
+      if (/\(\?<?[=!]/.test(re)) return "Lookaheads and lookbehinds aren't supported in RE2.";
+      if (/\\[1-9]/.test(re)) return "Backreferences like \\1 aren't supported in RE2.";
+      if (/\(\?>/.test(re)) return "Atomic groups aren't supported in RE2.";
+      if (/[*+?}]\+/.test(re)) return "Possessive quantifiers aren't supported in RE2.";
+      return null;
+    }
+
+    /* ---------- output ---------- */
+    let current = { re:"", c:null };
+    function update(){
+      const { re, active } = build();
+      const P = PLATFORMS[state.platform];
+      $("out").textContent = re || "Tick a pattern to start.";
+      const notes = [];
+      const c = re ? compile(re) : null;
+      current = { re, c };
+
+      const len = re.length;
+      $("count").innerHTML = P.limit ? `<span class="${len > P.limit ? "bad" : ""}">${len.toLocaleString()} / ${P.limit.toLocaleString()} characters</span>` : `${len.toLocaleString()} characters`;
+
+      const targets = new Set(active.map(r => r.target).filter(t => t !== "any"));
+      const t = targets.has("page") && !targets.has("query") ? "page" : "query";
+      $("path").textContent = re ? P.path(t, state.mode) : "";
+
+      if (c && !c.ok) notes.push(["err", `This won't be accepted: ${c.msg}`]);
+      if (P.limit && len > P.limit) notes.push(["err", `Over the ${P.limit.toLocaleString()}-character limit. Shorten keyword lists or split into two filters.`]);
+      if (targets.size > 1) notes.push(["warn", "You've mixed query patterns and page patterns. Search Console filters queries and pages separately, so build these as two regexes."]);
+      if (P.full && re) notes.push(["warn", "GA4 'matches regex' must match the entire value. The tester below is checking whole-value matches."]);
+      if (state.mode === "exclude" && re) notes.push(["ok", "Keep the regex as it is. Choose the 'doesn't match' or 'exclude' option instead of rewriting it with a lookahead."]);
+      if (c && c.ok && !notes.some(n => n[0] === "err")) notes.push(["ok", "Valid RE2 syntax."]);
+      $("notes").innerHTML = notes.map(([k,m]) => `<li class="${k}">${html(m)}</li>`).join("");
+
+      runTests();
+      history.replaceState(null, "", "#" + btoa(unescape(encodeURIComponent(JSON.stringify(state)))));
+    }
+
+    /* ---------- tester ---------- */
+    $("samples").value = [
+      "how to add faq schema in wordpress",
+      "what is generative engine optimization",
+      "seo with siva",
+      "seowithsiva",
+      "best seo tools for beginners",
+      "ahrefs vs semrush",
+      "schema markup generator",
+      "seo course price in coimbatore",
+      "can you explain how ai overviews choose which websites to cite",
+      "email marketing",
+      "https://seowithsiva.com/blog/aeo-checklist/",
+      "https://seowithsiva.com/tools/?ref=linkedin"
+    ].join("\n");
+
+    function matchRanges(s){
+      const { c } = current;
+      if (!c || !c.ok) return null;
+      const full = PLATFORMS[state.platform].full;
+      if (c.re2) {
+        const m = c.re2.matcher(s);
+        if (full) return m.matches() ? [[0, s.length]] : [];
+        const out = []; let guard = 0;
+        while (m.find() && guard++ < 50) { if (m.end() === m.start()) { out.push([m.start(), m.start()]); break; } out.push([m.start(), m.end()]); }
+        return out;
+      }
+      c.js.lastIndex = 0;
+      if (full) { const m = new RegExp("^(?:" + c.js.source + ")$", c.js.flags.replace("g","")); return m.test(s) ? [[0,s.length]] : []; }
+      const out = []; let m, guard = 0;
+      while ((m = c.js.exec(s)) && guard++ < 50) { out.push([m.index, m.index + m[0].length]); if (!m[0].length) break; }
+      return out;
+    }
+
+    /* metrics from the loaded CSV, keyed by the row text */
+    let metrics = new Map();
+    const LIST_LIMIT = 1000;
+    const n = v => { const x = parseFloat(String(v ?? "").replace(/[%,\s]/g, "")); return isFinite(x) ? x : null; };
+    const fmt = x => x == null ? "–" : Math.round(x).toLocaleString();
+    const pct = (a, b) => b ? (a / b * 100) : 0;
+    const fmtPct = x => (x < 10 ? x.toFixed(1) : Math.round(x)) + "%";
+
+    function aggregate(list){
+      let clicks = 0, impr = 0, posW = 0, posImpr = 0, withData = 0;
+      list.forEach(t => {
+        const m = metrics.get(t); if (!m) return;
+        withData++;
+        clicks += m.clicks || 0; impr += m.impr || 0;
+        if (m.pos != null && m.impr) { posW += m.pos * m.impr; posImpr += m.impr; }
+      });
+      return { rows:list.length, withData, clicks, impr, ctr: impr ? clicks / impr * 100 : null, pos: posImpr ? posW / posImpr : null };
+    }
+
+    let lastHits = [];
+    function runTests(){
+      const rows = $("samples").value.split("\n").map(x => x.trim()).filter(Boolean);
+      const valid = current.re && current.c && current.c.ok;
+      $("listTools").hidden = true; $("summary").innerHTML = ""; $("listNote").textContent = "";
+      if (!current.re) { $("results").innerHTML = ""; $("score").textContent = ""; return; }
+      if (!valid) { $("results").innerHTML = `<div>Fix the regex to run the test.</div>`; $("score").textContent = ""; return; }
+
+      const tested = rows.map(s => ({ s, r: matchRanges(s) || [] }));
+      const hitRows = tested.filter(x => x.r.length);
+      const missRows = tested.filter(x => !x.r.length);
+      lastHits = hitRows.map(x => x.s);
+      $("score").textContent = `${hitRows.length.toLocaleString()}/${rows.length.toLocaleString()}`;
+
+      const hasMetrics = rows.some(t => metrics.has(t));
+      if (hasMetrics) renderSummary(aggregate(lastHits), aggregate(missRows.map(x => x.s)), aggregate(rows));
+      $("listTools").hidden = !hasMetrics;
+
+      let list = $("onlyHits").checked ? hitRows : tested;
+      const sort = $("sort").value;
+      if (hasMetrics && sort !== "none") {
+        const key = sort === "clicks" ? m => -(m?.clicks ?? -1) : sort === "impr" ? m => -(m?.impr ?? -1) : m => (m?.pos ?? 1e9);
+        list = [...list].sort((a, b) => key(metrics.get(a.s)) - key(metrics.get(b.s)));
+      }
+      const shown = list.slice(0, LIST_LIMIT);
+      $("results").innerHTML = shown.map(({ s, r }) => {
+        const hit = r.length > 0;
+        let h = "", i = 0;
+        r.forEach(([a, b]) => { if (b > a) { h += html(s.slice(i, a)) + "<mark>" + html(s.slice(a, b)) + "</mark>"; i = b; } });
+        h += html(s.slice(i));
+        const m = metrics.get(s);
+        const mt = m ? `<span class="m">${fmt(m.clicks)} clicks<br>${fmt(m.impr)} impr.</span>` : "";
+        return `<div class="${hit ? "hit" : ""}"><span class="dot" aria-hidden="true"></span><span class="txt"><span class="sr">${hit ? "Match: " : "No match: "}</span>${h}</span>${mt}</div>`;
+      }).join("") || `<div>No matching rows.</div>`;
+      if (list.length > LIST_LIMIT) $("listNote").textContent = `Showing the first ${LIST_LIMIT.toLocaleString()} of ${list.length.toLocaleString()} rows. The totals above include every row.`;
+    }
+
+    function renderSummary(hit, miss, all){
+      const ex = state.mode === "exclude";
+      const hitLabel = ex ? "Matched (removed)" : "Matched";
+      const missLabel = ex ? "Not matched (kept)" : "Not matched";
+      const cell = v => `<td>${v}</td>`;
+      const ctr = x => x == null ? "–" : x.toFixed(2) + "%";
+      const pos = x => x == null ? "–" : x.toFixed(1);
+      const rowShare = pct(hit.rows, all.rows), clickShare = pct(hit.clicks, all.clicks), imprShare = pct(hit.impr, all.impr);
+      const noun = /^https?:\/\//.test(lastHits[0] || "") ? "pages" : "queries";
+
+      let insight = "";
+      if (hit.rows && all.clicks) {
+        insight = `Matched ${noun} are <strong>${fmtPct(rowShare)} of rows</strong> but bring <strong>${fmtPct(clickShare)} of clicks</strong> and ${fmtPct(imprShare)} of impressions.`;
+        if (hit.ctr != null && miss.ctr != null && miss.ctr > 0) {
+          const diff = hit.ctr / miss.ctr;
+          if (diff >= 1.15) insight += ` Their CTR is ${diff.toFixed(1)}× the rest.`;
+          else if (diff <= 0.87) insight += ` Their CTR is ${Math.round((1 - diff) * 100)}% lower than the rest, which is worth a look at titles and snippets.`;
+        }
+      } else if (!hit.rows) insight = "No rows matched, so there's nothing to compare yet.";
+
+      const missing = all.rows - all.withData;
+      $("summary").innerHTML = `
+        <table>
+          <thead><tr><th scope="col"><span class="sr">Metric</span></th><th scope="col">${hitLabel}</th><th scope="col">${missLabel}</th><th scope="col">All rows</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Rows</th>${cell(hit.rows.toLocaleString())}${cell(miss.rows.toLocaleString())}${cell(all.rows.toLocaleString())}</tr>
+            <tr><th scope="row">Clicks</th>${cell(fmt(hit.clicks))}${cell(fmt(miss.clicks))}${cell(fmt(all.clicks))}</tr>
+            <tr><th scope="row">Impressions</th>${cell(fmt(hit.impr))}${cell(fmt(miss.impr))}${cell(fmt(all.impr))}</tr>
+            <tr><th scope="row">CTR</th>${cell(ctr(hit.ctr))}${cell(ctr(miss.ctr))}${cell(ctr(all.ctr))}</tr>
+            <tr><th scope="row">Avg. position</th>${cell(pos(hit.pos))}${cell(pos(miss.pos))}${cell(pos(all.pos))}</tr>
+          </tbody>
+        </table>
+        <p class="insight">${insight}</p>
+        <div class="share">
+          <span>Share of clicks: ${fmtPct(clickShare)}</span><div class="bar"><span style="width:${Math.min(100, clickShare)}%"></span></div>
+          <span>Share of impressions: ${fmtPct(imprShare)}</span><div class="bar"><span style="width:${Math.min(100, imprShare)}%"></span></div>
+        </div>
+        <p class="muted">CTR is total clicks divided by total impressions. Average position is weighted by impressions, so it will be close to, but not exactly, what Search Console shows for the same filter.${missing ? ` ${missing.toLocaleString()} row${missing === 1 ? " has" : "s have"} no metrics (typed in manually) and ${missing === 1 ? "is" : "are"} left out of the totals.` : ""}</p>`;
+    }
+    $("samples").addEventListener("input", runTests);
+    $("onlyHits").addEventListener("change", runTests);
+    $("sort").addEventListener("change", runTests);
+    $("dl").addEventListener("click", () => {
+      if (!lastHits.length) { toast("No matched rows to download"); return; }
+      const q = v => /[",\n]/.test(v) ? `"${String(v).replace(/"/g, '""')}"` : v;
+      const body = lastHits.map(t => { const m = metrics.get(t) || {}; return [q(t), m.clicks ?? "", m.impr ?? "", m.ctr ?? "", m.pos ?? ""].join(","); });
+      const csv = ["value,clicks,impressions,ctr_percent,position", ...body].join("\n");
+      const url = URL.createObjectURL(new Blob([csv], { type: "text/csv" }));
+      const a = document.createElement("a"); a.href = url; a.download = "matched-rows.csv"; document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+      toast("Downloaded matched rows");
+    });
+
+    // CSV: finds the query/page column plus Clicks, Impressions, CTR and Position if present
+    const ROW_CAP = 50000;
+    $("csv").addEventListener("change", async e => {
+      const file = e.target.files[0]; if (!file) return;
+      const rows = parseCSV((await file.text()).replace(/^\uFEFF/, ""));
+      e.target.value = "";
+      if (!rows.length) { toast("That file looks empty"); return; }
+      const head = rows[0].map(h => h.trim().toLowerCase());
+      const find = re => head.findIndex(h => re.test(h));
+      let col = find(/quer|page|url|landing/);
+      const hasHeader = col !== -1 || head.some(h => /click|impression/.test(h));
+      if (col === -1) col = 0;
+      const ci = find(/click/), ii = find(/impression/), ti = find(/ctr/), pi = find(/position/);
+      metrics = new Map();
+      const data = rows.slice(hasHeader ? 1 : 0).filter(r => (r[col] || "").trim()).slice(0, ROW_CAP);
+      data.forEach(r => {
+        if (ci === -1 && ii === -1) return;
+        const t = r[col].trim();
+        metrics.set(t, { clicks: ci > -1 ? n(r[ci]) : null, impr: ii > -1 ? n(r[ii]) : null, ctr: ti > -1 ? n(r[ti]) : null, pos: pi > -1 ? n(r[pi]) : null });
+      });
+      $("samples").value = data.map(r => r[col].trim()).join("\n");
+      const total = rows.length - (hasHeader ? 1 : 0);
+      toast(`Loaded ${data.length.toLocaleString()} rows${metrics.size ? " with metrics" : ""}${total > ROW_CAP ? ` (first ${ROW_CAP.toLocaleString()})` : ""}`);
+      runTests();
+    });
+    function parseCSV(t){
+      const out = []; let row = [], f = "", q = false;
+      for (let i = 0; i < t.length; i++) {
+        const ch = t[i];
+        if (q) { if (ch === '"' && t[i+1] === '"') { f += '"'; i++; } else if (ch === '"') q = false; else f += ch; }
+        else if (ch === '"') q = true;
+        else if (ch === ",") { row.push(f); f = ""; }
+        else if (ch === "\n") { row.push(f.replace(/\r$/,"")); out.push(row); row = []; f = ""; }
+        else f += ch;
+      }
+      if (f || row.length) { row.push(f); out.push(row); }
+      return out;
+    }
+
+    /* ---------- explain ---------- */
+    function explain(re){
+      const out = []; let i = 0;
+      const push = (tok, txt, bad=false) => out.push({tok, txt, bad});
+      const quant = () => {
+        const m = re.slice(i).match(/^(\*|\+|\?|\{\d+(,\d*)?\})(\?|\+)?/);
+        if (!m) return;
+        let t = m[1], d;
+        if (t === "*") d = "zero or more times";
+        else if (t === "+") d = "one or more times";
+        else if (t === "?") d = "optional (zero or one time)";
+        else { const [a,b] = t.slice(1,-1).split(","); d = b === undefined ? `exactly ${a} times` : b === "" ? `${a} or more times` : `between ${a} and ${b} times`; }
+        if (m[3] === "?") d += ", as few as possible";
+        if (m[3] === "+") { push(m[0], "Possessive quantifier. Not supported in RE2.", true); i += m[0].length; return; }
+        push(m[0], `…repeated ${d}`); i += m[0].length;
+      };
+      const ESC = {"\\b":"A word boundary","\\B":"Not a word boundary","\\s":"Any whitespace","\\S":"Any non-space character","\\d":"Any digit","\\D":"Any non-digit","\\w":"Any letter, digit or underscore","\\W":"Any character that isn't a letter, digit or underscore"};
+      while (i < re.length) {
+        const rest = re.slice(i);
+        let m;
+        if ((m = rest.match(/^\(\?[imsU]+\)/))) { push(m[0], m[0].includes("i") ? "Ignore case from here on" : "Set flags: " + m[0]); i += m[0].length; continue; }
+        if ((m = rest.match(/^\(\?<?[=!]/))) { push(m[0], "Lookahead/lookbehind. Not supported in RE2; use the 'doesn't match' filter instead.", true); i += m[0].length; continue; }
+        if (rest.startsWith("(?>")) { push("(?>", "Atomic group. Not supported in RE2.", true); i += 3; continue; }
+        if ((m = rest.match(/^\(\?P?<(\w+)>/))) { push(m[0], `Start a named group "${m[1]}"`); i += m[0].length; continue; }
+        if (rest.startsWith("(?:")) { push("(?:", "Start a group (not captured)"); i += 3; continue; }
+        if (rest[0] === "(") { push("(", "Start a group"); i++; continue; }
+        if (rest[0] === ")") { push(")", "End of group"); i++; quant(); continue; }
+        if (rest[0] === "|") { push("|", "OR"); i++; continue; }
+        if (rest[0] === "^") { push("^", "Start of the text"); i++; continue; }
+        if (rest[0] === "$") { push("$", "End of the text"); i++; continue; }
+        if (rest[0] === ".") { push(".", "Any single character"); i++; quant(); continue; }
+        if ((m = rest.match(/^\[(\^)?((?:\\.|[^\]])+)\]/))) { push(m[0], `${m[1] ? "Any character except" : "One of"}: ${m[2]}`); i += m[0].length; quant(); continue; }
+        if ((m = rest.match(/^\\[1-9]/))) { push(m[0], "Backreference. Not supported in RE2.", true); i += 2; continue; }
+        if ((m = rest.match(/^\\[bBsSdDwW]/))) { push(m[0], ESC[m[0]]); i += 2; quant(); continue; }
+        if ((m = rest.match(/^\\(.)/))) { push(m[0], `The literal character "${m[1]}"`); i += 2; quant(); continue; }
+        if ((m = rest.match(/^[^\\()[\]|^$.*+?{]+/))) {
+          let lit = m[0];
+          const nxt = re[i + lit.length];
+          if (lit.length > 1 && nxt && "*+?{".includes(nxt)) lit = lit.slice(0,-1);
+          push(lit, `The text "${lit}"`); i += lit.length; quant(); continue;
+        }
+        push(rest[0], "Unexpected character", true); i++;
+      }
+      return out;
+    }
+    function renderExplain(){
+      const v = $("exIn").value.trim();
+      if (!v) { $("exOut").innerHTML = ""; return; }
+      $("exOut").innerHTML = explain(v).map(e => `<div class="${e.bad ? "bad" : ""}"><code>${html(e.tok)}</code><span>${html(e.txt)}</span></div>`).join("");
+    }
+    $("exIn").addEventListener("input", renderExplain);
+    $("toExplain").addEventListener("click", () => { if (!current.re) return; $("exIn").value = current.re; renderExplain(); $("explainPanel").scrollIntoView({behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth"}); $("exIn").focus(); });
+
+    /* ---------- copy ---------- */
+    function toast(m){ const t = $("toast"); t.textContent = m; t.classList.add("show"); setTimeout(() => t.classList.remove("show"), 1600); }
+    async function copy(text, msg){ try { await navigator.clipboard.writeText(text); toast(msg); } catch(e) { toast("Copy failed. Select the text and copy manually."); } }
+    $("copy").addEventListener("click", () => current.re && copy(current.re, "Regex copied"));
+    $("share").addEventListener("click", () => copy(location.href, "Share link copied"));
+
+    update();
+  </script>
+</BaseLayout>

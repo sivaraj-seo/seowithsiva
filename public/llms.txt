@@ -16,6 +16,11 @@
 - [Home](https://www.seowithsiva.com/): AI Search Optimization (AEO/GEO), Enterprise SEO, Technical SEO, Content Strategy, Semantic & Entity SEO, Analytics & Reporting.
 - [Contact](https://www.seowithsiva.com/contact/): SEO, AEO, and AI search consulting. Based in Coimbatore, Tamil Nadu, India; serving clients worldwide remotely.
 
+## Tools
+
+- [Tools hub](https://www.seowithsiva.com/tools/): Free browser-based SEO tools. No sign-up, and no data leaves the browser.
+- [Regex Builder for GA4, GSC & Looker Studio](https://www.seowithsiva.com/tools/regex-builder/): Build, test and explain RE2 regex for Google Search Console, GA4 and Looker Studio. Includes 16 ready-made patterns (question queries, brand variants, intent groups, URL folders and parameters), validation against a real RE2 engine, a plain-English pattern explainer, and a tester that accepts a Search Console CSV export to show clicks, impressions, CTR and average position for the matched group.
+
 ## Articles
 
 - [Articles hub](https://www.seowithsiva.com/articles/): Field notes on SEO, GEO, and AEO.
