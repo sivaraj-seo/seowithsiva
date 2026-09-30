@@ -91,7 +91,6 @@ const websiteSchema = {
     <!-- Essential SEO Meta Tags -->
     <title>{title} | SEO With Siva</title>
     <meta name="description" content={description} />
-    <meta name="keywords" content={keywords} />
     <meta name="author" content={author} />
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
     
@@ -108,8 +107,7 @@ const websiteSchema = {
     <meta property="og:image" content={resolvedOgImage} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:logo" content={new URL('/images/logo.webp', Astro.site)} />
-    
+
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:url" content={canonicalURL} />
@@ -196,9 +194,11 @@ const websiteSchema = {
       // Minimal performance monitoring
       if (window.performance && window.performance.timing) {
         window.addEventListener('load', () => {
-          const perfData = window.performance.timing;
-          const pageLoadTime = perfData.loadEventEnd - perfData.navigationStart;
-          console.log('Page load time:', pageLoadTime, 'ms');
+          setTimeout(() => {
+            const perfData = window.performance.timing;
+            const pageLoadTime = perfData.loadEventEnd - perfData.navigationStart;
+            console.log('Page load time:', pageLoadTime, 'ms');
+          }, 0);
         });
       }
     </script>
