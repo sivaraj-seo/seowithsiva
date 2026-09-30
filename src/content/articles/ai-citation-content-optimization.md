@@ -106,7 +106,7 @@ Different AI systems have different retrieval mechanisms and citation patterns. 
 
 ## Advanced Topics: What Competitors Miss
 
-Most AI citation guides stop at basic optimization. These advanced topics separate leaders from followers - and they build directly on the [CITE Framework](/articles/cite-framework-get-cited-in-ai-overviews/) for AI citation.
+Most AI citation guides stop at basic optimization. These advanced topics separate leaders from followers - and they build directly on the [CITE Framework](/blog/cite-framework-get-cited-in-ai-overviews/) for AI citation.
 
 ### Query Fan-Out: How AI Expands Queries
 
@@ -233,7 +233,7 @@ You make claims without citations, statistics, or examples. Reader trust is low,
 
 ### 10. Weak Internal Linking
 
-Your article doesn't link to related content. AI systems use internal linking signals to understand your topical ecosystem, the same way they read [entity signals across your site's ranking factors](/articles/biggest-google-ranking-factor-people-ignore/).
+Your article doesn't link to related content. AI systems use internal linking signals to understand your topical ecosystem, the same way they read [entity signals across your site's ranking factors](/blog/biggest-google-ranking-factor-people-ignore/).
 
 **Fix:** add 5-10 internal links to topically related articles. Use descriptive anchor text.
 

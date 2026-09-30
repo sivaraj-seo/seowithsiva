@@ -109,7 +109,7 @@ Don't treat every keyword returned by the tool as a content opportunity. The rep
 
 Avoid analyzing thousands of keywords individually.
 
-Instead, group related keywords into topic clusters based on [search intent and subject matter](https://www.seowithsiva.com/articles/search-intent-satisfaction/).
+Instead, group related keywords into topic clusters based on [search intent and subject matter](https://www.seowithsiva.com/blog/search-intent-satisfaction/).
 
 For example, instead of treating these as separate opportunities:
 
@@ -199,7 +199,7 @@ Open the SERP. If the results are calculators, comparison tools, forums, or prod
 
 ### Test 3: Does the Competitor Rank on Content, or on Something Else?
 
-Check whether the [ranking page](https://www.seowithsiva.com/articles/biggest-google-ranking-factor-people-ignore/) is winning on its writing or on an asset. A tool, a database, a decade of user reviews, or raw domain authority are not things you close by publishing. More on this below.
+Check whether the [ranking page](https://www.seowithsiva.com/blog/biggest-google-ranking-factor-people-ignore/) is winning on its writing or on an asset. A tool, a database, a decade of user reviews, or raw domain authority are not things you close by publishing. More on this below.
 
 ### Test 4: Does It Connect to Something You Already Own?
 
@@ -241,12 +241,12 @@ Run this before every content plan built on a mixed-intent cluster. It converts 
 
 AI search adds a retrieval layer above ranking, so a gap can now mean you were not retrieved for a query variant rather than that you do not rank for the query.
 
-Google's AI systems decompose a prompt into related sub-queries before assembling an answer, a behavior described in its [query fan-out](https://www.seowithsiva.com/articles/ai-citation-content-optimization/) patents. [DataForSEO's analysis](https://dataforseo.com/blog/fan-out-queries-the-hidden-layer-of-ai-search-you-need-to-optimize-for) of 100,000 prompts found fan-out firing on 47.5% of them, which means roughly half of AI queries are answered from a set of variants the user never typed.
+Google's AI systems decompose a prompt into related sub-queries before assembling an answer, a behavior described in its [query fan-out](https://www.seowithsiva.com/blog/ai-citation-content-optimization/) patents. [DataForSEO's analysis](https://dataforseo.com/blog/fan-out-queries-the-hidden-layer-of-ai-search-you-need-to-optimize-for) of 100,000 prompts found fan-out firing on 47.5% of them, which means roughly half of AI queries are answered from a set of variants the user never typed.
 
 The practical consequence for gap analysis: your competitor set in AI answers is not the same as your competitor set in the SERP, and the queries are not the same either. Two additions to the process:
 
 - **Audit the variants, not just the query.** For your priority topics, list the sub-questions a fan-out would generate and check whether your page answers each. Uncovered variants are gaps that never appear in a keyword tool.
-- **Track mentions separately from rankings.** [Search Engine Land's gap analysis guide](https://searchengineland.com/guide/gap-analysis) notes competitors gaining visibility in AI Overviews and SERP features, and cites research that 26% of people end their session after reading an AI summary. A competitor cited in an AI answer holds ground that no rank tracker reports, which is why [AI visibility needs its own KPI](https://www.seowithsiva.com/articles/google-ai-mode-visibility-kpi/).
+- **Track mentions separately from rankings.** [Search Engine Land's gap analysis guide](https://searchengineland.com/guide/gap-analysis) notes competitors gaining visibility in AI Overviews and SERP features, and cites research that 26% of people end their session after reading an AI summary. A competitor cited in an AI answer holds ground that no rank tracker reports, which is why [AI visibility needs its own KPI](https://www.seowithsiva.com/blog/google-ai-mode-visibility-kpi/).
 
 Calibration note: the retrieval layer is well documented, but which on-page changes reliably increase citation is not settled. Treat variant coverage as a reasonable bet rather than a proven lever.
 

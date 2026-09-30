@@ -27,11 +27,11 @@ export default defineConfig({
         if (path === '/') {
           return { ...item, changefreq: 'weekly', priority: 1.0 };
         }
-        if (path === '/articles/') {
+        if (path === '/blog/') {
           return { ...item, changefreq: 'weekly', priority: 0.9 };
         }
-        if (path.startsWith('/articles/')) {
-          const slug = path.replace('/articles/', '').replace(/\/$/, '');
+        if (path.startsWith('/blog/')) {
+          const slug = path.replace('/blog/', '').replace(/\/$/, '');
           const lastmod = articleLastmod[slug];
           return { ...item, changefreq: 'monthly', priority: 0.8, ...(lastmod ? { lastmod } : {}) };
         }

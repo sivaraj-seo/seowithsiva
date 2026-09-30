@@ -14,15 +14,15 @@ const categories = [...new Set(articles.map(a => a.data.category))];
 const collectionPageSchema = {
   '@context': 'https://schema.org',
   '@type': 'CollectionPage',
-  name: 'Articles on SEO, GEO & AEO',
+  name: 'Blog on SEO, GEO & AEO',
   description: 'Field notes on AI search optimisation, Generative Engine Optimisation, Answer Engine Optimisation, and enterprise SEO strategy - by C. Sivaraj.',
-  url: 'https://www.seowithsiva.com/articles/',
+  url: 'https://www.seowithsiva.com/blog/',
   mainEntity: {
     '@type': 'ItemList',
     itemListElement: articles.map((article, index) => ({
       '@type': 'ListItem',
       position: index + 1,
-      url: new URL(`/articles/${article.slug}/`, Astro.site).toString(),
+      url: new URL(`/blog/${article.slug}/`, Astro.site).toString(),
       name: article.data.title,
     })),
   },
@@ -30,9 +30,9 @@ const collectionPageSchema = {
 ---
 
 <BaseLayout
-  title="Articles on SEO, GEO & AEO"
+  title="Blog on SEO, GEO & AEO"
   description="Field notes on AI search optimisation, Generative Engine Optimisation, Answer Engine Optimisation, and enterprise SEO strategy - by C. Sivaraj."
-  keywords="SEO articles, GEO, AEO, AI search, content strategy, enterprise SEO"
+  keywords="SEO blog, GEO, AEO, AI search, content strategy, enterprise SEO"
   author="C. Sivaraj"
 >
 
@@ -159,7 +159,7 @@ const collectionPageSchema = {
 <section class="page-hero">
   <div class="wrap">
     <span class="tag">Writing</span>
-    <h1>Articles on SEO, GEO &amp; AEO</h1>
+    <h1>Blog on SEO, GEO &amp; AEO</h1>
     <p>Field notes on how search is shifting from rankings to AI citations - and what to actually do about it.</p>
   </div>
 </section>
@@ -175,7 +175,7 @@ const collectionPageSchema = {
     ))}
   </div>
 
-  <!-- Articles grid -->
+  <!-- Blog post grid -->
   <div class="articles-grid" id="articles-grid">
     {articles.map(article => (
       <article class="art-card" data-category={article.data.category}>
@@ -192,7 +192,7 @@ const collectionPageSchema = {
           <h2>{article.data.title}</h2>
           <p>{article.data.excerpt}</p>
           <div class="art-footer">
-            <a href={`/articles/${article.slug}/`} class="read-btn">Read article →</a>
+            <a href={`/blog/${article.slug}/`} class="read-btn">Read post →</a>
             {article.data.linkedinUrl && (
               <a href={article.data.linkedinUrl} target="_blank" rel="noopener" class="read-btn ghost">LinkedIn ↗</a>
             )}
@@ -206,7 +206,7 @@ const collectionPageSchema = {
   <div class="newsletter">
     <span class="tag" style="color:#c3b1f5">Stay current</span>
     <h2>Get insights on AI search, GEO &amp; AEO</h2>
-    <p>Follow on LinkedIn for new articles on how search is shifting - and what practitioners should do about it.</p>
+    <p>Follow on LinkedIn for new posts on how search is shifting - and what practitioners should do about it.</p>
     <div class="newsletter-cta">
       <a href="https://www.linkedin.com/in/sivaraj-seo-analyst/" target="_blank" rel="noopener" class="nl-btn nl-cta">Follow on LinkedIn →</a>
       <a href="/contact/" class="nl-btn nl-ghost">Get in touch</a>

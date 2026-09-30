@@ -92,7 +92,7 @@ With impressions as your only metric, the useful move is turning it into a ratio
 > **AI visibility share**
 > Generative AI impressions ÷ Web search impressions, for the same URL over an identical window.
 
-This works because generative AI data is a subset of the Performance report's Web search type. The ratio tells you what proportion of a page's total Google exposure now happens inside AI surfaces - [which is the strategic question](https://www.seowithsiva.com/articles/search-intent-satisfaction/). A page at 40% AI visibility share is being consumed very differently from one at 4%, even if both hold the same ranking.
+This works because generative AI data is a subset of the Performance report's Web search type. The ratio tells you what proportion of a page's total Google exposure now happens inside AI surfaces - [which is the strategic question](https://www.seowithsiva.com/blog/search-intent-satisfaction/). A page at 40% AI visibility share is being consumed very differently from one at 4%, even if both hold the same ranking.
 
 Track it per URL and per template. Rising share with flat or falling clicks is the pattern to watch: your content is being used more and visited less. That's not necessarily failure, but it is a strategy decision you should be making deliberately.
 

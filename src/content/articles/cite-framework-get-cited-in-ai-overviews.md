@@ -316,7 +316,7 @@ Steps to audit content for AI citations:
 
 **5. Definitions & entity repetition.** Define every key term on first mention. Repeat entity names (don't use pronouns).
 
-**Bad (pronoun relay):** "Google AI Overviews are AI-generated summaries. They appear above traditional results. They changed [how rankings work](https://www.seowithsiva.com/articles/biggest-google-ranking-factor-people-ignore/) because they reduce CTR."
+**Bad (pronoun relay):** "Google AI Overviews are AI-generated summaries. They appear above traditional results. They changed [how rankings work](https://www.seowithsiva.com/blog/biggest-google-ranking-factor-people-ignore/) because they reduce CTR."
 
 **Good (entity clarity):** "Google AI Overviews are AI-generated summaries that appear above traditional search results. AI Overviews changed ranking dynamics because they reduce click-through rates (CTR) by 30-50%."
 
@@ -324,7 +324,7 @@ Steps to audit content for AI citations:
 
 **40-word passage (tweet-length answer):** "Passage-level retrieval is how AI systems find citable content. Instead of ranking full pages, AI models search for individual passages and synthesize multiple sources into one answer."
 
-**120-word passage (medium extraction):** "Generative Engine Optimization (GEO) focuses on earning citations in AI-generated responses from ChatGPT, Perplexity, Gemini, and Google AI Overviews. Unlike traditional SEO - which optimizes for ranking position - GEO optimizes individual passages for retrievability. Both disciplines complement each other; GEO is not a replacement for SEO. The overlap exists because most AI systems still favor content with [strong traditional SEO foundations](https://www.seowithsiva.com/articles/ai-first-seo-foundations-the-complete-guide-to-ranking-in-ai-search/)."
+**120-word passage (medium extraction):** "Generative Engine Optimization (GEO) focuses on earning citations in AI-generated responses from ChatGPT, Perplexity, Gemini, and Google AI Overviews. Unlike traditional SEO - which optimizes for ranking position - GEO optimizes individual passages for retrievability. Both disciplines complement each other; GEO is not a replacement for SEO. The overlap exists because most AI systems still favor content with [strong traditional SEO foundations](https://www.seowithsiva.com/blog/ai-first-seo-foundations-the-complete-guide-to-ranking-in-ai-search/)."
 
 **7. Semantic completeness.** Each passage should include a definition, context, example, and practical implication.
 

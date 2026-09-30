@@ -2,13 +2,12 @@
   "redirects": [
     { "source": "/about", "destination": "/about/", "permanent": true },
     { "source": "/contact", "destination": "/contact/", "permanent": true },
-    { "source": "/articles", "destination": "/articles/", "permanent": true },
-    { "source": "/articles/ai-citation-content-optimization", "destination": "/articles/ai-citation-content-optimization/", "permanent": true },
-    { "source": "/articles/ai-first-seo-foundations-the-complete-guide-to-ranking-in-ai-search", "destination": "/articles/ai-first-seo-foundations-the-complete-guide-to-ranking-in-ai-search/", "permanent": true },
-    { "source": "/articles/biggest-google-ranking-factor-people-ignore", "destination": "/articles/biggest-google-ranking-factor-people-ignore/", "permanent": true },
-    { "source": "/articles/cite-framework-get-cited-in-ai-overviews", "destination": "/articles/cite-framework-get-cited-in-ai-overviews/", "permanent": true },
-    { "source": "/articles/how-to-link-social-media-to-google-search-console", "destination": "/articles/how-to-link-social-media-to-google-search-console/", "permanent": true },
-    { "source": "/articles/search-intent-satisfaction", "destination": "/articles/search-intent-satisfaction/", "permanent": true }
+    { "source": "/articles", "destination": "/blog/", "permanent": true },
+    { "source": "/articles/", "destination": "/blog/", "permanent": true },
+    { "source": "/articles/:slug", "destination": "/blog/:slug/", "permanent": true },
+    { "source": "/articles/:slug/", "destination": "/blog/:slug/", "permanent": true },
+    { "source": "/blog", "destination": "/blog/", "permanent": true },
+    { "source": "/blog/:slug", "destination": "/blog/:slug/", "permanent": true }
   ],
   "headers": [
     {

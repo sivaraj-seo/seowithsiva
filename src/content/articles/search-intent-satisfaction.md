@@ -107,7 +107,7 @@ Position one no longer guarantees traffic or endorsement. Ahrefs measured that d
 
 ## Signals That Indicate Search Intent Satisfaction
 
-Google reads patterns across clicks, engagement, and return-to-SERP behavior, while you can approximate the same picture through [Search Console](https://www.seowithsiva.com/articles/how-to-link-social-media-to-google-search-console/) and analytics.
+Google reads patterns across clicks, engagement, and return-to-SERP behavior, while you can approximate the same picture through [Search Console](https://www.seowithsiva.com/blog/how-to-link-social-media-to-google-search-console/) and analytics.
 
 ### High Click-Through Rate (CTR)
 
@@ -143,7 +143,7 @@ Slow loads, layout shifts, intrusive interstitials, and walls of ads push users 
 
 ### People-First Content
 
-[People-first content](https://www.seowithsiva.com/articles/cite-framework-get-cited-in-ai-overviews/) is made to serve an audience that already exists, demonstrates real expertise, and would hold up if search engines vanished. Google's self-assessment questions include whether your site has a primary purpose and whether visitors leave satisfied.
+[People-first content](https://www.seowithsiva.com/blog/cite-framework-get-cited-in-ai-overviews/) is made to serve an audience that already exists, demonstrates real expertise, and would hold up if search engines vanished. Google's self-assessment questions include whether your site has a primary purpose and whether visitors leave satisfied.
 
 ### E-E-A-T Principles
 
