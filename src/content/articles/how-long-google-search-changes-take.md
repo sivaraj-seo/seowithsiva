@@ -43,6 +43,10 @@ howToSteps:
     text: "Crawl capacity drops when your server struggles, and can fall within seconds when Google backs off. A slow or erroring server limits everything above it."
 ---
 
+![How long Google Search changes take: timings for crawling, indexing and serving processes](/images/google-search-change-timelines.webp)
+
+*Source: Gary Illyes, Google Search Central Live Deep Dive Europe, Barcelona, 2 October 2026. Infographic via [Search Engine Land](https://searchengineland.com/).*
+
 These figures come from one conference talk, not from documentation. This is a snapshot of that presentation, given on 2 October 2026 and last checked on 12 October 2026.
 
 ## Where Do These Numbers Come From?
