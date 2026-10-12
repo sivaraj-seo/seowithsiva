@@ -214,7 +214,7 @@ For each author, create and maintain:
 
 **Bad:** Written by "Admin" on May 15, 2026
 
-**Good:** By Sivaraj | Senior SEO Analyst (5+ years AI search optimization experience)
+**Good:** By Sivaraj | Senior SEO Analyst (7+ years AI search optimization experience)
 
 **3. Third-party validation.** AI systems check whether external sources confirm your credibility.
 
