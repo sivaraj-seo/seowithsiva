@@ -6,9 +6,11 @@ export const imageDims: Record<string, { width: number; height: number }> = {
   '/images/cite-framework.webp': { width: 1200, height: 630 },
   '/images/content-gap-analysis.webp': { width: 1200, height: 630 },
   '/images/google-ranking-factor.webp': { width: 1200, height: 630 },
+  '/images/how-long-google-search-changes-take.webp': { width: 1200, height: 630 },
   '/images/how-each-ai-retrieves-and-cites-content.webp': { width: 1200, height: 630 },
   '/images/how-to-track-ai-seo-kpi.webp': { width: 1200, height: 630 },
   '/images/link-social-media-to-google-search-console.webp': { width: 1200, height: 630 },
+  '/images/people-first-content.webp': { width: 1200, height: 630 },
   '/images/search-intent-satisfaction.webp': { width: 1200, height: 630 },
 };
 
