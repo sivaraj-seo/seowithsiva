@@ -1,6 +1,7 @@
 ---
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import SocialRail from '../components/SocialRail.astro';
 import { socialLinks } from '../data/social';
 import { safeJsonLd } from '../utils/schema';
 
@@ -193,6 +194,7 @@ const websiteSchema = {
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
     <Header />
+    <SocialRail />
     <slot />
     <Footer />
     <!-- Google Tag Manager: loaded after critical content instead of head-blocking -->

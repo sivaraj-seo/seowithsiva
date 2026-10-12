@@ -17,9 +17,17 @@ const { article } = Astro.props;
 const { Content } = await article.render();
 
 const allArticles = await getCollection('articles');
+// Three most relevant articles: same category and shared title words rank first, newest breaks ties.
+const stop = new Set(['the', 'a', 'an', 'and', 'or', 'of', 'to', 'in', 'for', 'is', 'what', 'how', 'does', 'do', 'your', 'you', 'with', 'on', 'it', 'are']);
+const words = (t: string) => new Set(t.toLowerCase().match(/[a-z0-9-]+/g)?.filter(w => !stop.has(w)) ?? []);
+const currentWords = words(article.data.title);
+const relevance = (a: (typeof allArticles)[number]) =>
+  (a.data.category === article.data.category ? 2 : 0) +
+  [...words(a.data.title)].filter(w => currentWords.has(w)).length;
 const related = allArticles
   .filter(a => a.slug !== article.slug)
-  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+  .sort((a, b) => relevance(b) - relevance(a) || new Date(b.data.date).getTime() - new Date(a.data.date).getTime())
+  .slice(0, 3);
 
 const dateOpts: Intl.DateTimeFormatOptions = { day: 'numeric', month: 'long', year: 'numeric' };
 const formattedDate = new Date(article.data.date).toLocaleDateString('en-IN', dateOpts);
@@ -186,6 +194,8 @@ const faqSchema = article.data.faqs && article.data.faqs.length > 0 ? {
     padding:22px 0; border-top:1px solid #e4e7ec; margin-top:44px;
   }
   .art-share-label{ font-size:13px; font-weight:600; color:var(--muted); }
+  button.share-btn{ font-family:inherit; cursor:pointer; }
+  .art-share--top{ margin:0 0 18px; padding:0; border-top:0; }
   .share-btn{
     display:inline-flex; align-items:center; gap:6px;
     padding:8px 14px; border-radius:999px;
@@ -491,15 +501,11 @@ const faqSchema = article.data.faqs && article.data.faqs.length > 0 ? {
         <span class="art-meta-datelabel">Published</span>
         <time datetime={article.data.date}>{formattedDate}</time>
       </span>
-      {formattedLastModified && (
-        <>
-          <span class="art-meta-dot"></span>
-          <span class="art-meta-dateline">
-            <span class="art-meta-datelabel">Updated</span>
-            <time datetime={article.data.lastModified}>{formattedLastModified}</time>
-          </span>
-        </>
-      )}
+      <span class="art-meta-dot"></span>
+      <span class="art-meta-dateline">
+        <span class="art-meta-datelabel">Updated</span>
+        <time datetime={article.data.lastModified || article.data.date}>{formattedLastModified || formattedDate}</time>
+      </span>
       <span class="art-meta-dot"></span>
       <span>{article.data.readTime}</span>
       <span class="art-meta-dot art-meta-dot-author"></span>
@@ -520,6 +526,23 @@ const faqSchema = article.data.faqs && article.data.faqs.length > 0 ? {
 <div class="art-layout">
   <!-- Prose -->
   <div>
+    <!-- Share row above Key Takeaways -->
+    <div class="art-share art-share--top">
+      <span class="art-share-label">Share:</span>
+      <a href={`https://www.linkedin.com/sharing/share-offsite/?url=${Astro.url}`} target="_blank" class="share-btn">
+        <svg viewBox="0 0 24 24" width="13" fill="currentColor"><path d="M4.98 3.5A2.5 2.5 0 002.5 6a2.5 2.5 0 105 0 2.5 2.5 0 00-2.52-2.5zM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.5 4.78 5.76V21H18.6v-5.3c0-1.26-.02-2.9-1.77-2.9-1.77 0-2.04 1.38-2.04 2.8V21H11z"/></svg>
+        LinkedIn
+      </a>
+      <a href={`https://twitter.com/intent/tweet?url=${Astro.url}&text=${encodeURIComponent(article.data.title)}`} target="_blank" class="share-btn">
+        <svg viewBox="0 0 24 24" width="13" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        X / Twitter
+      </a>
+      <button type="button" class="share-btn share-btn--copy" data-copy-link aria-label="Copy link to this article">
+        <svg viewBox="0 0 24 24" width="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+        <span data-copy-label>Copy link</span>
+      </button>
+    </div>
+
     <!-- Key Takeaways - NP's "first section" pattern -->
     {article.data.keyTakeaways && article.data.keyTakeaways.length > 0 && (
       <div class="key-takeaways">
@@ -547,6 +570,10 @@ const faqSchema = article.data.faqs && article.data.faqs.length > 0 ? {
         <svg viewBox="0 0 24 24" width="13" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
         X / Twitter
       </a>
+      <button type="button" class="share-btn share-btn--copy" data-copy-link aria-label="Copy link to this article">
+        <svg viewBox="0 0 24 24" width="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+        <span data-copy-label>Copy link</span>
+      </button>
 
       <span class="share-sep">|</span>
       <span class="art-share-label">Ask AI:</span>
@@ -693,3 +720,24 @@ const faqSchema = article.data.faqs && article.data.faqs.length > 0 ? {
 </script>
 
 </BaseLayout>
+
+<script is:inline>
+  document.querySelectorAll('[data-copy-link]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var url = window.location.href.split('#')[0];
+      var label = btn.querySelector('[data-copy-label]');
+      var done = function () {
+        label.textContent = 'Copied!';
+        setTimeout(function () { label.textContent = 'Copy link'; }, 2000);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url).then(done, function () { window.prompt('Copy this link:', url); });
+      } else {
+        var t = document.createElement('textarea');
+        t.value = url; document.body.appendChild(t); t.select();
+        try { document.execCommand('copy'); done(); } catch (e) { window.prompt('Copy this link:', url); }
+        document.body.removeChild(t);
+      }
+    });
+  });
+</script>

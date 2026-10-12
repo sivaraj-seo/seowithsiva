@@ -3,7 +3,7 @@ title: "People-First Content: The 38 Questions in Google's Own Guide"
 metaTitle: "People-First Content: Google's 38 Questions"
 excerpt: "Google's helpful content guidance contains 38 self-assessment questions. All of them verbatim, plus what Google actually says about trust and E-E-A-T."
 date: "2026-10-12"
-category: "Technical SEO"
+category: "SEO Content"
 readTime: "11 min read"
 image: "/images/people-first-content.webp"
 featured: false

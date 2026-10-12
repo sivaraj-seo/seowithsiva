@@ -3,7 +3,7 @@ title: "How the CITE Framework Gets Your Content Cited in AI (2026 Guide)"
 metaTitle: "The CITE Framework: Get Cited in AI Overviews"
 excerpt: "Learn the CITE Framework, a 4-part system for earning citations in Google AI Overviews, ChatGPT, and AI search engines. Includes checklist, templates & case studies."
 date: "2026-08-10"
-category: "SEO Strategy"
+category: "SEO Content"
 readTime: "14 min read"
 image: "/images/cite-framework.webp"
 featured: false

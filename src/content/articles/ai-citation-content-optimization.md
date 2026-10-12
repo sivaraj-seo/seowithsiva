@@ -3,7 +3,7 @@ title: "AI Citation Content Optimization: How Each AI Retrieves & Cites Content"
 metaTitle: "How Each AI Cites Content: Platform-Specific Optimization Guide"
 excerpt: "Learn how AI Overviews, ChatGPT, Perplexity, Gemini & Claude retrieve and cite content - plus the 10 reasons your pages aren't getting cited, and fixes."
 date: "2026-08-19"
-category: "SEO Strategy"
+category: "SEO Content"
 readTime: "9 min read"
 image: "/images/how-each-ai-retrieves-and-cites-content.webp"
 featured: false

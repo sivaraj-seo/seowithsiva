@@ -3,7 +3,7 @@ title: "Content Gap Analysis: 6 Steps and the Filter Most People Skip"
 metaTitle: "Content Gap Analysis: 6 Steps + the Filter Most Skip"
 excerpt: "How to find content gaps using competitor and search data, why the five gap types need different fixes, and four tests that separate real gaps from noise."
 date: "2026-09-30"
-category: "SEO Strategy"
+category: "SEO Content"
 readTime: "14 min read"
 image: "/images/content-gap-analysis.webp"
 featured: false

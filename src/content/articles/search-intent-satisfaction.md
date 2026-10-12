@@ -3,7 +3,7 @@ title: "What Is Search Intent Satisfaction? A Complete SEO Guide"
 metaTitle: "What Is Search Intent Satisfaction?"
 excerpt: "Learn what search intent satisfaction means, how Google measures it with click signals, and how to optimize content so searchers stop looking elsewhere."
 date: "2026-08-10"
-category: "SEO Strategy"
+category: "SEO Content"
 readTime: "13 min read"
 image: "/images/search-intent-satisfaction.webp"
 featured: false
