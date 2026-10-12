@@ -5,7 +5,7 @@ excerpt: "Track Google AI Mode visibility as its own KPI using Search Console's 
 date: "2026-09-03"
 category: "SEO Strategy"
 readTime: "8 min read"
-image: "/images/article-10.webp"
+image: "/images/how-to-track-ai-seo-kpi.webp"
 featured: false
 keyTakeaways:
   - "The Generative AI report launched June 3, 2026 to a subset of mostly UK properties and went live for everyone on August 11, 2026, with no formal announcement."

@@ -1,17 +1,18 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
 import { safeJsonLd } from '../../utils/schema';
 
 const appSchema = {
   '@context': 'https://schema.org',
   '@type': 'WebApplication',
-  name: 'Regex Builder for GA4, GSC & Looker Studio',
+  name: 'Regex Builder for Google Search Console',
   url: 'https://www.seowithsiva.com/tools/regex-builder/',
   applicationCategory: 'BusinessApplication',
   operatingSystem: 'Any (browser-based)',
   browserRequirements: 'Requires JavaScript',
   description:
-    'Build, test and understand RE2 regex for Google Search Console, GA4 and Looker Studio. Test patterns against your own query export entirely in the browser.',
+    'Build, test and understand RE2 regex for Google Search Console filters. Test patterns against your own query export entirely in the browser.',
   offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
   author: { '@id': 'https://www.seowithsiva.com/#person' },
   publisher: { '@id': 'https://www.seowithsiva.com/#organization' },
@@ -33,22 +34,22 @@ const breadcrumbSchema = {
   ],
 };
 
+const pageUrl = 'https://www.seowithsiva.com/tools/regex-builder/';
+const shareText = 'Free Search Console regex builder - build RE2 filters and test them against your own queries';
+const enc = encodeURIComponent;
+
 const faqs = [
   {
     q: 'What regex syntax does Google Search Console use?',
-    a: "Search Console, GA4 and Looker Studio all use Google's RE2 syntax. RE2 deliberately leaves out lookaheads, lookbehinds, backreferences, atomic groups and possessive quantifiers, because it guarantees linear-time matching. Patterns copied from a PCRE or JavaScript regex tester often fail for exactly this reason.",
+    a: "Search Console uses Google's RE2 syntax. RE2 deliberately leaves out lookaheads, lookbehinds, backreferences, atomic groups and possessive quantifiers, because it guarantees linear-time matching. Patterns copied from a PCRE or JavaScript regex tester often fail for exactly this reason.",
   },
   {
     q: 'How do I exclude queries with regex in Search Console?',
-    a: "Don't rewrite the pattern with a negative lookahead - RE2 won't accept it. Keep the regex as it is and switch the filter itself to \"Doesn't match regex\" in Search Console, or Exclude in GA4 and Looker Studio.",
+    a: "Don't rewrite the pattern with a negative lookahead - RE2 won't accept it. Keep the regex as it is and switch the filter itself to \"Doesn't match regex\" in Search Console.",
   },
   {
     q: 'Is there a character limit for Search Console regex filters?',
     a: 'Yes. Search Console caps a regex filter at 4,096 characters. This tool counts characters as you build and warns you before you hit the limit, so you can split a long keyword list into two filters instead of having the filter rejected.',
-  },
-  {
-    q: 'Why does my regex match in Looker Studio but not GA4?',
-    a: 'GA4\'s "matches regex" requires the pattern to match the entire value, while Looker Studio\'s RegExp Contains matches anywhere inside it. Switch the platform toggle in the builder and the tester re-runs with that platform\'s matching rule, so you can see the difference against your own data.',
   },
   {
     q: 'Is my Search Console data uploaded anywhere?',
@@ -68,9 +69,9 @@ const faqSchema = {
 ---
 
 <BaseLayout
-  title="Regex Builder for GA4, GSC & Looker Studio"
-  description="Build, test and understand RE2 regex for Google Search Console, GA4 and Looker Studio. Test patterns against your own query export - free, and entirely in your browser."
-  keywords="search console regex, regex builder, RE2 regex tester, GA4 regex, looker studio regex, google search console filter"
+  title="Regex Builder for Google Search Console"
+  description="Build, test and understand RE2 regex for Google Search Console filters. Test patterns against your own query export - free, and entirely in your browser."
+  keywords="search console regex, regex builder, RE2 regex tester, google search console filter"
   ogImage="/images/og-regex-builder.png"
   author="C. Sivaraj"
 >
@@ -93,14 +94,14 @@ const faqSchema = {
   -->
   <style is:global>
     .tool {
-      --t-line: #e7e3f2;
-      --t-soft: #faf9fd;
-      --t-lav: #f0ebfa;
+      --t-line: #e4e7ec;
+      --t-soft: #f3f5f8;
+      --t-lav: #e8f1fe;
       --t-ok: #0f7c6e;
       --t-warn: #a8620a;
       --t-err: #c2352a;
-      --t-code-bg: #141026;
-      --t-code-ink: #e4dff5;
+      --t-code-bg: #0d1b2e;
+      --t-code-ink: #e4e7ec;
       --t-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
     }
     .tool * { box-sizing: border-box; }
@@ -108,34 +109,43 @@ const faqSchema = {
     .tool [hidden] { display: none !important; }
     .tool .wrap { max-width: 1120px; margin: 0 auto; padding: 0 32px; }
 
-    .tool .tag {
-      display: inline-flex; align-items: center; gap: 7px;
-      font-size: 12px; font-weight: 700; letter-spacing: .12em;
-      text-transform: uppercase; color: var(--accent);
-    }
-    .tool .tag::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
+    .tool .tag { display: inline-block; font-size: 12px; color: var(--muted); letter-spacing: .02em; }
+    .tool .tag::before { content: '['; }
+    .tool .tag::after { content: ']'; }
 
     /* ── HERO ── */
     .tool .page-hero {
-      background: linear-gradient(165deg, #efeafc 0%, #f7ecf2 52%, #fde9dc 100%);
-      padding: 60px 0 50px; text-align: center;
+      max-width: 1136px; margin: 24px auto 0; border-radius: 28px;
+      background: linear-gradient(180deg, var(--primary-light), var(--surface));
+      padding: 56px 0 50px; text-align: center;
     }
-    .tool .crumbs { font-size: 13px; color: var(--muted); margin-bottom: 18px; }
-    .tool .crumbs a { color: var(--muted); text-decoration: none; }
-    .tool .crumbs a:hover { color: var(--accent); }
-    .tool .crumbs span { margin: 0 7px; opacity: .5; }
+    @media (max-width: 1200px) { .tool .page-hero { margin: 24px 32px 0; } }
+    @media (max-width: 640px) { .tool .page-hero { margin: 16px 14px 0; border-radius: 22px; } }
     .tool .page-hero h1 {
-      font-weight: 800; font-size: clamp(30px, 4.6vw, 52px);
+      font-weight: 700; font-size: clamp(30px, 4.6vw, 52px);
       color: var(--ink); margin-top: 16px; letter-spacing: -.02em; line-height: 1.1;
     }
     .tool .page-hero h1 mark {
-      background: linear-gradient(transparent 58%, rgba(124, 92, 214, .28) 58%);
+      background: linear-gradient(transparent 58%, rgba(24,119,242, .28) 58%);
       color: inherit; padding: 0 .08em;
     }
     .tool .page-hero > .wrap > p {
       font-size: 16.5px; line-height: 1.7; color: var(--muted);
       margin: 18px auto 0; max-width: 62ch;
     }
+    .tool .page-share {
+      display: flex; align-items: center; justify-content: center; flex-wrap: wrap;
+      gap: 8px; margin-top: 22px;
+    }
+    .tool .page-share-label { font-size: 13px; font-weight: 600; color: var(--muted); margin-right: 2px; }
+    .tool .page-share-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 8px 14px; border-radius: 999px; cursor: pointer;
+      font-family: inherit; font-size: 12.5px; font-weight: 600; line-height: 1;
+      background: #fff; border: 1px solid var(--border); color: var(--ink-light);
+      text-decoration: none; transition: background .15s, color .15s, border-color .15s;
+    }
+    .tool .page-share-btn:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
     .tool .clouds {
       height: 38px;
       background: radial-gradient(circle 22px at 22px 38px, #fff 0 22px, transparent 23px) 0 0/44px 38px repeat-x;
@@ -156,12 +166,12 @@ const faqSchema = {
     }
 
     .tool .panel {
-      background: #fff; border: 1px solid rgba(33, 29, 51, .07); border-radius: 22px;
+      background: #fff; border: 1px solid rgba(17,20,24, .07); border-radius: 22px;
       padding: 28px 30px;
-      box-shadow: 0 18px 50px -32px rgba(33, 29, 51, .45);
+      box-shadow: 0 18px 50px -32px rgba(17,20,24, .45);
     }
     .tool .panel h2 {
-      font-size: 19px; font-weight: 800; color: var(--ink);
+      font-size: 19px; font-weight: 700; color: var(--ink);
       letter-spacing: -.01em; margin: 0 0 4px;
     }
     .tool .sub { color: var(--muted); font-size: 14px; line-height: 1.65; margin: 0 0 20px; }
@@ -178,10 +188,10 @@ const faqSchema = {
       padding: 9px 8px; cursor: pointer; border-radius: 999px;
       transition: background .15s, color .15s;
     }
-    .tool .seg button:hover { background: rgba(124, 92, 214, .12); }
+    .tool .seg button:hover { background: rgba(24,119,242, .12); }
     .tool .seg button[aria-pressed="true"] {
       background: var(--accent); color: #fff;
-      box-shadow: 0 6px 16px -6px rgba(124, 92, 214, .6);
+      box-shadow: 0 6px 16px -6px rgba(24,119,242, .6);
     }
 
     /* ── RECIPES ── */
@@ -191,8 +201,8 @@ const faqSchema = {
       background: #fff; transition: border-color .15s, box-shadow .15s;
     }
     .tool details.recipe[data-on="true"] {
-      border-color: rgba(124, 92, 214, .45);
-      box-shadow: inset 4px 0 0 var(--accent), 0 10px 26px -20px rgba(124, 92, 214, .8);
+      border-color: rgba(24,119,242, .45);
+      box-shadow: inset 4px 0 0 var(--accent), 0 10px 26px -20px rgba(24,119,242, .8);
     }
     .tool details.recipe summary {
       list-style: none; display: flex; gap: 11px; align-items: center;
@@ -221,7 +231,7 @@ const faqSchema = {
     .tool input[type=text]:focus,
     .tool input[type=number]:focus {
       outline: none; border-color: var(--accent);
-      box-shadow: 0 0 0 3px rgba(124, 92, 214, .15);
+      box-shadow: 0 0 0 3px rgba(24,119,242, .15);
     }
     .tool input[type=number] { width: 92px; }
     .tool select {
@@ -234,7 +244,7 @@ const faqSchema = {
 
     /* ── OUTPUT ── */
     .tool .out {
-      background: linear-gradient(140deg, var(--t-code-bg), #201a3c);
+      background: linear-gradient(140deg, var(--t-code-bg), #16263d);
       color: var(--t-code-ink); border-radius: 16px; padding: 18px;
       font: 14.5px/1.6 var(--t-mono); word-break: break-all; min-height: 62px; white-space: pre-wrap;
     }
@@ -250,12 +260,12 @@ const faqSchema = {
       font: 600 13.5px 'Plus Jakarta Sans', system-ui, sans-serif;
       border-radius: 999px; padding: 11px 22px; cursor: pointer;
       border: 1px solid transparent; background: var(--accent); color: #fff;
-      box-shadow: 0 8px 20px -8px rgba(124, 92, 214, .55);
+      box-shadow: 0 8px 20px -8px rgba(24,119,242, .55);
       transition: transform .15s, box-shadow .15s, background .15s, color .15s;
     }
-    .tool .btn:hover { transform: translateY(-2px); box-shadow: 0 12px 26px -8px rgba(124, 92, 214, .65); }
+    .tool .btn:hover { transform: translateY(-2px); box-shadow: 0 12px 26px -8px rgba(24,119,242, .65); }
     .tool .btn.ghost { background: var(--t-lav); color: var(--accent); box-shadow: none; }
-    .tool .btn.ghost:hover { background: var(--accent); color: #fff; box-shadow: 0 8px 20px -8px rgba(124, 92, 214, .55); }
+    .tool .btn.ghost:hover { background: var(--accent); color: #fff; box-shadow: 0 8px 20px -8px rgba(24,119,242, .55); }
 
     .tool .path {
       font-size: 13px; line-height: 1.65; color: var(--ink);
@@ -279,11 +289,11 @@ const faqSchema = {
     .tool .results div:last-child { border-bottom: 0; }
     .tool .results .dot { flex: none; width: 8px; height: 8px; border-radius: 50%; margin-top: 6px; background: var(--t-line); }
     .tool .results .hit .dot { background: var(--t-ok); }
-    .tool .results .hit { background: rgba(124, 92, 214, .035); }
-    .tool .results mark { background: var(--t-lav); color: #5b3fb0; font-weight: 600; border-radius: 3px; padding: 0 2px; }
+    .tool .results .hit { background: rgba(24,119,242, .035); }
+    .tool .results mark { background: var(--t-lav); color: #0f62d6; font-weight: 600; border-radius: 3px; padding: 0 2px; }
     .tool .results .m { margin-left: auto; flex: none; color: var(--muted); font-size: 12px; text-align: right; white-space: nowrap; line-height: 1.4; }
     .tool .results .txt { min-width: 0; overflow-wrap: anywhere; }
-    .tool .score { font-size: 22px; font-weight: 800; color: var(--accent); letter-spacing: -.01em; }
+    .tool .score { font-size: 22px; font-weight: 700; color: var(--accent); letter-spacing: -.01em; }
 
     /* ── SUMMARY TABLE ── */
     .tool .summary { margin-top: 16px; overflow-x: auto; }
@@ -296,7 +306,7 @@ const faqSchema = {
     .tool .summary tbody th { font-weight: 600; color: var(--ink); }
     .tool .summary tbody td:nth-child(2) { font-weight: 700; color: var(--accent); }
     .tool .insight { margin: 14px 0 0; font-size: 14px; line-height: 1.7; color: var(--ink); }
-    .tool .insight strong { background: linear-gradient(transparent 60%, rgba(124, 92, 214, .28) 60%); font-weight: 700; }
+    .tool .insight strong { background: linear-gradient(transparent 60%, rgba(24,119,242, .28) 60%); font-weight: 700; }
     .tool .share { display: grid; gap: 7px; margin-top: 14px; font-size: 12.5px; color: var(--muted); }
     .tool .bar { height: 8px; background: var(--t-lav); border-radius: 999px; overflow: hidden; }
     .tool .bar span { display: block; height: 100%; background: var(--accent); border-radius: 999px; }
@@ -320,7 +330,7 @@ const faqSchema = {
       position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
       background: var(--t-code-bg); color: #fff; padding: 12px 22px; border-radius: 999px;
       font-size: 14px; font-weight: 600; opacity: 0; transition: opacity .2s;
-      pointer-events: none; z-index: 100; box-shadow: 0 16px 40px -14px rgba(33, 29, 51, .7);
+      pointer-events: none; z-index: 100; box-shadow: 0 16px 40px -14px rgba(17,20,24, .7);
     }
     .tool .toast.show { opacity: 1; }
     @media (prefers-reduced-motion: reduce) { .tool .toast { transition: none; } }
@@ -330,7 +340,7 @@ const faqSchema = {
     /* ── PROSE / FAQ ── */
     .tool .prose { max-width: 74ch; margin: 64px auto 0; }
     .tool .prose h2 {
-      font-size: clamp(22px, 3vw, 30px); font-weight: 800; color: var(--ink);
+      font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: var(--ink);
       letter-spacing: -.01em; margin: 44px 0 14px; line-height: 1.25;
     }
     .tool .prose h3 { font-size: 17px; font-weight: 700; color: var(--ink); margin: 26px 0 8px; }
@@ -339,7 +349,7 @@ const faqSchema = {
     .tool .prose li { font-size: 15.5px; line-height: 1.8; color: var(--muted); margin-bottom: 8px; }
     .tool .prose code {
       font-family: var(--t-mono); font-size: 13.5px; background: var(--t-lav);
-      color: #5b3fb0; padding: 2px 7px; border-radius: 6px;
+      color: #0f62d6; padding: 2px 7px; border-radius: 6px;
     }
     .tool .faq-item { border-bottom: 1px solid var(--t-line); padding: 18px 0; }
     .tool .faq-item:last-child { border-bottom: 0; }
@@ -360,15 +370,32 @@ const faqSchema = {
     <!-- Hero -->
     <section class="page-hero">
       <div class="wrap">
-        <nav class="crumbs" aria-label="Breadcrumb">
-          <a href="/">Home</a><span>/</span><a href="/tools/">Tools</a><span>/</span>Regex Builder
-        </nav>
+        <Breadcrumb items={[{ name: 'Tools', href: '/tools/' }, { name: 'Regex Builder', href: '/tools/regex-builder/' }]} schema={false} align="center" />
         <span class="tag">Free tool</span>
         <h1>Build a regex, then <mark>see what it catches</mark></h1>
         <p>
           Pick patterns, add your own brand and keywords, and test the result against real queries before you paste it
-          into Search Console, GA4 or Looker Studio. Everything runs in your browser. Nothing is uploaded.
+          into Search Console. Everything runs in your browser. Nothing is uploaded.
         </p>
+        <div class="page-share">
+          <span class="page-share-label">Share this tool:</span>
+          <a class="page-share-btn" href={`https://www.linkedin.com/sharing/share-offsite/?url=${enc(pageUrl)}`} target="_blank" rel="noopener" aria-label="Share on LinkedIn">
+            <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5A2.5 2.5 0 002.5 6a2.5 2.5 0 105 0 2.5 2.5 0 00-2.52-2.5zM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.5 4.78 5.76V21H18.6v-5.3c0-1.26-.02-2.9-1.77-2.9-1.77 0-2.04 1.38-2.04 2.8V21H11z"/></svg>
+            LinkedIn
+          </a>
+          <a class="page-share-btn" href={`https://twitter.com/intent/tweet?url=${enc(pageUrl)}&text=${enc(shareText)}`} target="_blank" rel="noopener" aria-label="Share on X">
+            <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            X
+          </a>
+          <a class="page-share-btn" href={`https://wa.me/?text=${enc(shareText + ' ' + pageUrl)}`} target="_blank" rel="noopener" aria-label="Share on WhatsApp">
+            <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.08 1.76-.72 2-1.41.25-.7.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35zM12.05 21.5h-.01a9.4 9.4 0 01-4.79-1.31l-.34-.2-3.56.93.95-3.47-.22-.36a9.39 9.39 0 01-1.44-5.01c0-5.19 4.23-9.42 9.43-9.42 2.52 0 4.88.98 6.66 2.76a9.36 9.36 0 012.76 6.67c0 5.19-4.23 9.42-9.42 9.42zm8.02-17.44A11.27 11.27 0 0012.05.75C5.8.75.72 5.83.72 12.08c0 2 .52 3.95 1.52 5.66L.62 23.25l5.65-1.48a11.3 11.3 0 005.78 1.47h.01c6.25 0 11.33-5.08 11.33-11.33 0-3.03-1.18-5.87-3.32-8.01z"/></svg>
+            WhatsApp
+          </a>
+          <button class="page-share-btn" type="button" id="share-page">
+            <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M10 14a5 5 0 007.07 0l3-3a5 5 0 00-7.07-7.07l-1 1M14 10a5 5 0 00-7.07 0l-3 3a5 5 0 007.07 7.07l1-1"/></svg>
+            Copy link
+          </button>
+        </div>
       </div>
     </section>
     <div class="clouds"></div>
@@ -379,13 +406,6 @@ const faqSchema = {
         <section class="panel" aria-labelledby="b-h">
           <h2 id="b-h">Builder</h2>
           <p class="sub">Tick one or more patterns. Ticked patterns are joined with OR.</p>
-
-          <label id="plat-l">Where you'll paste it</label>
-          <div class="seg" role="group" aria-labelledby="plat-l" id="platform">
-            <button type="button" data-v="gsc" aria-pressed="true">Search Console</button>
-            <button type="button" data-v="ga4" aria-pressed="false">GA4</button>
-            <button type="button" data-v="looker" aria-pressed="false">Looker Studio</button>
-          </div>
 
           <label id="mode-l">Filter mode</label>
           <div class="seg" role="group" aria-labelledby="mode-l" id="mode">
@@ -459,7 +479,6 @@ const faqSchema = {
       <article class="prose">
         <h2>How to use it</h2>
         <ol>
-          <li>Choose where you'll paste the filter - Search Console, GA4 or Looker Studio. Each one matches slightly differently, and the tester follows the rule for the platform you pick.</li>
           <li>Tick the patterns you want. Several ticked patterns are joined with OR, so a row matches if it satisfies any one of them.</li>
           <li>Edit the keyword, brand or city lists inside each pattern so they describe your site rather than mine.</li>
           <li>Load a Search Console CSV export in the tester. You'll see exactly which queries the filter catches, plus the clicks, impressions, CTR and average position of the matched group.</li>
@@ -591,17 +610,11 @@ const faqSchema = {
         fields:[{k:"re",type:"text",label:"Pattern",val:""}],
         build:f => f.re.trim() }
     ];
-    const PLATFORMS = {
-      gsc:{ label:"Search Console", limit:4096, full:false,
-        path:(t,m)=>`Performance report → + Add filter → ${t==="page"?"Page":"Query"} → Custom (regex) → ${m==="exclude"?"Doesn't match regex":"Matches regex"}` },
-      ga4:{ label:"GA4", limit:null, full:true,
-        path:(t,m)=>`Report filter or comparison → dimension → ${m==="exclude"?"Exclude + ":""}"matches regex" (matches the whole value). Use "partially matches regex" if you don't want to match the entire value.` },
-      looker:{ label:"Looker Studio", limit:null, full:false,
-        path:(t,m)=>`Filter → ${m==="exclude"?"Exclude":"Include"} → RegExp Contains. (RegExp Match requires the whole value to match; in calculated fields use REGEXP_CONTAINS.)` }
-    };
+    const GSC = { limit:4096,
+      path:(t,m)=>`Performance report → + Add filter → ${t==="page"?"Page":"Query"} → Custom (regex) → ${m==="exclude"?"Doesn't match regex":"Matches regex"}` };
 
     /* ---------- state ---------- */
-    const state = { platform:"gsc", mode:"include", ci:true, on:{questions:true}, f:{} };
+    const state = { mode:"include", ci:true, on:{questions:true}, f:{} };
     RECIPES.forEach(r => { state.f[r.id] = {}; r.fields.forEach(fl => state.f[r.id][fl.k] = fl.val); });
 
     // load from share link
@@ -609,6 +622,7 @@ const faqSchema = {
       if (location.hash.length > 1) {
         const s = JSON.parse(decodeURIComponent(escape(atob(location.hash.slice(1)))));
         Object.assign(state, s, { f:Object.assign(state.f, s.f||{}) });
+        delete state.platform; // older share links carried a GA4/Looker choice
       }
     } catch(e) {}
 
@@ -642,7 +656,7 @@ const faqSchema = {
       g.addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; state[key] = b.dataset.v; sync(); update(); });
       sync();
     }
-    segment("platform","platform"); segment("mode","mode");
+    segment("mode","mode");
     $("ci").checked = state.ci;
     $("ci").addEventListener("change", () => { state.ci = $("ci").checked; update(); });
 
@@ -678,7 +692,7 @@ const faqSchema = {
     let current = { re:"", c:null };
     function update(){
       const { re, active } = build();
-      const P = PLATFORMS[state.platform];
+      const P = GSC;
       $("out").textContent = re || "Tick a pattern to start.";
       const notes = [];
       const c = re ? compile(re) : null;
@@ -694,8 +708,7 @@ const faqSchema = {
       if (c && !c.ok) notes.push(["err", `This won't be accepted: ${c.msg}`]);
       if (P.limit && len > P.limit) notes.push(["err", `Over the ${P.limit.toLocaleString()}-character limit. Shorten keyword lists or split into two filters.`]);
       if (targets.size > 1) notes.push(["warn", "You've mixed query patterns and page patterns. Search Console filters queries and pages separately, so build these as two regexes."]);
-      if (P.full && re) notes.push(["warn", "GA4 'matches regex' must match the entire value. The tester below is checking whole-value matches."]);
-      if (state.mode === "exclude" && re) notes.push(["ok", "Keep the regex as it is. Choose the 'doesn't match' or 'exclude' option instead of rewriting it with a lookahead."]);
+      if (state.mode === "exclude" && re) notes.push(["ok", "Keep the regex as it is. Choose \"Doesn't match regex\" in the filter instead of rewriting it with a lookahead."]);
       if (c && c.ok && !notes.some(n => n[0] === "err")) notes.push(["ok", "Valid RE2 syntax."]);
       $("notes").innerHTML = notes.map(([k,m]) => `<li class="${k}">${html(m)}</li>`).join("");
 
@@ -729,16 +742,13 @@ const faqSchema = {
     function matchRanges(s){
       const { c } = current;
       if (!c || !c.ok) return null;
-      const full = PLATFORMS[state.platform].full;
       if (c.re2) {
         const m = c.re2.matcher(s);
-        if (full) return m.matches() ? [[0, s.length]] : [];
         const out = []; let guard = 0;
         while (m.find() && guard++ < 50) { if (m.end() === m.start()) { out.push([m.start(), m.start()]); break; } out.push([m.start(), m.end()]); }
         return out;
       }
       c.js.lastIndex = 0;
-      if (full) { const m = new RegExp("^(?:" + c.js.source + ")$", c.js.flags.replace("g","")); return m.test(s) ? [[0,s.length]] : []; }
       const out = []; let m, guard = 0;
       while ((m = c.js.exec(s)) && guard++ < 50) { out.push([m.index, m.index + m[0].length]); if (!m[0].length) break; }
       return out;
@@ -950,6 +960,7 @@ const faqSchema = {
     async function copy(text, msg){ try { await navigator.clipboard.writeText(text); toast(msg); } catch(e) { toast("Copy failed. Select the text and copy manually."); } }
     $("copy").addEventListener("click", () => current.re && copy(current.re, "Regex copied"));
     $("share").addEventListener("click", () => copy(shareLink(), "Share link copied"));
+    $("share-page").addEventListener("click", () => copy("https://www.seowithsiva.com/tools/regex-builder/", "Link to this tool copied"));
 
     update();
   </script>

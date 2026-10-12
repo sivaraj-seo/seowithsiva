@@ -5,7 +5,7 @@ excerpt: "Learn what search intent satisfaction means, how Google measures it wi
 date: "2026-08-10"
 category: "SEO Strategy"
 readTime: "13 min read"
-image: "/images/article-8.webp"
+image: "/images/search-intent-satisfaction.webp"
 featured: false
 keyTakeaways:
   - "Search intent satisfaction means the user's need is fully resolved on your page. Relevance gets the click; satisfaction keeps the ranking."

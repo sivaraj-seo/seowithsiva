@@ -5,7 +5,7 @@ excerpt: "Master AI-First SEO with the 10-pillar framework. Learn how to rank in
 date: "2026-08-04"
 category: "SEO Strategy"
 readTime: "11 min read"
-image: "/images/article-5.png"
+image: "/images/ai-first-seo-foundations.webp"
 featured: false
 keyTakeaways:
   - "Traditional SEO best practices remain foundational for AI search because generative AI features are rooted in core Search ranking and quality systems."

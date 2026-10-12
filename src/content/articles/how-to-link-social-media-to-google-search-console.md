@@ -5,7 +5,7 @@ excerpt: "Google Search Console now lets you connect Instagram, TikTok, X, and Y
 date: "2026-08-04"
 category: "Technical SEO"
 readTime: "5 min read"
-image: "/images/article-4.png"
+image: "/images/link-social-media-to-google-search-console.webp"
 featured: false
 keyTakeaways:
   - "Platform properties enable you to add Instagram, TikTok, X, and YouTube directly to Google Search Console without having a website"

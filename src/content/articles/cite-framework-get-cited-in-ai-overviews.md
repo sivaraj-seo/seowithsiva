@@ -5,7 +5,7 @@ excerpt: "Learn the CITE Framework, a 4-part system for earning citations in Goo
 date: "2026-08-10"
 category: "SEO Strategy"
 readTime: "14 min read"
-image: "/images/article-7.webp"
+image: "/images/cite-framework.webp"
 featured: false
 keyTakeaways:
   - "AI citation ≠ ranking. Traditional SEO optimizes for position in a list; AI citation optimization optimizes for inclusion in an AI-generated answer. They overlap but require different strategies."

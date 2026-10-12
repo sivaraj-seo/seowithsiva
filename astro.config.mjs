@@ -2,6 +2,7 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import { readFileSync, readdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
+import { execSync } from 'node:child_process';
 
 const articlesDir = fileURLToPath(new URL('./src/content/articles', import.meta.url));
 
@@ -17,6 +18,27 @@ for (const file of readdirSync(articlesDir)) {
   if (iso) articleLastmod[slug] = iso;
 }
 
+// Non-article pages: lastmod = last git commit touching the page file.
+// Omitted when git history isn't available (e.g. a very shallow clone).
+const pageFiles = {
+  '/': 'src/pages/index.astro',
+  '/about/': 'src/pages/about.astro',
+  '/contact/': 'src/pages/contact.astro',
+  '/blog/': 'src/pages/blog/index.astro',
+  '/tools/': 'src/pages/tools/index.astro',
+  '/tools/regex-builder/': 'src/pages/tools/regex-builder.astro',
+};
+function gitLastmod(file) {
+  try {
+    return execSync(`git log -1 --format=%cI -- "${file}"`, { encoding: 'utf-8' }).trim() || undefined;
+  } catch {
+    return undefined;
+  }
+}
+const pageLastmod = Object.fromEntries(
+  Object.entries(pageFiles).map(([path, file]) => [path, gitLastmod(file)])
+);
+
 export default defineConfig({
   site: 'https://www.seowithsiva.com',
   output: 'static',
@@ -24,6 +46,7 @@ export default defineConfig({
     sitemap({
       serialize(item) {
         const path = new URL(item.url).pathname;
+        if (pageLastmod[path]) item = { ...item, lastmod: pageLastmod[path] };
         if (path === '/') {
           return { ...item, changefreq: 'weekly', priority: 1.0 };
         }

@@ -74,11 +74,11 @@ const websiteSchema = {
     <link
       rel="preload"
       as="style"
-      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
       onload="this.onload=null;this.rel='stylesheet'"
     />
     <noscript>
-      <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&display=swap" rel="stylesheet" />
+      <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     </noscript>
 
     <script type="application/ld+json" set:html={safeJsonLd(personSchema)} />
@@ -126,7 +126,7 @@ const websiteSchema = {
     
     <!-- Additional SEO -->
     <meta name="format-detection" content="telephone=no" />
-    <meta name="theme-color" content="#7c5cd6" />
+    <meta name="theme-color" content="#1877f2" />
     
     <style is:global>
       * {
@@ -136,17 +136,28 @@ const websiteSchema = {
       }
 
       :root {
-        --accent: #7c5cd6;
-        --cta: #ec6d92;
-        --ink: #211d33;
-        --muted: #6f6a82;
-        --lav: #efeafc;
-        --dark: #141026;
+        --canvas: #ffffff;
+        --surface: #f3f5f8;
+        --primary: #1877f2;
+        --primary-dark: #0f62d6;
+        --primary-light: #e8f1fe;
+        --ink: #111418;
+        --ink-light: #3d444d;
+        --muted: #646c78;
+        --border: #e4e7ec;
+        --bg-light: var(--surface);
+
+        /* Legacy aliases used by inner pages */
+        --accent: var(--primary);
+        --cta: var(--primary);
+        --lav: var(--primary-light);
+        --dark: #0d1b2e;
+        --ink-lighter: var(--muted);
       }
       body {
-        background: #fff;
+        background: var(--canvas);
         margin: 0;
-        font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+        font-family: 'Manrope', system-ui, -apple-system, 'Segoe UI', sans-serif;
         color: var(--ink);
         -webkit-font-smoothing: antialiased;
         line-height: 1.6;
@@ -171,7 +182,7 @@ const websiteSchema = {
       /* Focus visible for keyboard navigation */
       a:focus-visible,
       button:focus-visible {
-        outline: 2px solid #7c5cd6;
+        outline: 2px solid var(--primary);
         outline-offset: 2px;
       }
     </style>

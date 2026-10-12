@@ -21,18 +21,19 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 <style>
   .notfound-main{
-    min-height: calc(100vh - 72px - 80px);
+    min-height: 60vh;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 80px 24px;
-    background: linear-gradient(165deg,#efeafc 0%,#f7ecf2 52%,#fde9dc 100%);
+    max-width: 1136px; margin: 24px auto 0; border-radius: 28px;
+    background: linear-gradient(180deg, var(--primary-light), var(--surface));
     text-align: center;
   }
   .notfound-wrap{ max-width: 520px; }
   .notfound-eyebrow{
     font-size: 64px;
-    font-weight: 800;
+    font-weight: 700;
     color: var(--accent);
     letter-spacing: -.02em;
     line-height: 1;
@@ -40,7 +41,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   }
   .notfound-heading{
     font-size: clamp(26px, 4vw, 36px);
-    font-weight: 800;
+    font-weight: 700;
     color: var(--ink);
     line-height: 1.15;
     letter-spacing: -.02em;
@@ -60,10 +61,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     transition:transform .18s, box-shadow .18s;
   }
   .pill:hover{ transform:translateY(-2px); }
-  .cta{ background:var(--cta); color:#fff; box-shadow:0 10px 24px -8px rgba(236,109,146,.6); }
-  .ghost{ background:#fff; color:var(--ink); box-shadow:0 6px 20px -10px rgba(33,29,51,.4); }
+  .cta{ background:var(--cta); color:#fff; box-shadow:0 10px 24px -8px rgba(24,119,242,.6); }
+  .ghost{ background:#fff; color:var(--ink); box-shadow:0 6px 20px -10px rgba(17,20,24,.4); }
 
   @media(max-width: 480px){
-    .notfound-main{ padding: 60px 16px; }
+    .notfound-main{ padding: 60px 16px; margin: 16px 14px 0; border-radius: 22px; }
   }
 </style>

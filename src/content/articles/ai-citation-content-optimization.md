@@ -5,7 +5,7 @@ excerpt: "Learn how AI Overviews, ChatGPT, Perplexity, Gemini & Claude retrieve 
 date: "2026-08-19"
 category: "SEO Strategy"
 readTime: "9 min read"
-image: "/images/article-9.png"
+image: "/images/how-each-ai-retrieves-and-cites-content.webp"
 featured: false
 keyTakeaways:
   - "Google AI Overviews pull from pages already ranking in the top 20 and cite 2-4 sources."

@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
 import { socialLinks } from '../data/social';
 import { safeJsonLd } from '../utils/schema';
 import { business } from '../data/business';
@@ -47,10 +48,12 @@ const localBusinessSchema = {
     <script type="application/ld+json" set:html={safeJsonLd(localBusinessSchema)} />
   </Fragment>
   <main class="contact-main">
+   <div class="contact-panel">
     <div class="contact-wrap">
 
+      <Breadcrumb items={[{ name: 'Contact', href: '/contact/' }]} />
       <div class="contact-eyebrow">Contact</div>
-      <h1 class="contact-heading">Let's talk about<br />your visibility</h1>
+      <h1 class="contact-heading">Let's talk about <span>your visibility</span></h1>
       <p class="contact-sub">Whether it's a quick question or a full AI-search audit - just send an email and I'll get back to you within 24 hours.</p>
 
       <a href="mailto:sivarajc.seo@gmail.com" class="email-card">
@@ -61,7 +64,7 @@ const localBusinessSchema = {
           </svg>
         </span>
         <span class="email-address">sivarajc.seo@gmail.com</span>
-        <span class="email-arrow">&#8599;</span>
+        <span class="email-arrow" aria-hidden="true">&#8599;</span>
       </a>
 
       <div class="contact-divider"></div>
@@ -103,144 +106,97 @@ const localBusinessSchema = {
       </div>
 
     </div>
+    <div class="contact-photo">
+      <div class="reply-card"><b>&lt; 24h</b><span>Reply time</span></div>
+      <img src="/images/profile-cutout.webp" alt="C. Sivaraj" width="491" height="768" loading="eager" />
+    </div>
+   </div>
   </main>
 </BaseLayout>
 
 <style>
-  .contact-main{
-    min-height: calc(100vh - 72px - 80px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 80px 24px;
-    background: #faf9fd;
+  .contact-main {
+    padding: 24px 32px 40px;
   }
-  .contact-wrap{
-    max-width: 560px;
-    width: 100%;
-    text-align: center;
+  .contact-panel {
+    max-width: 1136px; margin: 0 auto;
+    display: grid; grid-template-columns: 1.1fr .9fr; gap: 48px; align-items: center;
+    background: linear-gradient(180deg, var(--primary-light), var(--surface));
+    border-radius: 28px; padding: 64px 56px; overflow: hidden;
+  }
+  .contact-wrap { min-width: 0; }
+
+  .contact-eyebrow { font-size: 12px; color: var(--muted); letter-spacing: .02em; margin-bottom: 14px; }
+  .contact-eyebrow::before { content: '['; }
+  .contact-eyebrow::after { content: ']'; }
+  .contact-heading {
+    font-size: clamp(34px, 4.6vw, 54px); font-weight: 600; color: var(--ink);
+    line-height: 1.1; letter-spacing: -.03em; margin: 0 0 18px;
+  }
+  .contact-heading span { color: var(--primary); }
+  .contact-sub { font-size: 15px; color: var(--muted); line-height: 1.7; margin: 0 0 32px; max-width: 46ch; }
+
+  .email-card {
+    display: flex; align-items: center; gap: 14px;
+    background: #fff; border: 1px solid var(--border);
+    border-radius: 999px; padding: 8px 8px 8px 22px;
+    text-decoration: none; max-width: 440px;
+    transition: border-color .15s, transform .15s;
+  }
+  .email-card:hover { border-color: var(--primary); transform: translateY(-1px); }
+  .email-icon { color: var(--primary); flex-shrink: 0; display: flex; }
+  .email-address { font-size: 15px; font-weight: 600; color: var(--ink); flex: 1; text-align: left; overflow-wrap: anywhere; }
+  .email-arrow {
+    width: 42px; height: 42px; border-radius: 50%; flex-shrink: 0;
+    background: var(--primary); color: #fff; font-size: 18px; line-height: 1;
+    display: inline-flex; align-items: center; justify-content: center;
   }
 
-  .contact-eyebrow{
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: .14em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 18px;
-  }
-  .contact-heading{
-    font-size: clamp(32px, 5vw, 48px);
-    font-weight: 800;
-    color: var(--ink);
-    line-height: 1.12;
-    letter-spacing: -.03em;
-    margin-bottom: 18px;
-  }
-  .contact-sub{
-    font-size: 15px;
-    color: var(--muted);
-    line-height: 1.65;
-    margin-bottom: 44px;
-  }
+  .contact-divider { height: 0; margin: 34px 0 0; }
+  .contact-also { font-size: 12px; font-weight: 600; color: var(--muted); margin: 0 0 12px; }
 
-  .email-card{
-    display: inline-flex;
-    align-items: center;
-    gap: 14px;
-    background: #fff;
-    border: 1.5px solid #e4ddf7;
-    border-radius: 16px;
-    padding: 20px 28px;
-    text-decoration: none;
-    transition: border-color .15s, box-shadow .15s, transform .15s;
-    box-shadow: 0 2px 16px rgba(124,92,214,.06);
-    width: 100%;
-    max-width: 420px;
-    justify-content: space-between;
+  .social-row { display: flex; flex-wrap: wrap; gap: 8px; }
+  .social-pill {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 8px 14px; border-radius: 999px;
+    font-size: 12.5px; font-weight: 600;
+    background: #fff; border: 1px solid var(--border); color: var(--ink-light);
+    text-decoration: none; transition: border-color .14s, color .14s;
   }
-  .email-card:hover{
-    border-color: var(--accent);
-    box-shadow: 0 6px 28px rgba(124,92,214,.14);
-    transform: translateY(-2px);
-  }
-  .email-icon{
-    color: var(--accent);
-    flex-shrink: 0;
-    display: flex;
-  }
-  .email-address{
-    font-size: 15px;
-    font-weight: 700;
-    color: var(--ink);
-    letter-spacing: -.01em;
-    flex: 1;
-    text-align: left;
-  }
-  .email-arrow{
-    font-size: 18px;
-    color: var(--accent);
-    flex-shrink: 0;
-    line-height: 1;
-  }
+  .social-pill:hover { border-color: var(--primary); color: var(--primary); }
+  .social-pill--wa { color: #1a9f4f; }
+  .social-pill--wa:hover { border-color: #25D366; color: #1a9f4f; }
 
-  .contact-divider{
-    width: 40px;
-    height: 2px;
-    background: #e4ddf7;
-    border-radius: 2px;
-    margin: 44px auto 20px;
+  .area-pill {
+    display: inline-flex; align-items: center;
+    padding: 8px 14px; border-radius: 999px;
+    font-size: 12.5px; font-weight: 600;
+    background: rgba(255,255,255,.7); color: var(--ink-light);
   }
-  .contact-also{
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: .06em;
-    text-transform: uppercase;
-    color: #b0a9c8;
-    margin-bottom: 16px;
-  }
+  .area-pill--primary { background: var(--primary); color: #fff; }
 
-  .social-row{
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    justify-content: center;
+  .contact-photo { position: relative; display: flex; justify-content: center; align-self: end; margin-bottom: -64px; }
+  .contact-photo::before {
+    content: ''; position: absolute; left: 50%; bottom: 0; width: 110%; aspect-ratio: 1;
+    transform: translate(-50%, 20%);
+    background: radial-gradient(circle, rgba(24,119,242,.3) 0%, rgba(24,119,242,.08) 40%, transparent 68%);
   }
-  .social-pill{
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 8px 16px;
-    border-radius: 999px;
-    font-size: 13px;
-    font-weight: 600;
-    background: #f0ebfa;
-    color: var(--accent);
-    text-decoration: none;
-    transition: background .14s, color .14s;
+  .contact-photo img { position: relative; width: 100%; max-width: 360px; height: auto; display: block; }
+  .reply-card {
+    position: absolute; left: 0; top: 30%; z-index: 2;
+    background: #fff; border-radius: 16px; padding: 12px 16px;
+    box-shadow: 0 18px 40px -20px rgba(17,20,24,.35);
   }
-  .social-pill:hover{ background: var(--accent); color: #fff; }
-  .social-pill--wa{ background: #e6f9ef; color: #1a9f4f; }
-  .social-pill--wa:hover{ background: #25D366; color: #fff; }
+  .reply-card b { display: block; font-size: 20px; letter-spacing: -.03em; color: var(--primary); }
+  .reply-card span { font-size: 11px; color: var(--muted); }
 
-  .area-pill{
-    display: inline-flex;
-    align-items: center;
-    padding: 8px 16px;
-    border-radius: 999px;
-    font-size: 13px;
-    font-weight: 600;
-    background: #fdeee5;
-    color: #b5652a;
+  @media (max-width: 900px) {
+    .contact-panel { grid-template-columns: 1fr; padding: 44px 28px 0; }
+    .contact-photo { margin: 0 auto; max-width: 340px; }
   }
-  .area-pill--primary{
-    background: var(--accent);
-    color: #fff;
-  }
-
-  @media(max-width: 480px){
-    .contact-main{ padding: 60px 16px; }
-    .email-card{ padding: 18px 20px; }
-    .email-address{ font-size: 13px; }
+  @media (max-width: 480px) {
+    .contact-main { padding: 16px 14px 24px; }
+    .contact-panel { padding: 36px 20px 0; border-radius: 22px; }
+    .email-address { font-size: 13.5px; }
   }
 </style>

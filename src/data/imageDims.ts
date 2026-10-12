@@ -2,14 +2,14 @@
 // Intrinsic pixel dimensions for article banner images, used to set explicit
 // width/height on <img> tags and prevent layout shift (CLS).
 export const imageDims: Record<string, { width: number; height: number }> = {
-  '/images/article-10.webp': { width: 1200, height: 630 },
-  '/images/article-4.png': { width: 1200, height: 675 },
-  '/images/article-5.png': { width: 1200, height: 675 },
-  '/images/article-6.webp': { width: 1200, height: 630 },
-  '/images/article-7.webp': { width: 1200, height: 630 },
-  '/images/article-8.webp': { width: 1200, height: 630 },
-  '/images/article-9.png': { width: 1200, height: 630 },
-  '/images/content-gap-analysis.png': { width: 1200, height: 630 },
+  '/images/ai-first-seo-foundations.webp': { width: 1200, height: 630 },
+  '/images/cite-framework.webp': { width: 1200, height: 630 },
+  '/images/content-gap-analysis.webp': { width: 1200, height: 630 },
+  '/images/google-ranking-factor.webp': { width: 1200, height: 630 },
+  '/images/how-each-ai-retrieves-and-cites-content.webp': { width: 1200, height: 630 },
+  '/images/how-to-track-ai-seo-kpi.webp': { width: 1200, height: 630 },
+  '/images/link-social-media-to-google-search-console.webp': { width: 1200, height: 630 },
+  '/images/search-intent-satisfaction.webp': { width: 1200, height: 630 },
 };
 
 const fallback = { width: 1200, height: 630 };

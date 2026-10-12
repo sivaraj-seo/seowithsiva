@@ -5,7 +5,7 @@ excerpt: "How to find content gaps using competitor and search data, why the fiv
 date: "2026-09-30"
 category: "SEO Strategy"
 readTime: "14 min read"
-image: "/images/content-gap-analysis.png"
+image: "/images/content-gap-analysis.webp"
 featured: false
 keyTakeaways:
   - "A gap report output is unqualified. Most rows are keywords you were correct not to target, and separating those from real opportunities is the skill."

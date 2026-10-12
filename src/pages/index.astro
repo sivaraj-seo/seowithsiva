@@ -1,12 +1,109 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { safeJsonLd } from '../utils/schema';
+import { getImageDims } from '../data/imageDims';
 
 const title = 'C. Sivaraj – SEO Analyst & AEO / GEO Specialist';
 const description =
   'SEO & AI-search analyst helping brands earn visibility across Google AI Overviews, ChatGPT, Gemini, Perplexity, Bing AI & Copilot, backed by 5+ years enterprise SEO.';
 const keywords =
   'SEO analyst, AEO, GEO, AI search optimization, enterprise SEO, Google AI Overviews, generative engine optimization, C. Sivaraj';
+
+const callUrl = 'https://calendar.app.google/FwUxXeGAFCdvuvGN6';
+const citeGuide = '/blog/cite-framework-get-cited-in-ai-overviews/';
+
+const services = [
+  {
+    name: 'AI Search Optimization (AEO / GEO)',
+    text: 'Make your content the cited answer in Google AI Overviews, ChatGPT, Gemini, Perplexity, Bing AI and Copilot.',
+    icon: '<circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/>',
+  },
+  {
+    name: 'Enterprise SEO',
+    text: 'Scalable optimization frameworks and governance across tens of thousands of indexed pages.',
+    icon: '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M9 9v11"/>',
+  },
+  {
+    name: 'Technical SEO',
+    text: 'Audits across crawl, indexation, metadata, schema, redirects, XML sitemaps and internal linking.',
+    icon: '<path d="M10 13a5 5 0 007 0l3-3a5 5 0 00-7-7l-1 1"/><path d="M14 11a5 5 0 00-7 0l-3 3a5 5 0 007 7l1-1"/>',
+  },
+  {
+    name: 'Content Strategy',
+    text: 'Topic clusters, search-intent mapping, content briefs and editorial systems that earn topical authority.',
+    icon: '<path d="M5 7h14M5 12h14M5 17h8"/>',
+  },
+  {
+    name: 'Semantic & Entity SEO',
+    text: 'Entity optimization, structured data and semantic relevance that AI engines can understand and trust.',
+    icon: '<circle cx="7" cy="7" r="2"/><circle cx="17" cy="7" r="2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/><path d="M9 7h6M7 9v6M9 17h6"/>',
+  },
+  {
+    name: 'Analytics & Reporting',
+    text: 'GSC, GA4, Ahrefs, SEMrush and Looker Studio dashboards tying organic and AI visibility to outcomes.',
+    icon: '<path d="M6 20v-8M12 20V6M18 20v-11"/>',
+  },
+];
+
+const truths = [
+  {
+    text: 'Ranking isn’t the gate. Rank-to-citation overlap sits between <b>17% and 54%</b>, so pages on page two can still get cited.',
+    icon: '<circle cx="11" cy="11" r="7"/><path d="M16 16l5 5M8 11h6M11 8v6"/>',
+  },
+  {
+    text: 'On queries that show AI Overviews, top positions lose <b>30–50% of their CTR</b> on average.',
+    icon: '<path d="M4 6l6 6 4-4 6 6"/><path d="M20 9v5h-5"/>',
+  },
+  {
+    text: 'Brands with active trust profiles see a <b>75x citation gap</b> over those without them.',
+    icon: '<path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/>',
+  },
+];
+
+const cases = [
+  {
+    tag: 'Healthcare · GEO / AEO',
+    client: 'GEO / AEO pilot',
+    sub: 'Enterprise healthcare publisher',
+    metric: '+1,050%',
+    metricLabel: 'Organic sessions',
+    body: [
+      'Led a GEO/AEO pilot across 60 high-value healthcare articles, restructuring them for passage-level extraction, entity clarity and trust signals.',
+      'The framework was then adopted site-wide across Google, Bing and AI platforms.',
+    ],
+    path: 'M0 70 C 40 68, 70 64, 100 58 S 170 40, 200 30 S 260 8, 300 4',
+  },
+  {
+    tag: 'AI citations · Google & Bing',
+    client: 'AI-first content framework',
+    sub: 'Enterprise content programme',
+    metric: '12M+',
+    metricLabel: 'Google AI citations',
+    body: [
+      'Rolled out AI-first content frameworks that earned 12M+ Google generative-AI citations and 1M+ Bing AI citations in 28 days.',
+      'Content teams kept the gains with an LLM Content Optimization Checklist built for every new brief.',
+    ],
+    path: 'M0 72 C 50 70, 80 66, 120 50 S 180 30, 220 22 S 270 12, 300 6',
+  },
+  {
+    tag: 'Reporting · Looker Studio',
+    client: 'Executive SEO dashboards',
+    sub: 'Cross-functional stakeholders',
+    metric: '80%',
+    metricLabel: 'Less reporting effort',
+    body: [
+      'Built executive dashboards in Google Looker Studio that pull GSC, GA4 and AI-visibility data into one view.',
+      'Manual SEO reporting effort dropped by 80% and stakeholders finally saw organic and AI performance side by side.',
+    ],
+    path: 'M0 20 C 50 22, 90 30, 130 42 S 200 60, 240 66 S 280 70, 300 72',
+  },
+];
+
+const allArticles = await getCollection('articles');
+const latest = allArticles
+  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime())
+  .slice(0, 3);
 
 const profilePageSchema = {
   '@context': 'https://schema.org',
@@ -34,16 +131,9 @@ const serviceSchema = {
   hasOfferCatalog: {
     '@type': 'OfferCatalog',
     name: 'SEO Services',
-    itemListElement: [
-      'AI Search Optimization (AEO / GEO)',
-      'Enterprise SEO',
-      'Technical SEO',
-      'Content Strategy',
-      'Semantic & Entity SEO',
-      'Analytics & Reporting',
-    ].map((name) => ({
+    itemListElement: services.map((s) => ({
       '@type': 'Offer',
-      itemOffered: { '@type': 'Service', name },
+      itemOffered: { '@type': 'Service', name: s.name },
     })),
   },
 };
@@ -52,690 +142,695 @@ const serviceSchema = {
 <BaseLayout {title} {description} {keywords} author="C. Sivaraj">
 
 <Fragment slot="head">
+  <link rel="preload" as="image" href="/images/profile-home-hero.webp" fetchpriority="high" />
   <script type="application/ld+json" set:html={safeJsonLd(profilePageSchema)} />
   <script type="application/ld+json" set:html={safeJsonLd(serviceSchema)} />
 </Fragment>
 
 <style>
-  *{ box-sizing:border-box; }
-  html{ scroll-behavior:smooth; }
-  h1,h2,h3{ margin:0; letter-spacing:-.02em; line-height:1.08; }
-  p{ margin:0; }
-  a{ color:inherit; text-decoration:none; }
-  ::selection{ background:var(--accent); color:#fff; }
+  h1, h2, h3 { margin: 0; letter-spacing: -.025em; line-height: 1.15; font-weight: 600; color: var(--ink); }
+  p { margin: 0; }
+  ::selection { background: var(--primary); color: #fff; }
 
-  .wrap{ max-width:1120px; margin:0 auto; padding:0 32px; }
-  .em{ color:var(--accent); }
-  .ulink{ background:linear-gradient(var(--accent),var(--accent)) 0 92%/100% 2px no-repeat; }
+  .wrap { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
+  .blue { color: var(--primary); }
+  .kicker { font-size: 12px; color: var(--muted); letter-spacing: .02em; }
+  .kicker::before { content: '['; }
+  .kicker::after { content: ']'; }
 
-  .pill{
-    display:inline-flex; align-items:center; gap:8px;
-    border-radius:999px; font-weight:600; font-size:15px;
-    padding:14px 26px; transition:transform .18s, box-shadow .18s;
-    cursor:pointer;
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--primary);
+    color: #fff;
+    font-size: 13.5px;
+    font-weight: 600;
+    padding: 11px 20px;
+    border-radius: 999px;
+    text-decoration: none;
+    box-shadow: 0 8px 20px -8px rgba(24, 119, 242, .7);
+    transition: background .15s, transform .15s;
+    border: 0;
+    cursor: pointer;
   }
-  .pill:hover{ transform:translateY(-2px); }
-  .cta{ background:var(--cta); color:#fff; box-shadow:0 10px 24px -8px rgba(236,109,146,.6); }
-  .cta:hover{ box-shadow:0 14px 30px -8px rgba(236,109,146,.7); }
-  .ghost{ background:#fff; color:var(--ink); box-shadow:0 6px 20px -10px rgba(33,29,51,.4); }
+  .btn:hover { background: var(--primary-dark); transform: translateY(-1px); }
+  .btn svg { flex: none; }
 
-  .tag{
-    display:inline-flex; align-items:center; gap:7px;
-    font-size:12px; font-weight:700; letter-spacing:.12em;
-    text-transform:uppercase; color:var(--accent);
-  }
-  .tag::before{ content:''; width:7px; height:7px; border-radius:50%; background:var(--accent); }
-
-  .card{
-    background:#fff; border-radius:22px;
-    box-shadow:0 18px 50px -28px rgba(33,29,51,.45);
-    transition:transform .22s, box-shadow .22s;
-  }
-  .lift:hover{ transform:translateY(-6px); box-shadow:0 30px 60px -28px rgba(33,29,51,.5); }
-
-  .ico{
-    width:54px; height:54px; border-radius:15px;
-    display:flex; align-items:center; justify-content:center;
-    flex-shrink:0;
-  }
-
-  .hsoc{
-    display:inline-flex; align-items:center; gap:8px;
-    transition:transform .15s, color .15s, box-shadow .15s;
-  }
-  .hsoc:hover{ color:var(--accent); transform:translateY(-2px); box-shadow:0 8px 18px -8px rgba(33,29,51,.55); }
-
-  .soc{
-    display:inline-flex; align-items:center; gap:8px;
-    transition:transform .15s, background .15s, color .15s;
-  }
-  .soc:hover{ background:#2c2450; color:#fff; transform:translateY(-2px); }
-
-  @keyframes float{ 0%,100%{ transform:translateY(0) } 50%{ transform:translateY(-14px) } }
-  .floaty{ animation:float 5.5s ease-in-out infinite; }
-
-  .clouds{
-    height:38px;
-    background:radial-gradient(circle 22px at 22px 38px,#fff 0 22px,transparent 23px) 0 0/44px 38px repeat-x;
-  }
-
-  .marquee{ display:flex; gap:54px; white-space:nowrap; animation:scrollx 26s linear infinite; }
-  @keyframes scrollx{ from{ transform:translateX(0) } to{ transform:translateX(-50%) } }
+  .panel { background: var(--surface); border-radius: 28px; }
 
   /* ── HERO ── */
-  .hero{
-    background:linear-gradient(165deg,#efeafc 0%,#f7ecf2 52%,#fde9dc 100%);
-    position:relative; overflow:hidden;
+  .hero { position: relative; overflow: hidden; padding-top: 8px; }
+  .hero-name {
+    position: absolute;
+    inset: 0 0 auto;
+    text-align: center;
+    font-size: clamp(90px, 17vw, 240px);
+    font-weight: 700;
+    letter-spacing: -.06em;
+    line-height: .9;
+    padding-bottom: .2em;
+    color: transparent;
+    background: linear-gradient(180deg, #e7eaef 0%, #f1f3f6 75%, rgba(255,255,255,0) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    user-select: none;
+    pointer-events: none;
+    white-space: nowrap;
   }
-  .hero-inner{
-    display:grid; grid-template-columns:1.05fr .95fr;
-    gap:40px; align-items:center;
-    padding-top:72px; padding-bottom:40px;
+  .hero-grid {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr minmax(320px, 480px) 1fr;
+    align-items: end;
+    gap: 24px;
+    min-height: 620px;
   }
-  .hero-badge{
-    background:#fff; padding:8px 14px; border-radius:999px;
-    box-shadow:0 6px 18px -10px rgba(33,29,51,.4);
+  .hero-photo { position: relative; align-self: end; display: flex; justify-content: center; }
+  .hero-photo::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: 120%;
+    aspect-ratio: 1;
+    transform: translate(-50%, 18%);
+    background: radial-gradient(circle, rgba(24,119,242,.28) 0%, rgba(24,119,242,.10) 38%, rgba(255,255,255,0) 68%);
+    z-index: 0;
   }
-  h1{
-    font-weight:800; font-size:clamp(38px,5.2vw,64px);
-    margin:22px 0 0; color:var(--ink);
+  .hero-photo img {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: auto;
+    max-height: 600px;
+    object-fit: contain;
+    object-position: bottom;
+    display: block;
+    margin-top: 90px;
+    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 10%, #000 90%, transparent 100%), linear-gradient(180deg, #000 78%, transparent 97%);
+    -webkit-mask-composite: source-in;
+    mask-image: linear-gradient(90deg, transparent 0, #000 10%, #000 90%, transparent 100%), linear-gradient(180deg, #000 78%, transparent 97%);
+    mask-composite: intersect;
   }
-  .hero-desc{
-    font-size:18px; line-height:1.65; color:var(--muted);
-    margin-top:22px; max-width:48ch;
+  .hero-card {
+    align-self: center;
+    max-width: 280px;
+    background: rgba(243,245,248,.85);
+    backdrop-filter: blur(8px);
+    border-radius: 22px;
+    padding: 26px;
+    margin-top: 140px;
   }
-  .hero-ctas{ display:flex; gap:14px; margin-top:30px; flex-wrap:wrap; }
-  .hero-socials{ display:flex; align-items:center; gap:10px; margin-top:30px; flex-wrap:wrap; }
+  .hero-card h2 { font-size: 20px; line-height: 1.25; }
+  .hero-card p { font-size: 13px; line-height: 1.6; color: var(--muted); margin: 10px 0 18px; }
+  .hero-side { align-self: center; justify-self: end; max-width: 300px; margin-top: 140px; }
+  .hero-side h1 { font-size: 24px; line-height: 1.25; }
+  .hero-side p { font-size: 13.5px; line-height: 1.65; color: var(--muted); margin-top: 14px; }
+  .hero-side p b { color: var(--primary); font-weight: 600; }
+  .hero-stat {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 26px;
+    font-size: 40px;
+    font-weight: 700;
+    letter-spacing: -.04em;
+    color: var(--primary);
+    line-height: 1;
+  }
+  .hero-stat-lbl { font-size: 12.5px; color: var(--muted); margin-top: 6px !important; }
+  .squiggle { display: block; margin-top: 8px; }
 
-  .hero-photo{ position:relative; display:flex; justify-content:center; }
-  .hero-blob{
-    position:absolute; width:300px; height:300px; border-radius:50%;
-    background:radial-gradient(circle at 30% 30%,#c9b6f4,#a988ec);
-    filter:blur(2px); top:8%;
+  /* ── SERIOUS ── */
+  .serious { margin-top: 0; }
+  @media (max-width: 960px) { .serious { margin-top: 48px; } }
+  .serious .panel {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 48px;
+    padding: 56px;
+    align-items: center;
   }
-  .hero-img{
-    position:relative; width:300px; height:380px;
-    border-radius:26px; object-fit:cover; object-position:center top;
-    box-shadow:0 30px 60px -24px rgba(86,54,160,.5);
-  }
-  .stat-card-left{
-    position:absolute; left:-8px; bottom:40px;
-    padding:14px 16px; border-radius:16px; animation-delay:1.2s;
-  }
-  .stat-card-right{
-    position:absolute; right:-6px; top:30px;
-    padding:12px 15px; border-radius:16px;
-    display:flex; align-items:center; gap:9px; animation-delay:.5s;
-  }
-  .stat-card-bottom{
-    position:absolute; right:-6px; bottom:-14px;
-    padding:12px 15px; border-radius:16px;
-    display:flex; align-items:center; gap:9px; animation-delay:.8s;
-  }
-  .stat-green{ font-weight:800; font-size:22px; color:#2fae74; }
-  .stat-lbl{ font-size:11px; color:var(--muted); }
+  .serious h2 { font-size: clamp(28px, 3.4vw, 42px); line-height: 1.2; }
+  .ring { position: relative; display: inline-block; padding: 0 6px; margin: 0 8px; }
+  .ring svg { position: absolute; inset: -12px -10px; width: calc(100% + 20px); height: calc(100% + 24px); overflow: visible; }
+  .uline { background: linear-gradient(var(--primary), var(--primary)) 0 92%/100% 3px no-repeat; }
+  .serious-lead { font-size: 14.5px; line-height: 1.7; color: var(--muted); margin-top: 40px !important; max-width: 52ch; }
+  .serious-lead b { color: var(--primary); font-weight: 600; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+  .chip { font-size: 12px; font-weight: 600; background: #fff; border: 1px solid var(--border); border-radius: 999px; padding: 6px 12px; color: var(--ink-light); }
+  .serious-ctas { display: flex; align-items: center; gap: 18px; margin-top: 30px; flex-wrap: wrap; }
+  .serious-note { display: flex; align-items: center; gap: 10px; font-size: 12px; color: var(--muted); line-height: 1.4; max-width: 30ch; }
+  .serious-img { border-radius: 22px; overflow: hidden; aspect-ratio: 4 / 4.2; }
+  .serious-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-  /* ── INTRO ── */
-  .intro{ padding:74px 0 10px; text-align:center; }
-  .intro-wrap{ max-width:880px; margin:0 auto; }
-  .intro h2{ font-weight:700; font-size:clamp(26px,3.4vw,38px); margin-top:18px; }
-  .intro p{ font-size:16px; line-height:1.7; color:var(--muted); margin-top:20px; max-width:62ch; margin-left:auto; margin-right:auto; }
-
-  /* ── FEATURES ── */
-  .features{ padding:48px 0 64px; }
-  .features-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:26px; }
-  .feat-ico{ width:54px; height:54px; border-radius:15px; display:flex; align-items:center; justify-content:center; }
-  .feat h3{ font-size:17px; font-weight:700; margin-top:16px; }
-  .feat p{ font-size:14px; line-height:1.6; color:var(--muted); margin-top:7px; }
-
-  /* ── STAT BAR ── */
-  .stat-bar{ padding-bottom:78px; }
-  .stat-bar-card{
-    display:grid; grid-template-columns:repeat(5,1fr);
-    gap:20px; padding:34px 40px; border-radius:24px;
-    background:linear-gradient(120deg,#fff,#faf6ff);
+  /* ── TRUTHS ── */
+  .truths { padding-top: 110px; text-align: center; }
+  .truths-head { position: relative; max-width: 760px; margin: 0 auto; }
+  .truths-head h2 { font-size: clamp(28px, 3.4vw, 40px); margin-top: 14px; }
+  .arrow { position: absolute; top: 40px; width: 90px; color: var(--primary); }
+  .arrow.l { left: -60px; }
+  .arrow.r { right: -60px; transform: scaleX(-1); }
+  .truths-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+    max-width: 860px;
+    margin: 56px auto 0;
   }
-  .stat-item{ text-align:center; }
-  .stat-item+.stat-item{ border-left:1px solid #ece7f6; }
-  .stat-num{ font-weight:800; font-size:36px; }
-  .stat-sub{ font-size:13px; color:var(--muted); margin-top:4px; }
+  .truth {
+    background: var(--surface);
+    border-radius: 20px;
+    padding: 32px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 22px;
+  }
+  .truth-ico {
+    width: 72px; height: 72px;
+    border-radius: 20px;
+    background: #fff;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--ink);
+  }
+  .truth p { font-size: 13px; line-height: 1.6; color: var(--ink-light); }
+  .truth p b { color: var(--primary); font-weight: 600; }
+  .truths-src { font-size: 12px; color: var(--muted); margin-top: 18px !important; }
+  .truths-src a { color: var(--primary); }
+
+  .brief {
+    max-width: 860px;
+    margin: 28px auto 0;
+    padding: 40px 32px;
+    background: linear-gradient(180deg, var(--primary-light), var(--surface));
+    border-radius: 22px;
+  }
+  .brief h3 { font-size: 21px; }
+  .brief > p { font-size: 13.5px; color: var(--muted); margin: 12px auto 22px; max-width: 46ch; line-height: 1.6; }
+  .brief > p b { color: var(--primary); font-weight: 600; }
+  .brief-links { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+  .btn.ghost { background: #fff; color: var(--ink); box-shadow: none; border: 1px solid var(--border); }
+  .btn.ghost:hover { border-color: var(--primary); color: var(--primary); background: #fff; }
+
+  /* ── CASE STUDIES ── */
+  .cases { padding-top: 110px; }
+  .cases .panel {
+    padding: 48px 0 40px 48px;
+    background: linear-gradient(180deg, #eef4fd 0%, var(--surface) 55%);
+    overflow: hidden;
+  }
+  .cases h2 { font-size: clamp(24px, 2.8vw, 34px); margin-top: 12px; max-width: 24ch; }
+  .case-viewport { margin-top: 40px; overflow: hidden; }
+  .case-track {
+    display: flex;
+    gap: 24px;
+    transition: transform .5s cubic-bezier(.2,.8,.2,1);
+  }
+  .case {
+    flex: 0 0 calc(100% - 140px);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+    background: #fff;
+    border-radius: 22px;
+    padding: 16px;
+  }
+  .case-visual {
+    background: var(--dark);
+    border-radius: 16px;
+    padding: 28px;
+    color: #fff;
+    min-height: 260px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+  }
+  .case-visual::after {
+    content: '';
+    position: absolute;
+    inset: auto -20% -60% auto;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(24,119,242,.45), transparent 65%);
+  }
+  .cv-tag { font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: #8fb8ff; }
+  .cv-metric { font-size: clamp(40px, 5vw, 60px); font-weight: 700; letter-spacing: -.045em; line-height: 1; margin-top: 16px; }
+  .cv-lbl { font-size: 13px; color: #b8c3d4; margin-top: 6px; }
+  .cv-chart { width: 100%; height: 80px; margin-top: 18px; position: relative; z-index: 1; }
+  .case-body { padding: 12px 24px 12px 0; }
+  .case-body h3 { font-size: 18px; color: var(--primary); }
+  .case-sub { font-size: 11.5px; color: var(--muted); margin-top: 4px !important; }
+  .case-body p:not(.case-sub) { font-size: 13.5px; line-height: 1.7; color: var(--ink-light); margin-top: 16px; }
+  .cases-foot {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    margin-top: 32px;
+    padding-right: 48px;
+    flex-wrap: wrap;
+  }
+  .cases-foot p { font-size: 13px; color: var(--muted); max-width: 40ch; line-height: 1.55; }
+  .cases-foot p b { color: var(--ink); }
+  .slider-btns { display: flex; gap: 12px; }
+  .sbtn {
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    border: 0;
+    background: var(--primary);
+    color: #fff;
+    display: inline-flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    transition: background .15s, opacity .15s;
+  }
+  .sbtn:hover { background: var(--primary-dark); }
+  .sbtn:disabled { opacity: .35; cursor: default; }
 
   /* ── SERVICES ── */
-  .services-sec{
-    background:linear-gradient(180deg,#fdeee5 0%,#f6ecf6 100%);
-    padding:74px 0 88px;
+  .services { padding-top: 120px; }
+  .services .wrap { display: grid; grid-template-columns: 1fr 2fr; gap: 48px; align-items: start; }
+  .services-intro { position: sticky; top: 110px; }
+  .services-intro h2 { font-size: clamp(30px, 3.4vw, 42px); margin-top: 12px; }
+  .services-intro p { font-size: 14px; line-height: 1.7; color: var(--muted); margin-top: 18px; max-width: 34ch; }
+  .services-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  .svc {
+    background: var(--surface);
+    border-radius: 22px;
+    padding: 32px 28px;
+    display: flex;
+    flex-direction: column;
+    transition: transform .2s, box-shadow .2s;
   }
-  .sec-head{ text-align:center; max-width:680px; margin:0 auto 46px; }
-  .sec-head h2{ font-weight:800; font-size:clamp(30px,4vw,46px); margin-top:16px; }
-  .sec-head p{ font-size:16px; line-height:1.7; color:var(--muted); margin-top:16px; }
-  .services-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
-  .svc-card{ padding:30px 28px; }
-  .svc-card h3{ font-size:19px; font-weight:700; margin-top:18px; }
-  .svc-card p{ font-size:14px; line-height:1.65; color:var(--muted); margin-top:9px; }
+  .svc:hover { transform: translateY(-3px); box-shadow: 0 18px 40px -24px rgba(17,20,24,.35); }
+  .svc-ico {
+    width: 52px; height: 52px;
+    border-radius: 14px;
+    border: 1.5px solid var(--ink);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--ink);
+    background: #fff;
+  }
+  .svc h3 { font-size: 16px; color: var(--primary); margin-top: 22px; }
+  .svc p { font-size: 13px; line-height: 1.7; color: var(--muted); margin: 12px 0 24px; flex: 1; }
+  .svc .btn { align-self: flex-start; padding: 9px 16px; font-size: 12.5px; }
 
-  /* ── ABOUT ── */
-  .about-sec{
-    padding:84px 0;
-    display:grid; grid-template-columns:.95fr 1.05fr;
-    gap:56px; align-items:center;
+  /* ── ABOUT (testimonial-style) ── */
+  .about { padding-top: 120px; }
+  .about .wrap { display: grid; grid-template-columns: 1fr 1.9fr; gap: 48px; }
+  .about-left { display: flex; flex-direction: column; justify-content: space-between; gap: 40px; }
+  .about-left h2 { font-size: clamp(30px, 3.4vw, 42px); margin-top: 12px; }
+  .about-proof { display: flex; align-items: center; gap: 14px; }
+  .about-proof-badges { display: flex; }
+  .about-proof-badges span {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 700; color: #fff;
+    margin-left: -10px;
   }
-  .about-photo{ position:relative; }
-  .about-deco{
-    position:absolute; inset:auto auto -16px -16px;
-    width:130px; height:130px; border-radius:24px;
-    background:#fde7da; z-index:0;
-  }
-  .about-img{
-    position:relative; z-index:1; width:100%;
-    aspect-ratio:4/3.4; object-fit:cover; object-position:center top;
-    border-radius:22px; display:block;
-  }
-  .about-badge{
-    position:absolute; z-index:2; right:-14px; bottom:-18px;
-    padding:16px 18px; border-radius:18px;
-    display:flex; align-items:center; gap:11px;
-  }
-  .about-years{
-    width:42px; height:42px; border-radius:12px;
-    background:#e3f3ea; color:#2fae74;
-    font-weight:800; font-size:16px;
-    display:flex; align-items:center; justify-content:center; flex-shrink:0;
-  }
-  .about-text h2{ font-weight:800; font-size:clamp(28px,3.6vw,42px); margin-top:16px; }
-  .about-text > p{ font-size:16px; line-height:1.7; color:var(--muted); margin-top:16px; }
-  .about-pillars{
-    display:grid; grid-template-columns:1fr 1fr;
-    gap:18px 26px; margin-top:28px;
-  }
-  .pillar{ display:flex; gap:11px; align-items:flex-start; }
-  .pillar-check{
-    width:26px; height:26px; border-radius:8px;
-    background:#efe9fc; color:var(--accent);
-    display:flex; align-items:center; justify-content:center; flex-shrink:0;
-  }
-  .pillar strong{ display:block; font-weight:700; font-size:15px; }
-  .pillar span{ font-size:13px; color:var(--muted); }
+  .about-proof-badges span:first-child { margin-left: 0; }
+  .about-proof b { font-size: 18px; display: block; line-height: 1.1; }
+  .about-proof small { font-size: 12px; color: var(--primary); }
+  .about-card { padding: 28px; display: grid; grid-template-columns: 1fr 1.15fr; gap: 36px; align-items: center; }
+  .about-photo { border-radius: 18px; overflow: hidden; aspect-ratio: 1; }
+  .about-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .quote-mark { width: 44px; color: var(--primary); opacity: .5; }
+  .about-quote p { font-size: 14px; line-height: 1.75; color: var(--ink-light); margin-top: 16px; }
+  .about-quote p b { color: var(--primary); font-weight: 600; }
+  .about-sig { margin-top: 22px; }
+  .about-sig strong { display: block; color: var(--primary); font-size: 15px; font-weight: 600; }
+  .about-sig span { font-size: 12px; color: var(--muted); }
+  .about-sig a { display: inline-block; margin-top: 14px; font-size: 13px; font-weight: 600; color: var(--primary); text-decoration: none; }
 
-  /* ── RESULTS ── */
-  .results-sec{ background:var(--dark); color:#fff; padding:82px 0; }
-  .results-head{
-    display:flex; align-items:flex-end; justify-content:space-between;
-    flex-wrap:wrap; gap:18px; margin-bottom:42px;
+  /* ── BLOG ── */
+  .blog { padding-top: 120px; }
+  .blog-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 20px; flex-wrap: wrap; }
+  .blog-head h2 { font-size: clamp(28px, 3.2vw, 40px); margin-top: 12px; }
+  .blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 40px; }
+  .post {
+    background: var(--surface);
+    border-radius: 22px;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    transition: transform .2s, box-shadow .2s;
   }
-  .results-head .tag{ color:#c3b1f5; }
-  .results-head .tag::before{ background:#c3b1f5; }
-  .results-head h2{ font-weight:800; font-size:clamp(30px,4vw,46px); margin-top:14px; color:#fff; }
-  .results-head p{ font-size:15px; color:#a59fc0; max-width:34ch; }
-  .results-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
-  .res-card{
-    background:#1f1a38; border-radius:22px;
-    overflow:hidden; padding:30px 28px;
-    transition:transform .22s, box-shadow .22s;
-  }
-  .res-card:hover{ transform:translateY(-6px); box-shadow:0 30px 60px -28px rgba(33,29,51,.5); }
-  .res-cat{ font-size:12px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:#c3b1f5; }
-  .res-num{ font-weight:800; font-size:40px; color:#7bd0a4; display:block; margin-top:16px; }
-  .res-card h3{ font-size:18px; font-weight:700; margin-top:8px; color:#fff; }
-  .res-card p{ font-size:14px; color:#a59fc0; margin-top:10px; line-height:1.6; }
-  .res-row{
-    margin-top:24px; background:#1f1a38; border-radius:22px;
-    padding:26px 30px; display:flex; align-items:center; gap:18px; flex-wrap:wrap;
-  }
-  .res-row-ico{ background:rgba(124,92,214,.25); color:#c3b1f5; flex-shrink:0; }
-  .res-row h3{ font-size:17px; font-weight:700; color:#fff; }
-  .res-row p{ font-size:14px; color:#a59fc0; margin-top:5px; line-height:1.55; }
+  .post:hover { transform: translateY(-3px); box-shadow: 0 18px 40px -24px rgba(17,20,24,.35); }
+  .post img { width: 100%; height: auto; aspect-ratio: 1200 / 630; object-fit: cover; display: block; }
+  .post-body { padding: 22px 22px 26px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+  .post-meta { font-size: 11.5px; color: var(--muted); }
+  .post h3 { font-size: 16px; line-height: 1.35; }
+  .post-more { margin-top: auto; font-size: 13px; font-weight: 600; color: var(--primary); padding-top: 6px; }
 
-  /* ── ARTICLES ── */
-  .articles-sec{
-    background:linear-gradient(180deg,#f6ecf6 0%,#fdeee5 100%);
-    padding:78px 0 88px;
+  /* ── CTA BANNER ── */
+  .cta-banner { padding-top: 120px; }
+  .cta-banner .panel {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+    min-height: 300px;
   }
-  .articles-head{
-    display:flex; align-items:flex-end; justify-content:space-between;
-    flex-wrap:wrap; gap:18px; margin-bottom:44px;
+  .cta-copy { padding: 56px; }
+  .cta-copy h2 { font-size: clamp(26px, 3vw, 36px); line-height: 1.2; }
+  .cta-copy p { font-size: 13.5px; color: var(--muted); margin: 16px 0 26px; max-width: 42ch; line-height: 1.6; }
+  .cta-copy p a { color: var(--primary); text-decoration: none; }
+  .cta-art { align-self: stretch; position: relative; min-height: 300px; }
+  .cta-screen {
+    position: absolute;
+    top: 44px; left: 40px; right: -60px; bottom: -60px;
+    background: linear-gradient(160deg, #13253f, #0a1424);
+    border-radius: 28px;
+    transform: perspective(900px) rotateY(-14deg) rotateX(6deg) rotate(-4deg);
+    box-shadow: -30px 30px 60px -30px rgba(10,20,36,.6);
+    padding: 34px;
+    color: #fff;
   }
-  .articles-head h2{ font-weight:800; font-size:clamp(30px,4vw,46px); margin-top:14px; }
-  .articles-head p{ font-size:16px; line-height:1.7; color:var(--muted); margin-top:14px; }
-  .articles-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
-  .articles-grid:has(> :only-child){ grid-template-columns:1fr; max-width:380px; margin:0 auto; }
-  .art-card{
-    display:flex; flex-direction:column; overflow:hidden;
-    background:#fff; border-radius:22px;
-    box-shadow:0 18px 50px -28px rgba(33,29,51,.45);
-    transition:transform .22s, box-shadow .22s;
-  }
-  .art-card:hover{ transform:translateY(-6px); box-shadow:0 30px 60px -28px rgba(33,29,51,.5); }
-  .art-card img{ width:100%; height:190px; object-fit:cover; display:block; }
-  .art-body{ padding:24px 26px 26px; display:flex; flex-direction:column; flex:1; }
-  .art-tag{ color:var(--cta); }
-  .art-tag::before{ background:var(--cta); }
-  .art-body h3{ font-size:19px; font-weight:700; margin-top:12px; line-height:1.25; }
-  .art-body p{ font-size:14px; line-height:1.6; color:var(--muted); margin-top:10px; flex:1; }
-  .art-link{ font-size:14px; font-weight:600; margin-top:16px; align-self:flex-start; }
-
-  /* ── CREDENTIALS ── */
-  .creds-sec{
-    background:linear-gradient(180deg,#f7f2ff,#fdeef0);
-    padding:84px 0;
-  }
-  .creds-inner{ display:flex; flex-direction:column; gap:54px; }
-  .creds-2col{ display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:28px; }
-  .creds-2col.cols-3{ grid-template-columns:repeat(3,1fr); }
-  .edu-card{ padding:22px 24px; }
-  .edu-head{ display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap; }
-  .edu-degree{ font-weight:700; font-size:17px; }
-  .edu-years{ font-size:13px; color:var(--accent); font-weight:600; white-space:nowrap; }
-  .edu-school{ font-size:14px; color:var(--muted); margin-top:4px; }
-  .exp-card{ padding:22px 24px; }
-  .exp-head{ display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; }
-  .exp-title{ font-size:18px; font-weight:700; margin:0; }
-  .exp-period{ font-size:13px; color:var(--accent); font-weight:600; white-space:nowrap; }
-  .exp-company{ font-size:14px; color:var(--muted); margin-top:3px; }
-  .exp-desc{ font-size:13px; color:#615c75; margin-top:10px; line-height:1.6; }
-  .cert-card{
-    padding:20px 22px; display:flex; gap:13px; align-items:flex-start;
-    border-radius:22px; box-shadow:0 18px 50px -28px rgba(33,29,51,.45);
-    background:#fff; transition:transform .22s, box-shadow .22s;
-  }
-  .cert-card:hover{ transform:translateY(-6px); box-shadow:0 30px 60px -28px rgba(33,29,51,.5); }
-  .cert-ico{ width:40px; height:40px; border-radius:11px; flex-shrink:0; display:flex; align-items:center; justify-content:center; }
-  .cert-name{ font-weight:700; font-size:15px; display:block; }
-  .cert-issuer{ font-size:13px; color:var(--muted); display:block; margin-top:2px; }
-  .cert-verify{ font-size:12px; font-weight:600; color:var(--accent); display:inline-flex; align-items:center; gap:4px; margin-top:8px; }
-
-  /* ── TOOLS MARQUEE ── */
-  .tools-sec{
-    padding:54px 0; overflow:hidden;
-    border-top:1px solid #f0e9f6; border-bottom:1px solid #f0e9f6;
-  }
-  .tools-label{ text-align:center; margin-bottom:28px; }
-  .marquee-track{ overflow:hidden; }
-  .marquee-inner{ display:flex; gap:54px; white-space:nowrap; animation:scrollx 26s linear infinite; font-weight:700; font-size:22px; color:#b3a8c8; }
-
-  /* ── CONTACT ── */
-  .contact-sec{ background:var(--dark); color:#fff; padding:56px 0 0; }
-  .contact-tag{ color:#c3b1f5; }
-  .contact-tag::before{ background:#c3b1f5; }
-  .contact-h2{ font-weight:800; font-size:clamp(30px,4.2vw,48px); margin-top:16px; color:#fff; }
-  .contact-desc{ font-size:16px; color:#a59fc0; margin-top:16px; max-width:44ch; line-height:1.7; }
-  .contact-links{ display:flex; flex-wrap:wrap; gap:14px 40px; margin-top:28px; }
-  .contact-item{ display:flex; align-items:center; gap:14px; }
-  .contact-ico{ display:flex; align-items:center; justify-content:center; width:54px; height:54px; border-radius:15px; flex-shrink:0; }
-  .contact-lbl{ font-size:12px; color:#857fa0; }
-  .contact-val{ font-weight:600; }
-  .contact-footer{
-    margin-top:44px; border-top:1px solid #2a2348;
-    padding:26px 32px; display:flex;
-    justify-content:space-between; align-items:center;
-    flex-wrap:wrap; gap:14px;
-  }
-  .cf-brand{ display:flex; align-items:center; gap:10px; font-weight:800; }
-  .cf-logo{ width:28px; height:28px; border-radius:6px; object-fit:contain; background:#fff; padding:2px; }
-  .cf-copy{ font-size:13px; color:#857fa0; }
-  .cf-links{ display:flex; gap:18px; font-size:13px; color:#a59fc0; flex-wrap:wrap; }
-  .cf-links a{ color:#a59fc0; }
-  .cf-links a:hover{ color:#fff; }
+  .cta-screen .num { font-size: 42px; font-weight: 700; letter-spacing: -.04em; line-height: 1; }
+  .cta-screen .lbl { font-size: 12px; color: #9fb2cc; margin-top: 6px; }
+  .cta-screen svg { position: absolute; left: 34px; right: 100px; bottom: 90px; width: calc(100% - 134px); height: 45%; }
 
   /* ── RESPONSIVE ── */
-  @media(max-width:900px){
-    .hero-inner{ grid-template-columns:1fr; }
-    .hero-photo{ display:none; }
-    .features-grid{ grid-template-columns:repeat(2,1fr); }
-    .stat-bar-card{ grid-template-columns:repeat(3,1fr); }
-    .stat-item{ border-left:none !important; }
-    .services-grid{ grid-template-columns:repeat(2,1fr); }
-    .about-sec{ grid-template-columns:1fr; }
-    .about-photo{ display:none; }
-    .results-grid{ grid-template-columns:1fr; }
-    .articles-grid{ grid-template-columns:1fr; }
-    .creds-2col{ grid-template-columns:1fr; }
-    .creds-2col.cols-3{ grid-template-columns:1fr; }
-    .about-pillars{ grid-template-columns:1fr; }
+  @media (max-width: 1100px) {
+    .arrow { display: none; }
   }
-  @media(max-width:600px){
-    .wrap{ padding:0 16px; }
-    .services-grid{ grid-template-columns:1fr; }
-    .features-grid{ grid-template-columns:1fr 1fr; }
-    .articles-head{ flex-direction:column; align-items:flex-start; }
-    .results-head{ flex-direction:column; }
-    .stat-bar-card{ padding:24px 20px; grid-template-columns:repeat(2,1fr); }
-    .hero-desc{ font-size:16px; }
-    .pill{ font-size:14px; padding:12px 20px; }
-    .hero-ctas{ gap:10px; }
+  @media (max-width: 960px) {
+    .hero-grid { grid-template-columns: 1fr; min-height: 0; gap: 0; }
+    .hero-photo { order: 1; max-width: 420px; margin: 0 auto; }
+    .hero-photo img { margin-top: 60px; }
+    .hero-side { order: 2; justify-self: stretch; max-width: none; margin-top: 32px; }
+    .hero-card { order: 3; max-width: none; margin-top: 28px; }
+    .serious .panel, .cta-banner .panel { grid-template-columns: 1fr; padding: 36px; }
+    .cta-banner .panel { padding: 0; }
+    .cta-copy { padding: 40px 32px 0; }
+    .cta-art { min-height: 240px; }
+    .cta-screen { left: 22px; }
+    .services .wrap, .about .wrap { grid-template-columns: 1fr; gap: 36px; }
+    .services-intro { position: static; }
+    .about-card { grid-template-columns: 1fr; }
+    .about-photo { max-width: 360px; }
+    .case { flex-basis: calc(100% - 60px); grid-template-columns: 1fr; gap: 20px; }
+    .case-body { padding: 4px 12px 16px; }
+    .blog-grid { grid-template-columns: 1fr 1fr; }
+    .truths-grid { grid-template-columns: 1fr; max-width: 420px; }
+  }
+  @media (max-width: 640px) {
+    .wrap { padding: 0 16px; }
+    .hero-name { font-size: 25vw; }
+    .serious .panel { padding: 28px 22px; }
+    .cases .panel { padding: 32px 0 28px 22px; }
+    .cases-foot { padding-right: 22px; }
+    .case { flex-basis: calc(100% - 30px); }
+    .services-grid, .blog-grid { grid-template-columns: 1fr; }
+    .truths, .cases, .services, .about, .blog, .cta-banner { padding-top: 80px; }
+    .cta-copy { padding: 32px 22px 0; }
   }
 </style>
 
 <!-- ── HERO ── -->
 <section id="top" class="hero">
-  <div class="wrap">
-    <div class="hero-inner">
-      <div>
-        <span class="tag hero-badge">SEO Analyst · AEO / GEO · 5+ years</span>
-        <h1>Get found in Google, and in <span class="em">every AI answer engine.</span></h1>
-        <p class="hero-desc">I'm Sivaraj, an SEO &amp; AI-search analyst helping brands earn visibility across Google AI Overviews, ChatGPT, Gemini, Perplexity, Bing AI and Copilot, backed by enterprise SEO that compounds. Working remotely with clients worldwide.</p>
-        <div class="hero-ctas">
-          <a href="https://calendar.app.google/FwUxXeGAFCdvuvGN6" target="_blank" rel="noopener" class="pill cta">Let's connect →</a>
-        </div>
-        <div class="hero-socials">
-          <a href="https://www.linkedin.com/in/sivaraj-seo-analyst/" target="_blank" rel="noopener" class="hsoc" style="background:#fff;padding:9px 16px;border-radius:999px;font-size:13px;font-weight:600;color:#4a4560;box-shadow:0 4px 12px -8px rgba(33,29,51,.5)">
-            <svg viewBox="0 0 24 24" width="15" height="15" fill="#0a66c2"><path d="M4.98 3.5A2.5 2.5 0 002.5 6a2.5 2.5 0 105 0 2.5 2.5 0 00-2.52-2.5zM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.5 4.78 5.76V21H18.6v-5.3c0-1.26-.02-2.9-1.77-2.9-1.77 0-2.04 1.38-2.04 2.8V21H11z"/></svg>
-            LinkedIn
-          </a>
-          <a href="https://medium.com/@sivaraj-c" target="_blank" rel="noopener" class="hsoc" style="background:#fff;padding:9px 16px;border-radius:999px;font-size:13px;font-weight:600;color:#4a4560;box-shadow:0 4px 12px -8px rgba(33,29,51,.5)">
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="#191919"><path d="M13.54 12a6.8 6.8 0 01-6.77 6.82A6.8 6.8 0 010 12a6.8 6.8 0 016.77-6.82A6.8 6.8 0 0113.54 12zM20.96 12c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42S20.96 8.46 20.96 12zM24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z"/></svg>
-            Medium
-          </a>
-          <a href="https://www.quora.com/profile/Sivaraj-29" target="_blank" rel="noopener" class="hsoc" style="background:#fff;padding:9px 16px;border-radius:999px;font-size:13px;font-weight:600;color:#4a4560;box-shadow:0 4px 12px -8px rgba(33,29,51,.5)">
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="#b92b27"><path d="M12.74 16.66c-.53-1.05-1.16-2.1-2.5-2.1-.26 0-.52.04-.75.14l-.44-.9c.53-.46 1.4-.83 2.53-.83 1.75 0 2.65 1.06 3.36 2.4.42-.9.6-2.06.6-3.4 0-3.34-1.05-5.04-3.54-5.04-2.46 0-3.5 1.7-3.5 5.04s1.04 5.02 3.5 5.02c.27 0 .52-.02.76-.07zm1.03 1.9c-.34.08-.7.12-1.07.12-3.83 0-6.75-2.98-6.75-6.97C5.95 7.7 8.87 4.7 12.7 4.7c3.88 0 6.77 2.98 6.77 6.9 0 2.45-1.12 4.55-2.92 5.76.5.72 1.02 1.2 1.75 1.2.8 0 1.12-.62 1.18-1.1h1.6c-.07 1.02-.6 3.13-3.2 3.13-1.98 0-3.02-1.15-4.1-2.03z"/></svg>
-            Quora
-          </a>
-          <a href="https://www.reddit.com/user/Sivaraj_C/" target="_blank" rel="noopener" class="hsoc" style="background:#fff;padding:9px 16px;border-radius:999px;font-size:13px;font-weight:600;color:#4a4560;box-shadow:0 4px 12px -8px rgba(33,29,51,.5)">
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="#ff4500"><path d="M22 12.06c0-1.1-.9-2-2-2-.53 0-1 .2-1.36.54-1.34-.9-3.1-1.46-5.04-1.53l.86-3.9 2.72.6a1.43 1.43 0 102.86-.1 1.43 1.43 0 00-2.7-.65l-3.05-.68a.35.35 0 00-.42.27l-.96 4.36c-1.97.06-3.75.62-5.1 1.53A2 2 0 002 12.06c0 .78.45 1.45 1.1 1.78a3.6 3.6 0 00-.05.6c0 3.06 3.56 5.54 7.95 5.54s7.95-2.48 7.95-5.54c0-.2-.02-.4-.05-.6.65-.33 1.1-1 1.1-1.78zM7.5 13.5a1.43 1.43 0 112.86 0 1.43 1.43 0 01-2.86 0zm7.9 3.6c-.98.98-3.6.98-4.58 0a.35.35 0 01.5-.5c.68.68 2.9.68 3.58 0a.35.35 0 01.5.5zm-.22-2.17a1.43 1.43 0 110-2.86 1.43 1.43 0 010 2.86z"/></svg>
-            Reddit
-          </a>
-        </div>
-      </div>
-      <div class="hero-photo">
-        <div class="hero-blob"></div>
-        <img class="hero-img floaty" src="/images/profile-hero.webp" alt="C. Sivaraj" width="1086" height="1448" loading="eager" fetchpriority="high" />
-        <div class="card floaty stat-card-left">
-          <div class="stat-green">+1,050%</div>
-          <div class="stat-lbl">organic sessions (GEO pilot)</div>
-        </div>
-        <div class="card floaty stat-card-right">
-          <div class="ico" style="width:38px;height:38px;border-radius:11px;background:#fbe6ef;color:var(--cta)">
-            <svg viewBox="0 0 24 24" width="20" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="4 15 10 9 14 13 20 5"/></svg>
-          </div>
-          <div>
-            <div style="font-weight:700;font-size:13px">1M+</div>
-            <div class="stat-lbl">Bing AI citations</div>
-          </div>
-        </div>
-        <div class="card floaty stat-card-bottom">
-          <div class="ico" style="width:38px;height:38px;border-radius:11px;background:#e8edfb;color:#4a63c9">
-            <svg viewBox="0 0 24 24" width="20" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8L12 3z"/></svg>
-          </div>
-          <div>
-            <div style="font-weight:700;font-size:13px">12M+</div>
-            <div class="stat-lbl">Google AI citations</div>
-          </div>
-        </div>
-      </div>
+  <div class="hero-name" aria-hidden="true">Sivaraj</div>
+  <div class="wrap hero-grid">
+    <div class="hero-card">
+      <h2>Let's unlock your <span class="blue">AI search visibility</span></h2>
+      <p>Book a free 30-minute call. I'll review how your site shows up in Google and AI answer engines and map out your next strategic moves.</p>
+      <a href={callUrl} target="_blank" rel="noopener" class="btn">
+        Schedule Free Call
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
     </div>
-  </div>
-  <div class="clouds"></div>
-</section>
 
-<!-- ── INTRO ── -->
-<section class="intro">
-  <div class="wrap intro-wrap">
-    <span class="tag" style="display:inline-flex;justify-content:center">AI-first SEO</span>
-    <h2 class="intro-h2">5+ years optimizing enterprise content so it ranks in search <em>and</em> gets cited by the AI engines people now <span class="ulink em">ask first.</span></h2>
-    <p>I build AI-first content systems on a foundation of technical SEO, topical authority and entity optimization, so brands stay discoverable as search shifts from ten blue links to generative answers, work that's earned 12M+ Google AI citations and 1M+ Bing AI citations so far.</p>
-  </div>
-</section>
+    <div class="hero-photo">
+      <img src="/images/profile-home-hero.webp" alt="C. Sivaraj, SEO analyst and AEO / GEO specialist" width="760" height="940" loading="eager" fetchpriority="high" />
+    </div>
 
-<!-- ── FEATURES ── -->
-<section class="features wrap">
-  <div class="features-grid">
-    <div class="feat">
-      <div class="feat-ico" style="background:#efe9fc;color:var(--accent)">
-        <svg viewBox="0 0 24 24" width="26" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/></svg>
+    <div class="hero-side">
+      <h1>SEO &amp; AI-search analyst for brands <span class="blue">ready to be cited</span></h1>
+      <p>Search has moved from ten blue links to generative answers. Ranking alone isn't enough, you need to be <b>the source AI quotes</b>.</p>
+      <p>I help brands earn visibility across <b>Google AI Overviews, ChatGPT, Gemini, Perplexity and Copilot</b>, backed by 5+ years of enterprise SEO.</p>
+      <div class="hero-stat">
+        <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2.6" aria-hidden="true"><path d="M12 20V5M5 11l7-7 7 7"/></svg>
+        1,050%
       </div>
-      <h3>AI search visibility</h3>
-      <p>Optimized to be cited across AI Overviews, ChatGPT, Gemini &amp; Perplexity.</p>
-    </div>
-    <div class="feat">
-      <div class="feat-ico" style="background:#fbe6ef;color:var(--cta)">
-        <svg viewBox="0 0 24 24" width="26" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="16" y1="16" x2="21" y2="21"/></svg>
-      </div>
-      <h3>Search-intent insight</h3>
-      <p>Targeting the queries with real intent across search and answer engines.</p>
-    </div>
-    <div class="feat">
-      <div class="feat-ico" style="background:#e3f3ea;color:#2fae74">
-        <svg viewBox="0 0 24 24" width="26" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 18 L9 12 L13 15 L20 6"/><polyline points="20 11 20 6 15 6"/></svg>
-      </div>
-      <h3>Enterprise SEO</h3>
-      <p>Technical fixes and structure across tens of thousands of pages.</p>
-    </div>
-    <div class="feat">
-      <div class="feat-ico" style="background:#fdeede;color:#e0922f">
-        <svg viewBox="0 0 24 24" width="26" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="1" fill="currentColor"/></svg>
-      </div>
-      <h3>Topical authority</h3>
-      <p>Entity-led content architecture that builds lasting E-E-A-T.</p>
+      <p class="hero-stat-lbl">Organic session lift in a healthcare GEO pilot</p>
+      <svg class="squiggle" viewBox="0 0 200 30" width="180" height="26" fill="none" stroke="var(--primary)" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M3 22 C 30 6, 50 26, 78 14 S 120 4, 140 16 S 175 20, 197 6"/><path d="M60 26 C 90 20, 130 22, 170 14"/></svg>
     </div>
   </div>
 </section>
 
-<!-- ── STAT BAR ── -->
-<section class="stat-bar wrap">
-  <div class="card stat-bar-card">
-    <div class="stat-item"><div class="stat-num">1,050%<span class="em">.</span></div><div class="stat-sub">Organic session lift (GEO pilot)</div></div>
-    <div class="stat-item"><div class="stat-num">1M<span style="color:var(--cta)">+</span></div><div class="stat-sub">Bing AI citations generated</div></div>
-    <div class="stat-item"><div class="stat-num">12M<span style="color:#4a63c9">+</span></div><div class="stat-sub">Google AI citations generated</div></div>
-    <div class="stat-item"><div class="stat-num">70K<span style="color:#2fae74">+</span></div><div class="stat-sub">Pages optimized at scale</div></div>
-    <div class="stat-item"><div class="stat-num">80%<span style="color:#e0922f">.</span></div><div class="stat-sub">Less SEO reporting effort</div></div>
+<!-- ── SERIOUS ── -->
+<section class="serious wrap">
+  <div class="panel">
+    <div>
+      <h2>
+        If You're <span class="ring">Serious<svg viewBox="0 0 120 50" preserveAspectRatio="none" fill="none" stroke="var(--primary)" stroke-width="2" aria-hidden="true"><path d="M60 3 C 100 2, 118 14, 116 26 C 113 42, 70 48, 40 46 C 12 44, 2 34, 4 22 C 7 9, 40 3, 72 5"/></svg></span> About Being <span class="uline">Found in AI Search</span>,<br />
+        <span class="blue">I'd Love to Support You Personally.</span>
+      </h2>
+      <p class="serious-lead">I work hand-in-hand with <b>content, editorial, product and technical teams</b> to build AI-first content systems on a foundation of technical SEO, topical authority and entity optimization, so your brand stays discoverable as search keeps shifting.</p>
+      <div class="chips">
+        <span class="chip">Google Search Console</span>
+        <span class="chip">GA4</span>
+        <span class="chip">Ahrefs</span>
+        <span class="chip">SEMrush</span>
+        <span class="chip">Looker Studio</span>
+        <span class="chip">seoClarity</span>
+      </div>
+      <div class="serious-ctas">
+        <a href="/contact/" class="btn">
+          Let's Get Started
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <span class="serious-note">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 010 18 14 14 0 010-18z"/></svg>
+          Working remotely with clients worldwide. I reply to every message.
+        </span>
+      </div>
+    </div>
+    <div class="serious-img">
+      <img src="/images/profile-story.webp" alt="C. Sivaraj" width="500" height="500" loading="lazy" />
+    </div>
+  </div>
+</section>
+
+<!-- ── TRUTHS ── -->
+<section class="truths wrap">
+  <div class="truths-head">
+    <svg class="arrow l" viewBox="0 0 90 50" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M4 10 C 20 4, 30 30, 52 34 S 78 30, 84 26"/><path d="M72 18 L 85 26 L 72 36"/></svg>
+    <svg class="arrow r" viewBox="0 0 90 50" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M4 10 C 20 4, 30 30, 52 34 S 78 30, 84 26"/><path d="M72 18 L 85 26 L 72 36"/></svg>
+    <p class="kicker">Did you know?</p>
+    <h2>3 Underrated<br /><span class="blue">AI Search Truths!</span></h2>
+  </div>
+  <div class="truths-grid">
+    {truths.map((t) => (
+      <div class="truth">
+        <div class="truth-ico">
+          <svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={t.icon} />
+        </div>
+        <p set:html={t.text} />
+      </div>
+    ))}
+  </div>
+  <p class="truths-src">Sources and methodology in my <a href={citeGuide}>CITE Framework guide</a>.</p>
+
+  <div class="brief">
+    <h3>Want More Insightful Tips?<br /><span class="blue">Read My Field Notes.</span></h3>
+    <p>Practical breakdowns on <b>AI Overviews, GEO and AEO</b>, built from real enterprise programmes, not theory.</p>
+    <div class="brief-links">
+      <a href="/blog/" class="btn">
+        Read the Blog
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+      <a href="/tools/" class="btn ghost">Try the Free Tools</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── CASE STUDIES ── -->
+<section id="results" class="cases wrap">
+  <div class="panel">
+    <p class="kicker">Case Studies</p>
+    <h2>Here's What It's Like to Work With Me, From Ranking Chaos to <span class="blue">AI-Search Clarity.</span></h2>
+
+    <div class="case-viewport">
+      <div class="case-track" data-track>
+        {cases.map((c, i) => (
+          <article class="case" aria-roledescription="slide" aria-label={`${i + 1} of ${cases.length}`}>
+            <div class="case-visual">
+              <span class="cv-tag">{c.tag}</span>
+              <div>
+                <div class="cv-metric">{c.metric}</div>
+                <div class="cv-lbl">{c.metricLabel}</div>
+              </div>
+              <svg class="cv-chart" viewBox="0 0 300 80" preserveAspectRatio="none" fill="none" aria-hidden="true">
+                <path d={`${c.path} L300 80 L0 80 Z`} fill="rgba(24,119,242,.18)" />
+                <path d={c.path} stroke="#4c9bff" stroke-width="2.5" vector-effect="non-scaling-stroke" />
+              </svg>
+            </div>
+            <div class="case-body">
+              <h3>{c.client}</h3>
+              <p class="case-sub">{c.sub}</p>
+              {c.body.map((para) => <p>{para}</p>)}
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+
+    <div class="cases-foot">
+      <p><b>70K+ pages</b> optimized at scale across healthcare and global digital ecosystems.</p>
+      <div class="slider-btns">
+        <button class="sbtn" data-prev aria-label="Previous case study">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
+        </button>
+        <button class="sbtn" data-next aria-label="Next case study">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+      </div>
+    </div>
   </div>
 </section>
 
 <!-- ── SERVICES ── -->
-<section id="services" class="services-sec">
+<section id="services" class="services">
   <div class="wrap">
-    <div class="sec-head">
-      <span class="tag" style="display:inline-flex">What I do</span>
-      <h2>Services for the <span class="em">AI search era</span></h2>
+    <div class="services-intro">
+      <p class="kicker">Services</p>
+      <h2>Smart Services for <span class="blue">AI Search</span> That Lasts</h2>
       <p>From traditional rankings to AI citations. Engagements scoped to where your organic growth is stuck.</p>
     </div>
     <div class="services-grid">
-      <div class="card lift svc-card">
-        <div class="ico" style="background:#efe9fc;color:var(--accent)"><svg viewBox="0 0 24 24" width="26" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/></svg></div>
-        <h3>AI Search Optimization (AEO / GEO)</h3>
-        <p>Make your content the cited answer in Google AI Overviews, ChatGPT, Gemini, Perplexity, Bing AI and Copilot.</p>
-      </div>
-      <div class="card lift svc-card">
-        <div class="ico" style="background:#fbe6ef;color:var(--cta)"><svg viewBox="0 0 24 24" width="26" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="9" x2="9" y2="20"/></svg></div>
-        <h3>Enterprise SEO</h3>
-        <p>Scalable optimization frameworks and governance across tens of thousands of indexed pages.</p>
-      </div>
-      <div class="card lift svc-card">
-        <div class="ico" style="background:#e3f3ea;color:#2fae74"><svg viewBox="0 0 24 24" width="26" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 007 0l3-3a5 5 0 00-7-7l-1 1"/><path d="M14 11a5 5 0 00-7 0l-3 3a5 5 0 007 7l1-1"/></svg></div>
-        <h3>Technical SEO</h3>
-        <p>Audits across crawl, indexation, metadata, schema, redirects, XML sitemaps and internal linking.</p>
-      </div>
-      <div class="card lift svc-card">
-        <div class="ico" style="background:#fdeede;color:#e0922f"><svg viewBox="0 0 24 24" width="26" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="7" x2="19" y2="7"/><line x1="5" y1="12" x2="19" y2="12"/><line x1="5" y1="17" x2="13" y2="17"/></svg></div>
-        <h3>Content Strategy</h3>
-        <p>Topic clusters, search-intent mapping, content briefs and editorial systems that earn topical authority.</p>
-      </div>
-      <div class="card lift svc-card">
-        <div class="ico" style="background:#e8edfb;color:#4a63c9"><svg viewBox="0 0 24 24" width="26" fill="none" stroke="currentColor" stroke-width="2"><circle cx="7" cy="7" r="2"/><circle cx="17" cy="7" r="2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/><line x1="9" y1="7" x2="15" y2="7"/><line x1="7" y1="9" x2="7" y2="15"/><line x1="9" y1="17" x2="15" y2="17"/></svg></div>
-        <h3>Semantic &amp; Entity SEO</h3>
-        <p>Entity optimization, structured data and semantic relevance that AI engines can understand and trust.</p>
-      </div>
-      <div class="card lift svc-card">
-        <div class="ico" style="background:#fbe6ef;color:var(--cta)"><svg viewBox="0 0 24 24" width="26" fill="none" stroke="currentColor" stroke-width="2"><line x1="6" y1="20" x2="6" y2="12"/><line x1="12" y1="20" x2="12" y2="6"/><line x1="18" y1="20" x2="18" y2="9"/></svg></div>
-        <h3>Analytics &amp; Reporting</h3>
-        <p>GSC, GA4, Ahrefs, SEMrush and Looker Studio dashboards tying organic and AI visibility to outcomes.</p>
-      </div>
+      {services.map((s) => (
+        <div class="svc">
+          <div class="svc-ico">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={s.icon} />
+          </div>
+          <h3>{s.name}</h3>
+          <p>{s.text}</p>
+          <a href="/contact/" class="btn" aria-label={`Enquire about ${s.name}`}>
+            Learn More
+            <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </div>
+      ))}
     </div>
   </div>
 </section>
 
 <!-- ── ABOUT ── -->
-<div id="about" class="about-sec wrap">
-  <div class="about-photo">
-    <div class="about-deco"></div>
-    <img src="/images/profile-about.webp" alt="C. Sivaraj" width="500" height="500" loading="lazy" class="about-img" />
-    <div class="card about-badge">
-      <div class="about-years">5+</div>
-      <div style="font-size:12px;color:var(--muted);line-height:1.3"><b style="color:var(--ink)">Years</b><br>in SEO &amp; AI search</div>
-    </div>
-  </div>
-  <div class="about-text">
-    <span class="tag">About me</span>
-    <h2>An SEO analyst built for <span class="em">how search works now</span></h2>
-    <p>I drive enterprise SEO and AI-first content strategies across healthcare and global digital ecosystems. I work hand-in-hand with content, editorial, product and technical teams to build AI-first content systems, improve discoverability, and grow citations across both traditional and generative search.</p>
-    <div class="about-pillars">
-      <div class="pillar">
-        <span class="pillar-check"><svg viewBox="0 0 24 24" width="15" fill="none" stroke="currentColor" stroke-width="3"><polyline points="5 13 10 18 19 6"/></svg></span>
-        <div><strong>AI-first workflows</strong><span>Content built to be cited.</span></div>
-      </div>
-      <div class="pillar">
-        <span class="pillar-check"><svg viewBox="0 0 24 24" width="15" fill="none" stroke="currentColor" stroke-width="3"><polyline points="5 13 10 18 19 6"/></svg></span>
-        <div><strong>Data-backed strategy</strong><span>Decisions from your numbers.</span></div>
-      </div>
-      <div class="pillar">
-        <span class="pillar-check"><svg viewBox="0 0 24 24" width="15" fill="none" stroke="currentColor" stroke-width="3"><polyline points="5 13 10 18 19 6"/></svg></span>
-        <div><strong>Cross-functional</strong><span>Content, dev &amp; stakeholders.</span></div>
-      </div>
-      <div class="pillar">
-        <span class="pillar-check"><svg viewBox="0 0 24 24" width="15" fill="none" stroke="currentColor" stroke-width="3"><polyline points="5 13 10 18 19 6"/></svg></span>
-        <div><strong>Scalable governance</strong><span>Frameworks that hold up.</span></div>
-      </div>
-    </div>
-    <a href="#contact" class="pill cta" style="margin-top:30px">Get in touch →</a>
-  </div>
-</div>
-
-<!-- ── RESULTS ── -->
-<section id="work" class="results-sec">
+<section class="about">
   <div class="wrap">
-    <div class="results-head">
+    <div class="about-left">
       <div>
-        <span class="tag">Key achievements</span>
-        <h2>Results that <span style="color:#c3b1f5">speak for themselves</span></h2>
+        <p class="kicker">About Me</p>
+        <h2>Who You'll Be <span class="blue">Working With</span></h2>
       </div>
-      <p>Real outcomes from enterprise SEO and Generative Engine Optimization programs.</p>
-    </div>
-    <div class="results-grid">
-      <div class="res-card">
-        <div class="res-cat">Healthcare · GEO / AEO</div>
-        <span class="res-num">+1,050%</span>
-        <h3>Organic sessions, GEO pilot</h3>
-        <p>Led a GEO/AEO pilot across 60 high-value healthcare articles; the framework was then adopted site-wide across Google, Bing and AI platforms.</p>
-      </div>
-      <div class="res-card">
-        <div class="res-cat">AI citations · Google &amp; Bing</div>
-        <span class="res-num">12M+</span>
-        <h3>AI citations earned</h3>
-        <p>Generated 1M+ Bing AI citations and 12M+ Google generative-AI citations in 28 days through AI-first content frameworks.</p>
-      </div>
-      <div class="res-card">
-        <div class="res-cat">Reporting · Looker Studio</div>
-        <span class="res-num">80%</span>
-        <h3>Less reporting effort</h3>
-        <p>Built executive dashboards in Google Looker Studio that cut manual SEO reporting effort by 80% and improved stakeholder visibility.</p>
-      </div>
-    </div>
-    <div class="res-row">
-      <div class="ico res-row-ico"><svg viewBox="0 0 24 24" width="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3 8-8"/><path d="M20 12v6a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h9"/></svg></div>
-      <div style="flex:1;min-width:240px">
-        <h3>LLM Content Optimization Checklist</h3>
-        <p>Built a standard for AI-search best practices that raised content quality and citation eligibility across AI engines for content teams.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ── ARTICLES ── -->
-<section id="articles" class="articles-sec">
-  <div class="wrap">
-    <div class="articles-head">
-      <div style="max-width:620px">
-        <span class="tag" style="display:inline-flex">Writing</span>
-        <h2>Blog on <span class="em">SEO, GEO &amp; AEO</span></h2>
-        <p>Field notes on how search is shifting from rankings to AI citations, and what to actually do about it.</p>
-      </div>
-      <a href="/blog/" class="pill ghost">All posts →</a>
-    </div>
-    <div class="articles-grid">
-      <a class="art-card" href="/blog/google-ai-mode-visibility-kpi/">
-        <img src="/images/article-10.webp" alt="AI Mode Visibility: How to Track It as a Separate SEO KPI" width="1200" height="630" loading="lazy" />
-        <div class="art-body">
-          <div class="tag art-tag" style="display:inline-flex">SEO Strategy</div>
-          <h3>AI Mode Visibility: How to Track It as a Separate SEO KPI</h3>
-          <p>Track Google AI Mode visibility as its own KPI using Search Console's Generative AI report. What it shows, the five things it hides, and the ratio that matters.</p>
-          <span class="ulink em art-link">Read post →</span>
+      <div class="about-proof">
+        <div class="about-proof-badges" aria-hidden="true">
+          <span style="background:#1877f2">SEO</span>
+          <span style="background:#0d1b2e">AEO</span>
+          <span style="background:#4c9bff">GEO</span>
         </div>
-      </a>
-      <a class="art-card" href="/blog/search-intent-satisfaction/">
-        <img src="/images/article-8.webp" alt="What Is Search Intent Satisfaction? A Complete SEO Guide" width="1200" height="630" loading="lazy" />
-        <div class="art-body">
-          <div class="tag art-tag" style="display:inline-flex">SEO Strategy</div>
-          <h3>What Is Search Intent Satisfaction? A Complete SEO Guide</h3>
-          <p>Learn what search intent satisfaction means, how Google measures it with click signals, and how to optimize content so searchers stop looking elsewhere.</p>
-          <span class="ulink em art-link">Read post →</span>
+        <div>
+          <b>5+ years</b>
+          <small>Enterprise SEO &amp; AI search</small>
         </div>
-      </a>
-      <a class="art-card" href="/blog/biggest-google-ranking-factor-people-ignore/">
-        <img src="/images/article-6.webp" alt="What's the Biggest Google Ranking Factor People Ignore?" width="1200" height="630" loading="lazy" />
-        <div class="art-body">
-          <div class="tag art-tag" style="display:inline-flex">SEO Strategy</div>
-          <h3>What's the Biggest Google Ranking Factor People Ignore?</h3>
-          <p>The biggest Google ranking factor isn't backlinks or keywords. Learn why search intent satisfaction decides rankings in 2026 and how to optimize for it.</p>
-          <span class="ulink em art-link">Read post →</span>
+      </div>
+    </div>
+    <div class="panel about-card">
+      <div class="about-photo">
+        <img src="/images/profile-about.webp" alt="C. Sivaraj" width="500" height="500" loading="lazy" />
+      </div>
+      <div class="about-quote">
+        <svg class="quote-mark" viewBox="0 0 48 36" fill="currentColor" aria-hidden="true"><path d="M0 36V20C0 8 6 1 18 0v7c-6 1-9 5-9 11h9v18H0zm27 0V20c0-12 6-19 18-20v7c-6 1-9 5-9 11h9v18H27z"/></svg>
+        <p>I drive enterprise SEO and <b>AI-first content strategies</b> across healthcare and global digital ecosystems. My job is to make sure the content your team works hard on doesn't just rank, it gets <b>quoted by the AI engines people now ask first</b>.</p>
+        <p>Every engagement starts from your data: where you're cited, where you're invisible, and which fixes will compound.</p>
+        <div class="about-sig">
+          <strong>C. Sivaraj</strong>
+          <span>SEO Analyst · MBA Marketing · AEO, GEO &amp; GA4 certified</span><br />
+          <a href="/about/">Read my full story →</a>
         </div>
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- ── CREDENTIALS (summary) ── -->
-<section id="credentials" class="creds-sec">
-  <div class="wrap">
-    <div class="creds-inner">
-      <div style="text-align:center; max-width:640px; margin:0 auto;">
-        <span class="tag" style="display:inline-flex;justify-content:center">Credentials</span>
-        <h2>MBA + BSc, plus AEO, GEO, and GA4 certifications</h2>
-        <p style="font-size:15px; color:var(--muted); margin-top:12px; line-height:1.7;">
-          MBA in Marketing (Kongu Engineering College), BSc in Computer Science (SNR Sons College), and
-          certifications in Enterprise Answer Engine Optimization (seoClarity), Generative Engine
-          Content Optimization (Edureka), and GA4 Mastery (Optimize Smart).
-        </p>
-        <a href="/about/#credentials" class="pill ghost" style="margin-top:22px">See full bio &amp; credentials →</a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── TOOLS MARQUEE ── -->
-<section class="tools-sec">
-  <div class="tools-label"><span class="tag" style="display:inline-flex">Tools &amp; platforms I work in</span></div>
-  <div class="marquee-track">
-    <div class="marquee-inner">
-      <span>Google Search Console</span><span>·</span><span>Google Analytics 4</span><span>·</span><span>Ahrefs</span><span>·</span><span>SEMrush</span><span>·</span><span>Bing Webmaster Tools</span><span>·</span><span>Looker Studio</span><span>·</span><span>Surfer</span><span>·</span><span>seoClarity</span><span>·</span>
-      <span>Google Search Console</span><span>·</span><span>Google Analytics 4</span><span>·</span><span>Ahrefs</span><span>·</span><span>SEMrush</span><span>·</span><span>Bing Webmaster Tools</span><span>·</span><span>Looker Studio</span><span>·</span><span>Surfer</span><span>·</span><span>seoClarity</span><span>·</span>
+<!-- ── BLOG ── -->
+<section class="blog wrap">
+  <div class="blog-head">
+    <div>
+      <p class="kicker">Writing</p>
+      <h2>Latest on <span class="blue">SEO, GEO &amp; AEO</span></h2>
+    </div>
+    <a href="/blog/" class="btn ghost">All posts →</a>
+  </div>
+  <div class="blog-grid">
+    {latest.map((a) => {
+      const dims = getImageDims(a.data.image);
+      return (
+        <a class="post" href={`/blog/${a.slug}/`}>
+          <img src={a.data.image} alt={a.data.title} width={dims.width} height={dims.height} loading="lazy" />
+          <div class="post-body">
+            <span class="post-meta">{a.data.category} · {a.data.readTime}</span>
+            <h3>{a.data.title}</h3>
+            <span class="post-more">Read post →</span>
+          </div>
+        </a>
+      );
+    })}
+  </div>
+</section>
+
+<!-- ── CTA ── -->
+<section id="contact" class="cta-banner wrap">
+  <div class="panel">
+    <div class="cta-copy">
+      <h2>Let's Take Your Search Visibility to the <span class="blue">Next Level</span></h2>
+      <p>Book a free consultation on how to grow in Google and AI answer engines, or <a href="mailto:sivarajc.seo@gmail.com">email me</a> at sivarajc.seo@gmail.com.</p>
+      <a href={callUrl} target="_blank" rel="noopener" class="btn">
+        Let's Get Started
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+    <div class="cta-art" aria-hidden="true">
+      <div class="cta-screen">
+        <div class="num">12M+</div>
+        <div class="lbl">AI citations earned</div>
+        <svg viewBox="0 0 300 120" preserveAspectRatio="none" fill="none">
+          <path d="M0 110 L40 92 L70 100 L110 70 L150 80 L190 48 L230 56 L270 20 L300 8" stroke="#4c9bff" stroke-width="3" vector-effect="non-scaling-stroke" stroke-linejoin="round" />
+          <path d="M282 6 L300 8 L294 26" stroke="#4c9bff" stroke-width="3" vector-effect="non-scaling-stroke" />
+        </svg>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ── CONTACT + FOOTER ── -->
-<section id="contact" class="contact-sec">
-  <div class="wrap">
-    <span class="tag contact-tag">Let's talk</span>
-    <h2 class="contact-h2">Let's grow your <span style="color:var(--cta)">search &amp; AI visibility.</span></h2>
-    <p class="contact-desc">Hiring, consulting or just want a second opinion on your AI-search strategy? I reply to every message.</p>
-    <div class="contact-links">
-      <a href="mailto:sivarajc.seo@gmail.com" class="contact-item">
-        <span class="contact-ico" style="background:rgba(124,92,214,.25);color:#c3b1f5"><svg viewBox="0 0 24 24" width="22" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></span>
-        <div><div class="contact-lbl">Email</div><div class="contact-val">sivarajc.seo@gmail.com</div></div>
-      </a>
-      <a href="https://wa.me/919600684541" target="_blank" rel="noopener" class="contact-item">
-        <span class="contact-ico" style="background:rgba(236,109,146,.22);color:#f3a0bd"><svg viewBox="0 0 24 24" width="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 4h4l2 5-3 2a13 13 0 006 6l2-3 5 2v4a2 2 0 01-2 2A17 17 0 013 6a2 2 0 012-2z"/></svg></span>
-        <div><div class="contact-lbl">WhatsApp</div><div class="contact-val">+91 96006 84541</div></div>
-      </a>
-      <div class="contact-item">
-        <span class="contact-ico" style="background:rgba(63,157,107,.2);color:#7bd0a4"><svg viewBox="0 0 24 24" width="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s7-6.3 7-11a7 7 0 10-14 0c0 4.7 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></span>
-        <div><div class="contact-lbl">Based in</div><div class="contact-val">Coimbatore, India</div></div>
-      </div>
-      <div class="contact-item">
-        <span class="contact-ico" style="background:rgba(74,99,201,.2);color:#8fa3e8"><svg viewBox="0 0 24 24" width="22" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><line x1="3" y1="12" x2="21" y2="12"/><path d="M12 3a14 14 0 010 18 14 14 0 010-18z"/></svg></span>
-        <div><div class="contact-lbl">Availability</div><div class="contact-val">Remote · Worldwide clients</div></div>
-      </div>
-    </div>
-  </div>
-</section>
+<script>
+  const track = document.querySelector<HTMLElement>('[data-track]');
+  const prev = document.querySelector<HTMLButtonElement>('[data-prev]');
+  const next = document.querySelector<HTMLButtonElement>('[data-next]');
+  if (track && prev && next) {
+    const slides = Array.from(track.children) as HTMLElement[];
+    let i = 0;
+    const go = (n: number) => {
+      i = Math.max(0, Math.min(slides.length - 1, n));
+      const gap = parseFloat(getComputedStyle(track).columnGap) || 0;
+      track.style.transform = `translateX(${-i * (slides[0].offsetWidth + gap)}px)`;
+      prev.disabled = i === 0;
+      next.disabled = i === slides.length - 1;
+    };
+    prev.addEventListener('click', () => go(i - 1));
+    next.addEventListener('click', () => go(i + 1));
+    window.addEventListener('resize', () => go(i));
+    go(0);
+  }
+</script>
 
 </BaseLayout>

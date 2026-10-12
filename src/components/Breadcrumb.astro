@@ -1,0 +1,58 @@
+---
+import { safeJsonLd } from '../utils/schema';
+
+interface Crumb {
+  name: string;
+  href: string;
+}
+
+interface Props {
+  items: Crumb[];
+  /** Set false when the page already emits its own BreadcrumbList JSON-LD. */
+  schema?: boolean;
+  align?: 'left' | 'center';
+}
+
+const { items, schema = true, align = 'left' } = Astro.props;
+const crumbs = [{ name: 'Home', href: '/' }, ...items];
+const site = 'https://www.seowithsiva.com';
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: crumbs.map((c, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: c.name,
+    item: site + c.href,
+  })),
+};
+---
+
+{schema && <script type="application/ld+json" set:html={safeJsonLd(breadcrumbSchema)} />}
+<nav class:list={['crumb-nav', align === 'center' && 'crumb-center']} aria-label="Breadcrumb">
+  {crumbs.map((c, i) => (
+    <span class="crumb-item">
+      {i > 0 && <span class="crumb-sep" aria-hidden="true">›</span>}
+      {i === crumbs.length - 1
+        ? <span aria-current="page">{c.name}</span>
+        : <a href={c.href}>{c.name}</a>}
+    </span>
+  ))}
+</nav>
+
+<style>
+  .crumb-nav {
+    display: flex; align-items: center; flex-wrap: wrap; gap: 8px;
+    font-size: 13px; color: var(--muted); margin-bottom: 18px;
+  }
+  .crumb-center { justify-content: center; }
+  .crumb-nav a { color: var(--muted); text-decoration: none; transition: color .12s; }
+  .crumb-nav a:hover { color: var(--accent); }
+  .crumb-nav [aria-current] {
+    color: var(--ink); max-width: 100%;
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
+  .crumb-item { display: inline-flex; align-items: center; gap: 8px; min-width: 0; max-width: 100%; }
+  .crumb-sep { opacity: .35; }
+</style>

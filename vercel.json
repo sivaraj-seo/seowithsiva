@@ -7,7 +7,9 @@
     { "source": "/articles/:slug", "destination": "/blog/:slug/", "permanent": true },
     { "source": "/articles/:slug/", "destination": "/blog/:slug/", "permanent": true },
     { "source": "/blog", "destination": "/blog/", "permanent": true },
-    { "source": "/blog/:slug", "destination": "/blog/:slug/", "permanent": true }
+    { "source": "/blog/:slug", "destination": "/blog/:slug/", "permanent": true },
+    { "source": "/tools/striking-distance", "destination": "/tools/", "permanent": true },
+    { "source": "/tools/striking-distance/", "destination": "/tools/", "permanent": true }
   ],
   "headers": [
     {
