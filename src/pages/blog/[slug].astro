@@ -516,7 +516,7 @@ const faqSchema = article.data.faqs && article.data.faqs.length > 0 ? {
     <picture class="art-hero-pic">
       <!-- Phones get a 1x1 placeholder so the hidden banner isn't downloaded -->
       <source media="(max-width: 600px)" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" />
-      <img src={article.data.image} alt={article.data.title} width={getImageDims(article.data.image).width} height={getImageDims(article.data.image).height} class="art-hero-img" loading="eager" fetchpriority="high" />
+      <img src={article.data.image} alt={article.data.imageAlt || article.data.title} width={getImageDims(article.data.image).width} height={getImageDims(article.data.image).height} class="art-hero-img" loading="eager" fetchpriority="high" />
     </picture>
     </div>
   </div>

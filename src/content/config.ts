@@ -11,6 +11,7 @@ const articles = defineCollection({
     category: z.string(),
     readTime: z.string(),
     image: z.string(),
+    imageAlt: z.string().optional(),
     linkedinUrl: z.string().url().optional(),
     featured: z.boolean().default(false),
     keyTakeaways: z.array(z.string()).optional(),

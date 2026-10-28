@@ -5,6 +5,7 @@ export const imageDims: Record<string, { width: number; height: number }> = {
   '/images/ai-first-seo-foundations.webp': { width: 1200, height: 630 },
   '/images/cite-framework.webp': { width: 1200, height: 630 },
   '/images/content-gap-analysis.webp': { width: 1200, height: 630 },
+  '/images/creator-led-content-marketing.webp': { width: 1200, height: 630 },
   '/images/google-ranking-factor.webp': { width: 1200, height: 630 },
   '/images/how-each-ai-retrieves-and-cites-content.webp': { width: 1200, height: 630 },
   '/images/how-long-google-search-changes-take.webp': { width: 1200, height: 630 },
