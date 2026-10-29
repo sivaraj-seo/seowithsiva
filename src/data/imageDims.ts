@@ -13,6 +13,7 @@ export const imageDims: Record<string, { width: number; height: number }> = {
   '/images/link-social-media-to-google-search-console.webp': { width: 1200, height: 630 },
   '/images/people-first-content.webp': { width: 1200, height: 630 },
   '/images/search-intent-satisfaction.webp': { width: 1200, height: 630 },
+  '/images/why-users-prefer-ai-search-over-google.webp': { width: 1200, height: 630 },
 };
 
 const fallback = { width: 1200, height: 630 };
