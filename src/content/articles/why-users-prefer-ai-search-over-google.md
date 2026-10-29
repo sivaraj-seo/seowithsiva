@@ -169,3 +169,5 @@ Not yet. Google still sends 99.61% of measured search referrals, per Statcounter
 ### Do people trust AI search results?
 
 About half do. The Reuters Institute found 50% of people who saw AI answers trust them. In another survey, 85% of AI users said they double-check answers elsewhere.
+
+**Want to know whether AI search is answering your customers without sending them to you?** [Book an AI search visibility audit with SEOwithSiva](https://www.seowithsiva.com/contact/). You get a list of the pages AI answers draw from, the sections that need an answer-first rewrite, and a plan to track AI citations alongside clicks.
