@@ -21,6 +21,7 @@
 
 - [Tools hub](https://www.seowithsiva.com/tools/): Free browser-based SEO tools. No sign-up, and no data leaves the browser.
 - [Regex Builder for Google Search Console](https://www.seowithsiva.com/tools/regex-builder/): Build, test and explain RE2 regex for Google Search Console filters. Includes 16 ready-made patterns (question queries, brand variants, intent groups, URL folders and parameters), validation against a real RE2 engine, a plain-English pattern explainer, and a tester that accepts a Search Console CSV export to show clicks, impressions, CTR and average position for the matched group.
+- [Search Intent Classifier](https://www.seowithsiva.com/tools/search-intent-classifier/): Auto-categorize search queries as informational, commercial, navigational or transactional, with the signal words behind each label and a secondary intent for mixed queries. Accepts a Search Console or keyword-tool CSV and shows clicks, impressions, CTR, average position and search volume by intent. Runs entirely in the browser.
 
 ## Blog
 

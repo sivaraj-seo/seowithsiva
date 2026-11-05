@@ -27,6 +27,7 @@ const pageFiles = {
   '/blog/': 'src/pages/blog/index.astro',
   '/tools/': 'src/pages/tools/index.astro',
   '/tools/regex-builder/': 'src/pages/tools/regex-builder.astro',
+  '/tools/search-intent-classifier/': 'src/pages/tools/search-intent-classifier.astro',
 };
 function gitLastmod(file) {
   try {

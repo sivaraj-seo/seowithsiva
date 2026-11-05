@@ -1,0 +1,820 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import { safeJsonLd } from '../../utils/schema';
+
+const appSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'Search Intent Classifier',
+  url: 'https://www.seowithsiva.com/tools/search-intent-classifier/',
+  applicationCategory: 'BusinessApplication',
+  operatingSystem: 'Any (browser-based)',
+  browserRequirements: 'Requires JavaScript',
+  description:
+    'Auto-categorize search queries as informational, commercial, navigational or transactional. Paste keywords or load a Search Console export and see clicks, impressions, CTR and position by intent, entirely in the browser.',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+  author: { '@id': 'https://www.seowithsiva.com/#person' },
+  publisher: { '@id': 'https://www.seowithsiva.com/#organization' },
+  isAccessibleForFree: true,
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.seowithsiva.com/' },
+    { '@type': 'ListItem', position: 2, name: 'Tools', item: 'https://www.seowithsiva.com/tools/' },
+    {
+      '@type': 'ListItem',
+      position: 3,
+      name: 'Search Intent Classifier',
+      item: 'https://www.seowithsiva.com/tools/search-intent-classifier/',
+    },
+  ],
+};
+
+const pageUrl = 'https://www.seowithsiva.com/tools/search-intent-classifier/';
+const shareText = 'Free search intent classifier - sort your keywords into informational, commercial, navigational and transactional';
+const enc = encodeURIComponent;
+
+const intents = [
+  {
+    name: 'Informational',
+    goal: 'Learn something or answer a question.',
+    signals: 'what, how to, why, guide, tutorial, examples, meaning',
+    content: 'Guides, explainers, how-tos, glossaries',
+  },
+  {
+    name: 'Commercial',
+    goal: 'Research options before deciding.',
+    signals: 'best, top, review, vs, alternatives, compare, worth it',
+    content: 'Comparisons, reviews, best-of lists, case studies',
+  },
+  {
+    name: 'Navigational',
+    goal: 'Reach a specific site, brand or page.',
+    signals: 'brand names, login, official site, .com, contact',
+    content: 'Homepage, brand pages, login and support pages',
+  },
+  {
+    name: 'Transactional',
+    goal: 'Buy, book, sign up or download now.',
+    signals: 'buy, price, coupon, book, hire, free trial, near me',
+    content: 'Product, pricing, service and booking pages',
+  },
+];
+
+const faqs = [
+  {
+    q: 'What are the four types of search intent?',
+    a: 'Informational (the searcher wants to learn something), commercial (they are comparing options before deciding), navigational (they want a specific site or page) and transactional (they are ready to buy, book, sign up or download).',
+  },
+  {
+    q: 'How does this tool classify search intent?',
+    a: 'It scores each query against weighted keyword signals for each intent, such as question words for informational, "best" and "vs" for commercial, brand names and "login" for navigational, and "buy" and "price" for transactional. The highest score wins. When a second intent scores at least half as high, it is shown as a secondary intent.',
+  },
+  {
+    q: 'Can a keyword have more than one search intent?',
+    a: 'Yes. "how to buy a domain" is informational with a transactional undertone, and a bare head term like "crm software" can be commercial or transactional depending on the searcher. The tool flags these as mixed. For important keywords, check what Google actually ranks on page one.',
+  },
+  {
+    q: 'Is my keyword or Search Console data uploaded anywhere?',
+    a: 'No. The CSV is read by your browser with the File API and every query is classified locally in the page. Nothing is sent to a server.',
+  },
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map(f => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
+---
+
+<BaseLayout
+  title="Search Intent Classifier: Sort Keywords by Intent"
+  description="Auto-categorize keywords as informational, commercial, navigational or transactional. Load a Search Console export to see clicks and CTR by intent - free, in your browser."
+  keywords="search intent classifier, keyword intent tool, search intent checker, informational commercial navigational transactional"
+  ogImage="/images/og-search-intent-classifier.png"
+  author="C. Sivaraj"
+>
+  <Fragment slot="head">
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <script type="application/ld+json" set:html={safeJsonLd(appSchema)} />
+    <script type="application/ld+json" set:html={safeJsonLd(breadcrumbSchema)} />
+    <script type="application/ld+json" set:html={safeJsonLd(faqSchema)} />
+  </Fragment>
+
+  <!--
+    Styles are global (not scoped) on purpose: result rows and the summary are
+    injected with innerHTML at runtime, and Astro's scoped-style hashes are only
+    applied to markup present at build time. Every selector is namespaced under
+    .tool so nothing leaks to other pages.
+  -->
+  <style is:global>
+    .tool {
+      --t-line: #e4e7ec;
+      --t-soft: #f3f5f8;
+      --t-lav: #e8f1fe;
+      --t-code-bg: #0d1b2e;
+      --t-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+      --i-info: #1668d9;      --i-info-bg: #e8f1fe;
+      --i-comm: #7046c9;      --i-comm-bg: #f1ebfc;
+      --i-nav: #0f7c6e;       --i-nav-bg: #e3f5f1;
+      --i-trans: #a8620a;     --i-trans-bg: #fdf1e1;
+      --i-none: #667085;      --i-none-bg: #eef0f3;
+    }
+    .tool * { box-sizing: border-box; }
+    .tool [hidden] { display: none !important; }
+    .tool .wrap { max-width: 1120px; margin: 0 auto; padding: 0 32px; }
+
+    .tool .tag { display: inline-block; font-size: 12px; color: var(--muted); letter-spacing: .02em; }
+    .tool .tag::before { content: '['; }
+    .tool .tag::after { content: ']'; }
+
+    /* ── HERO ── */
+    .tool .page-hero {
+      max-width: 1136px; margin: 24px auto 0; border-radius: 28px;
+      background: linear-gradient(180deg, var(--primary-light), var(--surface));
+      padding: 56px 0 50px; text-align: center;
+    }
+    @media (max-width: 1200px) { .tool .page-hero { margin: 24px 32px 0; } }
+    @media (max-width: 640px) { .tool .page-hero { margin: 16px 14px 0; border-radius: 22px; } }
+    .tool .page-hero h1 {
+      font-weight: 700; font-size: clamp(30px, 4.6vw, 52px);
+      color: var(--ink); margin-top: 16px; letter-spacing: -.02em; line-height: 1.1;
+    }
+    .tool .page-hero h1 mark {
+      background: linear-gradient(transparent 58%, rgba(24,119,242, .28) 58%);
+      color: inherit; padding: 0 .08em;
+    }
+    .tool .page-hero > .wrap > p {
+      font-size: 16.5px; line-height: 1.7; color: var(--muted);
+      margin: 18px auto 0; max-width: 62ch;
+    }
+    .tool .page-share {
+      display: flex; align-items: center; justify-content: center; flex-wrap: wrap;
+      gap: 8px; margin-top: 22px;
+    }
+    .tool .page-share-label { font-size: 13px; font-weight: 600; color: var(--muted); margin-right: 2px; }
+    .tool .page-share-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 8px 14px; border-radius: 999px; cursor: pointer;
+      font-family: inherit; font-size: 12.5px; font-weight: 600; line-height: 1;
+      background: #fff; border: 1px solid var(--border); color: var(--ink-light);
+      text-decoration: none; transition: background .15s, color .15s, border-color .15s;
+    }
+    .tool .page-share-btn:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .tool .clouds {
+      height: 38px;
+      background: radial-gradient(circle 22px at 22px 38px, #fff 0 22px, transparent 23px) 0 0/44px 38px repeat-x;
+    }
+
+    /* ── LAYOUT ── */
+    .tool .grid {
+      display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.08fr);
+      gap: 26px; align-items: start; padding-top: 44px;
+    }
+    .tool .sticky { position: sticky; top: 92px; display: grid; gap: 26px; }
+    .tool .grid > *, .tool .sticky > * { min-width: 0; }
+    @media (max-width: 980px) {
+      .tool .grid { grid-template-columns: minmax(0, 1fr); }
+      .tool .sticky { position: static; }
+    }
+
+    .tool .panel {
+      background: #fff; border: 1px solid rgba(17,20,24, .07); border-radius: 22px;
+      padding: 28px 30px;
+      box-shadow: 0 18px 50px -32px rgba(17,20,24, .45);
+    }
+    .tool .panel h2 {
+      font-size: 19px; font-weight: 700; color: var(--ink);
+      letter-spacing: -.01em; margin: 0 0 4px;
+    }
+    .tool .sub { color: var(--muted); font-size: 14px; line-height: 1.65; margin: 0 0 20px; }
+    .tool label { font-weight: 600; font-size: 13.5px; color: var(--ink); }
+    .tool .field { margin-top: 18px; }
+    .tool .field label { display: block; margin-bottom: 6px; }
+    .tool .hint { color: var(--muted); font-size: 12.5px; line-height: 1.6; margin: 6px 0 0; }
+
+    /* ── FORM CONTROLS ── */
+    .tool textarea {
+      width: 100%; font: 13.5px/1.5 var(--t-mono); color: var(--ink);
+      background: var(--t-soft); border: 1px solid var(--t-line); border-radius: 10px;
+      padding: 10px 12px; transition: border-color .15s, box-shadow .15s; resize: vertical;
+    }
+    .tool textarea:focus {
+      outline: none; border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(24,119,242, .15);
+    }
+    .tool select {
+      font: 500 13.5px 'Plus Jakarta Sans', system-ui, sans-serif; color: var(--ink);
+      background: var(--t-soft); border: 1px solid var(--t-line); border-radius: 10px; padding: 8px 10px;
+    }
+    .tool .row { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin: 12px 0; }
+
+    /* ── BUTTONS ── */
+    .tool .btn {
+      font: 600 13.5px 'Plus Jakarta Sans', system-ui, sans-serif;
+      border-radius: 999px; padding: 11px 22px; cursor: pointer;
+      border: 1px solid transparent; background: var(--accent); color: #fff;
+      box-shadow: 0 8px 20px -8px rgba(24,119,242, .55);
+      transition: transform .15s, box-shadow .15s, background .15s, color .15s;
+    }
+    .tool .btn:hover { transform: translateY(-2px); box-shadow: 0 12px 26px -8px rgba(24,119,242, .65); }
+    .tool .btn.ghost { background: var(--t-lav); color: var(--accent); box-shadow: none; }
+    .tool .btn.ghost:hover { background: var(--accent); color: #fff; box-shadow: 0 8px 20px -8px rgba(24,119,242, .55); }
+
+    /* ── INTENT PILLS ── */
+    .tool .pill {
+      display: inline-flex; align-items: center; gap: 6px; white-space: nowrap;
+      font: 700 11.5px 'Plus Jakarta Sans', system-ui, sans-serif;
+      border-radius: 999px; padding: 4px 10px;
+    }
+    .tool .pill.sm { font-size: 10.5px; padding: 2px 8px; font-weight: 600; }
+    .tool .i-informational { color: var(--i-info); background: var(--i-info-bg); }
+    .tool .i-commercial { color: var(--i-comm); background: var(--i-comm-bg); }
+    .tool .i-navigational { color: var(--i-nav); background: var(--i-nav-bg); }
+    .tool .i-transactional { color: var(--i-trans); background: var(--i-trans-bg); }
+    .tool .i-unclear { color: var(--i-none); background: var(--i-none-bg); }
+
+    /* ── SUMMARY ── */
+    .tool .dist { display: grid; gap: 12px; margin-top: 6px; }
+    .tool .dist-row { display: grid; grid-template-columns: 118px 1fr 74px; gap: 12px; align-items: center; font-size: 13.5px; }
+    .tool .dist-row .n { text-align: right; color: var(--ink); font-weight: 700; font-variant-numeric: tabular-nums; }
+    .tool .dist-row .n small { color: var(--muted); font-weight: 500; }
+    .tool .bar { height: 10px; background: var(--t-soft); border-radius: 999px; overflow: hidden; }
+    .tool .bar span { display: block; height: 100%; border-radius: 999px; }
+    .tool .b-informational { background: var(--i-info); }
+    .tool .b-commercial { background: var(--i-comm); }
+    .tool .b-navigational { background: var(--i-nav); }
+    .tool .b-transactional { background: var(--i-trans); }
+    .tool .b-unclear { background: #b8bec8; }
+    .tool .total { font-size: 22px; font-weight: 700; color: var(--accent); letter-spacing: -.01em; }
+
+    .tool .summary { margin-top: 18px; overflow-x: auto; }
+    .tool .summary:empty { display: none; }
+    .tool .summary table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+    .tool .summary th, .tool .summary td {
+      text-align: right; padding: 9px 10px; border-bottom: 1px solid var(--t-line); white-space: nowrap;
+      font-variant-numeric: tabular-nums;
+    }
+    .tool .summary th:first-child, .tool .summary td:first-child { text-align: left; }
+    .tool .summary thead th { font-weight: 700; color: var(--muted); font-size: 12.5px; }
+    .tool .insight { margin: 14px 0 0; font-size: 14px; line-height: 1.7; color: var(--ink); }
+    .tool .insight:empty { display: none; }
+    .tool .insight strong { background: linear-gradient(transparent 60%, rgba(24,119,242, .28) 60%); font-weight: 700; }
+    .tool .muted { color: var(--muted); font-size: 12.5px; line-height: 1.65; margin-top: 10px; }
+    .tool .muted:empty { display: none; }
+
+    /* ── FILTER CHIPS ── */
+    .tool .chips { display: flex; gap: 6px; flex-wrap: wrap; }
+    .tool .chips button {
+      font: 600 12.5px 'Plus Jakarta Sans', system-ui, sans-serif;
+      border: 1px solid var(--t-line); background: #fff; color: var(--ink-light);
+      border-radius: 999px; padding: 7px 13px; cursor: pointer; transition: background .15s, color .15s, border-color .15s;
+    }
+    .tool .chips button:hover { border-color: var(--accent); }
+    .tool .chips button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+    /* ── RESULTS ── */
+    .tool .results { border: 1px solid var(--t-line); border-radius: 14px; margin-top: 12px; max-height: 620px; overflow: auto; }
+    .tool .results:empty { display: none; }
+    .tool .res {
+      display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 6px 16px;
+      padding: 11px 14px; border-bottom: 1px solid var(--t-line); font-size: 13.5px;
+    }
+    .tool .res:last-child { border-bottom: 0; }
+    .tool .res .q { font: 13.5px/1.5 var(--t-mono); color: var(--ink); overflow-wrap: anywhere; }
+    .tool .res .q mark { background: var(--t-lav); color: #0f62d6; font-weight: 600; border-radius: 3px; padding: 0 2px; }
+    .tool .res .tags { display: flex; gap: 6px; align-items: center; justify-content: flex-end; flex-wrap: wrap; }
+    .tool .res .why { grid-column: 1 / -1; color: var(--muted); font-size: 12px; line-height: 1.5; }
+    .tool .res .m { color: var(--muted); font-size: 12px; white-space: nowrap; }
+    .tool .conf { font-size: 11px; color: var(--muted); font-weight: 600; }
+
+    /* ── TOAST ── */
+    .tool .toast {
+      position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+      background: var(--t-code-bg); color: #fff; padding: 12px 22px; border-radius: 999px;
+      font-size: 14px; font-weight: 600; opacity: 0; transition: opacity .2s;
+      pointer-events: none; z-index: 100; box-shadow: 0 16px 40px -14px rgba(17,20,24, .7);
+    }
+    .tool .toast.show { opacity: 1; }
+    @media (prefers-reduced-motion: reduce) { .tool .toast { transition: none; } }
+
+    .tool .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+    /* ── PROSE / FAQ ── */
+    .tool .prose { max-width: 74ch; margin: 64px auto 0; }
+    .tool .prose h2 {
+      font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: var(--ink);
+      letter-spacing: -.01em; margin: 44px 0 14px; line-height: 1.25;
+    }
+    .tool .prose h3 { font-size: 17px; font-weight: 700; color: var(--ink); margin: 26px 0 8px; }
+    .tool .prose p { font-size: 15.5px; line-height: 1.8; color: var(--muted); margin: 0 0 14px; }
+    .tool .prose ol, .tool .prose ul { margin: 0 0 16px; padding-left: 22px; }
+    .tool .prose li { font-size: 15.5px; line-height: 1.8; color: var(--muted); margin-bottom: 8px; }
+    .tool .prose code {
+      font-family: var(--t-mono); font-size: 13.5px; background: var(--t-lav);
+      color: #0f62d6; padding: 2px 7px; border-radius: 6px;
+    }
+    .tool .prose a { color: var(--accent); font-weight: 600; }
+    .tool .intent-table { overflow-x: auto; margin: 0 0 16px; }
+    .tool .intent-table table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    .tool .intent-table th, .tool .intent-table td { text-align: left; padding: 11px 12px; border-bottom: 1px solid var(--t-line); vertical-align: top; line-height: 1.6; }
+    .tool .intent-table thead th { font-size: 12.5px; color: var(--muted); font-weight: 700; }
+    .tool .intent-table td { color: var(--muted); }
+    .tool .faq-item { border-bottom: 1px solid var(--t-line); padding: 18px 0; }
+    .tool .faq-item:last-child { border-bottom: 0; }
+    .tool .faq-item h3 { margin: 0 0 8px; }
+    .tool .faq-item p { margin: 0; }
+
+    .tool .closing { padding-bottom: 80px; }
+
+    @media (max-width: 600px) {
+      .tool .wrap { padding: 0 16px; }
+      .tool .panel { padding: 22px 18px; border-radius: 18px; }
+      .tool .dist-row { grid-template-columns: 100px 1fr 64px; gap: 8px; }
+      .tool .res { grid-template-columns: minmax(0, 1fr); }
+      .tool .res .tags { justify-content: flex-start; }
+    }
+  </style>
+
+  <div class="tool">
+    <!-- Hero -->
+    <section class="page-hero">
+      <div class="wrap">
+        <Breadcrumb items={[{ name: 'Tools', href: '/tools/' }, { name: 'Search Intent Classifier', href: '/tools/search-intent-classifier/' }]} schema={false} align="center" />
+        <span class="tag">Free tool</span>
+        <h1>Sort your keywords by <mark>search intent</mark></h1>
+        <p>
+          Paste keywords or load a Search Console export. Each query is tagged informational, commercial, navigational
+          or transactional, with the words that decided it. Everything runs in your browser. Nothing is uploaded.
+        </p>
+        <div class="page-share">
+          <span class="page-share-label">Share this tool:</span>
+          <a class="page-share-btn" href={`https://www.linkedin.com/sharing/share-offsite/?url=${enc(pageUrl)}`} target="_blank" rel="noopener" aria-label="Share on LinkedIn">
+            <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5A2.5 2.5 0 002.5 6a2.5 2.5 0 105 0 2.5 2.5 0 00-2.52-2.5zM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.5 4.78 5.76V21H18.6v-5.3c0-1.26-.02-2.9-1.77-2.9-1.77 0-2.04 1.38-2.04 2.8V21H11z"/></svg>
+            LinkedIn
+          </a>
+          <a class="page-share-btn" href={`https://twitter.com/intent/tweet?url=${enc(pageUrl)}&text=${enc(shareText)}`} target="_blank" rel="noopener" aria-label="Share on X">
+            <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            X
+          </a>
+          <a class="page-share-btn" href={`https://wa.me/?text=${enc(shareText + ' ' + pageUrl)}`} target="_blank" rel="noopener" aria-label="Share on WhatsApp">
+            <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.08 1.76-.72 2-1.41.25-.7.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35zM12.05 21.5h-.01a9.4 9.4 0 01-4.79-1.31l-.34-.2-3.56.93.95-3.47-.22-.36a9.39 9.39 0 01-1.44-5.01c0-5.19 4.23-9.42 9.43-9.42 2.52 0 4.88.98 6.66 2.76a9.36 9.36 0 012.76 6.67c0 5.19-4.23 9.42-9.42 9.42zm8.02-17.44A11.27 11.27 0 0012.05.75C5.8.75.72 5.83.72 12.08c0 2 .52 3.95 1.52 5.66L.62 23.25l5.65-1.48a11.3 11.3 0 005.78 1.47h.01c6.25 0 11.33-5.08 11.33-11.33 0-3.03-1.18-5.87-3.32-8.01z"/></svg>
+            WhatsApp
+          </a>
+          <button class="page-share-btn" type="button" id="share-page">
+            <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M10 14a5 5 0 007.07 0l3-3a5 5 0 00-7.07-7.07l-1 1M14 10a5 5 0 00-7.07 0l-3 3a5 5 0 007.07 7.07l1-1"/></svg>
+            Copy link
+          </button>
+        </div>
+      </div>
+    </section>
+    <div class="clouds"></div>
+
+    <div class="wrap">
+      <div class="grid">
+        <!-- INPUT -->
+        <section class="panel" aria-labelledby="in-h">
+          <h2 id="in-h">Your keywords</h2>
+          <p class="sub">
+            One query per line, or load a CSV from Search Console, Ahrefs, Semrush or Keyword Planner. Results update as
+            you type.
+          </p>
+          <label for="queries" class="sr">Queries</label>
+          <textarea id="queries" rows="12"></textarea>
+          <div class="row">
+            <label class="btn ghost" for="csv">Load CSV</label>
+            <input type="file" id="csv" accept=".csv,text/csv" class="sr" />
+            <button class="btn ghost" type="button" id="clear">Clear</button>
+          </div>
+
+          <div class="field">
+            <label for="brands">Brand and site names</label>
+            <textarea id="brands" rows="4"></textarea>
+            <p class="hint">
+              Queries containing these count as navigational. Add your own brand spellings and any sites your audience
+              searches for by name. Spaces and hyphens are optional, so "seo with siva" also catches "seowithsiva".
+            </p>
+          </div>
+        </section>
+
+        <!-- SUMMARY -->
+        <div class="sticky">
+          <section class="panel" aria-labelledby="s-h">
+            <div class="row" style="margin:0 0 14px">
+              <h2 id="s-h" style="margin:0">Intent mix</h2>
+              <span class="total" id="total" style="margin-left:auto"></span>
+            </div>
+            <div class="dist" id="dist" aria-live="polite"></div>
+            <div class="summary" id="summary"></div>
+            <p class="insight" id="insight"></p>
+            <p class="muted" id="sumNote"></p>
+          </section>
+        </div>
+      </div>
+
+      <!-- RESULTS -->
+      <section class="panel" style="margin-top:26px" aria-labelledby="r-h">
+        <h2 id="r-h">Classified queries</h2>
+        <p class="sub">Highlighted words are the signals behind each label. A second, smaller label means the query leans two ways.</p>
+        <div class="row">
+          <div class="chips" id="filter" role="group" aria-label="Filter by intent"></div>
+        </div>
+        <div class="row">
+          <label for="sort">Sort</label>
+          <select id="sort">
+            <option value="none">Input order</option>
+            <option value="clicks">Clicks, high to low</option>
+            <option value="impr">Impressions, high to low</option>
+            <option value="vol">Search volume, high to low</option>
+            <option value="conf">Lowest confidence first</option>
+          </select>
+          <button class="btn ghost" type="button" id="dl" style="margin-left:auto">Download CSV</button>
+        </div>
+        <div class="results" id="results"></div>
+        <p class="muted" id="listNote"></p>
+      </section>
+
+      <!-- Supporting content -->
+      <article class="prose">
+        <h2>The four types of search intent</h2>
+        <div class="intent-table">
+          <table>
+            <thead>
+              <tr><th scope="col">Intent</th><th scope="col">The searcher wants to</th><th scope="col">Typical signals</th><th scope="col">Content that fits</th></tr>
+            </thead>
+            <tbody>
+              {intents.map(it => (
+                <tr>
+                  <th scope="row"><span class={`pill i-${it.name.toLowerCase()}`}>{it.name}</span></th>
+                  <td>{it.goal}</td>
+                  <td>{it.signals}</td>
+                  <td>{it.content}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <h2>How to use it</h2>
+        <ol>
+          <li>In Search Console, open <code>Performance → Search results → Queries</code> and export to CSV. A keyword export from Ahrefs, Semrush or Keyword Planner works too.</li>
+          <li>Load the CSV, then add your brand spellings so branded queries are counted as navigational.</li>
+          <li>Read the intent mix. With Search Console data you'll see clicks, impressions, CTR and average position for each intent.</li>
+          <li>Filter to one intent and check that each query lands on a page built for that intent. An informational query ranking with a product page, or a "best" query ranking with a blog post, is usually the gap.</li>
+          <li>Download the classified list to use in your content plan or keyword map.</li>
+        </ol>
+
+        <h2>How the classifier decides</h2>
+        <p>
+          Each query is scored against weighted word patterns for every intent. A query starting with "how to" scores
+          strongly informational; "vs" or "best" scores commercial; a brand name or "login" scores navigational; "buy",
+          "price" or "book" scores transactional. The highest score sets the label. If another intent scores at least
+          half as high, it appears as a secondary label, and confidence is marked as mixed.
+        </p>
+        <p>
+          Queries with no recognisable signal, often short topic phrases like "email marketing", are marked
+          <strong>unclear</strong> rather than guessed. Google tends to show mixed results for these, so check the live
+          results page before deciding what to build.
+        </p>
+
+        <h3>Limits worth knowing</h3>
+        <ul>
+          <li>It reads English queries only.</li>
+          <li>It works from the words in the query. The results page Google shows is the final judge of intent, especially for head terms.</li>
+          <li>It only knows the brands you list, plus a handful of large platforms.</li>
+        </ul>
+        <p>
+          Once you know which intent group you want to track, build a filter for it with the
+          <a href="/tools/regex-builder/">Search Console Regex Builder</a>. For why matching intent matters more than most
+          ranking factors, read <a href="/blog/search-intent-satisfaction/">What Is Search Intent Satisfaction?</a>
+        </p>
+
+        <h2>Common questions</h2>
+        <div>
+          {faqs.map(faq => (
+            <div class="faq-item">
+              <h3>{faq.q}</h3>
+              <p>{faq.a}</p>
+            </div>
+          ))}
+        </div>
+
+        <p class="closing" style="margin-top:36px">
+          Built by <a href="/about/">C. Sivaraj</a>. More tools on the <a href="/tools/">tools page</a>, and the
+          reasoning behind them in the <a href="/blog/">blog</a>.
+        </p>
+      </article>
+    </div>
+
+    <div class="toast" id="toast" role="status"></div>
+  </div>
+
+  <script is:inline type="module">
+    /* ---------- helpers ---------- */
+    const $ = id => document.getElementById(id);
+    const esc = s => s.replace(/[\\.+*?()|[\]{}^$]/g, "\\$&");
+    const html = s => s.replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+    const lines = s => s.split("\n").map(x => x.trim()).filter(Boolean);
+    const flexSpace = s => esc(s).replace(/\\?\s+|\\?-/g, "[\\s-]?");
+
+    const INTENTS = [
+      { k:"informational", name:"Informational" },
+      { k:"commercial", name:"Commercial" },
+      { k:"navigational", name:"Navigational" },
+      { k:"transactional", name:"Transactional" },
+      { k:"unclear", name:"Unclear" }
+    ];
+    const NAME = Object.fromEntries(INTENTS.map(i => [i.k, i.name]));
+
+    /* ---------- signals ----------
+       Each rule adds its weight once per query, however many times it matches.
+       Weights: 3 = strong signal on its own, 2 = clear lean, 1 = tie-breaker. */
+    const RULES = [
+      // informational
+      { i:"informational", w:2, label:"question opener", re:/^(how|what|why|when|where|who|whom|whose|which)\b/ },
+      { i:"informational", w:2, label:"yes/no question", re:/^(is|are|can|could|does|do|did|should|will|would|was|were|has|have)\s/ },
+      { i:"informational", w:3, label:"how to", re:/\bhow (to|do|does|can)\b/ },
+      { i:"informational", w:1, label:"question word", re:/\b(what|why|when|where|who)\b/ },
+      { i:"informational", w:2, label:"learning term", re:/\b(guide|tutorial|tips|ideas|examples?|meaning|definition|define|explained|explain|learn|ways to|steps|checklist|history|facts|benefits of|types of|difference between|causes?|symptoms?|vs meaning|template|strategy|strategies)\b/ },
+      { i:"informational", w:1, label:"ends with ?", re:/\?$/ },
+      // commercial
+      { i:"commercial", w:3, label:"best / top", re:/\b(best|top( \d+)?)\b/ },
+      { i:"commercial", w:3, label:"reviews", re:/\b(reviews?|rated|ratings?|testimonials?)\b/ },
+      { i:"commercial", w:3, label:"comparison", re:/\b(vs\.?|versus|compared? to|comparison|compare|alternatives?|competitors?|similar to|better than|or better)\b/ },
+      { i:"commercial", w:2, label:"evaluation", re:/\b(pros and cons|worth it|is it worth|recommended|recommendations?|which is better)\b/ },
+      { i:"commercial", w:1, label:"solution term", re:/\b(services?|agency|agencies|company|companies|consultants?|software|tools?|platforms?|providers?|apps?|plugins?|courses?)\b/ },
+      { i:"commercial", w:1, label:"audience fit", re:/\b(affordable|premium|for (small business(es)?|beginners|startups|agencies|ecommerce|enterprise))\b/ },
+      { i:"commercial", w:1, label:"year", re:/\b20[0-9]{2}\b/ },
+      // navigational
+      { i:"navigational", w:2, label:"destination word", re:/\b(login|log in|sign in|signin|my account|account|dashboard|portal|official (site|website)|website|homepage|home page|customer (care|service|support)|contact( us)?|careers?|helpline|phone number)\b/ },
+      { i:"navigational", w:3, label:"domain", re:/(\bwww\.|\.(com|in|org|net|io|co|ai|app|dev)\b)/ },
+      // transactional
+      { i:"transactional", w:3, label:"buy", re:/\b(buy|purchase|order|shop|checkout|for sale)\b/ },
+      { i:"transactional", w:2, label:"price", re:/\b(price|prices|pricing|cost|costs|fees?|rates|quote|how much|cheap|cheapest)\b/ },
+      { i:"transactional", w:3, label:"deal", re:/\b(coupons?|discounts?|deals?|promo( code)?|offers?|sale)\b/ },
+      { i:"transactional", w:3, label:"action", re:/\b(book|booking|hire|subscribe|sign ?up|register|enrol|enroll|free trial|download|install|get started|apply|rent|appointment|near me)\b/ },
+      { i:"transactional", w:1, label:"local / delivery", re:/\b(nearby|open now|delivery|shipping|in stock)\b/ }
+    ];
+    const NAV_WORDS = RULES.filter(r => r.i === "navigational").map(r => r.re);
+
+    let brandRe = null;
+    function buildBrands(){
+      const b = lines($("brands").value).map(flexSpace);
+      brandRe = b.length ? new RegExp(`\\b(${b.join("|")})\\b`, "i") : null;
+    }
+
+    function ranges(re, s){
+      const g = new RegExp(re.source, "gi"), out = [];
+      let m, guard = 0;
+      while ((m = g.exec(s)) && guard++ < 20) { if (!m[0].length) { g.lastIndex++; continue; } out.push([m.index, m.index + m[0].length]); }
+      return out;
+    }
+
+    function classify(q){
+      const s = q.toLowerCase().replace(/\s+/g, " ").trim();
+      const score = { informational:0, commercial:0, navigational:0, transactional:0 };
+      const hits = [], marks = [];
+      const add = (i, w, label, r) => { score[i] += w; hits.push({ i, label }); marks.push(...r); };
+
+      RULES.forEach(rule => { const r = ranges(rule.re, s); if (r.length) add(rule.i, rule.w, rule.label, r); });
+
+      if (brandRe) {
+        const r = ranges(brandRe, s);
+        if (r.length) {
+          add("navigational", 3, "brand", r);
+          // a query that is nothing but a brand (plus words like "login") is plainly navigational
+          let rest = s.replace(new RegExp(brandRe.source, "gi"), " ");
+          NAV_WORDS.forEach(re => { rest = rest.replace(new RegExp(re.source, "gi"), " "); });
+          if (!rest.trim()) { score.navigational += 3; hits.push({ i:"navigational", label:"brand only" }); }
+        }
+      }
+
+      const ranked = Object.entries(score).sort((a, b) => b[1] - a[1]);
+      const [top, topScore] = ranked[0];
+      const [second, secondScore] = ranked[1];
+      if (!topScore) return { s, intent:"unclear", second:null, conf:"Low", rank:0, hits, marks };
+      const mixed = secondScore > 0 && secondScore >= topScore / 2;
+      // A tie is resolved toward the intent further down the funnel, because a
+      // query carrying a buying signal is usually worth treating as one.
+      let intent = top;
+      if (secondScore === topScore) {
+        const order = ["transactional", "commercial", "navigational", "informational"];
+        intent = order.find(k => score[k] === topScore);
+      }
+      const other = mixed ? (intent === top ? second : top) : null;
+      const conf = mixed ? "Mixed" : topScore >= 3 ? "High" : "Medium";
+      return { s, intent, second: other, conf, rank: mixed ? 1 : topScore >= 3 ? 3 : 2, hits, marks };
+    }
+
+    function highlight(s, r){
+      const sorted = [...r].sort((a, b) => a[0] - b[0]);
+      const merged = [];
+      sorted.forEach(([a, b]) => { const l = merged[merged.length - 1]; if (l && a <= l[1]) l[1] = Math.max(l[1], b); else merged.push([a, b]); });
+      let h = "", i = 0;
+      merged.forEach(([a, b]) => { h += html(s.slice(i, a)) + "<mark>" + html(s.slice(a, b)) + "</mark>"; i = b; });
+      return h + html(s.slice(i));
+    }
+
+    /* ---------- defaults ---------- */
+    $("brands").value = ["seo with siva", "google", "youtube", "gmail", "facebook", "instagram", "linkedin", "whatsapp", "amazon", "chatgpt"].join("\n");
+    $("queries").value = [
+      "how to add faq schema in wordpress",
+      "what is generative engine optimization",
+      "best seo tools for beginners",
+      "ahrefs vs semrush",
+      "seo agency in coimbatore",
+      "seo audit price",
+      "hire technical seo consultant",
+      "seowithsiva",
+      "google search console login",
+      "semrush free trial",
+      "is seo worth it for small business",
+      "screaming frog review 2026",
+      "email marketing"
+    ].join("\n");
+
+    /* ---------- metrics from a loaded CSV, keyed by the query text ---------- */
+    let metrics = new Map();
+    const n = v => { const x = parseFloat(String(v ?? "").replace(/[%,\s]/g, "")); return isFinite(x) ? x : null; };
+    const fmt = x => x == null ? "–" : Math.round(x).toLocaleString();
+    const fmtPct = x => (x < 10 ? x.toFixed(1) : Math.round(x)) + "%";
+
+    /* ---------- run ---------- */
+    let filter = "all";
+    let rows = [];
+    const LIST_LIMIT = 1000;
+
+    function run(){
+      buildBrands();
+      const seen = new Set();
+      rows = $("queries").value.split("\n").map(x => x.trim()).filter(x => x && !seen.has(x) && seen.add(x)).map(q => ({ q, ...classify(q) }));
+      renderFilter(); renderSummary(); renderList();
+    }
+
+    function renderFilter(){
+      const count = k => k === "all" ? rows.length : rows.filter(r => r.intent === k).length;
+      $("filter").innerHTML = [{ k:"all", name:"All" }, ...INTENTS].map(i =>
+        `<button type="button" data-k="${i.k}" aria-pressed="${filter === i.k}">${i.name} (${count(i.k).toLocaleString()})</button>`).join("");
+    }
+    $("filter").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; filter = b.dataset.k; renderFilter(); renderList(); });
+
+    function aggregate(list){
+      let clicks = 0, impr = 0, posW = 0, posImpr = 0, vol = 0;
+      list.forEach(r => {
+        const m = metrics.get(r.q); if (!m) return;
+        clicks += m.clicks || 0; impr += m.impr || 0; vol += m.vol || 0;
+        if (m.pos != null && m.impr) { posW += m.pos * m.impr; posImpr += m.impr; }
+      });
+      return { rows:list.length, clicks, impr, vol, ctr: impr ? clicks / impr * 100 : null, pos: posImpr ? posW / posImpr : null };
+    }
+
+    function renderSummary(){
+      const total = rows.length;
+      $("total").textContent = total ? `${total.toLocaleString()} ${total === 1 ? "query" : "queries"}` : "";
+      $("dist").innerHTML = total ? INTENTS.map(i => {
+        const c = rows.filter(r => r.intent === i.k).length;
+        const p = c / total * 100;
+        return `<div class="dist-row"><span class="pill i-${i.k}">${i.name}</span><div class="bar"><span class="b-${i.k}" style="width:${p}%"></span></div><span class="n">${c.toLocaleString()} <small>${fmtPct(p)}</small></span></div>`;
+      }).join("") : `<p class="sub" style="margin:0">Add some queries to see the mix.</p>`;
+
+      const has = k => rows.some(r => metrics.get(r.q)?.[k] != null);
+      const hasGsc = has("clicks") || has("impr"), hasVol = has("vol");
+      $("summary").innerHTML = ""; $("insight").innerHTML = ""; $("sumNote").textContent = "";
+      if (!total || (!hasGsc && !hasVol)) return;
+
+      const groups = INTENTS.map(i => ({ ...i, a: aggregate(rows.filter(r => r.intent === i.k)) })).filter(g => g.a.rows);
+      const all = aggregate(rows);
+      const ctr = x => x == null ? "–" : x.toFixed(2) + "%";
+      const pos = x => x == null ? "–" : x.toFixed(1);
+      const cols = [
+        ...(hasGsc ? [["Clicks", a => fmt(a.clicks)], ["Impr.", a => fmt(a.impr)], ["CTR", a => ctr(a.ctr)], ["Avg. pos.", a => pos(a.pos)]] : []),
+        ...(hasVol ? [["Volume", a => fmt(a.vol)]] : [])
+      ];
+      $("summary").innerHTML = `<table>
+        <thead><tr><th scope="col">Intent</th>${cols.map(c => `<th scope="col">${c[0]}</th>`).join("")}</tr></thead>
+        <tbody>${groups.map(g => `<tr><th scope="row"><span class="pill sm i-${g.k}">${g.name}</span></th>${cols.map(c => `<td>${c[1](g.a)}</td>`).join("")}</tr>`).join("")}
+        <tr><th scope="row">All</th>${cols.map(c => `<td><strong>${c[1](all)}</strong></td>`).join("")}</tr></tbody></table>`;
+
+      if (hasGsc && all.clicks) {
+        const top = [...groups].sort((a, b) => b.a.clicks - a.a.clicks)[0];
+        let s = `<strong>${top.name}</strong> queries bring the most traffic: <strong>${fmtPct(top.a.clicks / all.clicks * 100)} of clicks</strong> from ${fmtPct(top.a.rows / all.rows * 100)} of queries.`;
+        const withImpr = groups.filter(g => g.k !== "unclear" && g.a.impr >= Math.max(100, all.impr * 0.05) && g.a.ctr != null);
+        if (withImpr.length > 1) {
+          const low = [...withImpr].sort((a, b) => a.a.ctr - b.a.ctr)[0];
+          if (all.ctr && low.a.ctr < all.ctr * 0.7) s += ` ${low.name} queries have the weakest CTR (${ctr(low.a.ctr)} against ${ctr(all.ctr)} overall). Check that those queries land on pages built for that intent.`;
+        }
+        $("insight").innerHTML = s;
+      }
+      if (hasGsc) $("sumNote").textContent = "CTR is total clicks divided by total impressions. Average position is weighted by impressions, so it will be close to, but not exactly, what Search Console shows.";
+    }
+
+    function renderList(){
+      let list = filter === "all" ? rows : rows.filter(r => r.intent === filter);
+      const sort = $("sort").value;
+      const key = {
+        clicks: r => -(metrics.get(r.q)?.clicks ?? -1),
+        impr: r => -(metrics.get(r.q)?.impr ?? -1),
+        vol: r => -(metrics.get(r.q)?.vol ?? -1),
+        conf: r => r.rank
+      }[sort];
+      if (key) list = [...list].sort((a, b) => key(a) - key(b));
+      const shown = list.slice(0, LIST_LIMIT);
+      $("results").innerHTML = shown.map(r => {
+        const m = metrics.get(r.q);
+        const mt = m ? [m.clicks != null ? `${fmt(m.clicks)} clicks` : "", m.impr != null ? `${fmt(m.impr)} impr.` : "", m.vol != null ? `${fmt(m.vol)} vol.` : ""].filter(Boolean).join(" · ") : "";
+        const why = r.hits.length ? "Signals: " + [...new Set(r.hits.map(h => `${h.label} (${NAME[h.i].toLowerCase()})`))].join(", ") : "No intent signal found. Check the live results page for this one.";
+        return `<div class="res">
+          <span class="q">${highlight(r.s, r.marks)}</span>
+          <span class="tags">${mt ? `<span class="m">${mt}</span>` : ""}<span class="pill i-${r.intent}">${NAME[r.intent]}</span>${r.second ? `<span class="pill sm i-${r.second}">+ ${NAME[r.second]}</span>` : ""}<span class="conf">${r.conf}</span></span>
+          <span class="why">${html(why)}</span>
+        </div>`;
+      }).join("") || (rows.length ? `<div class="res"><span class="q">No queries with this intent.</span></div>` : "");
+      $("listNote").textContent = list.length > LIST_LIMIT ? `Showing the first ${LIST_LIMIT.toLocaleString()} of ${list.length.toLocaleString()} queries. The download and the totals include every query.` : "";
+    }
+
+    let timer;
+    const debounced = () => { clearTimeout(timer); timer = setTimeout(run, rows.length > 5000 ? 300 : 80); };
+    $("queries").addEventListener("input", debounced);
+    $("brands").addEventListener("input", debounced);
+    $("sort").addEventListener("change", renderList);
+    $("clear").addEventListener("click", () => { $("queries").value = ""; metrics = new Map(); filter = "all"; run(); $("queries").focus(); });
+
+    /* ---------- download ---------- */
+    $("dl").addEventListener("click", () => {
+      const list = filter === "all" ? rows : rows.filter(r => r.intent === filter);
+      if (!list.length) { toast("Nothing to download yet"); return; }
+      const q = v => /[",\n]/.test(String(v)) ? `"${String(v).replace(/"/g, '""')}"` : v;
+      const body = list.map(r => {
+        const m = metrics.get(r.q) || {};
+        const sig = [...new Set(r.hits.map(h => h.label))].join("; ");
+        return [q(r.q), NAME[r.intent], r.second ? NAME[r.second] : "", r.conf, q(sig), m.clicks ?? "", m.impr ?? "", m.ctr ?? "", m.pos ?? "", m.vol ?? ""].join(",");
+      });
+      const csv = ["query,intent,secondary_intent,confidence,signals,clicks,impressions,ctr_percent,position,volume", ...body].join("\n");
+      const url = URL.createObjectURL(new Blob([csv], { type: "text/csv" }));
+      const a = document.createElement("a"); a.href = url; a.download = `search-intent-${filter}.csv`; document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+      toast(`Downloaded ${list.length.toLocaleString()} queries`);
+    });
+
+    /* ---------- CSV: finds the query column plus clicks, impressions, CTR, position and volume if present ---------- */
+    const ROW_CAP = 50000;
+    $("csv").addEventListener("change", async e => {
+      const file = e.target.files[0]; if (!file) return;
+      const data = parseCSV((await file.text()).replace(/^﻿/, ""));
+      e.target.value = "";
+      if (!data.length) { toast("That file looks empty"); return; }
+      const head = data[0].map(h => h.trim().toLowerCase());
+      const find = re => head.findIndex(h => re.test(h));
+      let col = find(/quer|keyword|search term/);
+      const ci = find(/click/), ii = find(/impression/), ti = find(/ctr/), pi = find(/position/), vi = find(/volume|avg\. monthly searches/);
+      const hasHeader = col !== -1 || [ci, ii, vi].some(x => x !== -1);
+      if (col === -1) col = 0;
+      metrics = new Map();
+      const body = data.slice(hasHeader ? 1 : 0).filter(r => (r[col] || "").trim()).slice(0, ROW_CAP);
+      if ([ci, ii, ti, pi, vi].some(x => x !== -1)) body.forEach(r => {
+        metrics.set(r[col].trim(), {
+          clicks: ci > -1 ? n(r[ci]) : null, impr: ii > -1 ? n(r[ii]) : null,
+          ctr: ti > -1 ? n(r[ti]) : null, pos: pi > -1 ? n(r[pi]) : null, vol: vi > -1 ? n(r[vi]) : null
+        });
+      });
+      $("queries").value = body.map(r => r[col].trim()).join("\n");
+      const total = data.length - (hasHeader ? 1 : 0);
+      filter = "all";
+      toast(`Loaded ${body.length.toLocaleString()} queries${metrics.size ? " with metrics" : ""}${total > ROW_CAP ? ` (first ${ROW_CAP.toLocaleString()})` : ""}`);
+      run();
+    });
+    function parseCSV(t){
+      const out = []; let row = [], f = "", q = false;
+      for (let i = 0; i < t.length; i++) {
+        const ch = t[i];
+        if (q) { if (ch === '"' && t[i+1] === '"') { f += '"'; i++; } else if (ch === '"') q = false; else f += ch; }
+        else if (ch === '"') q = true;
+        else if (ch === ",") { row.push(f); f = ""; }
+        else if (ch === "\n") { row.push(f.replace(/\r$/,"")); out.push(row); row = []; f = ""; }
+        else f += ch;
+      }
+      if (f || row.length) { row.push(f); out.push(row); }
+      return out;
+    }
+
+    /* ---------- copy ---------- */
+    function toast(m){ const t = $("toast"); t.textContent = m; t.classList.add("show"); setTimeout(() => t.classList.remove("show"), 1600); }
+    $("share-page").addEventListener("click", async () => {
+      try { await navigator.clipboard.writeText("https://www.seowithsiva.com/tools/search-intent-classifier/"); toast("Link to this tool copied"); }
+      catch(e) { toast("Copy failed. Select the address bar and copy manually."); }
+    });
+
+    run();
+  </script>
+</BaseLayout>

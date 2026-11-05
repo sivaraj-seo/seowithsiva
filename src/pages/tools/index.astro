@@ -16,7 +16,39 @@ const tools = [
       'Load a CSV export to see clicks, impressions, CTR and position for the matched group',
       'Plain-English explainer for any pattern you paste in',
     ],
-    sample: '(?i)^(what|how|why|when|where)\\b',
+    preview: {
+      label: 'Your regex',
+      code: '(?i)^(what|how|why|when|where)\\b',
+      rows: [
+        { pre: '', em: 'how', post: ' to add faq schema', hit: true },
+        { pre: '', em: 'what', post: ' is generative engine optimization', hit: true },
+        { pre: 'seo course price', em: '', post: '', hit: false },
+        { pre: '', em: 'why', post: ' is my page not indexed', hit: true },
+      ],
+    },
+  },
+  {
+    slug: 'search-intent-classifier',
+    name: 'Search Intent Classifier',
+    badge: 'Keyword research',
+    excerpt:
+      'Auto-categorize keywords as informational, commercial, navigational or transactional, and see which words decided each label. Load a Search Console export to compare clicks and CTR by intent.',
+    points: [
+      'Tags each query with a primary intent, plus a secondary one when it leans two ways',
+      'Highlights the signals behind every label, so you can check its reasoning',
+      'Clicks, impressions, CTR and position by intent from a Search Console CSV',
+      'Add your brand names so branded queries count as navigational',
+    ],
+    preview: {
+      label: 'Intent',
+      code: 'classify(query) → intent',
+      rows: [
+        { pre: '', em: 'how to', post: ' add faq schema', hit: true, pill: 'Informational' },
+        { pre: '', em: 'best', post: ' seo tools for beginners', hit: true, pill: 'Commercial' },
+        { pre: 'search console ', em: 'login', post: '', hit: true, pill: 'Navigational' },
+        { pre: 'seo audit ', em: 'price', post: '', hit: true, pill: 'Transactional' },
+      ],
+    },
   },
 ];
 
@@ -50,8 +82,8 @@ const breadcrumbSchema = {
 
 <BaseLayout
   title="Free SEO Tools"
-  description="Free browser-based SEO tools for Search Console workflows - starting with a regex builder you can test against your own data. No sign-up, nothing uploaded - everything runs in your browser."
-  keywords="free SEO tools, search console regex, regex builder, RE2 regex tester"
+  description="Free browser-based SEO tools: a Search Console regex builder you can test against your own data, and a search intent classifier for your keywords. No sign-up, nothing uploaded."
+  keywords="free SEO tools, search console regex, regex builder, RE2 regex tester, search intent classifier, keyword intent tool"
   ogImage="/images/og-tools.png"
   author="C. Sivaraj"
 >
@@ -88,7 +120,7 @@ const breadcrumbSchema = {
     .clouds { display: none; }
 
     /* ── FEATURED TOOL ── */
-    .tools-section { padding: 46px 0 0; }
+    .tools-section { padding: 46px 0 0; display: grid; gap: 28px; }
     .tool-card {
       display: grid; grid-template-columns: 1.05fr .95fr;
       gap: 40px; align-items: center;
@@ -150,11 +182,16 @@ const breadcrumbSchema = {
     .preview-dot { flex: none; width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,.2); }
     .preview-row.hit .preview-dot { background: #5ad1a8; }
     .preview-row.hit { color: #fff; }
+    .preview-pill {
+      margin-left: auto; flex: none; font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+      font-size: 10.5px; font-weight: 700; color: #8fb8ff;
+      background: rgba(24,119,242, .2); border-radius: 999px; padding: 2px 8px;
+    }
     .preview-row em { font-style: normal; background: rgba(24,119,242, .45); border-radius: 3px; padding: 0 3px; }
 
     /* ── MORE COMING NOTE ── */
     .more-note {
-      margin-top: 30px; padding: 22px 26px;
+      margin-top: 2px; padding: 22px 26px;
       background: #f3f5f8; border-radius: 18px;
       font-size: 14.5px; line-height: 1.7; color: var(--muted);
     }
@@ -216,13 +253,16 @@ const breadcrumbSchema = {
 
           <div class="preview" aria-hidden="true">
             <div class="preview-bar"><span></span><span></span><span></span></div>
-            <div class="preview-label">Your regex</div>
-            <div class="preview-code">{tool.sample}</div>
+            <div class="preview-label">{tool.preview.label}</div>
+            <div class="preview-code">{tool.preview.code}</div>
             <div class="preview-rows">
-              <div class="preview-row hit"><span class="preview-dot"></span><span><em>how</em> to add faq schema</span></div>
-              <div class="preview-row hit"><span class="preview-dot"></span><span><em>what</em> is generative engine optimization</span></div>
-              <div class="preview-row"><span class="preview-dot"></span><span>seo course price</span></div>
-              <div class="preview-row hit"><span class="preview-dot"></span><span><em>why</em> is my page not indexed</span></div>
+              {tool.preview.rows.map(row => (
+                <div class:list={['preview-row', { hit: row.hit }]}>
+                  <span class="preview-dot"></span>
+                  <span>{row.pre}{row.em && <em>{row.em}</em>}{row.post}</span>
+                  {row.pill && <span class="preview-pill">{row.pill}</span>}
+                </div>
+              ))}
             </div>
           </div>
         </article>
