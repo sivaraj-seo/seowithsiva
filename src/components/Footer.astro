@@ -14,6 +14,10 @@ const year = new Date().getFullYear();
             <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
           </a>
         </div>
+        <div class="footer-pref">
+          <p class="fp-label">Prefer this site on Google</p>
+          <div class="fp-btn" google-add-preferred-source-btn data-theme="light"></div>
+        </div>
       </div>
 
       <div class="footer-cols">
@@ -107,6 +111,14 @@ const year = new Date().getFullYear();
     align-items: center;
     justify-content: center;
   }
+  .footer-pref { margin-top: 22px; }
+  .footer-brief p.fp-label {
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--muted);
+    margin: 0 0 8px;
+  }
+  .fp-btn { min-height: 40px; }
   .footer-cols {
     display: grid;
     grid-template-columns: 1.4fr 1fr 1.2fr 1fr;

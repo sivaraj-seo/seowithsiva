@@ -367,7 +367,34 @@ const faqSchema = article.data.faqs && article.data.faqs.length > 0 ? {
     .art-footer{ padding:18px; flex-direction:column; align-items:flex-start; }
     .art-author{ flex-direction:column; }
     .art-share{ gap:8px; }
+    .pref-src{ flex-direction:column; align-items:flex-start; }
   }
+  /* Google preferred sources prompt */
+  .pref-src{
+    display:flex; align-items:center; justify-content:space-between; gap:16px;
+    margin:0 0 28px; padding:16px 20px;
+    border:1px solid #e4e7ec; border-radius:14px; background:#f8fafc;
+  }
+  .pref-src-heading{ font-size:15px; font-weight:700; color:#111418; margin-bottom:4px; }
+  .pref-src-body{ font-size:13px; color:#3d444d; line-height:1.55; }
+  .pref-src-btn{ flex-shrink:0; min-height:40px; }
+  .pref-src--mid{ margin:28px 0 32px; }
+  .pref-src[hidden]{ display:none; }
+  .pref-src--top{ padding:12px 18px; margin-bottom:44px; }
+  .key-takeaways + .pref-src--top{ margin-top:-28px; }
+  .pref-src--top .pref-src-heading{ font-size:14px; margin:0; }
+  .toc-pref-btn{
+    display:flex; align-items:center; justify-content:center; gap:8px;
+    width:100%; padding:10px 12px; border-radius:999px;
+    background:#fff; border:1px solid #dadce0; color:#1f1f1f;
+    font-size:13px; font-weight:600; text-decoration:none;
+    transition:background .15s, border-color .15s;
+  }
+  .toc-pref-btn:hover{ background:#f1f5fe; border-color:#1a73e8; }
+  .toc-pref{
+    background:var(--surface); border-radius:20px; padding:18px 22px;
+  }
+  .toc-pref-text{ font-size:13px; font-weight:600; color:var(--ink); line-height:1.45; margin-bottom:10px; }
 </style>
 
 <!-- Prose styles are global because <Content /> renders markdown HTML that does not
@@ -555,9 +582,24 @@ const faqSchema = article.data.faqs && article.data.faqs.length > 0 ? {
       </div>
     )}
 
+    <!-- Google preferred sources, below Key Takeaways -->
+    <div class="pref-src pref-src--top">
+      <div class="pref-src-heading">Prefer SEO With Siva on Google</div>
+      <div class="pref-src-btn" google-add-preferred-source-btn data-theme="light"></div>
+    </div>
+
     <article class="prose">
       <Content />
     </article>
+
+    <!-- Mid-article preferred sources prompt: rendered here, moved into the article body by the script below -->
+    <div class="pref-src pref-src--mid" id="pref-src-mid" hidden>
+      <div>
+        <div class="pref-src-heading">Finding this useful?</div>
+        <div class="pref-src-body">Add SEO With Siva as a preferred source and Google can show you my new articles first.</div>
+      </div>
+      <div class="pref-src-btn" google-add-preferred-source-btn data-theme="light"></div>
+    </div>
 
     <!-- Share row -->
     <div class="art-share">
@@ -590,6 +632,15 @@ const faqSchema = article.data.faqs && article.data.faqs.length > 0 ? {
         <svg viewBox="0 0 24 24" width="13" fill="currentColor"><path d="M12 24C12 24 12 17.04 9 14.04 6 11.04 0 12 0 12 0 12 6.96 12 9.96 9 12.96 6 12 0 12 0 12 0 12 6.96 15 9.96 18 12 21 12 24 12 24 12 24 12 17.04 15 14.04 18 11.04 24 12 24 12 24 12 17.04 12 14.04 15 11.04 18 12 24 12z"/></svg>
         Gemini
       </a>
+    </div>
+
+    <!-- Google preferred sources prompt -->
+    <div class="pref-src">
+      <div>
+        <div class="pref-src-heading">See SEO With Siva first on Google</div>
+        <div class="pref-src-body">Pick this site as a preferred source and Google can highlight my articles for you in Top Stories and AI Mode.</div>
+      </div>
+      <div class="pref-src-btn" google-add-preferred-source-btn data-theme="light"></div>
     </div>
 
     <!-- Author bio - NP pattern: "About the author" label + card -->
@@ -632,6 +683,16 @@ const faqSchema = article.data.faqs && article.data.faqs.length > 0 ? {
     <div class="toc-card">
       <div class="toc-title">Table of Contents</div>
       <ul class="toc-list" id="toc-list"></ul>
+    </div>
+
+    <!-- Google preferred sources -->
+    <div class="toc-pref">
+      <div class="toc-pref-text">Like these articles? See them first on Google.</div>
+      <!-- Deeplink, not Google's button: the 260px sidebar is narrower than Google's fixed-width button -->
+      <a class="toc-pref-btn" href="https://www.google.com/preferences/source?q=seowithsiva.com" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path fill="#4285F4" d="M23.5 12.27c0-.85-.08-1.67-.22-2.45H12v4.64h6.45a5.52 5.52 0 0 1-2.4 3.62v3h3.88c2.27-2.09 3.57-5.17 3.57-8.81z"/><path fill="#34A853" d="M12 24c3.24 0 5.96-1.07 7.94-2.9l-3.88-3.02c-1.07.72-2.45 1.15-4.06 1.15-3.13 0-5.78-2.11-6.72-4.95H1.27v3.11A12 12 0 0 0 12 24z"/><path fill="#FBBC05" d="M5.28 14.28a7.2 7.2 0 0 1 0-4.56V6.61H1.27a12 12 0 0 0 0 10.78z"/><path fill="#EA4335" d="M12 4.77c1.76 0 3.34.61 4.59 1.8l3.44-3.44A11.5 11.5 0 0 0 12 0 12 12 0 0 0 1.27 6.61l4.01 3.11C6.22 6.88 8.87 4.77 12 4.77z"/></svg>
+        Add to preferred sources
+      </a>
     </div>
 
     <!-- Consulting CTA - NP sidebar widget pattern -->
@@ -720,6 +781,19 @@ const faqSchema = article.data.faqs && article.data.faqs.length > 0 ? {
       <a href="/contact/" class="mid-cta-btn">Book a free strategy call →</a>
     `;
     ctaTarget.parentNode!.insertBefore(cta, ctaTarget);
+  }
+
+  // Preferred sources prompt - moved before a later H2, well clear of the consultation strip.
+  // The element is server-rendered (not created here) so Google's button script always finds it.
+  const prefMid = document.getElementById('pref-src-mid');
+  const prefTarget = allH2s[Math.max(4, Math.floor(allH2s.length * 0.6))];
+  if (prefMid) {
+    if (prefTarget) {
+      prefTarget.parentNode!.insertBefore(prefMid, prefTarget);
+      prefMid.hidden = false;
+    } else {
+      prefMid.remove();
+    }
   }
 </script>
 
