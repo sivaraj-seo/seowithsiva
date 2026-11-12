@@ -61,7 +61,7 @@ export default defineConfig({
         const path = new URL(item.url).pathname;
         if (pageLastmod[path]) item = { ...item, lastmod: pageLastmod[path] };
         if (path === '/') {
-          return { ...item, changefreq: 'weekly', priority: 1.0 };
+          return item;
         }
         if (path === '/blog/') {
           return { ...item, changefreq: 'weekly', priority: 0.9 };
