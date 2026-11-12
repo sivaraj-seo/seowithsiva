@@ -57,34 +57,14 @@ export default defineConfig({
   vite: { plugins: [sitemapApiDev] },
   integrations: [
     sitemap({
+      // No changefreq / priority: Google ignores both. Only lastmod is emitted.
       serialize(item) {
         const path = new URL(item.url).pathname;
         if (pageLastmod[path]) item = { ...item, lastmod: pageLastmod[path] };
-        if (path === '/') {
-          return item;
-        }
-        if (path === '/blog/') {
-          return { ...item, changefreq: 'weekly', priority: 0.9 };
-        }
         if (path.startsWith('/blog/')) {
           const slug = path.replace('/blog/', '').replace(/\/$/, '');
           const lastmod = articleLastmod[slug];
-          return { ...item, changefreq: 'monthly', priority: 0.8, ...(lastmod ? { lastmod } : {}) };
-        }
-        if (path === '/tools/') {
-          return { ...item, changefreq: 'monthly', priority: 0.9 };
-        }
-        if (path.startsWith('/tools/')) {
-          return { ...item, changefreq: 'monthly', priority: 0.8 };
-        }
-        if (path === '/courses/') {
-          return { ...item, changefreq: 'monthly', priority: 0.8 };
-        }
-        if (path === '/about/') {
-          return { ...item, changefreq: 'monthly', priority: 0.7 };
-        }
-        if (path === '/contact/') {
-          return { ...item, changefreq: 'yearly', priority: 0.6 };
+          if (lastmod) item = { ...item, lastmod };
         }
         return item;
       },
