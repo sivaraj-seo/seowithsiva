@@ -188,9 +188,7 @@ const serviceSchema = {
   .btn-wa:hover { background: #1a7f4b; color: #fff; }
   .c-actions, .course-actions { display: flex; flex-wrap: wrap; gap: 12px; }
   .course { margin-top: 56px; }
-  .course-panel { position: relative; overflow: hidden; display: grid; grid-template-columns: 1.6fr 1fr; gap: 32px; padding: 48px 48px 72px; align-items: center; background: linear-gradient(180deg, var(--primary-light), var(--surface)); }
-  .course-panel::before { content: 'Courses'; position: absolute; left: 50%; bottom: -.2em; transform: translateX(-50%); font-size: clamp(100px, 13vw, 180px); font-weight: 700; letter-spacing: -.06em; line-height: 1; color: rgba(21,104,216,.06); pointer-events: none; white-space: nowrap; }
-  .course-panel > * { position: relative; }
+  .course-panel { display: grid; grid-template-columns: 1.6fr 1fr; gap: 32px; padding: 40px; align-items: center; }
   .course-tag { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); font-weight: 700; }
   .course-copy h2 { font-size: clamp(26px, 3.4vw, 36px); line-height: 1.15; margin: 8px 0 12px; }
   .course-copy > p { color: var(--ink-light); margin: 0 0 16px; }
@@ -199,7 +197,7 @@ const serviceSchema = {
   .course-price { background: #fff; border-radius: 22px; padding: 32px; display: grid; gap: 8px; text-decoration: none; color: var(--ink); text-align: center; }
   .course-price b { font-size: 48px; color: var(--primary); line-height: 1; }
   .calc-lbl { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
-  @media (max-width: 960px) { .course-panel { grid-template-columns: 1fr; padding: 28px 24px 64px; } }
+  @media (max-width: 960px) { .course-panel { grid-template-columns: 1fr; padding: 24px; } }
   .sticky-cta { display: none; }
   @media (max-width: 960px) {
     .sticky-cta {
@@ -294,7 +292,7 @@ const serviceSchema = {
   .squiggle { display: block; margin-top: 8px; }
 
   /* ── SERIOUS ── */
-  .serious { margin-top: 0; }
+  .serious { margin-top: 80px; }
   @media (max-width: 960px) { .serious { margin-top: 48px; } }
   .serious .panel {
     display: grid;
@@ -624,6 +622,26 @@ const serviceSchema = {
 </section>
 
 
+<!-- ── TRUTHS ── -->
+<section class="truths wrap">
+  <div class="truths-head">
+    <svg class="arrow l" viewBox="0 0 90 50" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M4 10 C 20 4, 30 30, 52 34 S 78 30, 84 26"/><path d="M72 18 L 85 26 L 72 36"/></svg>
+    <svg class="arrow r" viewBox="0 0 90 50" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M4 10 C 20 4, 30 30, 52 34 S 78 30, 84 26"/><path d="M72 18 L 85 26 L 72 36"/></svg>
+    <h2>3 Underrated<br /><span class="blue">AI Search Truths!</span></h2>
+  </div>
+  <div class="truths-grid">
+    {truths.map((t) => (
+      <div class="truth">
+        <div class="truth-ico">
+          <svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={t.icon} />
+        </div>
+        <p set:html={t.text} />
+      </div>
+    ))}
+  </div>
+  <p class="truths-src">Sources and methodology in my <a href={citeGuide}>CITE Framework guide</a>.</p>
+</section>
+
 <!-- ── SERIOUS ── -->
 <section class="serious wrap">
   <div class="panel">
@@ -652,7 +670,7 @@ const serviceSchema = {
       </div>
     </div>
     <div class="serious-img">
-      <img src="/images/profile-story.webp" alt="C. Sivaraj" width="500" height="500" loading="lazy" />
+      <img src="/images/profile-bengaluru-search-central-2026.webp" alt="C. Sivaraj at Google Search Central Live Bengaluru 2026" width="1000" height="1098" loading="lazy" />
     </div>
   </div>
 </section>
@@ -661,7 +679,7 @@ const serviceSchema = {
 <section id="course" class="course wrap" aria-labelledby="course-h">
   <div class="panel course-panel">
     <div class="course-copy">
-      <span class="course-tag">Live course · CareerByteCode</span>
+      <span class="course-tag">Live course</span>
       <h2 id="course-h">GEO, AEO &amp; SEO <span class="blue">Training</span></h2>
       <p>Get your brand cited by AI, not just ranked on Google. An advanced, hands-on live cohort on making brands appear in answers across ChatGPT, Perplexity and Google AI Mode.</p>
       <ul class="course-facts">
@@ -686,38 +704,6 @@ const serviceSchema = {
       <b>₹13,000</b>
       <span>+ 18% GST · EMI available</span>
     </a>
-  </div>
-</section>
-
-<!-- ── TRUTHS ── -->
-<section class="truths wrap">
-  <div class="truths-head">
-    <svg class="arrow l" viewBox="0 0 90 50" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M4 10 C 20 4, 30 30, 52 34 S 78 30, 84 26"/><path d="M72 18 L 85 26 L 72 36"/></svg>
-    <svg class="arrow r" viewBox="0 0 90 50" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M4 10 C 20 4, 30 30, 52 34 S 78 30, 84 26"/><path d="M72 18 L 85 26 L 72 36"/></svg>
-    <h2>3 Underrated<br /><span class="blue">AI Search Truths!</span></h2>
-  </div>
-  <div class="truths-grid">
-    {truths.map((t) => (
-      <div class="truth">
-        <div class="truth-ico">
-          <svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={t.icon} />
-        </div>
-        <p set:html={t.text} />
-      </div>
-    ))}
-  </div>
-  <p class="truths-src">Sources and methodology in my <a href={citeGuide}>CITE Framework guide</a>.</p>
-
-  <div class="brief">
-    <h3>Want More Insightful Tips?<br /><span class="blue">Read My Field Notes.</span></h3>
-    <p>Practical breakdowns on <b>AI Overviews, GEO and AEO</b>, built from real enterprise programmes, not theory.</p>
-    <div class="brief-links">
-      <a href="/blog/" class="btn">
-        Read the Blog
-        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-      </a>
-      <a href="/tools/" class="btn ghost">Try the Free Tools</a>
-    </div>
   </div>
 </section>
 
