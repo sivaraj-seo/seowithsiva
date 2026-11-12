@@ -29,7 +29,7 @@ const hostKey = (url: string) => {
   return h.includes('linkedin') ? 'linkedin' : h.includes('x.com') || h.includes('twitter') ? 'x' : h.includes('reddit') ? 'reddit' : h.includes('instagram') ? 'instagram' : null;
 };
 // WhatsApp is a contact link, not a profile, so it lives here rather than in socialLinks (which feeds schema sameAs).
-const whatsappUrl = 'https://wa.link/l9kdx1';
+const whatsappUrl = 'https://wa.me/919600684541';
 const items = [
   ...socialLinks.map((url) => ({ url, key: hostKey(url) })).filter((i) => i.key),
   { url: whatsappUrl, key: 'whatsapp' },

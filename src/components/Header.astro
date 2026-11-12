@@ -4,6 +4,7 @@ const links = [
   { href: '/about/', label: 'About' },
   { href: '/blog/', label: 'Blog' },
   { href: '/tools/', label: 'Tools' },
+  { href: '/courses/', label: 'Courses' },
   { href: '/contact/', label: 'Contact' },
 ];
 const callUrl = 'https://calendar.app.google/FwUxXeGAFCdvuvGN6';
@@ -15,7 +16,7 @@ const callUrl = 'https://calendar.app.google/FwUxXeGAFCdvuvGN6';
       <span>SEO · AEO · GEO</span>
     </a>
     <nav class="nav-links" aria-label="Main">
-      {links.map((l) => <a href={l.href}>{l.label}</a>)}
+      {links.map((l) => <a href={l.href} {...(l.external ? { target: '_blank', rel: 'noopener' } : {})}>{l.label}</a>)}
     </nav>
     <a class="nav-cta" href={callUrl} target="_blank" rel="noopener">
       Book Free Call
@@ -26,7 +27,7 @@ const callUrl = 'https://calendar.app.google/FwUxXeGAFCdvuvGN6';
     </button>
   </div>
   <div class="nav-mobile">
-    {links.map((l) => <a href={l.href}>{l.label}</a>)}
+    {links.map((l) => <a href={l.href} {...(l.external ? { target: '_blank', rel: 'noopener' } : {})}>{l.label}</a>)}
     <a class="nav-cta nav-cta-mobile" href={callUrl} target="_blank" rel="noopener">Book Free Call →</a>
   </div>
 </header>

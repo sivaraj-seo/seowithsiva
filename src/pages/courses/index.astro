@@ -1,0 +1,113 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import { safeJsonLd } from '../../utils/schema';
+
+const enrollUrl = 'https://www.careerbytecode.in/courses/GEO-AEO-SEO-Training/';
+const phases = [
+  { n: '01', t: 'SEO Foundations', d: 'Crawl-to-citation, keywords and intent, on-page, technical SEO and E-E-A-T.' },
+  { n: '02', t: 'AEO Deep Dive', d: 'RAG, entities, answer-first content, schema, snippets and AI citation tracking.' },
+  { n: '03', t: 'GEO Framework', d: 'Citation-worthy content, digital PR, community signals and AI share of voice.' },
+  { n: '04', t: 'Measurement & Career', d: 'GA4, GSC, citation dashboards, stakeholder reporting and GEO/AEO as a service.' },
+];
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'Course',
+  name: 'GEO, AEO & SEO Training',
+  description: 'Advanced, hands-on live cohort on making brands appear in AI answers across ChatGPT, Perplexity and Google AI Mode.',
+  url: 'https://www.seowithsiva.com/courses/',
+  provider: { '@type': 'Organization', name: 'CareerByteCode', url: 'https://www.careerbytecode.in/' },
+  instructor: { '@id': 'https://www.seowithsiva.com/#person' },
+};
+---
+
+<BaseLayout
+  title="GEO, AEO & SEO Training Course"
+  description="Live GEO, AEO and SEO training by C. Sivaraj: 25 sessions to get your brand cited in ChatGPT, Perplexity and Google AI Mode."
+>
+  <Fragment slot="head"><script type="application/ld+json" set:html={safeJsonLd(schema)} /></Fragment>
+  <main class="course-main wrap">
+    <header class="c-hero">
+      <div class="c-hero-copy">
+        <Breadcrumb items={[{ name: 'Courses', href: '/courses/' }]} align="center" />
+        <h1>Learn <span class="blue">GEO, AEO &amp; SEO</span> from a practitioner</h1>
+        <p>Live, hands-on training to get your brand cited by AI, not just ranked on Google.</p>
+      </div>
+    </header>
+
+    <article class="c-card">
+      <div class="c-main">
+        <span class="c-tag">Live cohort · 100% hands-on</span>
+        <h2>GEO, AEO &amp; SEO Training</h2>
+        <p>An advanced program on making brands appear in answers across ChatGPT, Perplexity and Google AI Mode. 25 live sessions across 4 phases, then a capstone.</p>
+        <ul class="c-facts">
+          <li>25 live sessions, 8 PM to 9 PM IST</li>
+          <li>Capstone: full GEO/AEO audit, an AI content asset and a 90-day roadmap</li>
+          <li>For SEO analysts, marketers, strategists and freelancers</li>
+        </ul>
+        <div class="c-actions">
+        <a href={enrollUrl} target="_blank" rel="noopener" class="btn btn-lg">
+          Enrol now
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <a href="https://wa.me/919600684541" target="_blank" rel="noopener" class="btn-wa">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M17.5 14.4c-.3-.1-1.6-.8-1.9-.9-.2-.1-.4-.1-.6.1-.2.3-.7.9-.8 1-.2.2-.3.2-.5.1-.3-.1-1.2-.4-2.2-1.4-.8-.7-1.4-1.6-1.5-1.9-.2-.3 0-.4.1-.6l.4-.4c.1-.2.2-.3.2-.5.1-.2 0-.4 0-.5-.1-.1-.6-1.4-.8-1.9-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.1 0 1.2.9 2.4 1 2.6.1.2 1.8 2.8 4.5 3.9.6.3 1.1.4 1.5.5.6.2 1.2.2 1.6.1.5-.1 1.6-.6 1.8-1.3.2-.6.2-1.2.2-1.3-.1-.2-.3-.2-.5-.3zM12 2a10 10 0 00-8.5 15.2L2 22l4.9-1.3A10 10 0 1012 2zm0 18.2c-1.6 0-3.1-.4-4.4-1.2l-.3-.2-3.1.8.8-3-.2-.3A8.2 8.2 0 1112 20.2z"/></svg>
+          WhatsApp for enquiry
+        </a>
+        </div>
+      </div>
+      <div class="c-price">
+        <span class="c-tag">Course fee</span>
+        <b>₹13,000</b>
+        <span>+ 18% GST · EMI available</span>
+      </div>
+    </article>
+
+    <section aria-labelledby="learn-h" class="c-learn">
+      <h2 id="learn-h">What you'll learn</h2>
+      <div class="c-grid">
+        {phases.map((p) => (
+          <div class="c-phase"><span>{p.n}</span><h3>{p.t}</h3><p>{p.d}</p></div>
+        ))}
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  .course-main { max-width: 1200px; margin: 0 auto; padding: 24px 32px 80px; }
+  @media (max-width: 640px) { .course-main { padding: 16px 16px 64px; } }
+  .c-hero { position: relative; overflow: hidden; text-align: center; margin: 0 0 32px; padding: 64px 32px 120px; border-radius: 28px; background: linear-gradient(180deg, var(--primary-light), var(--surface)); }
+  .c-hero::before { content: 'Courses'; position: absolute; left: 50%; bottom: -.18em; transform: translateX(-50%); font-size: clamp(100px, 14vw, 190px); font-weight: 700; letter-spacing: -.06em; line-height: 1; color: rgba(21,104,216,.06); pointer-events: none; white-space: nowrap; }
+  .c-hero h1 { position: relative; font-weight: 600; font-size: clamp(32px, 4.6vw, 54px); line-height: 1.1; letter-spacing: -.03em; margin-top: 14px; color: var(--ink); }
+  .c-hero-copy { position: relative; }
+  .c-hero p { position: relative; font-size: 15px; line-height: 1.7; color: var(--muted); margin: 16px auto 0; max-width: 52ch; }
+  @media (max-width: 640px) { .c-hero { padding: 48px 22px 96px; border-radius: 22px; } }
+  .c-head { margin: 24px 0 32px; }
+  .c-head h1 { font-size: clamp(30px, 4.5vw, 46px); line-height: 1.1; margin: 8px 0 12px; }
+  .c-head p { color: var(--ink-light); max-width: 620px; }
+  .btn { display: inline-flex; align-items: center; gap: 8px; background: var(--primary); color: #fff; font-weight: 700; text-decoration: none; border-radius: 999px; border: 0; cursor: pointer; transition: background .15s; }
+  .btn:hover { background: var(--primary-dark); }
+  .btn-lg { min-width: 220px; min-height: 52px; padding: 16px 28px; font-size: 15px; justify-content: center; }
+  .btn-wa { display: inline-flex; align-items: center; gap: 8px; min-height: 52px; padding: 14px 24px; border-radius: 999px; border: 2px solid #1a7f4b; color: #1a7f4b; font-weight: 700; font-size: 15px; text-decoration: none; background: #fff; transition: background .15s, color .15s; }
+  .btn-wa:hover { background: #1a7f4b; color: #fff; }
+  .c-actions, .course-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+  .c-tag { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); font-weight: 700; }
+  .blue { color: var(--primary); }
+  .c-card { display: grid; grid-template-columns: 1.6fr 1fr; gap: 32px; align-items: center; background: var(--surface); border-radius: 28px; padding: 40px; }
+  .c-main h2 { font-size: clamp(24px, 3vw, 32px); margin: 8px 0 12px; }
+  .c-main > p { color: var(--ink-light); margin-bottom: 16px; }
+  .c-facts { list-style: none; padding: 0; margin: 0 0 22px; display: grid; gap: 8px; font-size: 14px; color: var(--ink-light); }
+  .c-facts li::before { content: '✓'; color: var(--primary); font-weight: 700; margin-right: 8px; }
+  .c-price { background: #fff; border-radius: 22px; padding: 32px; display: grid; gap: 8px; text-align: center; }
+  .c-price b { font-size: 48px; color: var(--primary); line-height: 1; }
+  .c-learn { margin-top: 56px; }
+  .c-learn h2 { font-size: 26px; margin-bottom: 18px; }
+  .c-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .c-phase { background: var(--surface); border-radius: 18px; padding: 22px; }
+  .c-phase span { color: var(--primary); font-weight: 700; font-size: 13px; }
+  .c-phase h3 { font-size: 17px; margin: 6px 0; }
+  .c-phase p { font-size: 13px; color: var(--ink-light); }
+  @media (max-width: 960px) { .c-card { grid-template-columns: 1fr; padding: 24px; } .c-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 560px) { .c-grid { grid-template-columns: 1fr; } }
+</style>

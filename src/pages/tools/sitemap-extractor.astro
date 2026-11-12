@@ -1,0 +1,455 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import { safeJsonLd } from '../../utils/schema';
+
+const appSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'Sitemap Extractor',
+  url: 'https://www.seowithsiva.com/tools/sitemap-extractor/',
+  applicationCategory: 'BusinessApplication',
+  operatingSystem: 'Any (browser-based)',
+  browserRequirements: 'Requires JavaScript',
+  description:
+    'Extract every URL from an XML sitemap or sitemap index. Load a sitemap by URL, paste the XML or upload a file, then filter, copy or download the URLs with lastmod, changefreq and priority.',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+  author: { '@id': 'https://www.seowithsiva.com/#person' },
+  publisher: { '@id': 'https://www.seowithsiva.com/#organization' },
+  isAccessibleForFree: true,
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.seowithsiva.com/' },
+    { '@type': 'ListItem', position: 2, name: 'Tools', item: 'https://www.seowithsiva.com/tools/' },
+    {
+      '@type': 'ListItem',
+      position: 3,
+      name: 'Sitemap Extractor',
+      item: 'https://www.seowithsiva.com/tools/sitemap-extractor/',
+    },
+  ],
+};
+
+const pageUrl = 'https://www.seowithsiva.com/tools/sitemap-extractor/';
+const shareText = 'Free sitemap extractor - list every URL in an XML sitemap or sitemap index';
+const enc = encodeURIComponent;
+
+const faqs = [
+  {
+    q: 'What if loading by URL fails?',
+    a: 'The tool fetches the sitemap for you through this site, because most sites block direct reads from the browser. If a site blocks the fetch or needs a login, open the sitemap in a new tab, copy the XML and use Paste XML, or save it and use Upload file.',
+  },
+  {
+    q: 'Does it handle sitemap index files?',
+    a: 'Yes. If the file is a sitemap index, the tool fetches each child sitemap (up to 100) and merges the URLs. Compressed .xml.gz sitemaps are supported when you load by URL.',
+  },
+  {
+    q: 'Is my sitemap uploaded anywhere?',
+    a: 'Pasted and uploaded XML never leaves your browser. When you load by URL, the sitemap address is sent to this site so it can fetch the file for you. The address and the sitemap are not stored.',
+  },
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
+---
+
+<BaseLayout
+  title="Sitemap Extractor: List All URLs in an XML Sitemap"
+  description="Extract every URL from an XML sitemap or sitemap index. Load by URL, paste XML or upload a file, then filter, copy or download as CSV - free, in your browser."
+  keywords="sitemap extractor, sitemap url extractor, extract urls from sitemap, xml sitemap parser, sitemap index"
+  author="C. Sivaraj"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={safeJsonLd(appSchema)} />
+    <script type="application/ld+json" set:html={safeJsonLd(breadcrumbSchema)} />
+    <script type="application/ld+json" set:html={safeJsonLd(faqSchema)} />
+  </Fragment>
+
+  <style is:global>
+    .sx { --sx-line: #e4e7ec; }
+    .sx * { box-sizing: border-box; }
+    .sx [hidden] { display: none !important; }
+    .sx .wrap { max-width: 1120px; margin: 0 auto; padding: 0 32px; }
+    .sx .page-hero {
+      max-width: 1136px; margin: 24px auto 0; border-radius: 28px;
+      background: linear-gradient(180deg, var(--primary-light), var(--surface));
+      padding: 56px 0 50px; text-align: center;
+    }
+    @media (max-width: 1200px) { .sx .page-hero { margin: 24px 32px 0; } }
+    @media (max-width: 640px) { .sx .page-hero { margin: 16px 14px 0; border-radius: 22px; } .sx .wrap { padding: 0 16px; } }
+    .sx .page-hero h1 { font-weight: 700; font-size: clamp(30px, 4.6vw, 52px); color: var(--ink); margin-top: 16px; letter-spacing: -.02em; line-height: 1.1; }
+    .sx .page-hero h1 mark {
+      background: linear-gradient(transparent 58%, rgba(21,104,216, .28) 58%);
+      color: inherit; padding: 0 .08em;
+    }
+    .sx .page-hero > .wrap > p { font-size: 16.5px; line-height: 1.7; color: var(--muted); margin: 18px auto 0; max-width: 62ch; }
+    .sx .page-share { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
+    .sx .page-share-label { font-size: 13px; font-weight: 600; color: var(--muted); margin-right: 2px; }
+    .sx .page-share-btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; border-radius: 999px; cursor: pointer; font-family: inherit; font-size: 12.5px; font-weight: 600; line-height: 1; background: #fff; border: 1px solid var(--border); color: var(--ink-light); text-decoration: none; transition: background .15s, color .15s, border-color .15s; }
+    .sx .page-share-btn:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .sx .page-share-btn.copied { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .sx .panel { background: #fff; border: 1px solid rgba(17,20,24,.07); border-radius: 22px; padding: 28px 30px; box-shadow: 0 18px 50px -32px rgba(17,20,24,.45); margin-top: 32px; }
+    .sx .panel h2 { font-size: 19px; font-weight: 700; color: var(--ink); margin: 0 0 4px; }
+    .sx .sub { font-size: 14px; color: var(--muted); margin: 0 0 16px; }
+    .sx .tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+    .sx .tab { padding: 9px 16px; border-radius: 999px; border: 1px solid var(--border); background: #fff; font: inherit; font-size: 13.5px; font-weight: 600; color: var(--ink-light); cursor: pointer; }
+    .sx .tab[aria-selected="true"] { background: var(--primary); border-color: var(--primary); color: #fff; }
+    .sx input[type=url], .sx input[type=text], .sx textarea {
+      width: 100%; border: 1px solid var(--sx-line); border-radius: 12px; padding: 12px 14px;
+      font: inherit; font-size: 14px; color: var(--ink); background: #fff;
+    }
+    .sx textarea { min-height: 200px; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 12.5px; resize: vertical; }
+    .sx .row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-top: 12px; }
+    .sx .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; padding: 10px 22px; border-radius: 999px; border: 0; background: var(--primary); color: #fff; font: inherit; font-size: 14px; font-weight: 700; cursor: pointer; text-decoration: none; }
+    .sx .btn:hover { background: var(--primary-dark); }
+    .sx .btn.ghost { background: #fff; color: var(--ink); border: 1px solid var(--border); }
+    .sx .btn.ghost:hover { border-color: var(--primary); color: var(--primary); }
+    .sx .btn[disabled] { opacity: .5; cursor: not-allowed; }
+    .sx .status { font-size: 13.5px; color: var(--muted); margin-top: 12px; min-height: 20px; }
+    .sx .status.err { color: #b42318; }
+    .sx .stats { display: flex; gap: 12px; flex-wrap: wrap; margin: 4px 0 16px; }
+    .sx .stat { background: var(--surface); border-radius: 14px; padding: 12px 18px; }
+    .sx .stat b { display: block; font-size: 22px; color: var(--primary); line-height: 1.1; }
+    .sx .stat span { font-size: 12px; color: var(--muted); }
+    .sx .tablewrap { max-height: 520px; overflow: auto; border: 1px solid var(--sx-line); border-radius: 14px; margin-top: 12px; }
+    .sx table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .sx th { position: sticky; top: 0; background: var(--surface); text-align: left; padding: 10px 12px; font-size: 12px; color: var(--ink-light); }
+    .sx td { padding: 9px 12px; border-top: 1px solid var(--sx-line); vertical-align: top; }
+    .sx td.u { word-break: break-all; }
+    .sx td.u a { color: var(--primary); text-decoration: none; }
+    .sx td.m { white-space: nowrap; color: var(--muted); }
+    .sx .sitemaps { margin: 8px 0 0; padding-left: 18px; font-size: 13px; color: var(--ink-light); word-break: break-all; }
+    .sx .faq { margin: 40px 0 72px; }
+    .sx .faq h2 { font-size: 24px; margin-bottom: 14px; }
+    .sx .faq details { background: var(--surface); border-radius: 14px; padding: 14px 18px; margin-bottom: 8px; }
+    .sx .faq summary { font-weight: 700; cursor: pointer; }
+    .sx .faq p { margin: 10px 0 0; color: var(--ink-light); font-size: 14.5px; line-height: 1.6; }
+    .sx .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  </style>
+
+  <div class="sx">
+    <section class="page-hero">
+      <div class="wrap">
+        <Breadcrumb items={[{ name: 'Tools', href: '/tools/' }, { name: 'Sitemap Extractor', href: '/tools/sitemap-extractor/' }]} schema={false} align="center" />
+        <h1>Extract every URL from a <mark>sitemap</mark></h1>
+        <p>
+          Load a sitemap by URL, paste the XML or upload a file. Sitemap indexes are expanded, and you can filter, copy or
+          download the URLs with their lastmod, changefreq and priority. Everything runs in your browser.
+        </p>
+        <div class="page-share">
+          <span class="page-share-label">Share this tool:</span>
+          <a class="page-share-btn" href={`https://www.linkedin.com/sharing/share-offsite/?url=${enc(pageUrl)}`} target="_blank" rel="noopener" aria-label="Share on LinkedIn">
+            <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5A2.5 2.5 0 002.5 6a2.5 2.5 0 105 0 2.5 2.5 0 00-2.52-2.5zM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.5 4.78 5.76V21H18.6v-5.3c0-1.26-.02-2.9-1.77-2.9-1.77 0-2.04 1.38-2.04 2.8V21H11z"/></svg>
+            LinkedIn
+          </a>
+          <a class="page-share-btn" href={`https://twitter.com/intent/tweet?url=${enc(pageUrl)}&text=${enc(shareText)}`} target="_blank" rel="noopener" aria-label="Share on X">
+            <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            X
+          </a>
+          <a class="page-share-btn" href={`https://wa.me/?text=${enc(shareText + ' ' + pageUrl)}`} target="_blank" rel="noopener" aria-label="Share on WhatsApp">
+            <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.08 1.76-.72 2-1.41.25-.7.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35zM12.05 21.5h-.01a9.4 9.4 0 01-4.79-1.31l-.34-.2-3.56.93.95-3.47-.22-.36a9.39 9.39 0 01-1.44-5.01c0-5.19 4.23-9.42 9.43-9.42 2.52 0 4.88.98 6.66 2.76a9.36 9.36 0 012.76 6.67c0 5.19-4.23 9.42-9.42 9.42zm8.02-17.44A11.27 11.27 0 0012.05.75C5.8.75.72 5.83.72 12.08c0 2 .52 3.95 1.52 5.66L.62 23.25l5.65-1.48a11.3 11.3 0 005.78 1.47h.01c6.25 0 11.33-5.08 11.33-11.33 0-3.03-1.18-5.87-3.32-8.01z"/></svg>
+            WhatsApp
+          </a>
+          <button class="page-share-btn" type="button" id="share-page">
+            <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M10 14a5 5 0 007.07 0l3-3a5 5 0 00-7.07-7.07l-1 1M14 10a5 5 0 00-7.07 0l-3 3a5 5 0 007.07 7.07l1-1"/></svg>
+            Copy link
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <div class="wrap">
+      <section class="panel" aria-labelledby="in-h">
+        <h2 id="in-h">Your sitemap</h2>
+        <p class="sub">Choose how to load it.</p>
+        <div class="tabs" role="tablist">
+          <button class="tab" role="tab" aria-selected="true" data-tab="url" type="button">From URL</button>
+          <button class="tab" role="tab" aria-selected="false" data-tab="paste" type="button">Paste XML</button>
+          <button class="tab" role="tab" aria-selected="false" data-tab="file" type="button">Upload file</button>
+        </div>
+
+        <div data-pane="url">
+          <label for="sm-url" class="sr">Sitemap URL</label>
+          <input id="sm-url" type="url" placeholder="https://example.com/sitemap.xml" />
+          <div class="row"><button class="btn" type="button" id="go-url">Extract URLs</button></div>
+        </div>
+        <div data-pane="paste" hidden>
+          <label for="sm-xml" class="sr">Sitemap XML</label>
+          <textarea id="sm-xml" placeholder="Paste the sitemap XML here"></textarea>
+          <div class="row"><button class="btn" type="button" id="go-xml">Extract URLs</button></div>
+        </div>
+        <div data-pane="file" hidden>
+          <label class="btn ghost" for="sm-file">Choose .xml file</label>
+          <input type="file" id="sm-file" accept=".xml,text/xml,application/xml" class="sr" />
+        </div>
+        <p class="status" id="status" aria-live="polite"></p>
+      </section>
+
+      <section class="panel" id="results" aria-labelledby="out-h" hidden>
+        <h2 id="out-h">Extracted URLs</h2>
+        <div class="stats">
+          <div class="stat"><b id="n-total">0</b><span>URLs</span></div>
+          <div class="stat"><b id="n-shown">0</b><span>Shown</span></div>
+          <div class="stat"><b id="n-maps">0</b><span>Sitemaps read</span></div>
+        </div>
+        <ul class="sitemaps" id="maps" hidden></ul>
+        <div class="row">
+          <label for="filter" class="sr">Filter URLs</label>
+          <input id="filter" type="text" placeholder="Filter URLs, e.g. /blog/" style="max-width:320px" />
+          <button class="btn ghost" type="button" id="copy">Copy URLs</button>
+          <button class="btn ghost" type="button" id="dl-txt">Download .txt</button>
+          <button class="btn ghost" type="button" id="dl-csv">Download .csv</button>
+        </div>
+        <div class="tablewrap">
+          <table>
+            <thead><tr><th>URL</th><th>Lastmod</th><th>Changefreq</th><th>Priority</th></tr></thead>
+            <tbody id="rows"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="faq" aria-labelledby="faq-h">
+        <h2 id="faq-h">Questions</h2>
+        {faqs.map((f) => (
+          <details><summary>{f.q}</summary><p>{f.a}</p></details>
+        ))}
+      </section>
+    </div>
+  </div>
+
+  <script>
+    type Entry = { loc: string; lastmod: string; changefreq: string; priority: string };
+    let entries: Entry[] = [];
+    let warn = '';
+    let mapsRead: string[] = [];
+    const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
+    const status = (msg: string, err = false) => {
+      const el = $('status');
+      el.textContent = msg;
+      el.classList.toggle('err', err);
+    };
+
+    // tabs
+    document.querySelectorAll<HTMLButtonElement>('.sx .tab').forEach((t) =>
+      t.addEventListener('click', () => {
+        document.querySelectorAll('.sx .tab').forEach((x) => x.setAttribute('aria-selected', String(x === t)));
+        document.querySelectorAll<HTMLElement>('.sx [data-pane]').forEach((p) => (p.hidden = p.dataset.pane !== t.dataset.tab));
+      })
+    );
+
+    const txt = (el: Element, tag: string) => el.getElementsByTagName(tag)[0]?.textContent?.trim() || '';
+
+    // Parses one sitemap document. Returns child sitemap URLs (for an index) and url entries (for a urlset).
+    function parse(xml: string): { children: string[]; urls: Entry[] } {
+      const doc = new DOMParser().parseFromString(xml, 'application/xml');
+      if (doc.getElementsByTagName('parsererror').length) throw new Error('That is not valid XML.');
+      const root = doc.documentElement.localName;
+      if (root === 'sitemapindex') {
+        return { children: Array.from(doc.getElementsByTagName('sitemap')).map((s) => txt(s, 'loc')).filter(Boolean), urls: [] };
+      }
+      if (root === 'urlset') {
+        return {
+          children: [],
+          urls: Array.from(doc.getElementsByTagName('url'))
+            .map((u) => ({ loc: txt(u, 'loc'), lastmod: txt(u, 'lastmod'), changefreq: txt(u, 'changefreq'), priority: txt(u, 'priority') }))
+            .filter((u) => u.loc),
+        };
+      }
+      throw new Error('No <urlset> or <sitemapindex> found. Is this a sitemap?');
+    }
+
+    // Sitemaps are fetched through this site's /api/sitemap, because most sites block direct browser reads (CORS).
+    async function fetchText(url: string) {
+      let res: Response;
+      try {
+        res = await fetch('/api/sitemap?url=' + encodeURIComponent(url));
+      } catch {
+        throw new Error('Could not reach the extractor service. Check your connection.');
+      }
+      if (!res.ok) {
+        let msg = `Could not load ${url} (HTTP ${res.status}).`;
+        try { msg = (await res.json()).error || msg; } catch { /* keep default */ }
+        throw new Error(msg);
+      }
+      return res.text();
+    }
+
+    const MAX_SITEMAPS = 100;
+    const BATCH = 6;
+    let skipped = 0;
+    async function loadFromUrl(url: string) {
+      const seen = new Set<string>([url]);
+      const out: Entry[] = [];
+      let level: string[] = [url];
+      mapsRead = [];
+      skipped = 0;
+      let failed = 0;
+      let firstError = '';
+      while (level.length) {
+        const next: string[] = [];
+        for (let i = 0; i < level.length; i += BATCH) {
+          const batch = level.slice(i, i + BATCH);
+          status(`Reading sitemaps ${mapsRead.length + 1} to ${mapsRead.length + batch.length}...`);
+          const results = await Promise.allSettled(batch.map(async (u) => ({ u, ...parse(await fetchText(u)) })));
+          results.forEach((r, idx) => {
+            if (r.status === 'rejected') {
+              failed++;
+              if (!firstError) firstError = `${batch[idx]}: ${(r.reason as Error).message}`;
+              return;
+            }
+            mapsRead.push(r.value.u);
+            out.push(...r.value.urls);
+            r.value.children.forEach((c) => {
+              if (seen.has(c)) return;
+              if (seen.size >= MAX_SITEMAPS) { skipped++; return; }
+              seen.add(c);
+              next.push(c);
+            });
+          });
+        }
+        level = next;
+      }
+      // The first (root) sitemap failing means nothing was loaded: surface the real reason.
+      if (!mapsRead.length) throw new Error(firstError || 'Could not read that sitemap.');
+      if (failed || skipped) {
+        const parts = [];
+        if (failed) parts.push(`${failed} child sitemap${failed > 1 ? 's' : ''} could not be read (${firstError})`);
+        if (skipped) parts.push(`${skipped} more were skipped (limit ${MAX_SITEMAPS} sitemaps)`);
+        warn = parts.join('. ') + '.';
+      } else {
+        warn = '';
+      }
+      return out;
+    }
+
+    function show() {
+      const q = $<HTMLInputElement>('filter').value.trim().toLowerCase();
+      const list = q ? entries.filter((e) => e.loc.toLowerCase().includes(q)) : entries;
+      $('n-total').textContent = entries.length.toLocaleString();
+      $('n-shown').textContent = list.length.toLocaleString();
+      $('n-maps').textContent = String(mapsRead.length || 1);
+      const maps = $('maps');
+      maps.hidden = mapsRead.length < 2;
+      maps.innerHTML = '';
+      mapsRead.forEach((m) => { const li = document.createElement('li'); li.textContent = m; maps.appendChild(li); });
+      const tbody = $('rows');
+      tbody.innerHTML = '';
+      const frag = document.createDocumentFragment();
+      list.slice(0, 2000).forEach((e) => {
+        const tr = document.createElement('tr');
+        const td = (cls: string, content: string | HTMLElement) => {
+          const c = document.createElement('td');
+          c.className = cls;
+          if (typeof content === 'string') c.textContent = content; else c.appendChild(content);
+          tr.appendChild(c);
+        };
+        const a = document.createElement('a');
+        a.href = e.loc; a.target = '_blank'; a.rel = 'noopener noreferrer'; a.textContent = e.loc;
+        td('u', a); td('m', e.lastmod); td('m', e.changefreq); td('m', e.priority);
+        frag.appendChild(tr);
+      });
+      tbody.appendChild(frag);
+      $('results').hidden = false;
+    }
+
+    function done(list: Entry[], source: string) {
+      entries = list;
+      if (!mapsRead.length) mapsRead = [source];
+      status((list.length ? `Found ${list.length.toLocaleString()} URLs.` : 'No URLs found in that sitemap.') + (warn ? ' ' + warn : ''), !list.length || !!warn);
+      warn = '';
+      show();
+    }
+
+    $('go-url').addEventListener('click', async () => {
+      const url = $<HTMLInputElement>('sm-url').value.trim();
+      if (!/^https?:\/\//i.test(url)) return status('Enter a full URL starting with http:// or https://', true);
+      $<HTMLButtonElement>('go-url').disabled = true;
+      try {
+        done(await loadFromUrl(url), url);
+      } catch (e) {
+        status((e as Error).message + ' You can also use Paste XML or Upload file.', true);
+      } finally {
+        $<HTMLButtonElement>('go-url').disabled = false;
+      }
+    });
+
+    $('go-xml').addEventListener('click', () => {
+      try {
+        const { children, urls } = parse($<HTMLTextAreaElement>('sm-xml').value.trim());
+        mapsRead = [];
+        if (children.length) {
+          status('This is a sitemap index. Child sitemaps are listed below. Paste each one, or load the index by URL to merge them all.', false);
+          entries = children.map((c) => ({ loc: c, lastmod: '', changefreq: '', priority: '' }));
+          mapsRead = ['Pasted sitemap index'];
+          show();
+          return;
+        }
+        done(urls, 'Pasted XML');
+      } catch (e) { status((e as Error).message, true); }
+    });
+
+    $<HTMLInputElement>('sm-file').addEventListener('change', async (ev) => {
+      const f = (ev.target as HTMLInputElement).files?.[0];
+      if (!f) return;
+      try {
+        const { children, urls } = parse(await f.text());
+        mapsRead = [];
+        if (children.length) {
+          entries = children.map((c) => ({ loc: c, lastmod: '', changefreq: '', priority: '' }));
+          mapsRead = [f.name];
+          status('This is a sitemap index. The child sitemaps are listed below.');
+          show();
+          return;
+        }
+        done(urls, f.name);
+      } catch (e) { status((e as Error).message, true); }
+    });
+
+    $('share-page').addEventListener('click', async () => {
+      const btn = $('share-page');
+      try {
+        await navigator.clipboard.writeText('https://www.seowithsiva.com/tools/sitemap-extractor/');
+        btn.classList.add('copied');
+        btn.lastChild!.textContent = ' Copied';
+        setTimeout(() => { btn.classList.remove('copied'); btn.lastChild!.textContent = ' Copy link'; }, 1800);
+      } catch { status('Copy failed. Select the address bar and copy manually.', true); }
+    });
+
+    $('filter').addEventListener('input', show);
+
+    const visible = () => {
+      const q = $<HTMLInputElement>('filter').value.trim().toLowerCase();
+      return q ? entries.filter((e) => e.loc.toLowerCase().includes(q)) : entries;
+    };
+    const save = (name: string, body: string, type: string) => {
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(new Blob([body], { type }));
+      a.download = name;
+      a.click();
+      setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+    };
+    $('copy').addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(visible().map((e) => e.loc).join('\n'));
+        status(`Copied ${visible().length.toLocaleString()} URLs.`);
+      } catch { status('Copy was blocked by the browser. Use Download .txt instead.', true); }
+    });
+    $('dl-txt').addEventListener('click', () => save('sitemap-urls.txt', visible().map((e) => e.loc).join('\n'), 'text/plain'));
+    $('dl-csv').addEventListener('click', () => {
+      const esc = (v: string) => `"${v.replace(/"/g, '""')}"`;
+      const rows = [['url', 'lastmod', 'changefreq', 'priority'], ...visible().map((e) => [e.loc, e.lastmod, e.changefreq, e.priority])];
+      save('sitemap-urls.csv', rows.map((r) => r.map(esc).join(',')).join('\n'), 'text/csv');
+    });
+  </script>
+</BaseLayout>

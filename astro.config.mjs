@@ -3,6 +3,7 @@ import sitemap from '@astrojs/sitemap';
 import { readFileSync, readdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { execSync } from 'node:child_process';
+import { handleSitemapRequest } from './src/utils/sitemapProxy.mjs';
 
 const articlesDir = fileURLToPath(new URL('./src/content/articles', import.meta.url));
 
@@ -25,9 +26,11 @@ const pageFiles = {
   '/about/': 'src/pages/about.astro',
   '/contact/': 'src/pages/contact.astro',
   '/blog/': 'src/pages/blog/index.astro',
+  '/courses/': 'src/pages/courses/index.astro',
   '/tools/': 'src/pages/tools/index.astro',
   '/tools/regex-builder/': 'src/pages/tools/regex-builder.astro',
   '/tools/search-intent-classifier/': 'src/pages/tools/search-intent-classifier.astro',
+  '/tools/sitemap-extractor/': 'src/pages/tools/sitemap-extractor.astro',
 };
 function gitLastmod(file) {
   try {
@@ -40,9 +43,18 @@ const pageLastmod = Object.fromEntries(
   Object.entries(pageFiles).map(([path, file]) => [path, gitLastmod(file)])
 );
 
+// Serves /api/sitemap in `astro dev` the same way api/sitemap.js does on Vercel.
+const sitemapApiDev = {
+  name: 'sitemap-api-dev',
+  configureServer(server) {
+    server.middlewares.use('/api/sitemap', (req, res) => handleSitemapRequest(req, res));
+  },
+};
+
 export default defineConfig({
   site: 'https://www.seowithsiva.com',
   output: 'static',
+  vite: { plugins: [sitemapApiDev] },
   integrations: [
     sitemap({
       serialize(item) {
@@ -63,6 +75,9 @@ export default defineConfig({
           return { ...item, changefreq: 'monthly', priority: 0.9 };
         }
         if (path.startsWith('/tools/')) {
+          return { ...item, changefreq: 'monthly', priority: 0.8 };
+        }
+        if (path === '/courses/') {
           return { ...item, changefreq: 'monthly', priority: 0.8 };
         }
         if (path === '/about/') {

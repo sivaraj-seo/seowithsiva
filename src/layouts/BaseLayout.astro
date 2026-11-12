@@ -141,12 +141,12 @@ const websiteSchema = {
       :root {
         --canvas: #ffffff;
         --surface: #f3f5f8;
-        --primary: #1877f2;
-        --primary-dark: #0f62d6;
+        --primary: #1568d8;
+        --primary-dark: #0f55b8;
         --primary-light: #e8f1fe;
         --ink: #111418;
         --ink-light: #3d444d;
-        --muted: #646c78;
+        --muted: #596270;
         --border: #e4e7ec;
         --bg-light: var(--surface);
 
@@ -180,6 +180,57 @@ const websiteSchema = {
           animation-iteration-count: 1 !important;
           transition-duration: 0.01ms !important;
         }
+      }
+
+      /* Hover effect: border line around the box instead of grey lift/shadow "popup" */
+      .btn, .nav-cta, .read-btn, .nl-btn, .nl-cta, .sbtn, .open-btn, .cta-btn, .cta,
+      .ghost, .pill, .filter-btn, .svc, .post, .art-card, .tool-card, .cert-card,
+      .rel-card, .email-card, .social-pill, .hsoc, .sidebar-cta-btn, .mid-cta-btn {
+        position: relative;
+      }
+      .btn::before, .nav-cta::before, .read-btn::before, .nl-btn::before, .nl-cta::before,
+      .sbtn::before, .open-btn::before, .cta-btn::before, .cta::before, .ghost::before,
+      .pill::before, .filter-btn::before, .svc::before, .post::before, .art-card::before,
+      .tool-card::before, .cert-card::before, .rel-card::before, .email-card::before,
+      .social-pill::before, .hsoc::before, .sidebar-cta-btn::before, .mid-cta-btn::before {
+        content: "";
+        position: absolute;
+        inset: -5px;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity .18s ease, inset .18s ease;
+        border: 2px solid var(--primary, #1877f2);
+        border-radius: inherit;
+      }
+      .btn:hover::before, .nav-cta:hover::before, .read-btn:hover::before, .nl-btn:hover::before,
+      .nl-cta:hover::before, .sbtn:hover::before, .open-btn:hover::before, .cta-btn:hover::before,
+      .cta:hover::before, .ghost:hover::before, .pill:hover::before, .filter-btn:hover::before,
+      .svc:hover::before, .post:hover::before, .art-card:hover::before, .tool-card:hover::before,
+      .cert-card:hover::before, .rel-card:hover::before, .email-card:hover::before,
+      .social-pill:hover::before, .hsoc:hover::before, .sidebar-cta-btn:hover::before,
+      .mid-cta-btn:hover::before {
+        opacity: 1;
+        inset: -3px;
+      }
+      /* cards clip overflow, so draw the border on the edge, inside */
+      .svc::before, .post::before, .art-card::before, .tool-card::before, .cert-card::before,
+      .rel-card::before { inset: 0; z-index: 2; }
+      .svc:hover::before, .post:hover::before, .art-card:hover::before, .tool-card:hover::before,
+      .cert-card:hover::before, .rel-card:hover::before { inset: 0; }
+      /* no shadow on buttons, at rest or on hover */
+      .btn, .nav-cta, .read-btn, .nl-btn, .nl-cta, .sbtn, .open-btn, .cta-btn, .cta,
+      .sidebar-cta-btn, .mid-cta-btn, .share-btn, .social-rail a, .social-rail a:hover,
+      .tool .btn, .tool .btn:hover, .tool .btn.ghost:hover {
+        box-shadow: none !important;
+      }
+      /* remove lift + grey shadow on hover for the same elements */
+      .btn:hover, .nav-cta:hover, .read-btn:hover, .nl-btn:hover, .nl-cta:hover, .sbtn:hover,
+      .open-btn:hover, .cta-btn:hover, .cta:hover, .ghost:hover, .pill:hover, .filter-btn:hover,
+      .svc:hover, .post:hover, .art-card:hover, .tool-card:hover, .cert-card:hover,
+      .rel-card:hover, .email-card:hover, .social-pill:hover, .hsoc:hover,
+      .sidebar-cta-btn:hover, .mid-cta-btn:hover {
+        transform: none !important;
+        box-shadow: none !important;
       }
 
       /* Focus visible for keyboard navigation */

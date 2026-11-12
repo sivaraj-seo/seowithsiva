@@ -50,6 +50,29 @@ const tools = [
       ],
     },
   },
+  {
+    slug: 'sitemap-extractor',
+    name: 'Sitemap Extractor',
+    badge: 'Technical SEO',
+    excerpt:
+      'Pull every URL out of an XML sitemap or sitemap index. Load it by URL, paste the XML or upload a file, then filter, copy or download the list with lastmod, changefreq and priority.',
+    points: [
+      'Expands sitemap index files and merges the child sitemaps',
+      'Shows lastmod, changefreq and priority for every URL',
+      'Filter by path, copy the list, or download it as .txt or .csv',
+      'Runs in your browser, nothing is uploaded',
+    ],
+    preview: {
+      label: 'Sitemap',
+      code: 'sitemap.xml → 1,248 URLs',
+      rows: [
+        { pre: '', em: '/blog/', post: 'cite-framework-get-cited', hit: true },
+        { pre: '', em: '/tools/', post: 'regex-builder', hit: true },
+        { pre: '/about/', em: '', post: '', hit: false },
+        { pre: '', em: '/blog/', post: 'content-gap-analysis', hit: true },
+      ],
+    },
+  },
 ];
 
 const collectionPageSchema = {
@@ -105,14 +128,22 @@ const breadcrumbSchema = {
     .page-hero {
       max-width: 1136px; margin: 24px auto 0;
       background: linear-gradient(180deg, var(--primary-light), var(--surface));
-      border-radius: 28px; padding: 64px 0 56px; text-align: center;
+      border-radius: 28px; padding: 64px 0 120px; text-align: center;
+      position: relative; overflow: hidden;
     }
+    .page-hero::before {
+      content: 'Tools'; position: absolute; left: 50%; bottom: -.18em; transform: translateX(-50%);
+      font-size: clamp(120px, 15vw, 200px); font-weight: 700; letter-spacing: -.06em; line-height: 1;
+      color: rgba(21,104,216,.06); pointer-events: none; white-space: nowrap;
+    }
+    .page-hero > .wrap { position: relative; }
     @media (max-width: 1200px) { .page-hero { margin: 24px 32px 0; } }
-    @media (max-width: 600px) { .page-hero { margin: 16px 14px 0; border-radius: 22px; } }
+    @media (max-width: 600px) { .page-hero { margin: 16px 14px 0; border-radius: 22px; padding: 48px 0 96px; } }
     .page-hero h1 {
       font-weight: 600; font-size: clamp(32px, 4.6vw, 54px);
       color: var(--ink); margin-top: 14px; letter-spacing: -.03em; line-height: 1.1;
     }
+    .page-hero h1 span { color: var(--primary); }
     .page-hero p {
       font-size: 15px; line-height: 1.7; color: var(--muted);
       margin: 16px auto 0; max-width: 54ch;
@@ -230,8 +261,7 @@ const breadcrumbSchema = {
   <section class="page-hero">
     <div class="wrap">
       <Breadcrumb items={[{ name: 'Tools', href: '/tools/' }]} schema={false} align="center" />
-      <span class="tag">Free tools</span>
-      <h1>SEO tools that run in your browser</h1>
+      <h1>SEO tools that <span>run in your browser</span></h1>
       <p>Small, fast utilities I built for my own reporting work. No sign-up, no upload - your data never leaves the tab.</p>
     </div>
   </section>
@@ -276,7 +306,6 @@ const breadcrumbSchema = {
     </section>
 
     <div class="cta">
-      <span class="tag" style="color:#8fb8ff">Work with me</span>
       <h2>Need help beyond the tools?</h2>
       <p>I work on enterprise SEO, technical audits, and getting content cited in AI search.</p>
       <div class="cta-row">

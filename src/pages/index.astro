@@ -4,9 +4,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import { safeJsonLd } from '../utils/schema';
 import { getImageDims } from '../data/imageDims';
 
-const title = 'C. Sivaraj – SEO Analyst & AEO / GEO Specialist';
+const title = 'C. Sivaraj – SEO & AEO / GEO Specialist';
 const description =
-  'SEO & AI-search analyst helping brands earn visibility across Google AI Overviews, ChatGPT, Gemini, Perplexity, Bing AI & Copilot, backed by 7+ years enterprise SEO.';
+  'SEO & AI-search analyst helping brands get cited in Google AI Overviews, ChatGPT, Gemini, Perplexity & Copilot. 7+ years of enterprise SEO.';
 const keywords =
   'SEO analyst, AEO, GEO, AI search optimization, enterprise SEO, Google AI Overviews, generative engine optimization, C. Sivaraj';
 
@@ -178,6 +178,37 @@ const serviceSchema = {
   .btn svg { flex: none; }
 
   .panel { background: var(--surface); border-radius: 28px; }
+
+  .btn-lg { min-width: 220px; min-height: 52px; padding: 16px 28px; font-size: 15px; font-weight: 700; justify-content: center; }
+  .hero-points { list-style: none; margin: 0 0 18px; padding: 0; display: grid; gap: 6px; font-size: 13px; color: var(--ink-light); }
+  .hero-points li::before { content: '✓'; color: var(--primary); font-weight: 700; margin-right: 8px; }
+  .hero-role { font-size: 14px; font-weight: 600; color: var(--ink-light); }
+
+  .btn-wa { display: inline-flex; align-items: center; gap: 8px; min-height: 52px; padding: 14px 24px; border-radius: 999px; border: 2px solid #1a7f4b; color: #1a7f4b; font-weight: 700; font-size: 15px; text-decoration: none; background: #fff; transition: background .15s, color .15s; }
+  .btn-wa:hover { background: #1a7f4b; color: #fff; }
+  .c-actions, .course-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+  .course { margin-top: 56px; }
+  .course-panel { position: relative; overflow: hidden; display: grid; grid-template-columns: 1.6fr 1fr; gap: 32px; padding: 48px 48px 72px; align-items: center; background: linear-gradient(180deg, var(--primary-light), var(--surface)); }
+  .course-panel::before { content: 'Courses'; position: absolute; left: 50%; bottom: -.2em; transform: translateX(-50%); font-size: clamp(100px, 13vw, 180px); font-weight: 700; letter-spacing: -.06em; line-height: 1; color: rgba(21,104,216,.06); pointer-events: none; white-space: nowrap; }
+  .course-panel > * { position: relative; }
+  .course-tag { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); font-weight: 700; }
+  .course-copy h2 { font-size: clamp(26px, 3.4vw, 36px); line-height: 1.15; margin: 8px 0 12px; }
+  .course-copy > p { color: var(--ink-light); margin: 0 0 16px; }
+  .course-facts { list-style: none; margin: 0 0 22px; padding: 0; display: grid; gap: 8px; font-size: 14px; color: var(--ink-light); }
+  .course-facts li::before { content: '✓'; color: var(--primary); font-weight: 700; margin-right: 8px; }
+  .course-price { background: #fff; border-radius: 22px; padding: 32px; display: grid; gap: 8px; text-decoration: none; color: var(--ink); text-align: center; }
+  .course-price b { font-size: 48px; color: var(--primary); line-height: 1; }
+  .calc-lbl { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+  @media (max-width: 960px) { .course-panel { grid-template-columns: 1fr; padding: 28px 24px 64px; } }
+  .sticky-cta { display: none; }
+  @media (max-width: 960px) {
+    .sticky-cta {
+      display: flex; position: fixed; left: 12px; right: 12px; bottom: 12px; z-index: 50;
+      justify-content: center; align-items: center; min-height: 52px; border-radius: 999px;
+      background: var(--primary); color: #fff; font-weight: 700; font-size: 15px; text-decoration: none;
+    }
+    body { padding-bottom: 76px; }
+  }
 
   /* ── HERO ── */
   .hero { position: relative; overflow: hidden; padding-top: 8px; }
@@ -560,10 +591,15 @@ const serviceSchema = {
   <div class="hero-name" aria-hidden="true">Sivaraj</div>
   <div class="wrap hero-grid">
     <div class="hero-card">
-      <h2>Let's unlock your <span class="blue">AI search visibility</span></h2>
+      <h2>See where AI search <span class="blue">skips your site</span></h2>
       <p>Book a free 30-minute call. I'll review how your site shows up in Google and AI answer engines and map out your next strategic moves.</p>
-      <a href={callUrl} target="_blank" rel="noopener" class="btn">
-        Schedule Free Call
+      <ul class="hero-points">
+        <li>Where your site appears in Google and AI answers</li>
+        <li>Gaps against your closest competitors</li>
+        <li>Three priority changes to make first</li>
+      </ul>
+      <a href={callUrl} target="_blank" rel="noopener" class="btn btn-lg">
+        Free 30-minute call
         <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
       </a>
     </div>
@@ -573,7 +609,8 @@ const serviceSchema = {
     </div>
 
     <div class="hero-side">
-      <h1>SEO &amp; AI-search analyst for brands <span class="blue">ready to be cited</span></h1>
+      <h1>Get your brand cited in <span class="blue">Google AI Overviews and ChatGPT</span></h1>
+      <p class="hero-role">SEO &amp; AI-search analyst for brands ready to be cited.</p>
       <p>Search has moved from ten blue links to generative answers. Ranking alone isn't enough, you need to be <b>the source AI quotes</b>.</p>
       <p>I help brands earn visibility across <b>Google AI Overviews, ChatGPT, Gemini, Perplexity and Copilot</b>, backed by 7+ years of enterprise SEO.</p>
       <div class="hero-stat">
@@ -586,13 +623,14 @@ const serviceSchema = {
   </div>
 </section>
 
+
 <!-- ── SERIOUS ── -->
 <section class="serious wrap">
   <div class="panel">
     <div>
       <h2>
         If You're <span class="ring">Serious<svg viewBox="0 0 120 50" preserveAspectRatio="none" fill="none" stroke="var(--primary)" stroke-width="2" aria-hidden="true"><path d="M60 3 C 100 2, 118 14, 116 26 C 113 42, 70 48, 40 46 C 12 44, 2 34, 4 22 C 7 9, 40 3, 72 5"/></svg></span> About Being <span class="uline">Found in AI Search</span>,<br />
-        <span class="blue">I'd Love to Support You Personally.</span>
+        <span class="blue">Let's find the AI search gaps costing you traffic.</span>
       </h2>
       <p class="serious-lead">I work hand-in-hand with <b>content, editorial, product and technical teams</b> to build AI-first content systems on a foundation of technical SEO, topical authority and entity optimization, so your brand stays discoverable as search keeps shifting.</p>
       <div class="chips">
@@ -601,11 +639,10 @@ const serviceSchema = {
         <span class="chip">Ahrefs</span>
         <span class="chip">SEMrush</span>
         <span class="chip">Looker Studio</span>
-        <span class="chip">seoClarity</span>
       </div>
       <div class="serious-ctas">
-        <a href="/contact/" class="btn">
-          Let's Get Started
+        <a href="/contact/" class="btn btn-lg">
+          Plan my AI search strategy
           <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </a>
         <span class="serious-note">
@@ -620,12 +657,43 @@ const serviceSchema = {
   </div>
 </section>
 
+<!-- ── COURSE ── -->
+<section id="course" class="course wrap" aria-labelledby="course-h">
+  <div class="panel course-panel">
+    <div class="course-copy">
+      <span class="course-tag">Live course · CareerByteCode</span>
+      <h2 id="course-h">GEO, AEO &amp; SEO <span class="blue">Training</span></h2>
+      <p>Get your brand cited by AI, not just ranked on Google. An advanced, hands-on live cohort on making brands appear in answers across ChatGPT, Perplexity and Google AI Mode.</p>
+      <ul class="course-facts">
+        <li>25 live sessions, 8 PM to 9 PM IST</li>
+        <li>4 phases: SEO foundations, AEO, GEO framework, measurement</li>
+        <li>Capstone: full GEO/AEO audit and a 90-day roadmap</li>
+        <li>For SEO analysts, marketers, strategists and freelancers</li>
+      </ul>
+      <div class="course-actions">
+      <a href="https://www.careerbytecode.in/courses/GEO-AEO-SEO-Training/" target="_blank" rel="noopener" class="btn btn-lg">
+        Enrol now
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+        <a href="https://wa.me/919600684541" target="_blank" rel="noopener" class="btn-wa">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M17.5 14.4c-.3-.1-1.6-.8-1.9-.9-.2-.1-.4-.1-.6.1-.2.3-.7.9-.8 1-.2.2-.3.2-.5.1-.3-.1-1.2-.4-2.2-1.4-.8-.7-1.4-1.6-1.5-1.9-.2-.3 0-.4.1-.6l.4-.4c.1-.2.2-.3.2-.5.1-.2 0-.4 0-.5-.1-.1-.6-1.4-.8-1.9-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.1 0 1.2.9 2.4 1 2.6.1.2 1.8 2.8 4.5 3.9.6.3 1.1.4 1.5.5.6.2 1.2.2 1.6.1.5-.1 1.6-.6 1.8-1.3.2-.6.2-1.2.2-1.3-.1-.2-.3-.2-.5-.3zM12 2a10 10 0 00-8.5 15.2L2 22l4.9-1.3A10 10 0 1012 2zm0 18.2c-1.6 0-3.1-.4-4.4-1.2l-.3-.2-3.1.8.8-3-.2-.3A8.2 8.2 0 1112 20.2z"/></svg>
+          WhatsApp for enquiry
+        </a>
+      </div>
+    </div>
+    <a class="course-price" href="https://www.careerbytecode.in/courses/GEO-AEO-SEO-Training/" target="_blank" rel="noopener" aria-label="Enrol now and enrol">
+      <span class="calc-lbl">Course fee</span>
+      <b>₹13,000</b>
+      <span>+ 18% GST · EMI available</span>
+    </a>
+  </div>
+</section>
+
 <!-- ── TRUTHS ── -->
 <section class="truths wrap">
   <div class="truths-head">
     <svg class="arrow l" viewBox="0 0 90 50" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M4 10 C 20 4, 30 30, 52 34 S 78 30, 84 26"/><path d="M72 18 L 85 26 L 72 36"/></svg>
     <svg class="arrow r" viewBox="0 0 90 50" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M4 10 C 20 4, 30 30, 52 34 S 78 30, 84 26"/><path d="M72 18 L 85 26 L 72 36"/></svg>
-    <p class="kicker">Did you know?</p>
     <h2>3 Underrated<br /><span class="blue">AI Search Truths!</span></h2>
   </div>
   <div class="truths-grid">
@@ -656,7 +724,6 @@ const serviceSchema = {
 <!-- ── CASE STUDIES ── -->
 <section id="results" class="cases wrap">
   <div class="panel">
-    <p class="kicker">Case Studies</p>
     <h2>Here's What It's Like to Work With Me, From Ranking Chaos to <span class="blue">AI-Search Clarity.</span></h2>
 
     <div class="case-viewport">
@@ -702,7 +769,6 @@ const serviceSchema = {
 <section id="services" class="services">
   <div class="wrap">
     <div class="services-intro">
-      <p class="kicker">Services</p>
       <h2>Smart Services for <span class="blue">AI Search</span> That Lasts</h2>
       <p>From traditional rankings to AI citations. Engagements scoped to where your organic growth is stuck.</p>
     </div>
@@ -729,7 +795,6 @@ const serviceSchema = {
   <div class="wrap">
     <div class="about-left">
       <div>
-        <p class="kicker">About Me</p>
         <h2>Who You'll Be <span class="blue">Working With</span></h2>
       </div>
       <div class="about-proof">
@@ -766,7 +831,6 @@ const serviceSchema = {
 <section class="blog wrap">
   <div class="blog-head">
     <div>
-      <p class="kicker">Writing</p>
       <h2>Latest on <span class="blue">SEO, GEO &amp; AEO</span></h2>
     </div>
     <a href="/blog/" class="btn ghost">All posts →</a>
@@ -794,8 +858,8 @@ const serviceSchema = {
     <div class="cta-copy">
       <h2>Let's Take Your Search Visibility to the <span class="blue">Next Level</span></h2>
       <p>Book a free consultation on how to grow in Google and AI answer engines, or <a href="mailto:sivarajc.seo@gmail.com">email me</a> at sivarajc.seo@gmail.com.</p>
-      <a href={callUrl} target="_blank" rel="noopener" class="btn">
-        Let's Get Started
+      <a href={callUrl} target="_blank" rel="noopener" class="btn btn-lg">
+        Book my free 30-minute call
         <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
       </a>
     </div>
@@ -832,5 +896,7 @@ const serviceSchema = {
     go(0);
   }
 </script>
+
+<a href={callUrl} target="_blank" rel="noopener" class="sticky-cta">Free 30-minute call</a>
 
 </BaseLayout>
